@@ -22,6 +22,8 @@ class AddConsultasTable extends Migration
             $table->foreign('ficha_id')->references('id')->on('fichasDatosPersonales');
             
         });
+
+        
     }
 
     /**
@@ -32,5 +34,9 @@ class AddConsultasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('consultas');
+        
+        Schema::table('consultas',function(Blueprint $table){
+          
+        });
     }
 }
