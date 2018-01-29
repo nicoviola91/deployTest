@@ -18,8 +18,6 @@ class AddConsultasTable extends Migration
             $table->timestamps();
             $table->string('mensaje');
             
-            $table->integer('ficha_id')->unsigned();
-            $table->foreign('ficha_id')->references('id')->on('fichasDatosPersonales');
             
         });
 

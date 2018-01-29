@@ -14,10 +14,12 @@ class AddComunidadesTable extends Migration
     public function up()
     {
         Schema::create('comunidades', function (Blueprint $table) {
+
             $table->increments('id');
             $table->string('nombre');
             $table->enum('tipo',['institucion','nocheDeCaridad']);
             $table->timestamps();
+            $table->string('observaciones');
         });
     }
 

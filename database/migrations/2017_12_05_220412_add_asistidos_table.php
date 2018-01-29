@@ -18,6 +18,18 @@ class AddAsistidosTable extends Migration
             
             $table->increments('id');
             $table->timestamps();
+            $table->string('nombre');
+            $table->string('apellido')->nullable();
+            $table->string('email')->nullable();
+            $table->date('fechaNacimiento')->nullable();
+            $table->integer('dni')->nullable()->unsigned();
+            $table->enum('sexo',['Masculino','Femenino']);
+            $table->string('direccion')->nullable();
+            $table->string('observaciones')->nullable();
+            $table->string('foto')->default('default.jpg');
+
+            $table->integer('comunidad_id')->unsigned();
+            $table->foreign('comunidad_id')->references('id')->on('comunidades');
         });
     }
 
