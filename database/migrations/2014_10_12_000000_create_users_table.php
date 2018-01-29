@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('dni');
-            $table->integer('comunidad_id')->unsigned();
-            $table->foreign('comunidad_id')->references('id')->on('comunidades');
+
+
         });
     }
 

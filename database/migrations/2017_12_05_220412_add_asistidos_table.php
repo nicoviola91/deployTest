@@ -28,8 +28,7 @@ class AddAsistidosTable extends Migration
             $table->string('observaciones')->nullable();
             $table->string('foto')->default('default.jpg');
 
-            $table->integer('comunidad_id')->unsigned();
-            $table->foreign('comunidad_id')->references('id')->on('comunidades');
+           
         });
     }
 
