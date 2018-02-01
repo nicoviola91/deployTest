@@ -14,7 +14,7 @@ class Asistido extends Model
      */
     protected $table="asistidos";
     protected $fillable = [
-        'nombre','apellido','fechaNacimiento','dni','sexo','direccion','observaciones','foto', 'email','tipo','estado'
+        'nombre','apellido','fechaNacimiento','dni','sexo','direccion_id','observaciones','foto', 'email','tipo','estado'
     ];
 
     /**
@@ -32,6 +32,10 @@ class Asistido extends Model
 
     public function ficha(){
         return $this->hasOne('App\Ficha');
+    }
+
+    public function direccion(){
+        return $this->hasOne('App\Direccion');
     }
 
 }

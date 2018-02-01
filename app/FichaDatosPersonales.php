@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FichaDatosPersonales extends Ficha
 {
-    protected $table="fichasDatosPersonales";//verificar si la tabla se llama asi
+    protected $table="fichasDatosPersonales";
     protected $fillable = [
         'nombre',
         'apellido',
