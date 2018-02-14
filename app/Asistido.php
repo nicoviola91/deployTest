@@ -57,4 +57,8 @@ class Asistido extends Model
     public function fichaNecesidades(){
         return $this->hasOne('App\FichaNecesidades');
     }
+
+    public function fichaAsistenciaSocial(){
+        return $this->hasOne('App\FichaAsistenciaSocial');
+    }
 }
