@@ -27,7 +27,7 @@ class Asistido extends Model
     ];
 
     public function comunidad(){
-        return $this->belongsTo('App\Comunidad');
+        return $this->belongsToMany('App\Comunidad');
     }
 
     public function ficha(){

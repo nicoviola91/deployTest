@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterFichasEmpleosTable extends Migration
+class AddParroquiasFkToComunidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AlterFichasEmpleosTable extends Migration
      */
     public function up()
     {
-        Schema::table('fichasEmpleos', function (Blueprint $table) {
-            $table->dropColumn('empleos_id');
+        Schema::table('comunidades', function (Blueprint $table) {
+            $table->integer('parroquia_id')->unsigned();
+            $table->foreign('parroquia_id')->references('id')->on('parroquias');
+            
         });
     }
 
@@ -25,7 +27,7 @@ class AlterFichasEmpleosTable extends Migration
      */
     public function down()
     {
-        Schema::table('fichasEmpleos', function (Blueprint $table) {
+        Schema::table('comunidades', function (Blueprint $table) {
             //
         });
     }

@@ -16,7 +16,7 @@ class Comunidad extends Model
     }
 
     public function asistidos(){
-    	return $this->hasMany('App\Asistido');
+    	return $this->belongsToMany('App\Asistido');
     }
 
     public function parroquia(){
