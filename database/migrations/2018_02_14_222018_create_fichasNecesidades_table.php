@@ -16,6 +16,7 @@ class CreateFichasNecesidadesTable extends Migration
         Schema::create('fichasNecesidades', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->boolean('checklistNecesidades');
         });
     }
 

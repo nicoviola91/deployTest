@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FichaNecesidades extends Ficha
+class FichaNecesidad extends Ficha
 {
     protected $fillable =[
         'checklistNecesidades'
     ];
 
-    //falta representar el tema de la coleccion
+    //falta representar el tema de la coleccion:: update: con el hasMany es suficiente
 
     public function asistido(){
         return $this->belongsTo('App\Asistido');
