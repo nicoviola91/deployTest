@@ -23,5 +23,9 @@ class Educacion extends Model
         return $this->hasOne('App\Direccion');
     }
 
+    public function fichaEducacion(){
+        return $this->belongsTo('App\FichaEducacion');
+    }
+
 
 }

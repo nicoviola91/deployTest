@@ -17,6 +17,7 @@ class AddParroquiasFkToComunidadesTable extends Migration
             $table->integer('parroquia_id')->unsigned();
             $table->foreign('parroquia_id')->references('id')->on('parroquias');
             
+            
         });
     }
 

@@ -28,5 +28,9 @@ class FichaDatosPersonales extends Ficha
         'mailContacto',
     ];
 
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
+
 
 }

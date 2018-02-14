@@ -14,4 +14,8 @@ class FichaFamiliaAmigos extends Ficha
         'conyugue',
         'amigos',
     ];
+
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
 }

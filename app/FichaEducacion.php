@@ -14,5 +14,9 @@ class FichaEducacion extends Ficha
     public function educaciones(){
         return $this->hasMany('App\Educacion');
     }
+
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
     
 }

@@ -38,4 +38,23 @@ class Asistido extends Model
         return $this->hasOne('App\Direccion');
     }
 
+    public function fichaDatosPersonales(){
+        return $this->hasOne('App\FichaDatosPersonales');
+    }
+
+    public function fichaEducacion(){
+        return $this->hasOne('App\FichaEducacion');
+    }
+
+    public function fichaFamiliaAmigos(){
+        return $this->hasOne('App\FichaFamiliaAmigos');
+    }
+
+    public function fichaLocalizacion(){
+        return $this->hasOne('App\FichaLocalizacion');
+    }
+
+    public function fichaNecesidades(){
+        return $this->hasOne('App\FichaNecesidades');
+    }
 }

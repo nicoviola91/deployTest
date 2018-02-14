@@ -13,6 +13,6 @@ class FichaEmpleo extends Ficha
     ];
 
     public function empleos(){
-        return $this->hasMany('App\FichaEducacion');
+        return $this->hasMany('App\Empleo');
     }
 }

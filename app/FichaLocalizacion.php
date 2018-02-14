@@ -16,4 +16,8 @@ class FichaLocalizacion extends Ficha
     public function direccion(){
         return $this->hasOne('App\Direccion');
     }
+
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
 }
