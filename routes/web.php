@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('testing', function() {
+    return 'Hello world!';
+});
+
+Route::resource('users','UserController');
