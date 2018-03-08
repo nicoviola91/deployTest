@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Laracasts\Flash\Flash;
+use Illuminate\Routing\Route;
+use Illuminate\Routing\Redirector;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -21,10 +26,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-         return view('users.create');
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -32,9 +34,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(UserRequest $request){
+        return view('users.create');
+    }
+    
+    public function store(UserRequest $request)
     {
-        //
+        $user = new User($request->all());
+        $user->password = bcrypt($request->password);
+        $user->save();
+        flash("El usuario ".$user->name ." se registró de forma exitosa")->success();
+
+        return view('users.index');//revisar, no deberia volver a la creacion de usuario sino ingresar al sistema
     }
 
     /**

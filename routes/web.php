@@ -19,4 +19,8 @@ Route::get('testing', function() {
     return 'Hello world!';
 });
 
-Route::resource('users','UserController');
+Route::get('/user/create','UserController@create');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
