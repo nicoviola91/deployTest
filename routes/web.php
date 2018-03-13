@@ -11,15 +11,19 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::get('testing', function() {
     return 'Hello world!';
 });
 
+Route::get('/','HomeController@index');
+
 Route::get('/user/create','UserController@create');
+
+Route::post('/user/store','UserController@store');
 
 Auth::routes();
 
