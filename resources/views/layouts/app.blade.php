@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ trans('messages.posaderos_network') }}</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Fira+Sans%3a300%2c400%2c500%2c700%2c300italic%2c400italic%2c500italic%2c700italic%7cRoboto%3a400%2c300' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/app2.css') }}">
 </head>
 <body>
     <div id="app">
@@ -29,7 +32,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ strtoupper(trans('messages.posaderos')) }}
                     </a>
                 </div>
 
