@@ -11,7 +11,10 @@ abstract class Ficha extends Model
     	return $this->hasOne('App\Asistido');
     }
 
-    public function consultas(){
-    	return $this->hasMany('App\Consulta');
+    //Vincula polimorficamente la ficha con sus comentarios
+    public function comments(){
+        return $this->morphToMany('App\Consulta',commentable);
+
     }
 }
+

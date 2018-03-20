@@ -14,8 +14,11 @@ class Consulta extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
-    
-    public function ficha(){
-    	return $this->belongsTo('App\Ficha');
+
+    //Vinculo hacia la ficha
+    public function commentable(){
+        return $this->morphTo();
     }
+
+
 }
