@@ -14,7 +14,10 @@ class ChangeFkFromComunidadesTable extends Migration
     public function up()
     {
         Schema::table('comunidades', function (Blueprint $table) {
-            //
+            $table->dropForeign(['parroquia_id']);
+            $table->dropColumn('parroquia_id');
+            $table->integer('institucion_id')->unsigned();
+            $table->foreign('institucion_id')->references('id')->on('instituciones');
         });
     }
 

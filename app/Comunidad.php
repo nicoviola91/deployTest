@@ -19,8 +19,8 @@ class Comunidad extends Model
     	return $this->belongsToMany('App\Asistido');
     }
 
-    public function parroquia(){
-        return $this->belongsTo('App\Parroquia');
+    public function institucion(){
+        return $this->belongsTo('App\Institucion');
     }
 
 }

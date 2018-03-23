@@ -14,9 +14,6 @@ class Parroquia extends Model
         'nombre','direccion_id','telefono' 
     ];
 
-   	public function comunidades(){
-   		return $this->hasMany('App\Comunidad');
-   	}
 
     public function direccion(){
         return $this->hasOne('App\Direccion');
