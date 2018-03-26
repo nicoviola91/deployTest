@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Necesidad extends Model
 {
+    protected $table="necesidades";
     protected $fillable =[
         'tipo',
         'especificacion',
@@ -14,6 +15,6 @@ class Necesidad extends Model
     ];
 
     public function fichaNecesidad(){
-        return $this->belongsTo('App\FichaNecesidad');
+        return $this->belongsTo('App\FichaNecesidad','fichasNecesidades_id');
     }
 }

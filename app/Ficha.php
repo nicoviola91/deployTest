@@ -13,7 +13,7 @@ abstract class Ficha extends Model
 
     //Vincula polimorficamente la ficha con sus comentarios
     public function comments(){
-        return $this->morphToMany('App\Consulta',commentable);
+        return $this->morphToMany('App\Consulta','commentable');
 
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FichaEducacion extends Ficha
 {
-    protected $table='fichasEducaciones';
+    protected $table="fichasEducaciones";
     protected $fillable =[
         'eduacion_id',
     ];

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FichaNecesidad extends Ficha
 {
+    protected $table="fichasNecesidades";
     protected $fillable =[
         'checklistNecesidades'
     ];
@@ -17,7 +18,7 @@ class FichaNecesidad extends Ficha
     }
     
     public function necesidades(){
-        return $this->hasMany('App\Neccesidad');
+        return $this->hasMany('App\Necesidad');
     }
     
 }

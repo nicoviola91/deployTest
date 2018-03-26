@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FichaLocalizacion extends Ficha
 {
+    protected $table="fichasLocalizaciones";
     protected $fillable = [
       
         'situacionCalle',

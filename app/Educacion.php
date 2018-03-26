@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Educacion extends Model
 {
+    protected $table="educaciones";
     protected $fillable =[
         'tipo',//enum 
         'nivelAlcanzado',

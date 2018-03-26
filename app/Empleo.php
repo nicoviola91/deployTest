@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empleo extends Model
 {
+    protected $table="empleos";
     protected $fillable =[
         'puesto',
         'empleador',

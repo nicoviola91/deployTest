@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServicioSocial extends Model
 {
-protected $fillable =[
+    protected $table="serviciosSociales";
+    protected $fillable =[
         'id_tipo',
         'fecha_ini',
         'fecha_fin',
