@@ -15,6 +15,6 @@ class Necesidad extends Model
     ];
 
     public function fichaNecesidad(){
-        return $this->belongsTo('App\FichaNecesidad','fichasNecesidades_id');
+        return $this->belongsTo('App\FichaNecesidad');
     }
 }
