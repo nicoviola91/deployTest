@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkToInstitucionesTable extends Migration
+class DropInstitucionesFkToDirecciones extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddFkToInstitucionesTable extends Migration
     public function up()
     {
         Schema::table('instituciones', function (Blueprint $table) {
-            $table->integer('direccion_id')->unsigned();//borrar 
-            $table->foreign('direccion_id')->references('id')->on('direcciones');
+            $table->dropForeign(['direccion_id']);
+            $table->dropColumn('direccion_id');
         });
     }
 

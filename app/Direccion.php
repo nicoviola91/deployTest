@@ -22,8 +22,8 @@ class Direccion extends Model
         return $this->belongsTo('App\Asistido');
     }
 
-    public function parroquia(){
-        return $this->belongsTo('App\Parroquia');
+    public function institucion(){
+        return $this->belongsTo('App\Institucion');
     }
 
     public function fichaLocalizacion(){

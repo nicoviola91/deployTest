@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkToInstitucionesTable extends Migration
+class ChangeNameToConsultasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddFkToInstitucionesTable extends Migration
      */
     public function up()
     {
-        Schema::table('instituciones', function (Blueprint $table) {
-            $table->integer('direccion_id')->unsigned();//borrar 
-            $table->foreign('direccion_id')->references('id')->on('direcciones');
+        Schema::table('consultas', function (Blueprint $table) {
+            $table->renameColumn('id_ficha','consultable_id');
+            $table->renameColumn('tipo_ficha','consultable_type');
         });
     }
 
@@ -26,7 +26,7 @@ class AddFkToInstitucionesTable extends Migration
      */
     public function down()
     {
-        Schema::table('instituciones', function (Blueprint $table) {
+        Schema::table('consultas', function (Blueprint $table) {
             //
         });
     }

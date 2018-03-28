@@ -16,7 +16,7 @@ class Consulta extends Model
     }
 
     //Vinculo hacia la ficha
-    public function commentable(){
+    public function consultable(){
         return $this->morphTo();
     }
 

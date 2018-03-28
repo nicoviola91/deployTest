@@ -9,7 +9,6 @@ class Institucion extends Model
     protected $table='instituciones';
     protected $fillable=[
         'nombre',
-        'direccion',
         'cuit',
         'responsable'
     ];
