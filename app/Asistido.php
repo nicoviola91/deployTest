@@ -30,6 +30,10 @@ class Asistido extends Model
         return $this->belongsToMany('App\Comunidad');
     }
 
+
+    //Un asistido deberia tener una ficha
+    //Las fichas heredan el hasone
+    //cada ficha concreta tendra la fk a asistido
     public function ficha(){
         return $this->hasOne('App\Ficha');
     }
@@ -38,27 +42,5 @@ class Asistido extends Model
         return $this->hasOne('App\Direccion');
     }
 
-    public function fichaDatosPersonales(){
-        return $this->hasOne('App\FichaDatosPersonales');
-    }
 
-    public function fichaEducacion(){
-        return $this->hasOne('App\FichaEducacion');
-    }
-
-    public function fichaFamiliaAmigos(){
-        return $this->hasOne('App\FichaFamiliaAmigos');
-    }
-
-    public function fichaLocalizacion(){
-        return $this->hasOne('App\FichaLocalizacion');
-    }
-
-    public function fichaNecesidades(){
-        return $this->hasOne('App\FichaNecesidades');
-    }
-
-    public function fichaAsistenciaSocial(){
-        return $this->hasOne('App\FichaAsistenciaSocial');
-    }
 }
