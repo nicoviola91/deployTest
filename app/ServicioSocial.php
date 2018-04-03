@@ -16,7 +16,7 @@ class ServicioSocial extends Model
         
     ];
 
-	public function instituciones(){
+	public function institucion(){
         return $this->hasOne('App\Institucion'); 
     }  
 

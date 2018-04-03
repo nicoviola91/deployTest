@@ -26,7 +26,7 @@ class Asistido extends Model
         'password', 'remember_token',
     ];
 
-    public function comunidad(){
+    public function comunidades(){
         return $this->belongsToMany('App\Comunidad');
     }
 

@@ -20,4 +20,8 @@ class Institucion extends Model
     public function direccion(){
         return $this->hasOne('App\Direccion');
     }
+
+    public function servicioSocial(){
+        return $this->belongsTo('App\ServicioSocial');
+    }
 }
