@@ -8,16 +8,13 @@ class ServicioSocial extends Model
 {
     protected $table="serviciosSociales";
     protected $fillable =[
-        'id_tipo',
-        'fecha_ini',
+        'fecha_inicio',
         'fecha_fin',
-        'institucion',
-        'referente',
         
     ];
 
 	public function institucion(){
-        return $this->hasOne('App\Institucion'); 
+        return $this->belongsTo('App\Institucion'); 
     }  
 
    public function fichaAsistenciaSocial(){

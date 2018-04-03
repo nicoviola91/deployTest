@@ -21,7 +21,7 @@ class Institucion extends Model
         return $this->hasOne('App\Direccion');
     }
 
-    public function servicioSocial(){
-        return $this->belongsTo('App\ServicioSocial');
+    public function serviciosSociales(){
+        return $this->hasMany('App\ServicioSocial');
     }
 }

@@ -9,8 +9,6 @@ class FichaAsistenciaSocial extends Ficha
     protected $table="fichasAsistenciasSociales";
     protected $fillable = [
         'checkAsistenciaSocial',
-        'servicios',
-       
     ];
 
     public function serviciosSociales(){
