@@ -16,6 +16,11 @@ class CreateFichasDiagnosticoIntegral extends Migration
         Schema::create('fichasDiagnosticosIntegrales', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('diagnostico');
+            $table->string('trabajoInterdisciplinario');
+            
+            $table->integer('asistidos_id')->unsigned();
+            $table->foreign('asistidos_id')->references('id')->on('asistidos');
         });
     }
 

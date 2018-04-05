@@ -1,0 +1,4 @@
+
+Warning: require(/home/vagrant/code/vendor/autoload.php): failed to open stream: No such file or directory in /home/vagrant/code/artisan on line 18
+
+Fatal error: require(): Failed opening required '/home/vagrant/code/vendor/autoload.php' (include_path='.:/usr/share/php') in /home/vagrant/code/artisan on line 18
