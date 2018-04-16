@@ -24,4 +24,8 @@ class Institucion extends Model
     public function serviciosSociales(){
         return $this->hasMany('App\ServicioSocial');
     }
+
+    public function fichaSaludMental(){
+        return $this->belongsTo('App\FichaSaludMental');
+    }
 }
