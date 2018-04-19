@@ -26,7 +26,7 @@ class Institucion extends Model
     }
 
     public function fichaSaludMental(){
-        return $this->belongsTo('App\FichaSaludMental');
+        return $this->hasMany('App\FichaSaludMental');
     }
 
     public function consultasMedicas(){
