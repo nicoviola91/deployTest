@@ -17,18 +17,22 @@ class FichaMedica extends Model
         'checkIntervencion',
         'checkMedicacion',
         'checkObraSocial',
-        'checkDiscapacitado',
         'checkTratamiento',
+        'discapacidadVisual',
+        'discapacidadAuditiva',
+        'discapacidadMotriz',
+        'observacionDiscapacidad',
     ];
 
     public function asistido(){
         return $this->belongsTo('App\Asistido');
     }
-	public function medicoCabecera(){
-		return $this->hasOne('App\Profesional');
+    //Profesional=Medico de Cabecera
+	public function profesional(){
+		return $this->belongsTo('App\Profesional');
 	}
 	public function patologias(){
-		return $this->hasMany('App\Patologia');
+		return $this->belongsToMany('App\Patologia');
 	}
 	public function medicaciones(){
 		return $this->hasMany('App\Medicacion');
@@ -36,24 +40,16 @@ class FichaMedica extends Model
     public function tratamientos(){
 		return $this->hasMany('App\Tratamiento');
 	}
-
-    /*    FALTAN AGREGAR LAS RELACIONES
-		public function sintomas(){
-			return $this->hasMany('App\Sintoma');		
-		}
-		public function consultas_medicas(){
-			return $this->hasMany('App\Consulta');
-		}
-		public function intervenciones(){
-			return $this->hasMany('App\Intervencion');	
-		}
-		public function eval_diagnostica(){
-			return $this->hasOne('App\EvaluacionDiagnostica');
-		}
-
-		Esta estoy en duda
-		public function discapacidades(){
-			return $this->hasMany('App\Discapacidad');
-		}
-    */
+	public function sintomas(){
+		return $this->belongsToMany('App\Sintoma');		
+	}
+	public function consultasMedicas(){
+		return $this->hasMany('App\ConsultaMedica');
+	}
+	public function intervenciones(){
+		return $this->hasMany('App\Intervencion');	
+	}
+    public function evaluacionDiagnostica(){
+		return $this->hasOne('App\EvaluacionDiagnostica');
+	}
 }

@@ -22,9 +22,9 @@ class CreateMedicacionesTable extends Migration
             $table->date('inicio')->nullable();
             $table->date('fin')->nullable();
             $table->boolean('recetada')->nullable();
-
+            //Foreign Keys    
             $table->integer('tratamiento_id')->unsigned();
-            $table->foreign('tratamiento_id')->references('id')->on('tratamientos');
+            $table->foreign('tratamiento_id')->references('id')->on('tratamientos');    
         });
     }
 

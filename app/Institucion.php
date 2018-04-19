@@ -28,4 +28,13 @@ class Institucion extends Model
     public function fichaSaludMental(){
         return $this->belongsTo('App\FichaSaludMental');
     }
+
+    public function consultasMedicas(){
+        return $this->hasMany('App\ConsultaMedica');
+    }
+
+    public function intervenciones(){
+        return $this->hasMany('App\Intervencion');
+    }
+
 }

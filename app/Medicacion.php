@@ -27,4 +27,9 @@ class Medicacion extends Model
     public function fichaSaludMental(){
         return $this->belongsTo('App\FichaSaludMental');
     }
+
+    public function fichaMedica(){
+        return $this->belongsTo('App\FichaMedica');
+    }
+
 }

@@ -15,4 +15,7 @@ class Patologia extends Model
     public function afeccion(){
         return $this->belongsTo('App\Afeccion');
     }
+    public function fichasMedicas(){
+    	return $this->belongsToMany('App\FichaMedica');
+    }
 }
