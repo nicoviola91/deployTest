@@ -40,12 +40,16 @@ class UserController extends Controller
     
     public function store(UserRequest $request)
     {
+    
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
+        $user->comunidad_id = 1;
+        $user->tipoUsuario_id = 1;
         $user->save();
-        flash("El usuario ".$user->name ." se registró de forma exitosa")->success();
-
-        return view('users.index');//revisar, no deberia volver a la creacion de usuario sino ingresar al sistema
+        
+        var_dump($user);    
+        //flash("El usuario ".$user->name ." se registró de forma exitosa")->success();
+        //return view('users.index');//revisar, no deberia volver a la creacion de usuario sino ingresar al sistema
     }
 
     /**

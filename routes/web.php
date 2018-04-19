@@ -23,7 +23,7 @@ Route::get('/','HomeController@index');
 
 Route::get('/user/create','UserController@create');
 
-Route::post('/user/store','UserController@store');
+Route::post('/user/store','UserController@store')->name('userStore');
 
 Auth::routes();
 
