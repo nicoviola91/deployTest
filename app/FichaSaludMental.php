@@ -37,7 +37,7 @@ class FichaSaludMental extends Ficha
     }
 
     public function institucion(){
-        return $this->hasOne('App\Institucion');
+        return $this->belongsTo('App\Institucion');
     }
 
 }

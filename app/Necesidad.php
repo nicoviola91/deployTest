@@ -8,7 +8,6 @@ class Necesidad extends Model
 {
     protected $table="necesidades";
     protected $fillable =[
-        'tipo',
         'especificacion',
         'fechaInicio',
         'fechaFin'
@@ -16,5 +15,8 @@ class Necesidad extends Model
 
     public function fichaNecesidad(){
         return $this->belongsTo('App\FichaNecesidad');
+    }
+    public function tipo(){
+        return $this->belongsTo('App\TipoNecesidad');
     }
 }

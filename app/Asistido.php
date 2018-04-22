@@ -14,7 +14,7 @@ class Asistido extends Model
      */
     protected $table="asistidos";
     protected $fillable = [
-        'nombre','apellido','fechaNacimiento','dni','sexo','direccion_id','observaciones','foto', 'email','tipo','estado'
+        'nombre','apellido','fechaNacimiento','dni','direccion_id','observaciones','foto', 'email','tipo','estado'
     ];
 
     /**
@@ -29,8 +29,6 @@ class Asistido extends Model
     public function comunidades(){
         return $this->belongsToMany('App\Comunidad');
     }
-
-
     //Un asistido deberia tener una ficha
     //Las fichas heredan el hasone
     //cada ficha concreta tendra la fk a asistido
@@ -40,6 +38,10 @@ class Asistido extends Model
 
     public function direccion(){
         return $this->hasOne('App\Direccion');
+    }
+
+    public function sexo(){
+        return $this->belongsTo('App\Sexo');
     }
 
 

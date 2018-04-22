@@ -10,16 +10,12 @@ class FichaDatosPersonales extends Ficha
     protected $fillable = [
         'nombre',
         'apellido',
-        'sexo',
-        'tipoDocumento', 
         'numeroDocumento',
-        'estadoDocumento',
         'fechaNacimiento',
         'edad',
         'tienePartida',
         'nacionalidad',
         'fechaIngresoPais',
-        'estadoCivil',
         'celular',
         'telefono',
         'email',
@@ -31,6 +27,17 @@ class FichaDatosPersonales extends Ficha
     public function asistido(){
         return $this->belongsTo('App\Asistido');
     }
-
+    public function sexo(){
+        return $this->belongsTo('App\Sexo');
+    }
+    public function estadoCivil(){
+        return $this->belongsTo('App\EstadoCivil');    
+    }
+    public function estadoDocumento(){
+        return $this->belongsTo('App\EstadoDocumento');
+    }
+    public function tipoDocumento(){
+        return $this->belongsTo('App\TipoDocumento');
+    }
 
 }

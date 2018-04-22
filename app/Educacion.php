@@ -8,7 +8,6 @@ class Educacion extends Model
 {
     protected $table="educaciones";
     protected $fillable =[
-        'tipo',//enum 
         'nivelAlcanzado',
         'institucion',
         'direccion_id',
@@ -27,6 +26,10 @@ class Educacion extends Model
     public function fichaEducacion(){
         return $this->belongsTo('App\FichaEducacion');
     }
+
+    public function tipo(){
+        return $this->belongsTo('App\TipoEducacion');
+    } 
 
 
 }
