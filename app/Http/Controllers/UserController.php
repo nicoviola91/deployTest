@@ -43,8 +43,7 @@ class UserController extends Controller
     
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
-        $user->comunidad_id = 1;
-        $user->tipoUsuario_id = 1;
+        $user->tipoUsuario_id = '1';
         $user->save();
         
         var_dump($user);    
