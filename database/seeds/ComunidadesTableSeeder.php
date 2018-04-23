@@ -16,7 +16,7 @@ class ComunidadesTableSeeder extends Seeder
             'nombre'=> 'Comunidad 1',
             'tipo'=> 'nocheDeCaridad',
             'observaciones'=> 'test',
-            'institucion_id' => 2
+            'institucion_id' => 6
             
         ]);
 
@@ -25,7 +25,7 @@ class ComunidadesTableSeeder extends Seeder
             'nombre'=> 'Comunidad 2',
             'tipo'=> 'nocheDeCaridad',
             'observaciones'=> 'test2',
-            'institucion_id' => 2
+            'institucion_id' => 6
             
         ]);
 
@@ -34,7 +34,7 @@ class ComunidadesTableSeeder extends Seeder
             'nombre'=> 'Institucion 1',
             'tipo'=> 'institucion',
             'observaciones'=> 'test institucion',
-            'institucion_id' => 1
+            'institucion_id' => 5
             
         ]);
     }
