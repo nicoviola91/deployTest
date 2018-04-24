@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Asistido;
 use Illuminate\Http\Request;
-use App\User;
-use Laracasts\Flash\Flash;
-use Illuminate\Routing\Route;
-use Illuminate\Routing\Redirector;
-use App\Http\Requests\UserRequest;
 
-class UserController extends Controller
+class AsistidoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +22,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,28 +33,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(UserRequest $request){
-        return view('users.create');
-    }
-    
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-    
-        $user = new User($request->all());
-        $user->password = bcrypt($request->password);
-        $user->tipoUsuario_id = '1';
-        $user->save();
-        
-        return view('users.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Asistido $asistido)
     {
         //
     }
@@ -63,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Asistido $asistido)
     {
         //
     }
@@ -75,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Asistido $asistido)
     {
         //
     }
@@ -86,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Asistido $asistido)
     {
         //
     }
