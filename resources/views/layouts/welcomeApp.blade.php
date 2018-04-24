@@ -76,8 +76,10 @@
       <!-- Main content -->
       <section class="content">
 
-          @yield('content')
-
+          <div class="col-md-10 col-md-offset-1">
+            @yield('content')
+          </div>
+          
       </section>
       <!-- /.content -->
     </div>

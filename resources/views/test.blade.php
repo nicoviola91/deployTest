@@ -13,11 +13,9 @@
 @endSection
 
 @section('content')
-<div class="container">
     <div class="row">
         <div class="col-md-12">
             HOLAAAAAAAAAAAAAA
         </div>
     </div>
-</div>
 @endsection
