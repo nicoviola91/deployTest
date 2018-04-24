@@ -30,9 +30,9 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>P</b></span>
+      <span class="logo-mini text-black"><b>P</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>POSADEROS</b></span>
+      <span class="logo-lg text-black"><b>POSADEROS</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -183,12 +183,25 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+  <footer class="main-footer hidden-xs">
+    <div class="container-fluid">
+
+      <div class="col-md-4">
+        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
+      </div>
+      <div class="col-md-4">
+        <p class="text-center"> 
+          <a href="https://www.facebook.com/lumen.cor" target="_blank" class="text-black"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a> 
+          <a href="https://twitter.com/lumen_cor" target="_blank" class="text-black"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a> 
+          <a href="mailto:posaderos@lumencor.com.ar" target="_blank" class="text-black"><i class="fa fa-envelope-square fa-fw fa-2x"></i></a>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p>
+      </div>
+
     </div>
-    <strong>Copyright &copy; 2018 <a href="https://adminlte.io">Posaderos</a>.</strong> All rights
-    reserved.
+    <!-- /.container -->
   </footer>
 
 </div>

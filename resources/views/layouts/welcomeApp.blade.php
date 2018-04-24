@@ -4,7 +4,7 @@
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Posaderos | Bienvenido</title>
+  <title> Posaderos | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   
@@ -21,6 +21,8 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  @yield('head')
+
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-red layout-top-nav">
@@ -34,9 +36,9 @@
           <!-- <a href="index2.html" class="navbar-brand"><b>POSADEROS</b></a> -->
           <a href="http://www.posaderos.org" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>P</b></span>
+            <span class="logo-mini text-black"><b>P</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>POSADEROS</b></span>
+            <span class="logo-lg text-black"><b>POSADEROS</b></span>
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
@@ -72,11 +74,9 @@
       </section> -->
 
       <!-- Main content -->
-      <section class="content col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+      <section class="content">
 
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
           @yield('content')
-        </div>
 
       </section>
       <!-- /.content -->
@@ -84,13 +84,23 @@
     <!-- /.container -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <footer class="main-footer hidden-xs">
     <div class="container-fluid">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 2.4.0
+
+      <div class="col-md-4">
+        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
       </div>
-      <strong>Copyright &copy; 2018 <a href="https://adminlte.io">Posaderos</a>.</strong> All rights
-      reserved.
+      <div class="col-md-4">
+        <p class="text-center"> 
+          <a href="https://www.facebook.com/lumen.cor" target="_blank" class="text-black"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a> 
+          <a href="https://twitter.com/lumen_cor" target="_blank" class="text-black"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a> 
+          <a href="mailto:posaderos@lumencor.com.ar" target="_blank" class="text-black"><i class="fa fa-envelope-square fa-fw fa-2x"></i></a>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p>
+      </div>
+
     </div>
     <!-- /.container -->
   </footer>

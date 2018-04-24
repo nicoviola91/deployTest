@@ -34,9 +34,9 @@
           <!-- <a href="index2.html" class="navbar-brand"><b>POSADEROS</b></a> -->
           <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>P</b></span>
+            <span class="logo-mini text-black"><b>P</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>POSADEROS</b></span>
+            <span class="logo-lg text-black"><b>POSADEROS</b></span>
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
@@ -46,20 +46,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link Menu 1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Link Menu 2</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="#"> <i class="fa fa-user fa-fw"></i> Asistidos</a></li>
+            <li><a href="#"> <i class="fa fa-pencil-square-o fa-fw"></i> Consultas</a></li>
+            <li><a href="#"> <i class="fa fa-user-plus fa-fw"></i> Nuevo Asistido</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
@@ -129,23 +118,15 @@
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>
-          Top Navigation
-          <small>Example 2.0</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#">Layout</a></li>
-          <li class="active">Top Navigation</li>
-        </ol>
+        
+        @yield('pageHeader')
+
       </section>
 
       <!-- Main content -->
-      <section class="content col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+      <section class="content">
 
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
           @yield('content')
-        </div>
 
       </section>
       <!-- /.content -->
@@ -153,16 +134,30 @@
     <!-- /.container -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  
+
+  <footer class="main-footer hidden-xs">
     <div class="container-fluid">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 2.4.0
+
+      <div class="col-md-4">
+        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
       </div>
-      <strong>Copyright &copy; 2018 <a href="https://adminlte.io">Posaderos</a>.</strong> All rights
-      reserved.
+      <div class="col-md-4">
+        <p class="text-center"> 
+          <a href="https://www.facebook.com/lumen.cor" target="_blank" class="text-black"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a> 
+          <a href="https://twitter.com/lumen_cor" target="_blank" class="text-black"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a> 
+          <a href="mailto:posaderos@lumencor.com.ar" target="_blank" class="text-black"><i class="fa fa-envelope-square fa-fw fa-2x"></i></a>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p>
+      </div>
+
     </div>
     <!-- /.container -->
   </footer>
+
+
 </div>
 <!-- ./wrapper -->
 
