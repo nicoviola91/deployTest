@@ -16,7 +16,7 @@
 });*/
 
 Route::get('testing', function() {
-    return 'Hello world!';
+    return view('altaFichas.fichaDatosPersonales');
 });
 
 Route::get('/','HomeController@index');
