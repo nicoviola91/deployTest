@@ -39,10 +39,6 @@
                 <label for="apellido">Fecha de nacimiento</label>
                 <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ingrese fecha de nacimiento" type="date">
             </div>
-            <div class="form-group">
-                <label for="apellido">Apellido</label>
-                <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text">
-            </div>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="tienePartida"> Tiene partida 
