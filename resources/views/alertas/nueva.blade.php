@@ -50,8 +50,8 @@
                   <textarea class="form-control" id="observaciones" name="observaciones" rows="3" placeholder="(OPCIONAL)"></textarea>
                 </div>
 
-                <input type="text" class="form-control" id="lat" placeholder="Latitud" name="lat" value="">
-                <input type="text" class="form-control" id="lng" placeholder="Longitud" name="lng" value="">
+                <input type="text" class="form-control" id="lat" placeholder="Latitud" name="lat" value="" style="display: none;">
+                <input type="text" class="form-control" id="lng" placeholder="Longitud" name="lng" value="" style="display: none;">
 
                 <div class="checkbox">
                   <label>
