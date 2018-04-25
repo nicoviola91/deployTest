@@ -1,10 +1,20 @@
 @extends('layouts.userApp')
+@section('pageHeader')
+<h1>
+    Ficha de Datos Personales
+    <small>*nombre asistido*</small>
+</h1>
+<ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+    <li class="active">Test</li>
+</ol>
+@endsection
 @section('content')
 <div class="row">
     <!-- left column -->
-    <div class="col-md-12">
+    <div class="col-md-10 col-md-offset-1">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-danger">
         <div class="box-header with-border">
           <h3 class="box-title">Ficha de Datos Personales</h3>
         </div>
@@ -14,7 +24,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text">
+              <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required>
             </div>
             <div class="form-group">
               <label for="apellido">Apellido</label>
@@ -22,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label for="numeroDocumento">Numero de documento</label>
-                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="number">
+                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" pattern="[0-9]*$">
                 <small><p class='help-block'>El número de documento no debe contener guiones ni puntos.</p></small>
             </div>
             <div class="form-group">
@@ -48,11 +58,12 @@
             </div>
             <div class="form-group">
                 <label for="celular">Celular</label>
-                <input class="form-control" id="celular" name="celular" placeholder="Ingrese número de celular" type="number">
+                <input class="form-control" id="celular" name="celular" placeholder="Ingrese número de celular" type="text">
             </div>
             <div class="form-group">
                 <label for="celular">Teléfono</label>
-                <input class="form-control" id="telefono" name="telefono" placeholder="Ingrese número de teléfono" type="number">
+                <input class="form-control" id="telefono" name="telefono" placeholder="Ingrese número de teléfono" type="text" pattern="[0-9]*$">
+                <small><p class='help-block'>El número de teléfono no debe contener guiones.</p></small>
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -64,14 +75,15 @@
             </div>
             <div class="form-group">
                 <label for="telefonoContacto">Teléfono Contacto</label>
-                <input class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="Ingrese teléfono del contacto del asistido" type="number">
+                <input class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="Ingrese teléfono del contacto del asistido" type="text" pattern="[0-9]*$">
+                <small><p class='help-block'>El número de teléfono no debe contener guiones.</p></small>
             </div>
             <div class="form-group">
                 <label for="mailContacto">E-mail Contacto</label>
                 <input class="form-control" id="emailContacto" name="emailContacto" placeholder="Ingrese e-mail del contacto del asistido" type="email">
             </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-danger">Enviar</button>
               </div>
             </form>
           </div>
