@@ -16,14 +16,23 @@
 });*/
 
 Route::get('testing', function() {
-    return view('altaFichas.fichaDatosPersonales');
+    return view('alertas.listado');
 });
 
-Route::get('/','HomeController@index');
+Route::get('testing2', function() {
+    return view('alertas.nueva');
+});
 
+//USERS
 Route::get('/user/create','UserController@create');
+Route::post('/user/store','UserController@store');
 
-Route::post('/user/store','UserController@store')->name('userStore');
+//ALERTAS
+Route::post('/alerta/store','AlertaController@store');
+Route::get('/alerta/list','AlertaController@showAll');
+
+
+Route::get('/','HomeController@index');
 
 Auth::routes();
 
