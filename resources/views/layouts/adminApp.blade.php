@@ -152,8 +152,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-list"></i> Listado</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-map"></i> Ver Mapa</a></li>
+            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/alert/map')}}"><i class="fa fa-map"></i> Ver Mapa</a></li>
           </ul>
         </li>
         <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>

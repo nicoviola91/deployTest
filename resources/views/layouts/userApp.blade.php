@@ -63,7 +63,7 @@
           <ul class="nav navbar-nav">
             <li><a href="#"> <i class="fa fa-user fa-fw"></i> Asistidos</a></li>
             <li><a href="#"> <i class="fa fa-pencil-square-o fa-fw"></i> Consultas</a></li>
-            <li><a href="#"> <i class="fa fa-user-plus fa-fw"></i> Nuevo Asistido</a></li>
+            <li><a href="{{url('/alerta/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Nuevo Asistido</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">

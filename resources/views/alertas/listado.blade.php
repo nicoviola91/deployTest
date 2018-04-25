@@ -13,8 +13,6 @@
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
-	<!-- <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script> -->
-
 @endsection
 
 
@@ -34,7 +32,7 @@
 <div class="row">
 <div class="col-md-12">
 	<div class="box box-solid">
-		
+
 		<div class="box-body">
 		<table class="table table-bordered table-hover" id="tabla-alertas">
 			

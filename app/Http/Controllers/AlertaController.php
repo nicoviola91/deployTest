@@ -61,11 +61,22 @@ class AlertaController extends Controller
      * @param
      * @return \Illuminate\Http\Response
      */
-    public function showAll(Alerta $alerta)
+    public function showAll()
     {
         $data['alertas'] = Alerta::all();
-
         return view('alertas.listado', $data);
+    }
+
+    /**
+     * Display the specified resource list.
+     *
+     * @param
+     * @return \Illuminate\Http\Response
+     */
+    public function showMap()
+    {
+        $data['alertas'] = Alerta::all();
+        return view('alertas.map', $data);
     }
 
     /**

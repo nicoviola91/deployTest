@@ -25,7 +25,7 @@
 		
 		<div class="box-body">
 			
-			<form id="nuevaAlerta-form" method="POST" action="{{ url('/alerta/store') }}">
+			<form id="nuevaAlerta-form" method="POST" action="{{ url('/alert/store') }}">
 			  {{ csrf_field() }}
               
               <div class="box-body">

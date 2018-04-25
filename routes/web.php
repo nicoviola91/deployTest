@@ -15,21 +15,17 @@
     return view('welcome');
 });*/
 
-Route::get('testing', function() {
-    return view('alertas.listado');
-});
-
-Route::get('testing2', function() {
-    return view('alertas.nueva');
-});
-
 //USERS
 Route::get('/user/create','UserController@create');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
-Route::post('/alerta/store','AlertaController@store');
-Route::get('/alerta/list','AlertaController@showAll');
+Route::post('/alert/store','AlertaController@store');
+Route::get('/alert/list','AlertaController@showAll');
+Route::get('/alert/map','AlertaController@showMap');
+Route::get('/alert/new', function() {
+    return view('alertas.nueva');
+});
 
 
 Route::get('/','HomeController@index');
