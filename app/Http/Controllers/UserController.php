@@ -21,23 +21,23 @@ class UserController extends Controller
         //
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(UserRequest $request){
         return view('users.create');
     }
     
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */    
     public function store(UserRequest $request)
     {
     
@@ -46,7 +46,7 @@ class UserController extends Controller
         $user->tipoUsuario_id = '1';
         $user->save();
         
-        return view('users.index');
+        return view('auth.login');
     }
 
     /**

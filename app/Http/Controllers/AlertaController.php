@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Alerta;
 use Illuminate\Http\Request;
+use App\Http\Requests\AlertaRequest;
 
 class AlertaController extends Controller
 {
@@ -33,9 +34,14 @@ class AlertaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(AlertaRequest $request)
+    {           
+        $alerta = new Alerta($request->all());
+        $alerta->user_id = 5; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
+        $alerta->save();
+
+        var_dump($alerta);
+        //return view('auth.login');
     }
 
     /**
@@ -47,6 +53,19 @@ class AlertaController extends Controller
     public function show(Alerta $alerta)
     {
         //
+    }
+
+    /**
+     * Display the specified resource list.
+     *
+     * @param
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll(Alerta $alerta)
+    {
+        $data['alertas'] = Alerta::all();
+
+        return view('alertas.listado', $data);
     }
 
     /**

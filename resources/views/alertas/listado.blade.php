@@ -56,138 +56,32 @@
 			</thead>
 
 			<tbody>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" class="altaBtn" data-id="100" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" class="descartarBtn" data-id="100" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com </td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-						<a href="#" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-				</tr>
+
+				@if (isset($alertas) && count($alertas))
+
+					@foreach ($alertas as $alerta)
+					    
+					    <tr>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->id }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->nombre }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->apellido }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->dni }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->user_id }} 
+								@if (isset($alerta->lat) && isset($alerta->lng))
+								<span class="pull-right"> 
+									<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
+								</span>
+								@endif
+							</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
+							<td class="text-center" style="vertical-align: middle;"> 
+								<a href="#" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+								<a href="#" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
+						</tr>
+
+					@endforeach
+
+			    @endif
 
 			</tbody>
 

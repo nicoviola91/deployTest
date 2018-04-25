@@ -25,29 +25,55 @@
 		
 		<div class="box-body">
 			
-			<form role="form" id="nuevaAlerta-form">
+			<form id="nuevaAlerta-form" method="POST" action="{{ url('/alerta/store') }}">
+			  {{ csrf_field() }}
               
               <div class="box-body">
                 
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
                   <label for="exampleInputEmail1">Nombre</label>
                   <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+                  @if ($errors->has('nombre'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('nombre') }}</strong>
+                    </span>
+                  @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Apellido</label>
                   <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" required>
+                  @if ($errors->has('apellido'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('apellido') }}</strong>
+                    </span>
+                  @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('dni') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Documento</label>
-                  <input type="text" class="form-control" id="documento" placeholder="Documento" name="documento" required>
+                  <input type="text" class="form-control" id="documento" placeholder="Documento" name="dni" required>
+                  @if ($errors->has('dni'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('dni') }}</strong>
+                    </span>
+                  @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Fecha Nacimiento</label>
                   <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+                  @if ($errors->has('fechaNacimiento'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('fechaNacimiento') }}</strong>
+                    </span>
+                  @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Observaciones</label>
                   <textarea class="form-control" id="observaciones" name="observaciones" rows="3" placeholder="(OPCIONAL)"></textarea>
+                  @if ($errors->has('observaciones'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('observaciones') }}</strong>
+                    </span>
+                  @endif
                 </div>
 
                 <input type="text" class="form-control" id="lat" placeholder="Latitud" name="lat" value="" style="display: none;">
@@ -61,6 +87,16 @@
                     <span class="text-red" id="locErr" style="display: none;"><i class="fa fa-exclamation-circle fa-fw"></i><span id="msgErr"></span></span>
                   </label>
                 </div>
+                @if ($errors->has('lat'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('lat') }}</strong>
+	                </span>
+	            @endif
+	            @if ($errors->has('lng'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('lng') }}</strong>
+                    </span>
+                @endif
 
               </div>
 

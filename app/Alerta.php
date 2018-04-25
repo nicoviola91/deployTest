@@ -14,7 +14,6 @@ class Alerta extends Model
      */
     protected $table="alertas";
     protected $fillable = [
-        'nombre','apellido','fechaDeNacimiento','dni', 'user_id',
     ];
 
    	public function user(){

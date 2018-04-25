@@ -13,7 +13,7 @@
                 <br>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('userStore') }}">
+                    <form class="form-horizontal" method="POST" action="{{ url('/user/store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
