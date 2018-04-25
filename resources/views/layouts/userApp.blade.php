@@ -21,6 +21,21 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- jQuery 3 -->
+  <script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button);
+  </script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('/js/adminlte.min.js') }}"></script>
+
+  @yield('head')
+
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-red layout-top-nav">
@@ -163,18 +178,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('/js/adminlte.min.js') }}"></script>
+@yield('scripts')
 
 </body>
 </html>

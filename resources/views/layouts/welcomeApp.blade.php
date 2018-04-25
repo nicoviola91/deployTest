@@ -21,6 +21,19 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- jQuery 3 -->
+  <script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button);
+  </script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('/js/adminlte.min.js') }}"></script>
+
   @yield('head')
 
 </head>
@@ -62,16 +75,9 @@
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
       
-      <!-- <section class="content-header">
-        <h1>
-          Titulo
-          <small>Subtitulo</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-          <li class="active"><a href="#">Login</a></li>
-        </ol>
-      </section> -->
+      <section class="content-header">
+        @yield('pageHeader')
+      </section>
 
       <!-- Main content -->
       <section class="content">
@@ -79,7 +85,7 @@
           <div class="col-md-10 col-md-offset-1">
             @yield('content')
           </div>
-          
+
       </section>
       <!-- /.content -->
     </div>
@@ -109,18 +115,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('/js/adminlte.min.js') }}"></script>
+@yield('scripts')
 
 </body>
 </html>
