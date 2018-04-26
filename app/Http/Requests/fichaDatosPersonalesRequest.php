@@ -24,17 +24,16 @@ class fichaDatosPersonalesRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=> 'min:1|max:50|string|required',
+            'nombre'=> 'min:1|max:50|required',
             'apellido' => 'min:1|max:50|string',
             'numeroDocumento' => 'numeric',
             'fechaNacimiento' => 'date',
             'tienePartida' => 'boolean',
-            'nacionalidad'=> 'min:1|max:50|string',
+            'nacionalidad'=> 'min:1|max:50',
             'fechaIngreso' => 'date',
             'celular'=> 'numeric',
             'telefono' => 'numeric',
             'email' => 'email',
-            'nombreContacto' =>'string',
             'telefonoContacto' => 'numeric',
             'emailContacto' => 'email',
         ];

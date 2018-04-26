@@ -28,7 +28,7 @@ class AlertaRequest extends FormRequest
             'apellido' => 'min:1|max:100|required',
             'dni' => 'min:7|max:100|required',
             'fechaNacimiento' => 'date',
-            'observaciones' => 'max:255|string'
+            'observaciones' => 'max:255'
         ];
     }
 }
