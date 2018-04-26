@@ -14,7 +14,7 @@ class AdmitSexoAttributeNullableAsistidos3 extends Migration
     public function up()
     {
         Schema::table('asistidos', function (Blueprint $table) {
-            $table->integer('sexo_id')->nullable()->change();
+            $table->integer('sexo_id')->unsigned()->nullable()->change();
         });
     }
 
