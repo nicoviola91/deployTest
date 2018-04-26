@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Asistido;
+use App\Alerta;
 use Illuminate\Http\Request;
+use App\Http\Requests\AsistidoRequest;
 
 class AsistidoController extends Controller
 {
@@ -22,9 +24,10 @@ class AsistidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createFromAlert($id)
     {
-        return view('asistidos.nuevo');
+        $alerta=Alerta::find($id);
+        return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta);
     }
 
     /**
@@ -35,7 +38,10 @@ class AsistidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asistido=new Asistido($request->all());
+        $asistido->save();
+        var_dump($asistido);
+        //return view('asistidos.listado');
     }
 
     /**

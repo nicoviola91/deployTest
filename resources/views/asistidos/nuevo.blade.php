@@ -9,7 +9,7 @@
 @section('pageHeader')
 <h1>
 	Alertas
-	<small>Nueva Alerta</small>
+	<small>Nuevo Asistido</small>
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-bell"></i> Asistidos</a></li>
@@ -31,19 +31,19 @@
                 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nombre</label>
-                  <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+                  <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre" required >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Apellido</label>
-                  <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" required>
+                  <input type="text" class="form-control" id="apellido"  placeholder='Apellido' name="apellido" required>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Documento</label>
-                  <input type="text" class="form-control" id="documento" placeholder="Documento" name="documento" required>
+                  <input type="text" class="form-control" id="documento"  placeholder='DNI' name="documento" required>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Fecha Nacimiento</label>
-                  <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+                  <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Observaciones</label>

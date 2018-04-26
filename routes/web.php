@@ -36,7 +36,7 @@ Route::group(['prefix'=>'alert'],function(){
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'
     ]);
-    Route::get('/{id}/destroy',[
+    Route::get('/destroy/{id}',[
         'uses'=>'AlertaController@destroy',
         'as'=>'alerta.destroy'
     ]);
@@ -44,11 +44,16 @@ Route::group(['prefix'=>'alert'],function(){
 
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
-    Route::get('/new',[
-        'uses'=>'AsistidoController@create',
-        'as'=>'asistido.new'
+    Route::get('/newFromAlert/{id}',[
+        'uses'=>'AsistidoController@createFromAlert',
+        'as'=>'asistido.newFromAlert'
+    ]);
+    Route::post('/store',[
+        'uses'=>'AsistidoController@store',
+        'as'=>'asistido.store',
     ]);
 });
+
 
 Route::get('/','HomeController@index');
 
@@ -59,4 +64,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 //ALTA FICHA DATOS PERSONALES
 Route::get('/altaFicha/datosPersonales','FichaDatosPersonalesController@create');
 
-Route::get('/testing','AsistidoController@create');
