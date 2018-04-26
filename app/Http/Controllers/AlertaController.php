@@ -108,8 +108,9 @@ class AlertaController extends Controller
      * @param  \App\Alerta  $alerta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alerta $alerta)
+    public function destroy($id)
     {
-        //
+        $alerta=Alerta::find($id);
+        
     }
 }

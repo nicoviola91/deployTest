@@ -10,4 +10,11 @@ class FichaDatosPersonalesController extends Controller
         return view('altaFichas.fichaDatosPersonales');
     }
 
+    public function store(FichaDatosPersonalesRequest $request){
+
+        $ficha= new FichaDatosPersonales($request->all());
+
+
+    }
+
 }

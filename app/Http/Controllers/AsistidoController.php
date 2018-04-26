@@ -24,7 +24,7 @@ class AsistidoController extends Controller
      */
     public function create()
     {
-        //
+        return view('asistidos.nuevo');
     }
 
     /**

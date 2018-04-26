@@ -73,7 +73,7 @@
 							</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 							<td class="text-center" style="vertical-align: middle;"> 
-								<a href="#" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+								<a href="{{ route('asistido.new') }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
 								<a href="#" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
 						</tr>
 

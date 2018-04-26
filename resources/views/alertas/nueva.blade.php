@@ -83,7 +83,7 @@
                   <label>
                     <input type="checkbox" id="checkCoordenadas"> Enviar Coordenadas 
                     <span class="text-blue" id="locLoad" style="display: none;"><i class="fa fa-refresh fa-spin fa-fw"></i> Obteniendo Ubicación</span>
-                    <span class="text-green" id="locOk" style="display: none;"><i class="fa fa-check-circle fa-fw"></i></span>
+                  <span class="text-green"  id="locOk" style="display: none;"><i class="fa fa-check-circle fa-fw"></i></span>
                     <span class="text-red" id="locErr" style="display: none;"><i class="fa fa-exclamation-circle fa-fw"></i><span id="msgErr"></span></span>
                   </label>
                 </div>

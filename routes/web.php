@@ -20,13 +20,31 @@ Route::get('/user/create','UserController@create');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
-Route::post('/alert/store','AlertaController@store');
-Route::get('/alert/list','AlertaController@showAll');
-Route::get('/alert/map','AlertaController@showMap');
-Route::get('/alert/new', function() {
-    return view('alertas.nueva');
+Route::group(['prefix'=>'alert'],function(){
+    Route::get('/new',function(){
+        return view('alertas.nueva');
+    });
+    Route::post('/store',[
+        'uses'=>'AlertaController@store',
+        'as'=>'alerta.store'
+    ]);
+    Route::get('/list',[
+        'uses'=>'AlertaController@showAll',
+        'as'=>'alerta.list'
+    ]);
+    Route::get('/map',[
+        'uses'=>'AlertaController@showMap',
+        'as'=>'alerta.showMap'
+    ]);
 });
 
+//ASISTIDOS
+Route::group(['prefix'=>'asistido'],function(){
+    Route::get('/new',[
+        'uses'=>'AsistidoController@create',
+        'as'=>'asistido.new'
+    ]);
+});
 
 Route::get('/','HomeController@index');
 
@@ -36,3 +54,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //ALTA FICHA DATOS PERSONALES
 Route::get('/altaFicha/datosPersonales','FichaDatosPersonalesController@create');
+
+Route::get('/testing','AsistidoController@create');
