@@ -17,7 +17,7 @@
 
 			foreach ($alertas as $key => $alerta) {
 				if (isset($alerta->lat) && isset($alerta->lng))
-					$lista .= "[".$alerta->lat.", ".$alerta->lng."],";
+					$lista .= "new google.maps.LatLng(".$alerta->lat.", ".$alerta->lng."),";
 			} 
 
 			echo trim($lista, ",");
@@ -32,23 +32,26 @@
 	      streetViewControl: false,
 
         });
-        
 
-        for (var i = locations.length - 1; i >= 0; i--) {
-        	
-        	marker = new google.maps.Marker({
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: locations,
+          map: map
+        });
+
+        // for (var i = locations.length - 1; i >= 0; i--) {        	
+        // 	marker = new google.maps.Marker({
 	        	
-	        	position: new google.maps.LatLng(locations[i][0], locations[i][1]),
-	        	map: map,
-	        	url: 'http://www.google.com.ar'
-        	})
-        }
+	       //  	position: locations[i],
+	       //  	map: map,
+	       //  	url: 'http://www.google.com.ar'
+        // 	})
+        // }
 
       }
       
     </script>
     
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYXXQ58L5elQGyL_9L3pY8ihhLqKQjibM&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYXXQ58L5elQGyL_9L3pY8ihhLqKQjibM&callback=initMap&libraries=visualization"></script>
 
 @endsection
 
