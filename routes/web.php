@@ -36,6 +36,10 @@ Route::group(['prefix'=>'alert'],function(){
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'
     ]);
+    Route::get('/{id}/destroy',[
+        'uses'=>'AlertaController@destroy',
+        'as'=>'alerta.destroy'
+    ]);
 });
 
 //ASISTIDOS

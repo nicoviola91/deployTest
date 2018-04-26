@@ -111,6 +111,7 @@ class AlertaController extends Controller
     public function destroy($id)
     {
         $alerta=Alerta::find($id);
-        
+        $alerta->delete();
+        return view('alertas.listado');
     }
 }
