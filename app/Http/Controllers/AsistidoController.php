@@ -58,6 +58,10 @@ class AsistidoController extends Controller
         //
     }
 
+    public function showAll(){
+        $data['asistidos']=Asistido::all();
+        return view('asistidos.listado',$data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

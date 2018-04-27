@@ -52,6 +52,10 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
     ]);
+    Route::get('/list',[
+        'uses'=>'AsistidoController@showAll',
+        'as'=>'asistido.list'
+    ]);
 });
 
 

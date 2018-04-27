@@ -37,7 +37,6 @@
 		
 		<div class="box-body">
 		<table class="table table-bordered table-hover" id="tabla-asistidos">
-			
 			<thead>
 				<tr style="background-color: #f4f4f4;">
 					<th rowspan="2" class="text-center" style="vertical-align: middle;">#</th>
@@ -52,21 +51,23 @@
 					<th class="text-center" >Usuario</th>
 					<th class="text-center">Fecha</th>
 				</tr>
-
 			</thead>
-
 			<tbody>
-				<tr>
-					<td class="text-center" style="vertical-align: middle;">100</td>
-					<td class="text-center" style="vertical-align: middle;">Juan Carlos</td>
-					<td class="text-center" style="vertical-align: middle;">Perez J</td>
-					<td class="text-center" style="vertical-align: middle;">DNI 36189939</td>
-					<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
-					<td class="text-center" style="vertical-align: middle;">16/04/2018 20:50</td>
-					<td class="text-center" style="vertical-align: middle;"> 
+				@if (isset($asistidos) && count($asistidos))
+					@foreach($asistidos as $asistido)
+					<tr>
+						
+					<td class="text-center" style="vertical-align: middle;">{{$asistido->id}}</td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->nombre}}</td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->apellido}}</td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->dni}}</td>
+						<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at}}</td>
+						<td class="text-center" style="vertical-align: middle;"> 
 						<a href="#" class="altaBtn" data-id="100" data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 
 					</tr>
-
+					@endforeach
+				@endif
 			</tbody>
 
 		</table>
