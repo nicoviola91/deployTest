@@ -27,7 +27,7 @@
           zoom: 11,
           center: {lat: -34.6084035, lng: -58.3808578},
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-	      mapTypeControl: false,
+	      mapTypeControl: true,
 	      fullscreenControl: true,
 	      streetViewControl: false,
 
