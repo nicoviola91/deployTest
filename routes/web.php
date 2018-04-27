@@ -17,6 +17,7 @@
 
 //USERS
 Route::get('/user/create','UserController@create');
+Route::get('/user/list','UserController@showAll');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
@@ -64,6 +65,9 @@ Route::get('/','HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', function () {
+//     echo "SE LOGEO CORRECTAMENTE";
+// });
 
 //ALTA FICHA DATOS PERSONALES
 Route::get('/altaFicha/datosPersonales','FichaDatosPersonalesController@create');
