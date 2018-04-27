@@ -60,6 +60,20 @@ class UserController extends Controller
         //
     }
 
+
+    /**
+     * Display the specified resource list.
+     *
+     * @param
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll()
+    {
+        $data['usuarios'] = User::all();
+        return view('users.listado', $data);
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
