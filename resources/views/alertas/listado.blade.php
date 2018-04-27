@@ -73,9 +73,13 @@
 							</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 							<td class="text-center" style="vertical-align: middle;"> 
-								<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+								@if(empty($alerta->asistido_id))
+									<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+								@else
+									<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
+								@endif
 								<a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a></td>
-						</tr>
+							</tr>
 
 					@endforeach
 

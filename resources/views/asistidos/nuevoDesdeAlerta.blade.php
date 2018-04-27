@@ -24,7 +24,7 @@
 	<div class="box box-solid">
 		
 		<div class="box-body">
-    <form id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/store') }}">
+    <form id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/store',['alerta_id'=>$alerta->id]) }}">
       {{ csrf_field() }}
         <div class="box-body">  
           <div class="form-group">

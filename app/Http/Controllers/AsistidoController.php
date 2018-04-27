@@ -36,12 +36,15 @@ class AsistidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$alerta_id)
     {
         $asistido=new Asistido($request->all());
+        //hay que guardar el id de asistido en alerta(asistido_id)
+        $alerta=Alerta::find($alerta_id);
         $asistido->save();
-        var_dump($asistido);
-        //return view('asistidos.listado');
+        $alerta->asistido_id=$asistido->id;
+        $alerta->save();
+        return redirect()->route('alerta.list');
     }
 
     /**

@@ -44,5 +44,9 @@ class Asistido extends Model
         return $this->belongsTo('App\Sexo');
     }
 
+    public function alertas(){
+        return $this->hasMany('App\Alerta');
+    }
+
 
 }

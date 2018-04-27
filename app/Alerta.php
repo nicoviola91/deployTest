@@ -21,4 +21,7 @@ class Alerta extends Model
    		return $this->belongsTo('App\User');
    	}
 
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
 }
