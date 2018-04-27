@@ -159,7 +159,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/asistidos/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 
@@ -172,7 +172,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 
@@ -185,7 +185,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/comunidad/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 
@@ -198,7 +198,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/user/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 

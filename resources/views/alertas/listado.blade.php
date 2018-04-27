@@ -18,11 +18,11 @@
 
 @section('pageHeader')
 <h1>
-	Alertas
+	<i class="icon fa fa-bullhorn fa-fw"></i>Alertas
 	<small>Listado</small>
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-bell"></i> Alertas</a></li>
+	<li><a href="#"><i class="fa fa-bullhorn"></i> Alertas</a></li>
 	<li class="active">Listado</li>
 </ol>
 @endsection

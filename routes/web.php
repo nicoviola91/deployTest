@@ -43,6 +43,22 @@ Route::group(['prefix'=>'alert'],function(){
     ]);
 });
 
+//INSTITUCIONES
+Route::group(['prefix'=>'institucion'],function(){
+    Route::post('/store',[
+        'uses'=>'InstitucionController@store',
+        'as'=>'institucion.store'
+    ]);
+    Route::get('/list',[
+        'uses'=>'InstitucionController@showAll',
+        'as'=>'institucion.list'
+    ]);
+    Route::get('/destroy/{id}',[
+        'uses'=>'InstitucionController@destroy',
+        'as'=>'institucion.destroy'
+    ]);
+});
+
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[

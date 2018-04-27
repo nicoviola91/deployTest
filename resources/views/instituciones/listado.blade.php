@@ -2,7 +2,7 @@
 
 
 @section('title')
-	Usuarios
+	Instituciones
 @endsection
 
 
@@ -18,11 +18,11 @@
 
 @section('pageHeader')
 <h1>
-	<i class="icon fa fa-user-circle fa-fw"></i>Usuarios
+	<i class="icon fa fa-bank fa-fw"></i>Instituciones
 	<small>Listado</small>
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-user-circle"></i> Usuarios</a></li>
+	<li><a href="#"><i class="fa fa-user-circle"></i> Instituciones</a></li>
 	<li class="active">Listado</li>
 </ol>
 @endsection
@@ -34,18 +34,17 @@
 	<div class="box box-solid">
 
 		<div class="box-body">
-		<table class="table table-bordered table-hover" id="tabla-usuarios">
+		<table class="table table-bordered table-hover" id="tabla-instituciones">
 			
 			<thead>
 				
 				<tr style="background-color: #f4f4f4;">
 					<th class="text-center">#</th>
 					<th class="text-center">Nombre</th>
-					<th class="text-center">Apellido</th>
-					<th class="text-center">Documento</th>
-					<th class="text-center" >E-mail</th>
-					<th class="text-center">Fecha Registro</th>
-					<th class="text-center">Tipo</th>
+					<th class="text-center">Telefono</th>
+					<th class="text-center">CUIT</th>
+					<th class="text-center" >Responsable</th>
+					<th class="text-center">Fecha Alta</th>
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -53,18 +52,17 @@
 
 			<tbody>
 
-				@if (isset($usuarios) && count($usuarios))
+				@if (isset($instituciones) && count($instituciones))
 
-					@foreach ($usuarios as $usuario)
+					@foreach ($instituciones as $institucion)
 					    
 					    <tr>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->id }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->name }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->apellido }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->tipoUsuario_id }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->id }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->nombre }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->telefono }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->cuit }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->responsable }}</td>								
+							<td class="text-center" style="vertical-align: middle;">{{ $institucion->created_at }}</td>
 							<td class="text-center" style="vertical-align: middle;"> 
 								
 							</tr>
@@ -91,7 +89,7 @@
 	
 	$(function () {
 
-	    $('#tabla-usuarios').DataTable({
+	    $('#tabla-instituciones').DataTable({
 	      'paging'      : true,
 	      'lengthChange': true,
 	      'searching'   : true,
