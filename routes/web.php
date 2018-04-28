@@ -17,6 +17,7 @@
 
 //USERS
 Route::get('/user/create','UserController@create');
+Route::get('/user/list','UserController@showAll');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
@@ -42,6 +43,22 @@ Route::group(['prefix'=>'alert'],function(){
     ]);
 });
 
+//INSTITUCIONES
+Route::group(['prefix'=>'institucion'],function(){
+    Route::post('/store',[
+        'uses'=>'InstitucionController@store',
+        'as'=>'institucion.store'
+    ]);
+    Route::get('/list',[
+        'uses'=>'InstitucionController@showAll',
+        'as'=>'institucion.list'
+    ]);
+    Route::get('/destroy/{id}',[
+        'uses'=>'InstitucionController@destroy',
+        'as'=>'institucion.destroy'
+    ]);
+});
+
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[
@@ -64,6 +81,9 @@ Route::get('/','HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', function () {
+//     echo "SE LOGEO CORRECTAMENTE";
+// });
 
 //ALTA FICHA DATOS PERSONALES
 Route::get('/altaFicha/datosPersonales','FichaDatosPersonalesController@create');

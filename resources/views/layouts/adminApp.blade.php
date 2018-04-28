@@ -95,7 +95,10 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Sign out</a>
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                    </form>
                 </div>
               </li>
             </ul>
@@ -156,7 +159,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
+<<<<<<< HEAD
             <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+=======
+            <li><a href="{{url('/asistidos/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+>>>>>>> a44cbc5af133d7f812330b175bd7bf243a670ea4
           </ul>
         </li>
 
@@ -194,7 +201,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 
@@ -207,7 +214,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/comunidad/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 
@@ -220,7 +227,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/user/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
 

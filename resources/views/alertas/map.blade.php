@@ -27,7 +27,7 @@
           zoom: 11,
           center: {lat: -34.6084035, lng: -58.3808578},
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-	      mapTypeControl: false,
+	      mapTypeControl: true,
 	      fullscreenControl: true,
 	      streetViewControl: false,
 
@@ -58,11 +58,11 @@
 
 @section('pageHeader')
 <h1>
-	Alertas
+	<i class="icon fa fa-bullhorn fa-fw"></i>Alertas
 	<small>Mapa</small>
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-bell"></i> Alertas</a></li>
+	<li><a href="#"><i class="fa fa-bullhorn"></i> Alertas</a></li>
 	<li class="active">Mapa</li>
 </ol>
 @endsection
