@@ -156,9 +156,34 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
+
+        <li class="treeview">
+            <a href="#">
+              <i class="fa fa-list"></i>
+              <span>Fichas</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-legal "></i>Legal</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-exclamation-triangle"></i>Adicciones</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-life-bouy"></i>Asistencia Social</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-pencil-square-o"></i>Datos Personales</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-stethoscope"></i>Diagnostico Integral</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-mortar-board"></i>Educacion</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-cogs"></i>Empleo</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-users"></i>Familia y amigos</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa  fa-location-arrow"></i>Localizacion</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-heartbeat"></i>Médica</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-hotel"></i>Necesidades</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-user-md"></i>Salud Mental</a></li>
+            </ul>
+          </li>
 
         <li class="treeview">
           <a href="#">
