@@ -55,8 +55,9 @@ class AsistidoController extends Controller
      */
     public function show(Asistido $asistido)
     {
-        //
+        
     }
+
 
     public function showAll(){
         $data['asistidos']=Asistido::all();

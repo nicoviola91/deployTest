@@ -64,7 +64,7 @@
 						<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at}}</td>
 						<td class="text-center" style="vertical-align: middle;"> 
-						<a href="#" class="altaBtn" data-id="100" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 
+						<a href="{{route('asistido.show',['id'=>$asistido->id])}}" class="altaBtn" data-id="100" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 
 					</tr>
 					@endforeach
 				@endif

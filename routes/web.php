@@ -73,6 +73,10 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
     ]);
+    Route::get('/show/{id}',[
+        'uses'=>'AsistidoController@show',
+        'as'=>'asistido.show'
+    ]);
 });
 
 

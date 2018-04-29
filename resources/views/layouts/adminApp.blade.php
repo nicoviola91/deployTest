@@ -159,11 +159,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-<<<<<<< HEAD
             <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-=======
-            <li><a href="{{url('/asistidos/list')}}"><i class="fa fa-list"></i> Listado</a></li>
->>>>>>> a44cbc5af133d7f812330b175bd7bf243a670ea4
           </ul>
         </li>
 
