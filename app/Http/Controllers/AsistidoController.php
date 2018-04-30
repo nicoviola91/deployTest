@@ -53,9 +53,11 @@ class AsistidoController extends Controller
      * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function show(Asistido $asistido)
+    public function show($asistido_id)
     {
-        
+        $asistido=Asistido::find($asistido_id);
+
+        return view('asistidos.detalleAsistido')->with('asistido',$asistido);
     }
 
 
