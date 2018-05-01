@@ -28,36 +28,75 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="box box-primary">
+			<div class="box-body box-profile">
+				<img class="profile-user-img img-responsive img-circle" src="http://www.styletextile.com/wp-content/uploads/2017/10/profile.jpg" alt="User profile picture">
+				<h3 class="profile-username text-center">{{$asistido->nombre}}</h3>
+				<h3 class="profile-username text-center">{{$asistido->apellido}}</h3>
+				<dl class="dl-horizontal">
+					@if(isset($asistido->fechaNacimiento))
+					<dt>Fecha de nacimiento</dt>
+					<dd>{{$asistido->fechaNacimiento}}</dd>
+					@endif
+					@if(isset($asistido->dni))
+					<dt>DNI</dt>
+					<dd>{{$asistido->dni}}</dd>
+					@endif
+					@if(isset($asistido->direccion))
+					<dt>Dirección</dd>
+					<dd>{{$asistido->direccion}}</dd>
+					@endif
+					@if(isset($asistido->direccion))
+					<dt>Observaciones</dd>
+					<dd>{{$asistido->observaciones}}</dd>
+					@endif
+					<dt>Fichas disponibles</dd>
+					@if(count($asistido->fichaAdiccion))
+					<dd href="#">Adiccion</dd>
+					@endif
+					@if(count($asistido->fichaAsistenciaSocial))
+					<dd href="#">Asistencia Social</dd>
+					@endif
+					@if(count($asistido->fichaDatosPersonales))
+					<dd href="#">Datos Personales</dd>
+					@endif
+					@if(count($asistido->fichaDiagnosticoIntegral))
+					<dd href="#">Diagnostico Integral</dd>
+					@endif
+					@if(count($asistido->fichaEducacion))
+					<dd href="#">Educación</dd>
+					@endif
+					@if(count($asistido->fichaEmpleo))
+					<dd href="#">Empleo</dd>
+					@endif
+					@if(count($asistido->fichaFamiliaAmigos))
+					<dd href="#">Familia Amigos</dd>
+					@endif
+					@if(count($asistido->fichaLocalizacion))
+					<dd href="#">Localizacion</dd>
+					@endif
+					@if(count($asistido->fichaMedica))
+					<dd href="#">Médica</dd>
+					@endif
+					@if(count($asistido->fichaNecesidad))
+					<dd href="#">Necesidades</dd>
+					@endif
+					@if(count($asistido->fichaSaludMental))
+					<dd href="#">Salud Mental</dd>
+					@endif
 
-	<!-- Profile Image -->
-	<div class="box box-primary">
-		<div class="box-body box-profile">
-		<img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-		<h3 class="profile-username text-center">{{$asistido->nombre}}</h3>
-		<h3 class="profile-username text-center">{{$asistido->apellido}}</h3>
-
-		<ul class="list-group list-group-unbordered">
-			<li class="list-group-item">
-			<b>Fecha de nacimiento</b> <a class="pull-center">{{$asistido->fechaNacimiento}}</a>
-			</li>
-			@if(isset($asistido->dni))
-			<li class="list-group-item">
-			<b>DNI</b> <a class="pull-center">{{$asistido->dni}}</a>
-			</li>
-			@endif
-			@if(isset($asistido->direccion))
-			<li class="list-group-item">
-			<b>Dirección</b> <a class="pull-right">{{$asistido->direccion}}</a>
-			</li>
-			@endif
-		</ul>
-
-		<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+					@if((count($asistido->fichaSaludMental)==0) && (count($asistido->fichaNecesidad)==0) && (count($asistido->fichaMedica)==0) 
+					&& (count($asistido->fichaLocalizacion)==0) && (count($asistido->fichaFamiliaAmigos)==0) && (count($asistido->fichaEmpleo)==0)
+					&& (count($asistido->fichaEducacion)==0) && (count($asistido->fichaDiagnosticoIntegral)==0) && (count($asistido->fichaDatosPersonales)==0)
+					&& (count($asistido->fichaAsistenciaSocial)==0) && (count($asistido->fichaAdiccion)==0))
+					<dd>El asistido aún no tiene fichas vinculadas.</dd>
+					@endif
+				</dl>
+			
+			</div>
 		</div>
-		<!-- /.box-body -->
 	</div>
-	<!-- /.box -->
-</div>
+</div>	
 @endsection
