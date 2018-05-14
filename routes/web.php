@@ -79,8 +79,14 @@ Route::group(['prefix'=>'asistido'],function(){
     ]);
 });
 
+//ALTA FICHAS 
+Route::group(['prefix'=>'altaficha'],function(){
+    Route::get('/fichaAdicciones',[
+        'uses'=>'FichaAdiccionesController@create',
+        'as'=>'altaFicha.fichaAdicciones',
+    ]);
+});
 
-Route::get('/','HomeController@index');
 
 Auth::routes();
 

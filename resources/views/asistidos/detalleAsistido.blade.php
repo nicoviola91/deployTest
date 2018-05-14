@@ -64,9 +64,9 @@
 					@else
 					<dd>
 						<div class="col-md-4">
-							<button type="button" class="btn btn-block btn-default btn-sm">
+							<a href="{{ route('altaFicha.fichaAdicciones')}}" class="btn btn-block btn-default btn-sm">
 									<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Adicciones
-							</button>
+							</a>
 						</div>
 					</dd>
 					@endif
