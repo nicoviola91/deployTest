@@ -79,11 +79,16 @@ Route::group(['prefix'=>'asistido'],function(){
     ]);
 });
 
-//ALTA FICHAS 
-Route::group(['prefix'=>'altaficha'],function(){
-    Route::get('/fichaAdicciones',[
-        'uses'=>'FichaAdiccionesController@create',
-        'as'=>'altaFicha.fichaAdicciones',
+//FICHA DATOS PERSONALES
+Route::group(['prefix'=>'fichaDatosPersonales'],function(){
+    
+    Route::get('/create',[
+        'uses'=>'FichaDatosPersonalesController@create',
+        'as'=>'fichaDatosPersonales.create',
+    ]);
+    Route::post('/store',[
+        'uses'=>'FichaDatosPersonalesController@store',
+        'as'=>'fichaDatosPersonales.store'
     ]);
 });
 
@@ -95,6 +100,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 //     echo "SE LOGEO CORRECTAMENTE";
 // });
 
-//ALTA FICHA DATOS PERSONALES
-Route::get('/altaFicha/datosPersonales','FichaDatosPersonalesController@create');
 

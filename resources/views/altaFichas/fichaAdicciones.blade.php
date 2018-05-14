@@ -33,7 +33,7 @@
       <!-- general form elements -->
       <div class="box box-danger">
         <div class="box-header with-border">
-          <h3 class="box-title">Ficha de Datos Personales</h3>
+          <h3 class="box-title">Ficha de Adicciones</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->

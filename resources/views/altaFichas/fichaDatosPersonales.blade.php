@@ -20,7 +20,8 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form">
+    <form id="fichaDatosPersonales-form" method="POST" action="{{url('/fichaDatosPersonales/store')}}" >
+        {{ csrf_field() }}
           <div class="box-body">
             <div class="form-group">
               <label for="nombre">Nombre</label>
@@ -50,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label for="fechaIngreso">Fecha ingreso</label>
-                <input class="form-control" id="fechaIngreso" name="fechaIngreso" placeholder="Ingrese fecha de ingreso al país" type="text">
+                <input class="form-control" id="fechaIngreso" name="fechaIngreso" placeholder="Ingrese fecha de ingreso al país" type="date">
             </div>
             <div class="form-group">
                 <label for="celular">Celular</label>
