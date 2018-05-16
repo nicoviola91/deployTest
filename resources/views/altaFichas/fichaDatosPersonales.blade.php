@@ -20,7 +20,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-    <form id="fichaDatosPersonales-form" method="POST" action="{{url('/fichaDatosPersonales/store')}}" >
+    <form id="fichaDatosPersonales-form" method="POST" action="{{url('/fichaDatosPersonales/store', ['asistido_id'=>$asistido->id]) }}" >
         {{ csrf_field() }}
           <div class="box-body">
             <div class="form-group">

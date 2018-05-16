@@ -81,12 +81,11 @@ Route::group(['prefix'=>'asistido'],function(){
 
 //FICHA DATOS PERSONALES
 Route::group(['prefix'=>'fichaDatosPersonales'],function(){
-    
-    Route::get('/create',[
+    Route::get('/create/{id}',[
         'uses'=>'FichaDatosPersonalesController@create',
         'as'=>'fichaDatosPersonales.create',
     ]);
-    Route::post('/store',[
+    Route::post('/store/{asistido_id}',[
         'uses'=>'FichaDatosPersonalesController@store',
         'as'=>'fichaDatosPersonales.store'
     ]);
