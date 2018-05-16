@@ -42,7 +42,7 @@
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="tienePartida"> Tiene partida 
+                <input type="checkbox" name="tienePartida" value="1"> Tiene partida 
               </label>
             </div>
             <div class="form-group">

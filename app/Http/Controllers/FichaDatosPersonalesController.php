@@ -20,8 +20,6 @@ class FichaDatosPersonalesController extends Controller
 
         $ficha= new FichaDatosPersonales($request->all());
         $ficha->asistidos_id=$asistido_id;
-        var_dump($ficha);
-
         $ficha->save();
 
 
