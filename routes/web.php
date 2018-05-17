@@ -91,6 +91,14 @@ Route::group(['prefix'=>'fichaDatosPersonales'],function(){
     ]);
 });
 
+//FICHA ADICCIONES
+Route::group(['prefix'=>'fichaAdicciones'],function(){
+    Route::get('/create',[
+        'uses'=>'FichaAdiccionesController@create',
+        'as'=>'fichaAdicciones.create',
+    ]);
+});
+
 
 Auth::routes();
 
