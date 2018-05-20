@@ -34,19 +34,21 @@
             <div class="box-group" id="accordion">
               <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
               <div class="panel box box-primary">
-                <div class="box-header with-border">
+                <div class="box-header with-border black">
                   <h4 class="box-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                       Adicciones
                     </a>
                   </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
+                <div id="collapseOne" class="panel-collapse collapse">
                   <div class="box-body">
-                    Agregar Adiccion
+                      <a href="#"><i align="left" class="fa fa-plus"></i>  Agregar Adiccion</a>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="box-group" id="accordion">
               <div class="panel box box-danger">
                 <div class="box-header with-border">
                   <h4 class="box-title">
@@ -57,10 +59,12 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                   <div class="box-body">
-                    Agregar episodio agresivo
+                        <a href="#"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="box-group" id="accordion">
               <div class="panel box box-success">
                 <div class="box-header with-border">
                   <h4 class="box-title">
@@ -71,10 +75,11 @@
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse">
                   <div class="box-body">
-                    Agregar tratamiento
+                        <a href="#"><i align="left" class="fa fa-plus"></i>  Agregar Tratamiento</a>
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
           <!-- /.box-body -->
