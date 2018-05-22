@@ -14,7 +14,7 @@ class Asistido extends Model
      */
     protected $table="asistidos";
     protected $fillable = [
-        'nombre','apellido','fechaNacimiento','dni','direccion_id','observaciones','foto', 'email','tipo','estado'
+        'nombre','apellido','fechaNacimiento','dni','direccion','observaciones','foto', 'email','tipo','estado'
     ];
 
     /**
@@ -36,10 +36,10 @@ class Asistido extends Model
         return $this->hasOne('App\Ficha');
     }
 
-    public function direccion(){
+/*    public function direccion(){
         return $this->hasOne('App\Direccion');
     }
-
+*/
     public function sexo(){
         return $this->belongsTo('App\Sexo');
     }

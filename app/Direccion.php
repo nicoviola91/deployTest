@@ -18,9 +18,9 @@ class Direccion extends Model
         'pais'
     ];
 
-    public function asistido(){
+    /*public function asistido(){
         return $this->belongsTo('App\Asistido');
-    }
+    }*/
 
     public function institucion(){
         return $this->belongsTo('App\Institucion');

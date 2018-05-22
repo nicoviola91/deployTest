@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Institucion;
+use App\Comunidad;
 use Illuminate\Http\Request;
-use App\Http\Requests\InstitucionRequest;
+use App\Http\Requests\ComunidadRequest;
 
-class InstitucionController extends Controller
+class ComunidadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,11 +34,11 @@ class InstitucionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InstitucionRequest $request)
+    public function store(ComunidadRequest $request)
     {           
-        $institucion = new Institucion($request->all());
-        $institucion->save();
-        return redirect()->route('institucion.list');
+        $comunidad = new Comunidad($request->all());
+        $comunidad->save();
+        return redirect()->route('comunidad.list');
     }
 
    
@@ -50,8 +50,8 @@ class InstitucionController extends Controller
      */
     public function showAll()
     {
-        $data['instituciones'] = Institucion::all();
-        return view('instituciones.listado', $data);
+        $data['comunidades'] = Comunidad::all();
+        return view('comunidades.listado', $data);
     }
 
 }

@@ -29,11 +29,11 @@
 
 @section('content')
 
-<div class="row">
+<!-- <div class="row">
 	<div class="col-md-12">
 		<a href="http://localhost/index.php/horas/diagrama/2018-04" class="btn btn-app loadingLink" data-toggle="tooltip" data-placement="bottom" data-original-title="Ir a Mes Anterior"><i class="fa fa-angle-left"></i> Mes Ant.</a>
 	</div>
-</div>
+</div> -->
 
 <div class="row">
 <div class="col-md-12">
@@ -71,9 +71,11 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->tipoUsuario_id }}</td>
-							<td class="text-center" style="vertical-align: middle;"> 
-								
-							</tr>
+							<td class="text-center" style="vertical-align: middle;">
+								<a href="#" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
+							</td>	
+
+						</tr>
 
 					@endforeach
 
@@ -103,7 +105,19 @@
 	      'searching'   : true,
 	      'ordering'    : true,
 	      'info'        : true,
-	      'autoWidth'   : false
+	      'autoWidth'   : false,
+	      'pageLength'	: 50,
+
+	      	"oLanguage": {
+				"sEmptyTable": "No hay datos disponibles para la tabla.",
+				"sLengthMenu": "Mostrar _MENU_ filas",
+				"sSearch": "Buscar:",
+				"sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
+				"oPaginate": {
+					"sPrevious": "Anterior",
+					"sNext": "Siguiente"
+				}
+			}
 	    });
   });
 

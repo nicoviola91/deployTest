@@ -11,11 +11,13 @@ class FichaLocalizacion extends Ficha
       
         'situacionCalle',
         'zonaPermanencia',
-        'direccion_id'
+        //'direccion_id'
     ];
 
     public function direccion(){
         return $this->hasOne('App\Direccion');
     }
-
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
 }

@@ -40,7 +40,6 @@ class AlertaController extends Controller
         $alerta->user_id = 5; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
         $alerta->save();
         return redirect()->route('alerta.list');
-        //return view('auth.login');
     }
 
     /**

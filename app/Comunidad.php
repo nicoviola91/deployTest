@@ -8,7 +8,10 @@ class Comunidad extends Model
 {
 	protected $table="comunidades";
     protected $fillable = [
-        'nombre', 'tipo','parroquia_id','observaciones'
+        'nombre', 
+        'tipo',
+        //'parroquia_id',
+        'observaciones'
     ];
 
     public function users(){

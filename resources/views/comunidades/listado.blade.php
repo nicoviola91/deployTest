@@ -2,7 +2,7 @@
 
 
 @section('title')
-	Instituciones
+	Comunidades
 @endsection
 
 
@@ -18,11 +18,11 @@
 
 @section('pageHeader')
 <h1>
-	<i class="icon fa fa-bank fa-fw"></i>Instituciones
+	<i class="icon fa fa-users fa-fw"></i>Comunidades
 	<small>Listado</small>
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-bank"></i> Instituciones</a></li>
+	<li><a href="#"><i class="fa fa-users"></i> Comunidades</a></li>
 	<li class="active">Listado</li>
 </ol>
 @endsection
@@ -31,7 +31,7 @@
 	
 <div class="row">
 	<div class="col-md-12">
-		<a href="#" class="btn btn-app pull-right agregarBtn" data-toggle="tooltip" data-placement="bottom" data-original-title="Nueva Institucion"><i class="fa fa-plus-square"></i> Agregar</a>
+		<a href="#" class="btn btn-app pull-right agregarBtn" data-toggle="tooltip" data-placement="bottom" data-original-title="Nueva Comunidad"><i class="fa fa-plus-square"></i> Agregar</a>
 	</div>
 </div>
 
@@ -41,16 +41,15 @@
 
 			<div class="box-body">
 
-				<table class="table table-bordered table-hover" id="tabla-instituciones">
+				<table class="table table-bordered table-hover" id="tabla-comunidades">
 					
 					<thead>
 						
 						<tr style="background-color: #f4f4f4;">
 							<th class="text-center">#</th>
 							<th class="text-center">Nombre</th>
-							<th class="text-center">Telefono</th>
-							<th class="text-center">CUIT</th>
-							<th class="text-center" >Responsable</th>
+							<th class="text-center">Tipo</th>
+							<th class="text-center">Institución</th>
 							<th class="text-center">Fecha Alta</th>
 							<th class="text-center">Acciones</th>
 						</tr>
@@ -59,19 +58,18 @@
 
 					<tbody>
 
-						@if (isset($instituciones) && count($instituciones))
+						@if (isset($comunidades) && count($comunidades))
 
-							@foreach ($instituciones as $institucion)
+							@foreach ($comunidades as $comunidad)
 							    
 							    <tr>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->id }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->nombre }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->telefono }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->cuit }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->responsable }}</td>								
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->created_at }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->id }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->nombre }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->tipo }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->institucion_id }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->created_at }}</td>
 									<td class="text-center" style="vertical-align: middle;">
-										<a href="#" class="detalleBtn" data-id="{{ $institucion->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
+										<a href="#" class="detalleBtn" data-id="{{ $comunidad->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 									</td> 
 										
 									</tr>
@@ -95,10 +93,10 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><i class="icon fa fa-bank fa-fw"></i> Nueva Institución</h4>
+        <h4 class="modal-title"><i class="icon fa fa-users	 fa-fw"></i> Nueva Comunidad</h4>
       </div>
 
-      <form id="nuevaInstitucion-form" method="POST" action="{{ url('/institucion/store') }}">
+      <form id="nuevaComunidad-form" method="POST" action="{{ url('/comunidad/store') }}">
 			
 			{{ csrf_field() }}
 	     	
@@ -145,7 +143,7 @@
 	      
 	      	<div class="modal-footer">
 	        	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-	        	<button type="submit" class="btn btn-danger">Agregar Institución</button>
+	        	<button type="submit" class="btn btn-danger">Agregar Comunidad</button>
 	      	</div>
       </form>
 
@@ -163,7 +161,7 @@
 	
 	$(function () {
 
-	    $('#tabla-instituciones').DataTable({
+	    $('#tabla-comunidades').DataTable({
 	      'paging'      : true,
 	      'lengthChange': true,
 	      'searching'   : true,
