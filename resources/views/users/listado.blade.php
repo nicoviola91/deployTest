@@ -30,6 +30,12 @@
 @section('content')
 
 <div class="row">
+	<div class="col-md-12">
+		<a href="http://localhost/index.php/horas/diagrama/2018-04" class="btn btn-app loadingLink" data-toggle="tooltip" data-placement="bottom" data-original-title="Ir a Mes Anterior"><i class="fa fa-angle-left"></i> Mes Ant.</a>
+	</div>
+</div>
+
+<div class="row">
 <div class="col-md-12">
 	<div class="box box-solid">
 
