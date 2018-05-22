@@ -97,6 +97,10 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
     ]);
+    Route::get('/storeAdiccion',[
+        'uses'=>'FichaAdiccionesController@storeAdiccion',
+        'as'=>'fichaAdicciones.storeAdiccion',
+    ]);
 });
 
 
