@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Institucion;
 use Illuminate\Http\Request;
+use App\Http\Requests\InstitucionRequest;
 
 class InstitucionController extends Controller
 {
@@ -33,9 +34,11 @@ class InstitucionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InstitucionRequest $request)
     {           
-        
+        $institucion = new Institucion($request->all());
+        $institucion->save();
+        return redirect()->route('institucion.list');
     }
 
    

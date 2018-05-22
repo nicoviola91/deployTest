@@ -103,8 +103,6 @@
 	
 	$(function () {
 
-	    console.log('hola');
-
 	    $('#tabla-alertas').DataTable({
 	      'paging'      : true,
 	      'lengthChange': true,
