@@ -11,9 +11,10 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+//Default Route a raiz
+Route::get('/', function () {
+    return view('auth/login');
+});
 
 //USERS
 Route::get('/user/create','UserController@create');
