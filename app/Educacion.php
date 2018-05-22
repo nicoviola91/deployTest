@@ -10,7 +10,7 @@ class Educacion extends Model
     protected $fillable =[
         'nivelAlcanzado',
         'institucion',
-        'direccion_id',
+        //'direccion_id',
         'inicio',
         'fin',
         'comentarios',
