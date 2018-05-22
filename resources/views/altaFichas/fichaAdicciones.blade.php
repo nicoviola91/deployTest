@@ -56,9 +56,11 @@
                             <span aria-hidden="true">×</span></button>
                             <h4 class="modal-title">Agregar Adicción</h4>
                         </div>
-                        <div class="modal-body">
-                            <form id="adicciones-form" method="POST" action="" >
-                                {{ csrf_field() }}
+                        
+                        <form id="adicciones-form" method="POST" action="{{route('fichaAdicciones.storeAdiccion',$asistido->id)}}" >
+                            {{ method_field('PUT') }}
+                            {{ csrf_field() }}
+                            <div class="modal-body">
                                     <div class="box-body">
                                     <div class="form-group">
                                         <input class="form-control" id="sustanciaInicio" name="sustanciaInicio" placeholder="Sustancia de inicio" type="text" >

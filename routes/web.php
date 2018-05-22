@@ -94,11 +94,11 @@ Route::group(['prefix'=>'fichaDatosPersonales'],function(){
 
 //FICHA ADICCIONES
 Route::group(['prefix'=>'fichaAdicciones'],function(){
-    Route::get('/create',[
+    Route::get('/create/{id}',[
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
     ]);
-    Route::get('/storeAdiccion',[
+    Route::put('/storeAdiccion/{id}',[
         'uses'=>'FichaAdiccionesController@storeAdiccion',
         'as'=>'fichaAdicciones.storeAdiccion',
     ]);

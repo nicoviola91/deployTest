@@ -64,7 +64,7 @@
 					@else
 					<dd>
 						<div class="col-md-4">
-						<a href="{{ url('/fichaDatosPersonales/create',['id'=>$asistido->id]) }}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+						<a href="{{route('fichaAdicciones.create',['asistido_id'=>$asistido->id]) }}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
 									<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Adicciones
 						</a>
 						</div>
