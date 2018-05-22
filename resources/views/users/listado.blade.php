@@ -105,7 +105,19 @@
 	      'searching'   : true,
 	      'ordering'    : true,
 	      'info'        : true,
-	      'autoWidth'   : false
+	      'autoWidth'   : false,
+	      'pageLength'	: 50,
+
+	      	"oLanguage": {
+				"sEmptyTable": "No hay datos disponibles para la tabla.",
+				"sLengthMenu": "Mostrar _MENU_ filas",
+				"sSearch": "Buscar:",
+				"sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
+				"oPaginate": {
+					"sPrevious": "Anterior",
+					"sNext": "Siguiente"
+				}
+			}
 	    });
   });
 

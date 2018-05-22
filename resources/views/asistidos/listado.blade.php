@@ -61,7 +61,7 @@
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->nombre}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->apellido}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->dni}}</td>
-						<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com <span class="pull-right"> <a href="#" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a></span></td>
+						<td class="text-center" style="vertical-align: middle;">juanagustingallo@gmail.com</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at}}</td>
 						<td class="text-center" style="vertical-align: middle;"> 
 						<a href="{{route('asistido.show',['id'=>$asistido->id])}}" class="altaBtn" data-id="100" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 
@@ -92,7 +92,19 @@
 	      'searching'   : true,
 	      'ordering'    : true,
 	      'info'        : true,
-	      'autoWidth'   : false
+	      'autoWidth'   : false,
+	      'pageLength'	: 50,
+
+	      	"oLanguage": {
+				"sEmptyTable": "No hay datos disponibles para la tabla.",
+				"sLengthMenu": "Mostrar _MENU_ filas",
+				"sSearch": "Buscar:",
+				"sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
+				"oPaginate": {
+					"sPrevious": "Anterior",
+					"sNext": "Siguiente"
+				}
+			}
 	    });
   });
 
