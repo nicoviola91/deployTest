@@ -118,6 +118,10 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
         'uses'=>'FichaAdiccionesController@storeAdiccion',
         'as'=>'fichaAdicciones.storeAdiccion',
     ]);
+    Route::get('/destroyAdiccion/{adiccion_id}/{asistido_id}',[
+        'uses'=>'FichaAdiccionesController@destroyAdiccion',
+        'as'=>'fichaAdicciones.destroyAdiccion'
+    ]);
 });
 
 

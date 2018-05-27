@@ -50,8 +50,9 @@
                                 @foreach($adicciones as $adiccion)
                                 
                                     <div class="box-tools pull-right">
-                                        <button type="button" class="btn  btn-sm" data-widget="remove"><i class="fa fa-trash"></i>
-                                        </button>
+                                        <a href="{{ route('fichaAdicciones.destroyAdiccion',['adiccion_id'=>$adiccion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$adiccion->id}}" data-toggle="tooltip" data-title="Descartar Solicitud">
+                                          <i class="fa fa-trash"></i>
+                                        </a>
                                     </div>
                                     <dl class="dl-horizontal" >
                                         <dt>Sustancia de inicio</dt>
@@ -90,7 +91,7 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title"><i class="icon fa fa-bank fa-fw"></i> Agregar Adicción </h4>
+                          <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Agregar Adicción </h4>
                         </div>
                   
                         <form id="nuevaAdiccion-form" method="POST" action="{{ url('/fichaAdicciones/storeAdiccion',['asistido_id'=>$asistido->id]) }}">

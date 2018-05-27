@@ -45,6 +45,13 @@ class FichaAdiccionesController extends Controller
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);       
     }
 
+    public function destroyAdiccion($adiccion_id,$asistido_id){
+
+        $adiccion=Adiccion::find($adiccion_id);
+        $adiccion->delete();
+        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+
+    }
 
 
     public function showAdicciones(){
