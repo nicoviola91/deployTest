@@ -36,6 +36,8 @@ class Asistido extends Model
         return $this->hasOne('App\Ficha');
     }
 
+
+
 /*    public function direccion(){
         return $this->hasOne('App\Direccion');
     }

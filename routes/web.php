@@ -114,7 +114,7 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
     ]);
-    Route::put('/storeAdiccion/{id}',[
+    Route::post('/storeAdiccion/{id}',[
         'uses'=>'FichaAdiccionesController@storeAdiccion',
         'as'=>'fichaAdicciones.storeAdiccion',
     ]);

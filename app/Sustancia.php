@@ -11,7 +11,4 @@ class Sustancia extends Model
         'sustancia',
     ];
 
-    public function adiccion(){
-        return $this->hasOne('App\Adiccion');
-    }
 }

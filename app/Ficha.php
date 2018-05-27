@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Adiccion;
 
-abstract class Ficha extends Model
+class Ficha extends Model
 {
     
     public function asistido(){

@@ -21,7 +21,7 @@
 	Ficha de Adicciones
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-bell"></i> Asistidos</a></li>
+	<li><a href="#"><i class="fa fa-exclamation-triangle"></i> Asistidos</a></li>
 	<li class="active">Listado</li>
 </ol>
 @endsection
@@ -41,54 +41,122 @@
                     </a>
                   </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse">
-                  <div class="box-body">
-                        <a href="#" data-toggle="modal" data-target="#modal-default"><i align="left" class="fa fa-plus"></i>  Agregar Adicción</a>
+
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="box-body ">
+                           
+                            @if(isset($fichaAdiccion))
+                                @if ($fichaAdiccion->checklistAdicciones==1) 
+                                @foreach($adicciones as $adiccion)
+                                
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn  btn-sm" data-widget="remove"><i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <dl class="dl-horizontal" >
+                                        <dt>Sustancia de inicio</dt>
+                                        <dd>{{$adiccion->sustanciaInicio}}</dd>
+
+                                        <dt>Sustancia de fin</dt>
+                                        <dd>{{$adiccion->sustanciaFin}}</dd>
+                                        
+                                        @if(isset($adiccion->frecuencia))
+                                        <dt>Frecuencia</dd>
+                                        <dd>{{$adiccion->frecuencia}}</dd>
+                                        @endif
+                                        @if(isset($adiccion->modalidad))
+                                        <dt>Modalidad</dd>
+                                        <dd>{{$adiccion->modalidad}}</dd>
+                                        @endif
+                                        @if(isset($adiccion->edadInicio))
+                                        <dt>Edad de inicio</dd>
+                                        <dd>{{$adiccion->edadInicio}}</dd>
+                                        @endif
+                                    </dl>
+                                @endforeach
+                                @endif
+                            @endif
+                     
+                    <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Adicción</a>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="modal fade in" id="modal-default" style="display: none; padding-right: 17px;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+
+
+            <div class="modal fade" id="modal-agregar">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">Agregar Adicción</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title"><i class="icon fa fa-bank fa-fw"></i> Agregar Adicción </h4>
                         </div>
-                        
-                        <form id="adicciones-form" method="POST" action="{{route('fichaAdicciones.storeAdiccion',$asistido->id)}}" >
-                            {{ method_field('PUT') }}
-                            {{ csrf_field() }}
-                            <div class="modal-body">
-                                    <div class="box-body">
-                                    <div class="form-group">
-                                        <input class="form-control" id="sustanciaInicio" name="sustanciaInicio" placeholder="Sustancia de inicio" type="text" >
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" id="sustanciaFin" name="sustanciaFin" placeholder="Sustancia de fin" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                            <input class="form-control" id="frecuencia" name="frecuencia" placeholder="Frecuencia" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                            <input class="form-control" id="modalidad" name="modalidad" placeholder="Modalidad" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                            <input class="form-control" id="edadInicio" name="edadInicio" placeholder="Edad de inicio" type="text">
-                                    </div>
+                  
+                        <form id="nuevaAdiccion-form" method="POST" action="{{ url('/fichaAdicciones/storeAdiccion',['asistido_id'=>$asistido->id]) }}">
+                              {{ csrf_field() }}
+                               
+                               <div class="box-body"><div class="form-group">
+                                            
+                                             {!! Form::Label('sustanciaInicio', 'Sustancia de inicio:') !!}
+                                             <select class="form-control" name="sustanciaInicio" id="sustanciaInicio" required >
+                                               @foreach($sustancias as $sustancia)
+                                                 <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
+                                               @endforeach
+                                             </select>
+                                           </div>
+                                           
+                                           <div class="form-group">
+                                             {!! Form::Label('sustanciaFin', 'Sustancia de fin:') !!}
+                                             <select class="form-control" name="sustanciaFin" id="sustanciaFin "required>
+                                               @foreach($sustancias as $sustancia)
+                                                 <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
+                                               @endforeach
+                                             </select>
+                                           </div>
+                               
+                                           <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
+                                             <label for="frecuencia">Frecuencia</label>
+                                             <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia">
+                                             @if ($errors->has('frecuencia'))
+                                               <span class="help-block">
+                                                   <strong>{{ $errors->first('frecuencia') }}</strong>
+                                               </span>
+                                             @endif
+                                           </div>
+                               
+                                           <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
+                                             <label for="modalidad">Modalidad</label>
+                                             <input type="text" class="form-control" id="modalidad" placeholder="Modalidad" name="modalidad">
+                                             @if ($errors->has('modalidad'))
+                                               <span class="help-block">
+                                                   <strong>{{ $errors->first('modalidad') }}</strong>
+                                               </span>
+                                             @endif
+                                           </div>
+                                        
+                                           <div class="form-group {{ $errors->has('edadInicio') ? ' has-error' : '' }}">
+                                                <label for="edadInicio">Edad de inicio</label>
+                                                <input type="number" class="form-control" id="edadInicio" placeholder="Edad de inicio" name="edadInicio">
+                                                @if ($errors->has('edadInicio'))
+                                                  <span class="help-block">
+                                                      <strong>{{ $errors->first('edadInicio') }}</strong>
+                                                  </span>
+                                                @endif
+                                              </div>
+                                        </div>
+                  
+                            
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                  <button type="submit" class="btn btn-danger">Agregar Adicción</button>
                                 </div>
-                            </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-danger">Guardar</button>
-                        </div>
-                    </form>
+                        </form>
+                  
+                      </div>
                     </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
+                  </div>
+
             <div class="box-group">
               <div class="panel box box-danger">
                 <div class="box-header with-border">
@@ -98,7 +166,7 @@
                     </a>
                   </h4>
                 </div>
-                <div id="collapseTwo" class="panel-collapse collapse">
+                <div id="collapseTwo" class="panel-collapse collapse in">
                   <div class="box-body">
                         <a href="#" data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
                   </div>
@@ -156,7 +224,7 @@
                     </a>
                   </h4>
                 </div>
-                <div id="collapseThree" class="panel-collapse collapse">
+                <div id="collapseThree" class="panel-collapse collapse in">
                   <div class="box-body">
                         <a href="#" data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Tratamiento</a>
                   </div>

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Adiccion;
+use App\Ficha;
 
 class FichaAdiccion extends Ficha
 {
@@ -18,8 +20,9 @@ class FichaAdiccion extends Ficha
     ];
 
     public function adicciones(){
-        return $this->hasMany('App\Adiccion');
+        return $this->hasMany('App\Adiccion','fichaAdiccion_id');
     }
+
 
     public function tratamientos(){
         return $this->hasMany('App\Tratamiento');
@@ -28,6 +31,7 @@ class FichaAdiccion extends Ficha
     public function episodiosAgresivos(){
         return $this->hasMany('App\EpisodioAgresivo');
     }
+
 
 
 }
