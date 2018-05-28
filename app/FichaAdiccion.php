@@ -25,11 +25,11 @@ class FichaAdiccion extends Ficha
 
 
     public function tratamientos(){
-        return $this->hasMany('App\Tratamiento');
+        return $this->hasMany('App\Tratamiento','fichaAdiccion_id');
     }
 
     public function episodiosAgresivos(){
-        return $this->hasMany('App\EpisodioAgresivo');
+        return $this->hasMany('App\EpisodioAgresivo','fichaAdiccion_id');
     }
 
 

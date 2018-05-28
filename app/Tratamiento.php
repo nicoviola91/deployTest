@@ -13,7 +13,8 @@ class Tratamiento extends Model
         'fin',
         'estado',
         'causaDeFin',
-        'comentarios'
+        'comentarios',
+        'fichaAdiccion_id'
     ];
 
     public function profesional(){
@@ -25,7 +26,7 @@ class Tratamiento extends Model
     }
 
     public function fichaAdiccion(){
-        return $this->belongsTo('App\FichaAdiccion');
+        return $this->belongsTo('App\FichaAdiccion','fichaAdiccion_id');
     }
 
     public function fichaSaludMental(){

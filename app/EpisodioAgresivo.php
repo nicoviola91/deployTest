@@ -11,10 +11,12 @@ class EpisodioAgresivo extends Model
         'tipo',
         'lugar',
         'fecha',
+        'fichaSaludMental_id',
+        'fichaAdiccion_id'
     ];
 
     public function fichaAdiccion(){
-        return $this->belongsTo('App\FichaAdiccion');
+        return $this->belongsTo('App\FichaAdiccion','fichaAdiccion_id');
     }
 
     public function fichaSaludMental(){

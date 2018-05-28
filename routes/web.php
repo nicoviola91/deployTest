@@ -118,9 +118,29 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
         'uses'=>'FichaAdiccionesController@storeAdiccion',
         'as'=>'fichaAdicciones.storeAdiccion',
     ]);
+    Route::post('/storeEpisodioAgresivo/{id}',[
+        'uses'=>'FichaAdiccionesController@storeEpisodioAgresivo',
+        'as'=>'fichaAdicciones.storeEpisodioAgresivo',
+    ]);
+    Route::post('/storeTratamiento/{id}',[
+        'uses'=>'FichaAdiccionesController@storeTratamiento',
+        'as'=>'fichaAdicciones.storeTratamiento',
+    ]);
+    Route::post('/storeConsideraciones/{id}',[
+        'uses'=>'FichaAdiccionesController@storeConsideraciones',
+        'as'=>'fichaAdicciones.storeConsideraciones',
+    ]);
     Route::get('/destroyAdiccion/{adiccion_id}/{asistido_id}',[
         'uses'=>'FichaAdiccionesController@destroyAdiccion',
         'as'=>'fichaAdicciones.destroyAdiccion'
+    ]);
+    Route::get('/destroyEpisodioAgresivo/{episodioAgresivo_id}/{asistido_id}',[
+        'uses'=>'FichaAdiccionesController@destroyEpisodioAgresivo',
+        'as'=>'fichaAdicciones.destroyEpisodioAgresivo'
+    ]);
+    Route::get('/destroyTratamiento/{tratamiento_id}/{asistido_id}',[
+        'uses'=>'FichaAdiccionesController@destroyTratamiento',
+        'as'=>'fichaAdicciones.destroyTratamiento'
     ]);
 });
 
