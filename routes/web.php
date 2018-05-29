@@ -144,6 +144,21 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
     ]);
 });
 
+//FICHA FAMILIA Y AMIGOS
+Route::group(['prefix'=>'fichaFamiliaAmigos'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaFamiliaAmigosController@create',
+        'as'=>'fichaFamiliaAmigos.create',
+    ]);
+    Route::post('/storeContacto/{id}',[
+        'uses'=>'FichaFamiliaAmigosController@storeContacto',
+        'as'=>'fichaFamiliaAmigos.storeContacto',
+    ]);
+    Route::get('/destroyContacto/{contacto_id}/{asistido_id}',[
+        'uses'=>'FichaFamiliaAmigosController@destroyContacto',
+        'as'=>'fichaFamiliaAmigos.destroyContacto',
+    ]);
+});
 
 Auth::routes();
 

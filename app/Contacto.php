@@ -14,10 +14,11 @@ class Contacto extends Model
         'telefono',
         'mail',
         'fechaNacimiento',
+        'fichaFamiliaAmigos_id'
     ];
 
     public function fichaFamiliaAmigos(){
-        return $this->belongsTo('App\FichaFamiliaAmigos');
+        return $this->belongsTo('App\FichaFamiliaAmigos','fichaFamiliaAmigos_id');
     }
     
 }

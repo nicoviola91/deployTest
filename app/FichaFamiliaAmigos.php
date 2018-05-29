@@ -14,6 +14,6 @@ class FichaFamiliaAmigos extends Ficha
     }
 
     public function contactos(){
-        return $this->hasMany('App\Contactos');
+        return $this->hasMany('App\Contacto','fichaFamiliaAmigos_id');
     }
 }

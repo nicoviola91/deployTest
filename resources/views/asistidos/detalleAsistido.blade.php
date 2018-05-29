@@ -132,13 +132,15 @@
 					@endif
 					<br>
 					@if(count($asistido->fichaFamiliaAmigos))
-					<dd><a href="#" class='text-light-blue'>Familia Amigos</a></dd>
+				<dd><a href="{{route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Familia Amigos">Familia Amigos</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
+								
+								<a href="{{route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Familia Amigos">
 										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Familia y Amigos
-								</button>
+								</a>
+							
 						</div>
 					</dd>
 					@endif
