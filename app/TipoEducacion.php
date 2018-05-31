@@ -12,6 +12,6 @@ class TipoEducacion extends Model
     ];
     
     public function educaciones(){
-        return $this->hasMany('App\Educacion');
+        return $this->hasMany('App\Educacion','tipoEducacion_id');
     }
 }

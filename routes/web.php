@@ -160,6 +160,21 @@ Route::group(['prefix'=>'fichaFamiliaAmigos'],function(){
     ]);
 });
 
+//FICHA EDUCACION
+Route::group(['prefix'=>'fichaEducacion'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaEducacionController@create',
+        'as'=>'fichaEducacion.create',
+    ]);
+    Route::post('/storeEducacion/{id}/{tipoEducacion_id}',[
+        'uses'=>'FichaEducacionController@storeEducacion',
+        'as'=>'fichaEducacion.storeEducacion',
+    ]);
+    Route::get('/destroyEducacion/{educacion_id}/{asistido_id}',[
+        'uses'=>'fichaEducacion@destroyEducacion',
+        'as'=>'fichaEducacion.destroyEducacion',
+    ]);
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

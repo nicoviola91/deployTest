@@ -16,6 +16,8 @@ class Educacion extends Model
         'comentarios',
         'orientacion',
         'tituloObtenido',
+        'tipoEducacion_id',
+        'ficha_educacion_id'
     ];
 
     //representa la direccion de la institucion
@@ -24,11 +26,11 @@ class Educacion extends Model
     }
 
     public function fichaEducacion(){
-        return $this->belongsTo('App\FichaEducacion');
+        return $this->belongsTo('App\FichaEducacion','ficha_educacion_id');
     }
 
     public function tipo(){
-        return $this->belongsTo('App\TipoEducacion');
+        return $this->belongsTo('App\TipoEducacion','tipoEducacion_id');
     } 
 
 

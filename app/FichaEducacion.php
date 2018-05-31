@@ -8,11 +8,11 @@ class FichaEducacion extends Ficha
 {
     protected $table="fichasEducaciones";
     protected $fillable =[
-        'eduacion_id',
+        
     ];
 
     public function educaciones(){
-        return $this->hasMany('App\Educacion');
+        return $this->hasMany('App\Educacion','tipoEducacion_id');
     }
 
 }
