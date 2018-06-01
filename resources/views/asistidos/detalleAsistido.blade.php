@@ -52,15 +52,15 @@
 					<dd>{{$asistido->observaciones}}</dd>
 					@endif
 					<dt>Fichas disponibles</dd>
-					@if((count($asistido->fichaSaludMental)==0) && (count($asistido->fichaNecesidad)==0) && (count($asistido->fichaMedica)==0) 
-					&& (count($asistido->fichaLocalizacion)==0) && (count($asistido->fichaFamiliaAmigos)==0) && (count($asistido->fichaEmpleo)==0)
-					&& (count($asistido->fichaEducacion)==0) && (count($asistido->fichaDiagnosticoIntegral)==0) && (count($asistido->fichaDatosPersonales)==0)
-					&& (count($asistido->fichaAsistenciaSocial)==0) && (count($asistido->fichaAdiccion)==0))
+					@if((($asistido->checkFichaSaludMental)==0) && (($asistido->checkFichaNecesidad)==0) && (($asistido->checkFichaMedica)==0) 
+					&& (($asistido->checkFichaLocalizacion)==0) && (($asistido->checkFichaFamiliaAmigos)==0) && (($asistido->checkFichaEmpleo)==0)
+					&& (($asistido->checkFichaEducacion)==0) && (($asistido->checkFichaDiagnosticoIntegral)==0) && (($asistido->checkFichaDatosPersonales)==0)
+					&& (($asistido->checkFichaAsistenciaSocial)==0) && (($asistido->fichaAdiccion)==0))
 					<dd>El asistido aún no tiene fichas vinculadas.</dd>
 					<br>
 					@endif
-					@if(count($asistido->fichaAdiccion))
-					<dd href="#">Adiccion</dd>
+					@if(($asistido->checkFichaAdicciones)==1)
+					<dd><a href="{{route('fichaAdicciones.create',['asistido_id'=>$asistido->id])}}">Ficha de Adicciones</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -71,8 +71,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaAsistenciaSocial))
-					<dd><a href="#" class='text-light-blue'>Asistencia Social</a></dd>
+					@if(($asistido->checkFichaAsistenciaSocial)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Asistencia Social</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -83,8 +83,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaDatosPersonales))
-					<dd href="#" class='text-light-blue'>Datos Personales</dd>
+					@if(($asistido->checkFichaDatosPersonales)==1)
+				<dd href="{{route('fichaDatosPersonales.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue'>Ficha de Datos Personales</dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -95,9 +95,9 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaDiagnosticoIntegral))
-					<dd><a href="#" class='text-light-blue'>Diagnostico Integral</a></dd>
+					@if(($asistido->checkFichaDiagnosticoIntegral)==1)
 					@else
+					<dd><a href="#" class='text-light-blue'>Ficha de Diagnóstico Integral</a></dd>
 					<dd>
 						<div class="col-md-4">
 								<button type="button" class="btn btn-block btn-default btn-sm">
@@ -107,8 +107,8 @@
 					<dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaEducacion))
-					<dd><a href="#" class='text-light-blue'>Educación</a></dd>
+					@if(($asistido->checkFichaEducacion)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Educación</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -119,8 +119,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaEmpleo))
-					<dd><a href="#" class='text-light-blue'>Empleo</a></dd>
+					@if(($asistido->checkFichaEmpleo)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Empleo</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -131,7 +131,7 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaFamiliaAmigos))
+					@if(($asistido->checkFichaFamiliaAmigos)==1)
 				<dd><a href="{{route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Familia Amigos">Familia Amigos</a></dd>
 					@else
 					<dd>
@@ -145,8 +145,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaLocalizacion))
-					<dd><a href="#" class='text-light-blue'>Localizacion</a></dd>
+					@if(($asistido->checkFichaLocalizacion)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Localización</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -157,8 +157,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaMedica))
-					<dd><a href="#" class='text-light-blue'>Médica</a></dd>
+					@if(($asistido->checkFichaMedica)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha Médica</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -169,8 +169,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaNecesidad))
-					<dd><a href="#" class='text-light-blue'>Necesidades</a></dd>
+					@if(($asistido->checkFichaNecesidad)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Necesidades</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
@@ -181,8 +181,8 @@
 					</dd>
 					@endif
 					<br>
-					@if(count($asistido->fichaSaludMental))
-					<dd><a href="#" class='text-light-blue'>Salud Mental</a></dd>
+					@if(($asistido->checkFichaSaludMental)==1)
+					<dd><a href="#" class='text-light-blue'>Ficha de Salud Mental</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">

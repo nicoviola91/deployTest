@@ -25,11 +25,13 @@ class FichaFamiliaAmigosController extends Controller
 
     public function storeContacto(Request $request, $asistido_id){
         $asistido=Asistido::find($asistido_id);
+        $asistido->checkFichaFamiliaAmimgos=1;
         $fichaFamiliaAmigos=$this->findFichaFamiliaAmigosByAsistidoId($asistido_id);
         $fichaFamiliaAmigos->checklistContactos=1;
         $contacto=new Contacto($request->all());
         $fichaFamiliaAmigos->contactos()->save($contacto);
         $contacto->save();
+        $asistido->save();
 
         return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
     }

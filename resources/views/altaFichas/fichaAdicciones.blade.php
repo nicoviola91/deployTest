@@ -420,7 +420,7 @@
 
                           <div class="form-group {{ $errors->has('checklistRequiereDerivacion') ? ' has-error' : '' }}">
                               <label for="checklistRequiereDerivacion">Requiere derivación     </label>
-                              <input type="checkbox" id="checklistRequiereDerivacion" name="checklistRequiereDerivacion">
+                              <input type="checkbox" id="checklistRequiereDerivacion" name="checklistRequiereDerivacion" {{isset($fichaAdiccion->checklistRequiereDerivacion) && ($fichaAdiccion->checklistRequiereDerivacion==1) ? 'checked':''}}>
                               @if ($errors->has('checklistRequiereDerivacion'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('checklistRequiereDerivacion') }}</strong>
@@ -431,7 +431,7 @@
 
                           <div class="form-group {{ $errors->has('checklistRequiereInternacion') ? ' has-error' : '' }}">
                               <label for="checklistRequiereInternacion">Requiere internación      </label>
-                              <input type="checkbox" id="checklistRequiereInternacion" name="checklistRequiereInternacion">
+                          <input type="checkbox" id="checklistRequiereInternacion" name="checklistRequiereInternacion" {{isset($fichaAdiccion->checklistRequiereInternacion) && ($fichaAdiccion->checklistRequiereInternacion==1) ? 'checked':''}}>
                               @if ($errors->has('checklistRequiereInternacion'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('checklistRequiereInternacion') }}</strong>
@@ -441,7 +441,7 @@
 
                           <div class="form-group {{ $errors->has('checklistEmbarazo') ? ' has-error' : '' }}">
                               <label for="checklistEmbarazo">Está embarazada      </label>
-                              <input type="checkbox" id="checklistEmbarazo" name="checklistEmbarazo">
+                              <input type="checkbox" id="checklistEmbarazo" name="checklistEmbarazo" {{isset($fichaAdiccion->checklistEmbarazo) && ($fichaAdiccion->checklistEmbarazo==1) ? 'checked':''}}>
                               @if ($errors->has('checklistEmbarazo'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('checklistEmbarazo') }}</strong>
@@ -451,7 +451,7 @@
                             <br>
                           <div class="form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
                               <label for="estado">Observaciones</label>
-                              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
+                          <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" value="{{old('observaciones',$fichaAdiccion->observaciones)}}">
                               @if ($errors->has('observaciones'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('observaciones') }}</strong>

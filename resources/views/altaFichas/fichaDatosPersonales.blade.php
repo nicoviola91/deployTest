@@ -25,24 +25,24 @@
           <div class="box-body">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required>
+            <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required value="{{old('nombre',$fichaDatosPersonales->nombre)}}" {{isset($fichaDatosPersonales) ? 'readonly':''}}>
             </div>
             <div class="form-group">
               <label for="apellido">Apellido</label>
-              <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text">
+              <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text" value="{{old('apellido',$fichaDatosPersonales->apellido)}}">
             </div>
             <div class="form-group">
                 <label for="numeroDocumento">Numero de documento</label>
-                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" pattern="[0-9]*$">
+                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" pattern="[0-9]*$" value="{{old('numeroDocumento',$fichaDatosPersonales->numeroDocumento)}}">
                 <small><p class='help-block'>El número de documento no debe contener guiones ni puntos.</p></small>
             </div>
             <div class="form-group">
                 <label for="apellido">Fecha de nacimiento</label>
-                <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ingrese fecha de nacimiento" type="date">
+                <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ingrese fecha de nacimiento" type="date" value="{{old('fechaNacimiento',$fichaDatosPersonales->fechaNacimiento)}}">
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="tienePartida" value="1"> Tiene partida 
+              <input type="checkbox" name="tienePartida" {{isset($fichaDatosPersonales->tienePartida) && ($fichaDatosPersonales->tienePartida=1) ? 'checked':''}}> Tiene partida 
               </label>
             </div>
             <div class="form-group">

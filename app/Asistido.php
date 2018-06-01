@@ -14,7 +14,20 @@ class Asistido extends Model
      */
     protected $table="asistidos";
     protected $fillable = [
-        'nombre','apellido','fechaNacimiento','dni','direccion','observaciones','foto', 'email','tipo','estado'
+        'nombre','apellido','fechaNacimiento','dni','direccion','observaciones','foto', 'email','tipo','estado',
+        'checkFichaEducacion',
+        'checkFichaAdicciones',
+        'checkFichaFamiliaAmigos',
+        'checkFichaDatosPersonales',
+        'checkFichaAsistenciaSocial',
+        'checkFichaDiagnosticoIntegral',
+        'checkFichaEmpleo',
+        'checkFichaLegal',
+        'checkFichaLocalizacion',
+        'checkFichaMedica',
+        'checkFichaNecesidad',
+        'checkFichaSaludMental',
+        
     ];
 
     /**
@@ -24,6 +37,8 @@ class Asistido extends Model
      */
     protected $hidden = [
         'password', 'remember_token',
+        'checkFichaEducacion',
+        
     ];
 
     public function comunidades(){

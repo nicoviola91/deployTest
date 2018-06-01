@@ -38,6 +38,7 @@ class FichaAdiccionesController extends Controller
     public function storeAdiccion(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
         $asistido=Asistido::find($asistido_id);
+        $asistido->checkFichaAdicciones=1;
         $sustancias=Sustancia::all(['id','sustancia']);
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         $fichaAdiccion->checklistAdicciones=1;
@@ -60,10 +61,13 @@ class FichaAdiccionesController extends Controller
 
     public function storeEpisodioAgresivo(Request $request, $asistido_id){
         $episodioAgresivo=new EpisodioAgresivo($request->all());
+        $asistido=Asistido::find($asistido_id);
+        $asistido->checkFichaAdicciones=1;
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         $fichaAdiccion->checklistEpisodiosAgresivos=1;
         $fichaAdiccion->episodiosAgresivos()->save($episodioAgresivo);
         $episodioAgresivo->save();
+        $asistido->save();
 
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);     
     } 
@@ -76,10 +80,13 @@ class FichaAdiccionesController extends Controller
 
     public function storeTratamiento(Request $request,$asistido_id){
         $tratamiento=new Tratamiento($request->all());
+        $asistido=Asistido::find($asistido_id);
+        $asistido->checkFichaAdicciones=1;
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         $fichaAdiccion->checklistTratamiento=1;
         $fichaAdiccion->tratamientos()->save($tratamiento);
         $tratamiento->save();
+        $asistido->save();
 
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
     }
@@ -92,6 +99,8 @@ class FichaAdiccionesController extends Controller
 
     public function storeConsideraciones(Request $request,$asistido_id){
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
+        $asistido=Asistido::find($asistido_id);
+        $asistido->checkFichaAdicciones=1;
         
         if(isset($request->checklistRequiereInternacion)){
             $fichaAdiccion->checklistRequiereInternacion=1;
@@ -107,6 +116,7 @@ class FichaAdiccionesController extends Controller
             $fichaAdiccion->observaciones=$request->observaciones;
         }
         $fichaAdiccion->save();
+        $asistido->save();
 
 
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);

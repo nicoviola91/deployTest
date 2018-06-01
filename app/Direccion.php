@@ -15,7 +15,11 @@ class Direccion extends Model
         'entreCalles',
         'provincia',
         'codigoPostal',
-        'pais'
+        'pais',
+        'institucion_id',
+        'educacion_id',
+        'fichaLocalizacion_id',
+
     ];
 
     /*public function asistido(){
@@ -27,7 +31,7 @@ class Direccion extends Model
     }
 
     public function fichaLocalizacion(){
-        return $this->belongsTo('App\FichaLocalizacion');
+        return $this->belongsTo('App\FichaLocalizacion','fichaLocalizacion_id');
     }
 
     public function educacion(){

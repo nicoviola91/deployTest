@@ -25,7 +25,7 @@ class FichaDatosPersonales extends Ficha
     ];
 
     public function asistido(){
-        return $this->belongsTo('App\Asistido');
+        return $this->belongsTo('App\Asistido','asistidos_id');
     }
     public function sexo(){
         return $this->belongsTo('App\Sexo');
