@@ -20,8 +20,8 @@ class FichaSaludMental extends Ficha
         'checkInternacion',
     ];
 
-    public function afecciones(){
-        return $this->hasMany('App\Afeccion');
+    public function patologias(){
+        return $this->hasMany('App\Patologia');
     }
 
     public function medicaciones(){
