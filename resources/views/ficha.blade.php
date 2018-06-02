@@ -339,13 +339,13 @@
             </div> <!-- FIN BOX CONSULTAS -->
 
             <div class="box box-solid" id="boxNuevaConsulta">
-              <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta">
+              <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <h3 class="box-title"><i class="icon fa fa-comments-o fa-fw"></i> Nueva Interacción</h3>
-                <textarea class="textareaEditor" id="consultaBody" name="consultaBody" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
+                <textarea class="textareaEditor" id="mensaje" name="mensaje" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
                 
-                <label for="consultaAttach" id="agregarAdjunto">Archivo Adjunto</label>
-                <input type="file" id="consultaAttach" name="consulttaAtach">
+                <label for="adjunto" id="agregarAdjunto">Archivo Adjunto</label>
+                <input type="file" id="adjunto" name="adjunto">
                 <p class="help-block"><small>Admite jpg, jpeg, png, pdf, doc, xls, txt</small></p>
 
                 <div class="box-footer">
