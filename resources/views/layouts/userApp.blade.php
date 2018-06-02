@@ -91,8 +91,8 @@
                   <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
 
                   <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2012</small>
+                    Alexander Pierce
+                    <small>Miembro desde Nov. 2012</small>
                   </p>
                 </li>
                 <!-- Menu Body -->

@@ -18,8 +18,6 @@
   <link rel="stylesheet" href="{{ asset('/css/AdminLTE.css') }}">
   <!-- AdminLTE Skins. -->
   <link rel="stylesheet" href="{{ asset('/css/skin-red.css') }}">
-  <!-- Bootstrap WYSIHTML5 -->
-  <link rel="stylesheet" href="{{ asset('/wsyhtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -35,8 +33,6 @@
   <script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('/js/adminlte.min.js') }}"></script>
-  <!-- Bootstrap WYSIHTML5 -->
-  <script src="{{ asset('/wsyhtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 
   @yield('head')
 
@@ -74,8 +70,8 @@
               <li class="user-header">
                 <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  Alexander Pierce
+                  <small>Miembro desde Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->

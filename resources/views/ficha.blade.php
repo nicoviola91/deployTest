@@ -5,6 +5,14 @@
 	Ficha
 @endsection
 
+@section('head')
+  
+  <!-- Bootstrap WYSIHTML5 -->
+  <link rel="stylesheet" href="{{ asset('/wsyhtml5/bootstrap3-wysihtml5.min.css') }}">
+  <!-- Bootstrap WYSIHTML5 -->
+  <script src="{{ asset('/wsyhtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+
+@endsection
 
 @section('pageHeader')
 <h1>
@@ -92,16 +100,16 @@
               <span style="display: none;"> Salud Mental</span>
             </a>
           </li>
-          <li class="liTab adicciones">
-            <a href="#tab_9" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Adicciones">
-              <i class="icon fa fa-warning fa-fw"></i> 
-              <span style="display: none;"> Adicciones</span>
-            </a>
-          </li>
           <li class="liTab integral">
             <a href="#tab_10" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Diagnóstico Integral">
               <i class="icon fa fa-stethoscope fa-fw"></i> 
               <span style="display: none;"> Diagnóstico Integral</span>
+            </a>
+          </li>
+          <li class="liTab adicciones">
+            <a href="#tab_9" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Adicciones">
+              <i class="icon fa fa-warning fa-fw"></i> 
+              <span style="display: none;"> Adicciones</span>
             </a>
           </li>
 
@@ -162,9 +170,9 @@
                 <h3 class="box-title">
                   <i class="icon fa fa-legal fa-fw"></i> Ficha Legal
                   <span class="pull-right">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-print"></i> Imprimir</button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i> Compartir</button>
-                </span>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-print"></i> Imprimir</button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i> Compartir</button>
+                  </span>
                 </h3>
                 
                 
@@ -180,13 +188,15 @@
             <div class="box box-solid" id="boxConsultas" style="margin-bottom: 5px;">
 
               <div class="box-body">
-                <h3 class="box-title"><i class="icon fa fa-comments fa-fw"></i> Interacciones (5)</h3>
                 
-
-
-
-
-
+                <h3 class="box-title" style="margin-bottom: 20px;">
+                  <i class="icon fa fa-comments fa-fw"></i> Interacciones (<span id="cantidadConsultas">5</span>)
+                  <span class="pull-right">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-plus-square fa-fw"></i> &nbsp;Agregar&nbsp;&nbsp;</button>
+                  </span>
+                </h3>
+                
+                
 
 
                 <div class="box box-widget">
