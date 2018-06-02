@@ -16,6 +16,11 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+//Prueba para ver vista ficha
+Route::get('/ficha', function () {
+    return view('ficha');
+});
+
 //USERS
 Route::get('/user/create','UserController@create');
 Route::get('/user/list','UserController@showAll');
