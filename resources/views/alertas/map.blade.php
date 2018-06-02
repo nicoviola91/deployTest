@@ -51,7 +51,7 @@
       
     </script>
     
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYXXQ58L5elQGyL_9L3pY8ihhLqKQjibM&callback=initMap&libraries=visualization"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC00PZ8LBCq2QWNAo9fcAHDAMN0z5-vIt0&callback=initMap&libraries=visualization"></script>
 
 @endsection
 

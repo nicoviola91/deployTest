@@ -13,6 +13,15 @@
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
+	<style type="text/css">
+		
+		.pac-container {
+
+			z-index: 99999;
+		}
+
+	</style>
+
 @endsection
 
 
@@ -102,45 +111,100 @@
 			
 			{{ csrf_field() }}
 	     	
-	     	<div class="box-body"><div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
-	     	              <label for="nombre">Nombre</label>
-	     	              <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
-	     	              @if ($errors->has('nombre'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('nombre') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	            
-	     	            <div class="form-group {{ $errors->has('cuit') ? ' has-error' : '' }}">
-	     	              <label for="cuit">CUIT</label>
-	     	              <input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
-	     	              @if ($errors->has('cuit'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('cuit') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	
-	     	            <div class="form-group {{ $errors->has('telefono') ? ' has-error' : '' }}">
-	     	              <label for="telefono">Telefono</label>
-	     	              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
-	     	              @if ($errors->has('telefono'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('telefono') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	
-	     	            <div class="form-group {{ $errors->has('responsable') ? ' has-error' : '' }}">
-	     	              <label for="responsable">Responsable</label>
-	     	              <input type="text" class="form-control" id="responsable" placeholder="Responsable" name="responsable">
-	     	              @if ($errors->has('responsable'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('responsable') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div></div>
+	     	<div class="box-body">
+	     		<div class="form-group col-md-6 {{ $errors->has('nombre') ? ' has-error' : '' }}">
+ 	              <label for="nombre">Nombre</label>
+ 	              <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+ 	              @if ($errors->has('nombre'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('nombre') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+ 	            
+ 	            <div class="form-group col-md-6 {{ $errors->has('cuit') ? ' has-error' : '' }}">
+ 	              <label for="cuit">CUIT</label>
+ 	              <input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
+ 	              @if ($errors->has('cuit'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('cuit') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+ 	
+ 	            <div class="form-group col-md-6 {{ $errors->has('telefono') ? ' has-error' : '' }}">
+ 	              <label for="telefono">Telefono</label>
+ 	              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+ 	              @if ($errors->has('telefono'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('telefono') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+ 	
+ 	            <div class="form-group col-md-6 {{ $errors->has('responsable') ? ' has-error' : '' }}">
+ 	              <label for="responsable">Responsable</label>
+ 	              <input type="text" class="form-control" id="responsable" placeholder="Responsable" name="responsable">
+ 	              @if ($errors->has('responsable'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('responsable') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+
+ 	            <label>Dirección</label>
+ 	            <div class="form-group col-md-12">
+ 	            	<input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false">
+ 	            	<p class="help-block"><i class="icon fa fa-chevron-up"></i> Podés usar este campo para validar la dirección, sino ingresala manualmente</p>
+ 	            </div>
+
+ 	            <div class="form-group col-md-6">
+            		<label>Calle</label>
+	            	<input class="form-control" id="route" name="calle"></input>
+ 	            </div>
+ 	            <div class="form-group col-md-2">
+ 	            	<label>Número</label>
+	 	            <input class="form-control" id="street_number" name="numero"></input>
+ 	            </div>
+ 	            <div class="form-group col-md-2">
+ 	            	<label>Piso</label>
+	 	            <input class="form-control" name="piso"></input>
+ 	            </div>
+ 	            <div class="form-group col-md-2">
+ 	            	<label>Dpto</label>
+	 	            <input class="form-control" name="departamento"></input>
+ 	            </div>
+
+ 	            <div class="form-group col-md-3">
+ 	            	<label>Localidad</label>
+	 	            <input class="form-control" id="locality" name="localidad"></input>
+ 	            </div>
+ 	            <div class="form-group col-md-3">
+ 	            	<label>CP</label>
+	 	            <input class="form-control" id="postal_code" name="codigoPostal"></input>
+ 	            </div>
+ 	            <div class="form-group col-md-3">
+ 	            	<label>Provincia</label>
+ 	            	<input class="form-control" id="administrative_area_level_1" name="provincia"></input>
+ 	            </div>
+ 	            
+ 	            <div class="form-group col-md-3">
+ 	            	<label>Pais</label>
+ 	            	<input class="form-control" id="country" name="pais"></input>
+ 	            </div>
+
+ 	            <div class="form-group col-md-12">
+ 	            	<label>Mas detalles (entre calles)</label>
+ 	            	<input class="form-control" name="entreCalles"></input>
+ 	            </div>
+
+ 	            <div class="form-group"> 	            	
+ 	            	<input class="form-control hidden" id="lat" name="lat"></input>
+ 	            	<input class="form-control hidden" id="lng" name="lng"></input>
+ 	            </div>
+
+
+	     	</div>
 
 	      
 	      	<div class="modal-footer">
@@ -192,5 +256,67 @@
   	});
 
 </script>
+
+<script>
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+
+        document.getElementById('lat').value = place.geometry.location.lat();
+        document.getElementById('lng').value = place.geometry.location.lng();
+
+        console.log(place);
+      }
+
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC00PZ8LBCq2QWNAo9fcAHDAMN0z5-vIt0&libraries=places&callback=initAutocomplete" async defer></script>
+
 
 @endsection
