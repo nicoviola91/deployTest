@@ -31,7 +31,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		<div class="box box-primary">
 			<div class="box-body box-profile">
-				<img class="profile-user-img img-responsive img-circle" src="http://www.styletextile.com/wp-content/uploads/2017/10/profile.jpg" alt="User profile picture">
+				<img class="profile-user-img img-responsive img-circle" src="{{asset('img/user160x160.png')}}" alt="User profile picture">
 				<h3 class="profile-username text-center">{{$asistido->nombre}}</h3>
 				<h3 class="profile-username text-center">{{$asistido->apellido}}</h3>
 				<dl class="dl-horizontal" >

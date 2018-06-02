@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Consulta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ConsultaController extends Controller
 {
@@ -43,11 +44,15 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {           
         $consulta = new Consulta($request->all());
-        $consulta->user_id = 1; //TODO: ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
-        $consulta->consultable_type = 2; //TODO: ACA HAY QUE PONER EL TIPO DE FICHA 
+        $consulta->user_id = 4; //TODO: ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
+        $consulta->consultable_type = 'fichasMedicas'; //TODO: ACA HAY QUE PONER EL TIPO DE FICHA 
         $consulta->consultable_id = 1; //TODO: ACA HAY QUE PONER EL ID DE LA FICHA
+
+        //$file = Storage::disk('local')->put('/consultas/archivo_prueba.txt', 'CONTENIDO');
         
-        //$consulta->save();
+        //var_dump($file);
+
+        $consulta->save();
 
         var_dump($consulta);
         //return redirect()->route('alerta.list');
