@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Redirector;
@@ -58,6 +59,22 @@ class UserController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource's profile.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($id = false)
+    {   
+        if (!$id) 
+            $id = Auth::id();
+
+        $data['user'] = User::find($id);
+
+        return view('users.profile', $data);
     }
 
 
