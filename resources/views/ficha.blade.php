@@ -62,7 +62,7 @@
           <li class="liTab empleo">
             <a href="#tab_2" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Empleo">
               <i class="icon fa fa-gears fa-fw"></i> 
-              <span style="display: none;"> FIcha Empleo</span>
+              <span style="display: none;"> Ficha Empleo</span>
             </a>
           </li>
 
@@ -194,7 +194,7 @@
 
                   <div class="box-header with-border" style="background-color: #e5e5e5">
                     <div class="user-block">
-                      <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Image">
+                      <img class="img-circle" src="{{ asset('/img/Perez.jpg') }}" alt="User Image">
                       <small class="text-muted pull-right">7:30 PM Today</small>
                       <span class="username"><a href="#">Manuela Santos</a></span>
                       <span class="description">Abogada</span>
@@ -210,9 +210,9 @@
 
                   <div class="box-header with-border" style="background-color: #e5e5e5">
                     <div class="user-block">
-                      <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Image">
+                      <img class="img-circle" src="{{ asset('/img/Pepe.jpg') }}" alt="User Image">
                       <small class="text-muted pull-right">7:30 PM Today</small>
-                      <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                      <span class="username"><a href="#">Pepe Gomez</a></span>
                       <span class="description">Abogado Penalista</span>
                     </div>
                   </div>
@@ -224,7 +224,7 @@
                       your mouth.</p>
                     <div class="attachment-block clearfix">
                       <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                      <img class="attachment-img" src="{{ asset('/img/user160x160.png') }}" alt="Attachment Image">
+                      <img class="attachment-img" src="{{ asset('/img/imagen.jpg') }}" alt="Attachment Image">
                     </div>
                   </div>
 
@@ -232,7 +232,7 @@
 
                   <div class="box-header with-border" style="background-color: #e5e5e5">
                     <div class="user-block">
-                      <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Image">
+                      <img class="img-circle" src="{{ asset('/img/Tombeur1.jpg') }}" alt="User Image">
                       <small class="text-muted pull-right">7:30 PM Today</small>
                       <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
                       <span class="description">Shared publicly - 7:30 PM Today</span>
@@ -329,16 +329,20 @@
             </div> <!-- FIN BOX CONSULTAS -->
 
             <div class="box box-solid" id="boxNuevaConsulta">
-
-              <div class="box-body" id="boxFicha">
+              <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta">
+                {{ csrf_field() }}
                 <h3 class="box-title"><i class="icon fa fa-comments-o fa-fw"></i> Nueva Interacción</h3>
-                <textarea class="textareaEditor" id="editor1" name="consulta" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
-                <label for="adjunto">Archivo Adjunto</label>
-                <input type="file" id="adjunto" name="adjunto">
-              <p class="help-block"><small>Admite jpg, jpeg, png, pdf, doc, xls, txt</small></p>
+                <textarea class="textareaEditor" id="consultaBody" name="consultaBody" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
+                
+                <label for="consultaAttach" id="agregarAdjunto">Archivo Adjunto</label>
+                <input type="file" id="consultaAttach" name="consulttaAtach">
+                <p class="help-block"><small>Admite jpg, jpeg, png, pdf, doc, xls, txt</small></p>
 
-              </div>
-
+                <div class="box-footer">
+                  <button type="button" class="btn btn-default">Cancelar</button>
+                  <button type="submit" class="btn btn-primary" id="consultaSubmitBtn">Enviar Solicitud</button>
+                </div>
+              </form>
             </div>
 
           
@@ -360,6 +364,17 @@
 
 
 @section('scripts')
+
+<script type="text/javascript">
+  
+  // $('#consultaSubmitBtn').click(function (e) {
+
+  //   e.preventDefault();
+
+    
+  // })
+
+</script>
 
 <script type="text/javascript">
 

@@ -25,13 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        // Get the currently authenticated user...
-        $user = Auth::user();
-
-        // Get the currently authenticated user's ID...
-        //$id = Auth::id();
-        //return view('welcome');
-
-        var_dump($user);
+        //Redireccionar a pagina de bienvenida
     }
 }

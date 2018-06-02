@@ -101,6 +101,15 @@ Route::group(['prefix'=>'asistido'],function(){
     ]);
 });
 
+//CONSULTAS/INTERACCIONES
+Route::group(['prefix'=>'consulta'],function(){
+    Route::post('/store',[
+        'uses'=>'ConsultaController@store',
+        'as'=>'consulta.store'
+    ]);
+});
+
+
 //FICHA DATOS PERSONALES
 Route::group(['prefix'=>'fichaDatosPersonales'],function(){
     Route::get('/create/{id}',[
