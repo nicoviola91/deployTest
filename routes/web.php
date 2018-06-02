@@ -24,6 +24,7 @@ Route::get('/ficha', function () {
 //USERS
 Route::get('/user/create','UserController@create');
 Route::get('/user/list','UserController@showAll');
+Route::get('/user/profile','UserController@profile');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
