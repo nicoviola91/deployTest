@@ -8,6 +8,13 @@ use App\Http\Requests\AlertaRequest;
 
 class AlertaController extends Controller
 {
+
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -61,6 +68,8 @@ class AlertaController extends Controller
      */
     public function showAll()
     {
+        echo "<br>";
+        var_dump(Auth::user());
         $data['alertas'] = Alerta::all();
         return view('alertas.listado', $data);
     }
