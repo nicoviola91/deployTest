@@ -63,36 +63,23 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
                 <p>
-                  Alexander Pierce
-                  <small>Miembro desde Nov. 2012</small>
+                  {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
+                  <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
+             
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{url('/user/profile')}}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{url('/user/profile')}}" class="btn btn-default btn-flat">Mi Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Sign out</a>
@@ -117,7 +104,7 @@
           <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -176,7 +163,7 @@
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-legal "></i>Legal</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-exclamation-triangle"></i>Adicciones</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-life-bouy"></i>Asistencia Social</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-pencil-square-o"></i>Datos Personales</a></li>
+              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-id-badge"></i>Datos Personales</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-stethoscope"></i>Diagnostico Integral</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-mortar-board"></i>Educacion</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-cogs"></i>Empleo</a></li>

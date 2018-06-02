@@ -83,7 +83,7 @@
                 <!-- The user image in the navbar-->
                 <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">Alexander Pierce</span>
+                <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
@@ -91,29 +91,16 @@
                   <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
 
                   <p>
-                    Alexander Pierce
-                    <small>Miembro desde Nov. 2012</small>
+                    {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}
+                    <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                   </p>
                 </li>
                 <!-- Menu Body -->
-                <li class="user-body">
-                  <div class="row">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </div>
-                  <!-- /.row -->
-                </li>
+                
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a href="{{url('/user/profile')}}" class="btn btn-default btn-flat">Mi Perfil</a>
                   </div>
                   <div class="pull-right">
                     <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Sign out</a>
