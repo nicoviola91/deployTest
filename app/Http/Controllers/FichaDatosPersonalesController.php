@@ -23,19 +23,18 @@ class FichaDatosPersonalesController extends Controller
 
     public function store(Request $request, $asistido_id){
 
-        $ficha= new FichaDatosPersonales($request->all());
+        $fichaDatosPersonales= new FichaDatosPersonales($request->all());
         $asistido=Asistido::find($asistido_id);
         $asistido->checkFichaDatosPersonales=1;
-        $ficha->asistidos_id=$asistido_id;
-        $ficha->save();
-        $asistido->save();
+        $asistido->ficha()->save($ficha);
+
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
 
 
     }
 
     public function findFichaDatosPersonalesByAsistidoId($asistido_id){
-        $fichaDatosPersonales=FichaDatosPersonales::where('asistidos_id',$asistido_id)->first();
+        $fichaDatosPersonales=FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
         if(empty($fichaDatosPersonales)){
             $fichaDatosPersonales=new FichaDatosPersonales();

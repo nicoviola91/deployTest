@@ -181,7 +181,7 @@ Route::group(['prefix'=>'fichaEducacion'],function(){
         'uses'=>'FichaEducacionController@create',
         'as'=>'fichaEducacion.create',
     ]);
-    Route::post('/storeEducacion/{id}/{tipoEducacion_id}',[
+    Route::post('/storeEducacion/{id}',[
         'uses'=>'FichaEducacionController@storeEducacion',
         'as'=>'fichaEducacion.storeEducacion',
     ]);

@@ -108,13 +108,13 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaEducacion)==1)
-					<dd><a href="#" class='text-light-blue'>Ficha de Educación</a></dd>
+					<dd><a href="{{route('fichaEducacion.create',['asistido_id'=>$asistido->id]) }}" class='text-light-blue' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title=" Ficha de Educación">Ficha de Educación</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
-										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Educación
-								</button>
+							<a href="{{route('fichaEducacion.create',['asistido_id'=>$asistido->id]) }}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha de Educación">
+								<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Educación
+							</a>
 						</div>
 					</dd>
 					@endif

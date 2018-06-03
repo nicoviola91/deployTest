@@ -12,7 +12,7 @@ class FichaEducacion extends Ficha
     ];
 
     public function educaciones(){
-        return $this->hasMany('App\Educacion','tipoEducacion_id');
+        return $this->hasMany('App\Educacion');
     }
 
 }
