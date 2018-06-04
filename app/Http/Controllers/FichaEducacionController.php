@@ -44,7 +44,7 @@ class FichaEducacionController extends Controller
 
         $educacionInput=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $educacion=new Educacion($educacionInput);
-        var_dump($educacion);
+  
 
         if($request->input('tipoEducacion')=='Primario'){
             $tipoEducacion_id=1;
@@ -64,13 +64,14 @@ class FichaEducacionController extends Controller
 
         $tipoEducacion=TipoEducacion::find($tipoEducacion_id);
         
-        $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
-        $direccion= new Direccion($direccionInput);
+        
         
         $fichaEducacion->educaciones()->save($educacion);
         $educacion->tipo()->associate($tipoEducacion);
         $educacion->save();
-        //$tipoEducacion->educaciones()->save($educacion);
+     
+        $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
+        $direccion= new Direccion($direccionInput);
         $educacion->direccion()->save($direccion);
 
 
@@ -93,6 +94,8 @@ class FichaEducacionController extends Controller
     public function destroyEducacion($educacion_id,$asistido_id){
 
         $educacion=Educacion::find($educacion_id);
+        $direccion=Direccion::where('educacion_id',$educacion_id)->first();
+        $direccion->delete();
         $educacion->delete();
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
         //ver d hacer un soft delete

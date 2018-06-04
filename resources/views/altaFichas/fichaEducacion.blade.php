@@ -210,7 +210,7 @@
 
                   <div class="form-group col-md-6">
                     <label>Calle</label>
-                    <input class="form-control" id="route" name="calle"></input>
+                    <input class="form-control" id="route" name="calle" required></input>
                   </div>
                   <div class="form-group col-md-2">
                     <label>Número</label>
