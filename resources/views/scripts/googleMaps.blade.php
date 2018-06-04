@@ -1,38 +1,3 @@
-@section('scripts')
-
-<script type="text/javascript">
-	
-	$(function () {
-
-	    $('#tabla-instituciones').DataTable({
-	      'paging'      : true,
-	      'lengthChange': true,
-	      'searching'   : true,
-	      'ordering'    : true,
-	      'info'        : true,
-	      'autoWidth'   : false,
-	      'pageLength'	: 50,
-
-	      	"oLanguage": {
-				"sEmptyTable": "No hay datos disponibles para la tabla.",
-				"sLengthMenu": "Mostrar _MENU_ filas",
-				"sSearch": "Buscar:",
-				"sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
-				"oPaginate": {
-					"sPrevious": "Anterior",
-					"sNext": "Siguiente"
-				}
-			}
-	    });
-  	});
-
-  	$('.agregarBtn').click(function () {
-
-  		$('#modal-agregar').modal('show');
-
-  	});
-
-</script>
 
 <script>
 
@@ -50,6 +15,8 @@
         autocomplete = new google.maps.places.Autocomplete(
             (document.getElementById('autocomplete')),
             {types: ['geocode']});
+
+        console.log('golaaaaaaa');
 
         autocomplete.addListener('place_changed', fillInAddress);
       }
@@ -94,6 +61,3 @@
     </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC00PZ8LBCq2QWNAo9fcAHDAMN0z5-vIt0&libraries=places&callback=initAutocomplete" async defer></script>
-
-
-@endsection

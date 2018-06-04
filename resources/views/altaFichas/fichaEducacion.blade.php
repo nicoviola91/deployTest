@@ -236,6 +236,9 @@
                     <input class="form-control" id="country" name="pais"></input>
                   </div>
 
+                  <input class="form-control" id="lat" name="lat" style="display: none;"></input>
+                  <input class="form-control" id="lng" name="lng" style="display: none;"></input>
+
                   <div class="form-group col-md-12">
                     <label>Mas detalles (entre calles)</label>
                     <input class="form-control" name="entreCalles"></input>
