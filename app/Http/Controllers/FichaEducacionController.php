@@ -22,19 +22,10 @@ class FichaEducacionController extends Controller
         $orientaciones=array('Agrario', 'Arte', 'Comunicación', 'Turismo', 'Lenguas', 'Informática', 'Educación Física',
         'Ciencias Naturales', 'Ciencias Sociales y Humanidades','Economía y Administración');
         if(!empty($fichaEducacion)){
-            $primarias=Educacion::where('tipoEducacion_id','1')->get();
-            $secundarios=Educacion::where('tipoEducacion_id','2')->get();
-            $terciarios=Educacion::where('tipoEducacion_id','3')->get();
-            $universitarios=Educacion::where('tipoEducacion_id','4')->get();
-            $cursos=Educacion::where('tipoEducacion_id','5')->get();
-           
-            return view('altaFichas.fichaEducacion')->with('primarias',$primarias)
+            $educaciones=Educacion::where('ficha_educacion_id',$fichaEducacion->id)->get();
+            return view('altaFichas.fichaEducacion')->with('educaciones',$educaciones)
                 ->with('fichaEducacion',$fichaEducacion)
                 ->with('asistido',$asistido)
-                ->with('secundarios',$secundarios)
-                ->with('terciarios',$terciarios)
-                ->with('universitarios',$universitarios)
-                ->with('cursos',$cursos)
                 ->with('niveles',$niveles)
                 ->with('orientaciones',$orientaciones)
                 ->with('tipos',$tipos);
@@ -49,24 +40,25 @@ class FichaEducacionController extends Controller
         //$asistido->save();
 
         $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
-        $fichaEducacion->checklistPrimaria=1;
+        
 
         $educacionInput=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $educacion=new Educacion($educacionInput);
+        var_dump($educacion);
 
-        if($educacion->tipo=='Primario'){
+        if($request->input('tipoEducacion')=='Primario'){
             $tipoEducacion_id=1;
         }
-        if($educacion->tipo=='Secundario'){
+        if($request->input('tipoEducacion')=='Secundario'){
             $tipoEducacion_id=2;
         }
-        if($educacion->tipo=='Terciario'){
+        if($request->input('tipoEducacion')=='Terciario'){
             $tipoEducacion_id=3;
         }
-        if($educacion->tipo=='Universitario'){
+        if($request->input('tipoEducacion')=='Universitario'){
             $tipoEducacion_id=4;
         }
-        if($educacion->tipo=='Curso'){
+        if($request->input('tipoEducacion')=='Curso'){
             $tipoEducacion_id=5;
         }
 
@@ -76,7 +68,9 @@ class FichaEducacionController extends Controller
         $direccion= new Direccion($direccionInput);
         
         $fichaEducacion->educaciones()->save($educacion);
-        $tipoEducacion->educaciones()->save($educacion);
+        $educacion->tipo()->associate($tipoEducacion);
+        $educacion->save();
+        //$tipoEducacion->educaciones()->save($educacion);
         $educacion->direccion()->save($direccion);
 
 
@@ -95,4 +89,15 @@ class FichaEducacionController extends Controller
         return $fichaEducacion;
 
     }
+
+    public function destroyEducacion($educacion_id,$asistido_id){
+
+        $educacion=Educacion::find($educacion_id);
+        $educacion->delete();
+        return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
+        //ver d hacer un soft delete
+        //se rompe por todos lados por las dependencias con otras tablas
+
+}
+
 }

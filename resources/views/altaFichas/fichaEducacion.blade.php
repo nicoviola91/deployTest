@@ -49,78 +49,82 @@
           <div id="collapseOne" class="panel-collapse collapse in">
             <div class="box-body ">
               @if(isset($fichaEducacion))
-                @if (isset($fichaEducacion->checklistPrimaria)) 
-                @foreach($primarias as $primaria)
+                @foreach($educaciones as $educacion)
                   <div class="box-tools pull-right">
-                    <a href="{{ route('fichaEducacion.destroyEducacion',['educacion_id'=>$primaria->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$primaria->id}}" data-toggle="tooltip" data-title="Descartar Educacion">
+                    <a href="{{ route('fichaEducacion.destroyEducacion',['educacion_id'=>$educacion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$educacion->id}}" data-toggle="tooltip" data-title="Descartar Educacion">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
                   <dl class="dl-horizontal" >
-                    @if(isset($primaria->institucion))
-                    <dt>Escuela</dt>
-                    <dd>{{$primaria->institucion}}</dd>
-                    @endif
-                    @if(isset($primaria->nivelAlcanzado))
-                      <dt>Nivel Alcanzado</dt>
-                      <dd>{{$primaria->nivelAlcanzado}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->calle))
-                    <dt>Calle</dt>
-                    <dd>{{$primaria->direccion->calle}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->numero))
-                    <dt>Número</dt>
-                    <dd>{{$primaria->direccion->numero}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->piso))
-                    <dt>Piso</dt>
-                    <dd>{{$primaria->direccion->piso}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->departamento))
-                    <dt>Departamento</dt>
-                    <dd>{{$primaria->direccion->departamento}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->entreCalles))
-                    <dt>Entre calles</dt>
-                    <dd>{{$primaria->direccion->entreCalles}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->localidad))
-                    <dt>Localidad</dt>
-                    <dd>{{$primaria->direccion->localidad}}</dd>
-                    @endif
-                    @if(isset($primaria->direccion->provincia))
-                    <dt>Provincia</dt>
-                    <dd>{{$primaria->direccion->provincia}}</dd>
+                    
+                    @if(isset($educacion->institucion))
+                    <dt>Tipo de educación</dt>
+                    <dd>{{$educacion->tipo->descripcion}}</dd>
                     @endif
 
-                    @if(isset($primaria->direccion->pais))
-                    <dt>País</dt>
-                    <dd>{{$primaria->direccion->pais}}</dd>
+                    @if(isset($educacion->institucion))
+                    <dt>Institución</dt>
+                    <dd>{{$educacion->institucion}}</dd>
                     @endif
-                    @if(isset($primaria->direccion->codigoPostal))
+                    @if(isset($educacion->nivelAlcanzado))
+                      <dt>Nivel Alcanzado</dt>
+                      <dd>{{$educacion->nivelAlcanzado}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->calle))
+                    <dt>Calle</dt>
+                    <dd>{{$educacion->direccion->calle}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->numero))
+                    <dt>Número</dt>
+                    <dd>{{$educacion->direccion->numero}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->piso))
+                    <dt>Piso</dt>
+                    <dd>{{$educacion->direccion->piso}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->departamento))
+                    <dt>Departamento</dt>
+                    <dd>{{$educacion->direccion->departamento}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->entreCalles))
+                    <dt>Entre calles</dt>
+                    <dd>{{$educacion->direccion->entreCalles}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->localidad))
+                    <dt>Localidad</dt>
+                    <dd>{{$educacion->direccion->localidad}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->provincia))
+                    <dt>Provincia</dt>
+                    <dd>{{$educacion->direccion->provincia}}</dd>
+                    @endif
+
+                    @if(isset($educacion->direccion->pais))
+                    <dt>País</dt>
+                    <dd>{{$educacion->direccion->pais}}</dd>
+                    @endif
+                    @if(isset($educacion->direccion->codigoPostal))
                     <dt>Código Postal</dt>
-                    <dd>{{$primaria->direccion->codigoPostal}}</dd>
+                    <dd>{{$educacion->direccion->codigoPostal}}</dd>
                     @endif
                     
-                    @if(isset($primaria->inicio))
+                    @if(isset($educacion->inicio))
                     <dt>Inicio de los estudios</dd>
-                    <dd>{{$primaria->inicio}}</dd>
+                    <dd>{{$educacion->inicio}}</dd>
                     @endif
 
-                    @if(isset($primaria->fin))
+                    @if(isset($educacion->fin))
                     <dt>Fin de los estudios</dd>
-                    <dd>{{$primaria->fin}}</dd>
+                    <dd>{{$educacion->fin}}</dd>
                     @endif
 
-                    @if(isset($primaria->comentarios))
+                    @if(isset($educacion->comentarios))
                     <dt>Comentarios</dd>
-                    <dd>{{$primaria->comentarios}}</dd>
+                    <dd>{{$educacion->comentarios}}</dd>
                     @endif
                   </dl>
                 @endforeach
-                @endif
-              @endif  
+                @endif 
               <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Educación</a>
             </div>
           </div>
@@ -164,7 +168,7 @@
                
                 <div class="form-group {{ $errors->has('institucion') ? ' has-error' : '' }}">
                   <label for="institucion">Nombre de la institución</label>
-                  <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion">
+                  <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required>
                   @if ($errors->has('institucion'))
                     <span class="help-block">
                         <strong>{{ $errors->first('institucion') }}</strong>

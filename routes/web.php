@@ -186,7 +186,7 @@ Route::group(['prefix'=>'fichaEducacion'],function(){
         'as'=>'fichaEducacion.storeEducacion',
     ]);
     Route::get('/destroyEducacion/{educacion_id}/{asistido_id}',[
-        'uses'=>'fichaEducacion@destroyEducacion',
+        'uses'=>'fichaEducacionController@destroyEducacion',
         'as'=>'fichaEducacion.destroyEducacion',
     ]);
 });
