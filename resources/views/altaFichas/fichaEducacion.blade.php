@@ -125,7 +125,7 @@
                   </dl>
                 @endforeach
                 @endif 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Educación</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus fa-fw"></i>  Agregar Educación</a>
             </div>
           </div>
         </div>
@@ -133,30 +133,27 @@
       <div class="modal fade" id="modal-agregar">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
+            
             <div class="modal-header">
-                <h4 class="modal-title"> Agregar Educación </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-plus fa-fw"></i> Agregar Educación <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button></h4>
             </div>
               <form id="nuevoContacto-form" method="POST" action="{{ route('fichaEducacion.storeEducacion',['asistido_id'=>$asistido->id]) }}">
                 {{ csrf_field() }}
                 <div class="box-body">
                    
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                       {!! Form::Label('tipo', 'Tipo de estudios') !!}
                       
                       <select class="form-control" name="tipoEducacion" id="tipoEducacion" required>
                         @foreach($tipos as $tipo)
                           <option value="{{$tipo}}">{{$tipo}}</option>
                         @endforeach
-                      </select>
-                     
-                      
+                      </select>           
+                  
                     </div>
-              
-
-                
-                  <div class="form-group">
+                              
+                  <div class="form-group col-md-6">
                     {!! Form::Label('nivelAlcanzado', 'Nivel alcanzado') !!}
                     
                     <select class="form-control" name="nivelAlcanzado" id="nivelAlcanzado" required>
@@ -166,7 +163,28 @@
                     </select>
                   </div>
                
-                <div class="form-group {{ $errors->has('institucion') ? ' has-error' : '' }}">
+                <!-- ESTO DE ACA ABAJO (ORIENTACION) SOLO DEBE MOSTRARSE CUANDO SELECCIONAN COMO TIPO DE EDUCACION LA SECUNDARIA!-->
+                <div class="form-group orientacion col-md-12" style="display: none;">
+                  {!! Form::Label('orientacion', 'Orientacion') !!}
+                  <select class="form-control" name="orientacion" id="orientacion" >
+                    @foreach($orientaciones as $orientacion)
+                      <option value="{{$orientacion}}">{{$orientacion}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <!-- ESTO DEBE MOSTRARSE SOLO CUANDO EL TIPO DE EDUCACION SELECCIONADO ES TERCIARIO O UNIVERSITARIO O CURSO!-->
+                <div class="form-group tituloObtenido col-md-12 {{ $errors->has('tituloObtenido') ? ' has-error' : '' }}" style="display: none;"> 
+                  <label for="tituloObtenido">Título obtenido</label>
+                  <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido">
+                  @if ($errors->has('tituloObtenido'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('tituloObtenido') }}</strong>
+                    </span>
+                  @endif
+                </div>
+
+                <div class="form-group col-md-12 {{ $errors->has('institucion') ? ' has-error' : '' }}">
                   <label for="institucion">Nombre de la institución</label>
                   <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required>
                   @if ($errors->has('institucion'))
@@ -176,33 +194,8 @@
                   @endif
                 </div>
 
-
-                <!-- ESTO DE ACA ABAJO (ORIENTACION) SOLO DEBE MOSTRARSE CUANDO SELECCIONAN COMO TIPO DE EDUCACION LA SECUNDARIA!-->
-                <div class="form-group">
-                    {!! Form::Label('orientacion', 'Orientacion') !!}
-                    <select class="form-control" name="orientacion" id="orientacion" >
-                      @foreach($orientaciones as $orientacion)
-                        <option value="{{$orientacion}}">{{$orientacion}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-
-                <!-- ESTO DEBE MOSTRARSE SOLO CUANDO EL TIPO DE EDUCACION SELECCIONADO ES TERCIARIO O UNIVERSITARIO O CURSO!-->
-                <div class="form-group {{ $errors->has('tituloObtenido') ? ' has-error' : '' }}">
-                    <label for="tituloObtenido">Título obtenido</label>
-                    <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido">
-                    @if ($errors->has('tituloObtenido'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('tituloObtenido') }}</strong>
-                      </span>
-                    @endif
-                  </div>
-
-                  
-
-
                    
-                  <label>Dirección de la institución</label>
+                  <label class="col-md-12">Dirección de la institución</label>
                   <div class="form-group col-md-12">
                     <input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false">
                     <p class="help-block"><i class="icon fa fa-chevron-up"></i> Podés usar este campo para validar la dirección, sino ingresala manualmente</p>
@@ -248,7 +241,7 @@
                     <input class="form-control" name="entreCalles"></input>
                   </div>
 
-                  <div class="form-group {{ $errors->has('inicio') ? ' has-error' : '' }}">
+                  <div class="form-group col-md-6 {{ $errors->has('inicio') ? ' has-error' : '' }}">
                     <label for="inicio">Inicio de los estudios</label>
                     <input type="date" class="form-control" id="inicio" placeholder="Inicio de los estudios" name="inicio">
                     @if ($errors->has('inicio'))
@@ -257,7 +250,7 @@
                       </span>
                     @endif
                   </div>
-                  <div class="form-group {{ $errors->has('fin') ? ' has-error' : '' }}">
+                  <div class="form-group col-md-6 {{ $errors->has('fin') ? ' has-error' : '' }}">
                       <label for="fin">Fin de los estudios</label>
                       <input type="date" class="form-control" id="fin" placeholder="Fin de los estudios" name="fin">
                       @if ($errors->has('fin'))
@@ -266,7 +259,7 @@
                         </span>
                       @endif
                     </div>
-                    <div class="form-group {{ $errors->has('comentarios') ? ' has-error' : '' }}">
+                    <div class="form-group col-md-12 {{ $errors->has('comentarios') ? ' has-error' : '' }}">
                         <label for="comentarios">Comentarios</label>
                         <input type="text" class="form-control" id="comentarios" placeholder="Comentarios adicionales" name="comentarios">
                         @if ($errors->has('comentarios'))
@@ -296,4 +289,34 @@
             </div>
           </div>
       </div>
+@endsection
+
+
+@section('scripts') 
+
+  <script type="text/javascript">
+    
+    $('#tipoEducacion').change(function () {
+
+      if ($(this).val() == 'Secundario') {
+
+        $('.orientacion').show();
+        $('.tituloObtenido').hide();
+      
+      } else if ($(this).val() == 'Terciario' || $(this).val() == 'Universitario' || $(this).val() == 'Curso') {
+
+        $('.orientacion').hide();
+        $('.tituloObtenido').show();
+
+      } else {
+
+        $('.orientacion').hide();
+        $('.tituloObtenido').hide();
+      }
+
+    });
+
+
+  </script>
+
 @endsection
