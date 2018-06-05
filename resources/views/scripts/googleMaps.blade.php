@@ -1,4 +1,3 @@
-@section('scripts')
 
 <script>
 
@@ -60,6 +59,3 @@
     </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC00PZ8LBCq2QWNAo9fcAHDAMN0z5-vIt0&libraries=places&callback=initAutocomplete" async defer></script>
-
-
-@endsection
