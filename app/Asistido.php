@@ -37,7 +37,7 @@ class Asistido extends Model
      */
     protected $hidden = [
         'password', 'remember_token',
-        'checkFichaEducacion',
+        
         
     ];
 
@@ -52,11 +52,6 @@ class Asistido extends Model
     }
 
 
-
-/*    public function direccion(){
-        return $this->hasOne('App\Direccion');
-    }
-*/
     public function sexo(){
         return $this->belongsTo('App\Sexo');
     }

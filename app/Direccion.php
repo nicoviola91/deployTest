@@ -19,7 +19,7 @@ class Direccion extends Model
         'localidad',
         'institucion_id',
         'educacion_id',
-        'fichaLocalizacion_id',
+        'localizacionHabitual_id',
 
     ];
 
@@ -31,12 +31,13 @@ class Direccion extends Model
         return $this->belongsTo('App\Institucion');
     }
 
-    public function fichaLocalizacion(){
-        return $this->belongsTo('App\FichaLocalizacion','fichaLocalizacion_id');
-    }
 
     public function educacion(){
         return $this->belongsTo('App\Educacion','educacion_id');
+    }
+
+    public function localizacionHabitual(){
+        return $this->belongsTo('App\LocalizacionHabitual','localizacionHabitual_id');
     }
 
 }

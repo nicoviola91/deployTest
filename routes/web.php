@@ -190,6 +190,30 @@ Route::group(['prefix'=>'fichaEducacion'],function(){
         'as'=>'fichaEducacion.destroyEducacion',
     ]);
 });
+
+//FICHA LOCALIZACION
+Route::group(['prefix'=>'FichaLocalizacion'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaLocalizacionController@create',
+        'as'=>'FichaLocalizacion.create',
+    ]);
+    Route::post('/storeLocalizacion/{id}',[
+        'uses'=>'FichaLocalizacionController@storeLocalizacion',
+        'as'=>'FichaLocalizacion.storeLocalizacion',
+    ]);
+    Route::get('/destroyLocalizacion/{localizacion_id}/{asistido_id}',[
+        'uses'=>'FichaLocalizacionController@destroyLocalizacion',
+        'as'=>'FichaLocalizacion.destroyLocalizacion',
+    ]);
+    Route::post('/storeZonaDePermanencia/{id}',[
+        'uses'=>'FichaLocalizacionController@storeZonaDePermanencia',
+        'as'=>'FichaLocalizacion.storeZonaDePermanencia',
+    ]);
+    Route::get('/destroyZonaDePermanencia/{zonaDePermanencia_id}/{asistido_id}',[
+        'uses'=>'FichaLocalizacionController@destroyZonaDePermanencia',
+        'as'=>'FichaLocalizacion.destroyZonaDePermanencia',
+    ]);
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

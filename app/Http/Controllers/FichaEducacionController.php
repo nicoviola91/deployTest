@@ -98,8 +98,7 @@ class FichaEducacionController extends Controller
         $direccion->delete();
         $educacion->delete();
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
-        //ver d hacer un soft delete
-        //se rompe por todos lados por las dependencias con otras tablas
+       
 
 }
 

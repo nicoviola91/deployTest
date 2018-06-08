@@ -150,9 +150,9 @@
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
+								<a href="{{route('FichaLocalizacion.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Localización">
 										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Localización
-								</button>
+								</a>
 						</div>
 					</dd>
 					@endif
