@@ -35,6 +35,43 @@ class FichaAdiccionesController extends Controller
         return view('altaFichas.fichaAdicciones')->with('asistido',$asistido)->with('sustancias',$sustancias);
     }
 
+    public function get ($asistido_id) {
+
+        echo "GOlaaaaaaaaaaaa";
+        //return response()->json(array('success' => true, 'html'=>'Holaaaaaaaaaaaaaaaaaaaa'));
+
+        // $asistido = Asistido::find($asistido_id);
+        // $sustancias = Sustancia::all(['id','sustancia']);
+
+        // $fichaAdiccion = FichaAdiccion::where('asistido_id',$asistido_id)->first();
+
+        // if(!empty($fichaAdiccion)){
+            
+        //     //Si existe la devuelvo:
+        //     $adicciones = Adiccion::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+        //     $episodiosAgresivos = EpisodioAgresivo::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+        //     $tratamientos = Tratamiento::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+            
+        //     $vista = view('altaFichas.fichaAdicciones')
+        //         ->with('asistido',$asistido)
+        //         ->with('sustancias',$sustancias)
+        //         ->with('adicciones',$adicciones)
+        //         ->with('fichaAdiccion',$fichaAdiccion)
+        //         ->with('episodiosAgresivos',$episodiosAgresivos)
+        //         ->with('tratamientos',$tratamientos)
+        //         ->render();
+
+        //     return response()->json(array('success' => true, 'html'=>$vista));
+
+        // } else {
+
+        //     //Si no existe se crea:
+        //     $vista = view('altaFichas.fichaAdicciones')->with('asistido',$asistido)->with('sustancias',$sustancias)->render();
+        //     return response()->json(array('success' => true, 'html'=>$vista));    
+        // }
+        
+    }
+
     public function storeAdiccion(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
         $asistido=Asistido::find($asistido_id);

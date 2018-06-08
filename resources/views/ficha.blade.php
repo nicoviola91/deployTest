@@ -17,11 +17,11 @@
 @section('pageHeader')
 <h1>
 	<i class="icon fa fa-address-card fa-fw"></i> Detalle de Asistido
-	<small> Juan Agustin Gallo </small>
+	<small> {{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} </small>
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-user"></i> Asistidos</a></li>
-	<li class="active">#100</li>
+	<li class="active"># {{ ucwords($asistido->id) }}</li>
 </ol>
 @endsection
 
@@ -138,7 +138,7 @@
               <span style="display: none;"> Diagnóstico Integral</span>
             </a>
           </li>
-          <li class="liTab adicciones">
+          <li class="liTab adicciones" data-id="{{$asistido->id}}">
             <a href="#tab_adicciones" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Adicciones">
               <i class="icon fa fa-warning fa-fw"></i> 
               <span style="display: none;"> Adicciones</span>
@@ -264,84 +264,64 @@
           <!-- /.tab-pane -->
 
           <div class="tab-pane" id="tab_personal">
-            <!-- DATOS DE LA FICHA -->
-            <div class="box box-solid" id="boxFicha">
-              <div class="box-body">
-                <h3 class="box-title">
-                  <i class="icon fa fa-id-badge fa-fw"></i> Datos Básicos
-                  <span class="pull-right">
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
-                  </span>
-                </h3>
-                <div id="datosPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-              </div>
-            </div>
-
-            <!-- CONSULTAS -->
-            <div class="box box-solid" id="boxConsultas">
-              <div class="box-body">
-                <h3 class="box-title"><i class="icon fa fa-comments fa-fw"></i> Interacciones</h3>
-                <div id="consultasPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-              </div>
-            </div>
+            <div id="datosPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasPersonal">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
           </div>
-          <!-- /.tab-pane -->
-          
+
           <div class="tab-pane" id="tab_legal">
-            
-            <!-- DATOS DE LA FICHA -->
-            <div class="box box-solid" id="boxFicha">
-              <div class="box-body" id="boxFicha">
-                <h3 class="box-title">
-                  <i class="icon fa fa-legal fa-fw"></i> Ficha Legal
-                  <span class="pull-right">
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
-                  </span>
-                </h3>
-                <div id="datosLegal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-              </div>
-            </div>
+            <div id="datosLegal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasLegal">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
-            <!-- CONSULTAS -->
-            <div class="box box-solid" id="boxConsultas" style="margin-bottom: 5px;">
-              <div class="box-body">
-                <h3 class="box-title" style="margin-bottom: 20px;">
-                  <i class="icon fa fa-comments fa-fw"></i> Interacciones (<span id="cantidadConsultas">5</span>)
-                  <span class="pull-right">
-                    <a type="button" class="btn btn-default btn-sm no-print agregarConsultaBtn" href="#formNuevaConsulta"><i class="fa fa-plus-square fa-fw"></i> &nbsp;Agregar&nbsp;&nbsp;</a>
-                  </span>
-                </h3>
-                
-                <div class="box box-widget" id="consultasLegal">
-                  ACA VAN LAS CONSULTAS TRAIDAS POR AJAX
-                </div>
+          <div class="tab-pane" id="tab_educacion">
+            <div id="datosEducacion">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasEducacion">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
-              </div>                
+          <div class="tab-pane" id="tab_empleo">
+            <div id="datosEmpleo">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasEmpleo">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
-            </div> <!-- FIN BOX CONSULTAS -->
+          <div class="tab-pane" id="tab_asistencia">
+            <div id="datosAsistencia">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasAsistencia">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
-            <div class="box box-solid" id="boxNuevaConsulta">
-              <div class="box-body">
-              <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <h3 class="box-title"><i class="icon fa fa-comments-o fa-fw"></i> Nueva Interacción</h3>
-                <textarea class="textareaEditor" id="mensaje" name="mensaje" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
-                
-                <label for="adjunto" id="agregarAdjunto">Archivo Adjunto</label>
-                <input type="file" id="adjunto" name="adjunto">
-                <p class="help-block"><small>Admite jpg, jpeg, png, pdf, doc, xls, txt</small></p>
+          <div class="tab-pane" id="tab_necesidades">
+            <div id="datosNecesidades">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasNecesidades">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
-                <div class="box-footer">
-                  <button type="button" class="btn btn-default">Cancelar</button>
-                  <button type="submit" class="btn btn-primary" id="consultaSubmitBtn">Enviar Solicitud</button>
-                </div>
-              </form>
-              </div>
-            </div> <!-- FIN BOX NUEVA CONSULTA -->
-          
-          </div> <!-- END TAB PANE LEGAL -->
+          <div class="tab-pane" id="tab_medica">
+            <div id="datosMedica">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasMedica">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
+
+          <div class="tab-pane" id="tab_mental">
+            <div id="datosMental">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasMental">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
+
+          <div class="tab-pane" id="tab_integral">
+            <div id="datosIntegral">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasIntegral">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
+
+          <div class="tab-pane" id="tab_adicciones">
+            <div id="datosAdicciones">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasAdicciones">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
+
+          <div class="tab-pane" id="tab_familia">
+            <div id="datosFamilia">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasFamilia">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
+
+          <div class="tab-pane" id="tab_localizacion">
+            <div id="datosLocalizacion">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+            <div id="consultasLocalizacion">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+          </div>
 
         
 
@@ -360,23 +340,29 @@
 
 @section('scripts')
 
-<script type="text/javascript">
-  
-  // $('#consultaSubmitBtn').click(function (e) {
-
-  //   e.preventDefault();
-
-    
-  // })
-
-</script>
 
 <script type="text/javascript">
 
     $(".liTab").click(function () {
 
       $(this).siblings().find('span').hide();
-    })
+
+    });
+
+    $('.liTab.adicciones').click(function () {
+
+      console.log('FICHA ADICCIONES');
+
+      var id = $(this).data('id');
+      console.log(id);
+
+      $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+        console.log(data);
+      
+      })
+
+    });
 
     $( ".liTab" ).hover(
       
