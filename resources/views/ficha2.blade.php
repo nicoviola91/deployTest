@@ -45,39 +45,7 @@
 <div class="col-md-12">
 					 
       <div class="nav-tabs-custom">
-        
-
-        <div class="box box-widget widget-user-2" style="margin-bottom: 5px;">
-          <!-- Add the bg color to the header using any of the bg-* classes -->
-          <div class="widget-user-header bg-primary">
-            <div class="widget-user-image">
-
-              @if(isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg')
-
-                <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="Default">
-
-              @else
-
-                <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="User Image">
-
-              @endif
-              
-            </div>
-            <!-- /.widget-user-image -->
-            <h3 class="widget-user-username">{{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} <span class="pull-right"><small style="color: white !important;"> Creado {{ $asistido->created_at->format('M y') }}</small></span></h3>
-            <h5 class="widget-user-desc">DNI {{ $asistido->dni }}</h5>
-          </div>
-          <div class="box-footer no-padding">
-            <ul class="nav nav-stacked">
-              <li><a href="#"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
-              <li><a href="#"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
-              <li><a href="#"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a></li>
-              <li><a href="#"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
-            </ul>
-          </div>
-        </div>
-
-
+            
         <ul class="nav nav-tabs no-print">
           
           <li class="liTab personal">
@@ -167,114 +135,44 @@
 
         </ul>
 
-        
+        <div class="box box-widget widget-user-2" style="margin-bottom: 5px;">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-primary">
+              <div class="widget-user-image">
+
+                @if(isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg')
+
+                  <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="Default">
+
+                @else
+
+                  <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="User Image">
+
+                @endif
+                
+              </div>
+              <!-- /.widget-user-image -->
+              <h3 class="widget-user-username">{{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} <span class="pull-right"><small style="color: white !important;"> Creado {{ $asistido->created_at->format('M y') }}</small></span></h3>
+              <h5 class="widget-user-desc">DNI {{ $asistido->dni }}</h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked">
+                <li><a href="#"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
+                <li><a href="#"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
+                <li><a href="#"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a></li>
+                <li><a href="#"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
+              </ul>
+            </div>
+          </div>
 
         <div class="tab-content">
-          
-
-          <div class="tab-pane" id="tab_nueva">
-            <!-- DATOS DE LA FICHA -->
-            <div class="box box-solid" id="boxFicha">
-              <div class="box-body">
-                <h3 class="box-title">
-                  <i class="icon fa fa-plus-square fa-fw"></i> Agregar Ficha
-                </h3>
-
-                <div class="col-md-4 col-md-offset-4" >
-
-                  <h4>Fichas Disponibles</h4>
-
-                  <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaDatosPersonales/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-id-badge"></i> Añadir Ficha de Datos Personales
-                    </a>  
-                  <?php endif ?>
-                  
-                  <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaLegales/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-legal"></i> Añadir Ficha de Datos Legales
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-mortar-board"></i> Añadir Ficha de Eduacaion
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-gears"></i> Añadir Ficha de Empleo
-                    </a>
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaAsistenciaSocial): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-life-buoy"></i> Añadir Ficha de Asistencia Social
-                    </a>
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-hotel"></i> Añadir Ficha Necesidades
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaMedica): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-heartbeat"></i> Añadir Ficha Medica
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaSaludMental): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-user-md"></i> Añadir Ficha de Salud Mental
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaDiagnosticoIntegral): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-stethoscope"></i> Añadir Ficha de Diagnostico Integral
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-warning"></i> Añadir Ficha de Adicciones
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaFamilia): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-users"></i> Añadir Ficha de Familia y Amigos
-                    </a>  
-                  <?php endif ?>
-
-                  <?php if (!$asistido->checkFichaLocalizacion): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-location-arrow"></i> Añadir Ficha de Localizacion
-                    </a>  
-                  <?php endif ?>
-                </div>
-
-              </div>
-            </div>
-            
-          </div>
-          <!-- /.tab-pane -->
-
+         
           <div class="tab-pane" id="tab_personal">
             <!-- DATOS DE LA FICHA -->
             <div class="box box-solid" id="boxFicha">
               <div class="box-body">
-                <h3 class="box-title">
-                  <i class="icon fa fa-id-badge fa-fw"></i> Datos Básicos
-                  <span class="pull-right">
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-                    <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
-                  </span>
-                </h3>
-                <div id="datosPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+                <h3 class="box-title"><i class="icon fa fa-id-badge fa-fw"></i> Datos Básicos</h3>
+                ACA VAN LOS DATOS TRAIDOS POR AJAX
               </div>
             </div>
 
@@ -282,7 +180,7 @@
             <div class="box box-solid" id="boxConsultas">
               <div class="box-body">
                 <h3 class="box-title"><i class="icon fa fa-comments fa-fw"></i> Interacciones</h3>
-                <div id="consultasPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
+                ACA VAN LOS DATOS TRAIDOS POR AJAX
               </div>
             </div>
           </div>
@@ -300,7 +198,6 @@
                     <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
                   </span>
                 </h3>
-                <div id="datosLegal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
               </div>
             </div>
 
@@ -314,8 +211,136 @@
                   </span>
                 </h3>
                 
-                <div class="box box-widget" id="consultasLegal">
-                  ACA VAN LAS CONSULTAS TRAIDAS POR AJAX
+                <div class="box box-widget">
+
+                  <div class="box-header with-border" style="background-color: #e5e5e5">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{ asset('/img/Perez.jpg') }}" alt="User Image">
+                      <small class="text-muted pull-right">7:30 PM Today</small>
+                      <span class="username"><a href="#">Manuela Santos</a></span>
+                      <span class="description">Abogada</span>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <p>Far far away, behind the word mountains, far from the
+                      countries Vokalia and Consonantia, there live the blind
+                      texts. Separated they live in Bookmarksgrove right at</p>
+                  </div>
+
+                  <hr style="margin: 5px;">
+
+                  <div class="box-header with-border" style="background-color: #e5e5e5">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{ asset('/img/Pepe.jpg') }}" alt="User Image">
+                      <small class="text-muted pull-right">7:30 PM Today</small>
+                      <span class="username"><a href="#">Pepe Gomez</a></span>
+                      <span class="description">Abogado Penalista</span>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <p>the coast of the Semantics, a large language ocean.
+                      A small river named Duden flows by their place and supplies
+                      it with the necessary regelialia. It is a paradisematic
+                      country, in which roasted parts of sentences fly into
+                      your mouth.</p>
+                    <div class="attachment-block clearfix">
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                      <img class="attachment-img" src="{{ asset('/img/imagen.jpg') }}" alt="Attachment Image">
+                    </div>
+                  </div>
+
+                  <hr style="margin: 5px;">
+
+                  <div class="box-header with-border" style="background-color: #e5e5e5">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{ asset('/img/Tombeur1.jpg') }}" alt="User Image">
+                      <small class="text-muted pull-right">7:30 PM Today</small>
+                      <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                      <span class="description">Shared publicly - 7:30 PM Today</span>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <p>Far far away, behind the word mountains, far from the
+                      countries Vokalia and Consonantia, there live the blind
+                      texts. Separated they live in Bookmarksgrove right at</p>
+
+                    <p>the coast of the Semantics, a large language ocean.
+                      A small river named Duden flows by their place and supplies
+                      it with the necessary regelialia. It is a paradisematic
+                      country, in which roasted parts of sentences fly into
+                      your mouth.</p>
+                    <div class="attachment-block clearfix">
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                      <ul class="mailbox-attachments">
+                        <li style="border: none; width: 90px;"> 
+                          <span class="mailbox-attachment-icon" style="padding: 0px;">
+                            <i class="fa fa-file-pdf-o text-red"></i>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <hr style="margin: 5px;">
+
+                  <div class="box-header with-border" style="background-color: #e5e5e5">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Image">
+                      <small class="text-muted pull-right">7:30 PM Today</small>
+                      <span class="username"><a href="#">Pepe Gomez</a></span>
+                      <span class="description">Arquitecto</span>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <p>Far far away, behind the word mountains, far from the
+                      countries Vokalia and Consonantia, there live the blind
+                      texts. Separated they live in Bookmarksgrove right at</p>
+
+                    <p>the coast of the Semantics, a large language ocean.
+                      A small river named Duden flows by their place and supplies
+                      it with the necessary regelialia. It is a paradisematic
+                      country, in which roasted parts of sentences fly into
+                      your mouth.</p>
+                    <div class="attachment-block clearfix">
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                      <ul class="mailbox-attachments">
+                        <li style="border: none; width: 90px;"> 
+                          <span class="mailbox-attachment-icon" style="padding: 0px;">
+                            <i class="fa fa-file-word-o text-blue"></i>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>                    
+                  </div>
+
+                  <hr style="margin: 5px;">
+
+                  <div class="box-header with-border" style="background-color: #e5e5e5">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Image">
+                      <small class="text-muted pull-right">7:30 PM Today</small>
+                      <span class="username"><a href="#">Pepe Gomez</a></span>
+                      <span class="description">Arquitecto</span>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <p>the coast of the Semantics, a large language ocean.
+                      A small river named Duden flows by their place and supplies
+                      it with the necessary regelialia. It is a paradisematic
+                      country, in which roasted parts of sentences fly into
+                      your mouth.</p>
+                    <div class="attachment-block clearfix">
+                      <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                      <ul class="mailbox-attachments">
+                        <li style="border: none; width: 90px;"> 
+                          <span class="mailbox-attachment-icon" style="padding: 0px;">
+                            <i class="fa fa-file-word-o text-blue"></i>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>                    
+                  </div>
+
                 </div>
 
               </div>                
@@ -323,7 +348,6 @@
             </div> <!-- FIN BOX CONSULTAS -->
 
             <div class="box box-solid" id="boxNuevaConsulta">
-              <div class="box-body">
               <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <h3 class="box-title"><i class="icon fa fa-comments-o fa-fw"></i> Nueva Interacción</h3>
@@ -338,7 +362,6 @@
                   <button type="submit" class="btn btn-primary" id="consultaSubmitBtn">Enviar Solicitud</button>
                 </div>
               </form>
-              </div>
             </div> <!-- FIN BOX NUEVA CONSULTA -->
           
           </div> <!-- END TAB PANE LEGAL -->

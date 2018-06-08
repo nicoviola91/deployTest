@@ -66,6 +66,13 @@ class AsistidoController extends Controller
         return view('asistidos.detalleAsistido')->with('asistido',$asistido);
     }
 
+    public function show2 ($asistido_id) 
+    {
+        $asistido = Asistido::find($asistido_id);
+
+        return view('ficha')->with('asistido', $asistido);
+    }
+
 
     public function showAll(){
         $data['asistidos']=Asistido::all();

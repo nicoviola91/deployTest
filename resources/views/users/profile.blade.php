@@ -31,7 +31,7 @@
           <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-blue-active">
-	            <h5 class="widget-user-desc pull-right hidden-xs">Ingeniero en Informática</h5>	
+	            <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords(Auth::user()->descripcion)}}</h5>	
               	<h3 class="widget-user-username">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} <small style="color: white;">(DNI {{ucwords(Auth::user()->dni)}})</small></h3>
               	<h5 class="widget-user-desc hidden-xs">{{Auth::user()->email}}</h5>
             </div>

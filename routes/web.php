@@ -100,6 +100,10 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
     ]);
+    Route::get('/show2/{id}',[
+        'uses'=>'AsistidoController@show2',
+        'as'=>'asistido.show2'
+    ]);
 });
 
 //CONSULTAS/INTERACCIONES
