@@ -50,15 +50,14 @@ class Asistido extends Model
     public function ficha(){
         return $this->hasOne('App\Ficha');
     }
-
-
     public function sexo(){
         return $this->belongsTo('App\Sexo');
     }
-
     public function alertas(){
         return $this->hasMany('App\Alerta');
     }
-
+    /*public function usuariosCompartidos(){
+        return $this->hasMany('App\UsuarioCompartido');
+    }*/
 
 }

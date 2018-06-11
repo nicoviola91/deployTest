@@ -133,6 +133,10 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaAdiccionesController@get',
+        'as'=>'fichaAdicciones.get',
+    ]);
     Route::post('/storeAdiccion/{id}',[
         'uses'=>'FichaAdiccionesController@storeAdiccion',
         'as'=>'fichaAdicciones.storeAdiccion',

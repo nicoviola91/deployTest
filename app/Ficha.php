@@ -17,6 +17,9 @@ class Ficha extends Model
         return $this->morphMany('App\Consulta','consultable');
 
     }
+    public function usuariosCompartidos(){
+    	return $this->hasMany('App\UsuarioCompartido');
+    }
 
 }
 
