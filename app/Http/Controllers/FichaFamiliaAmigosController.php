@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Asistido;
 use App\Contacto;
 use App\FichaFamiliaAmigos;
+use Illuminate\Support\Facades\Storage;
 
 class FichaFamiliaAmigosController extends Controller
 {
+
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+    
     public function create($asistido_id){
         $asistido=Asistido::find($asistido_id);
         $fichaFamiliaAmigos=FichaFamiliaAmigos::where('asistido_id',$asistido_id)->first();

@@ -10,9 +10,17 @@ use App\Ficha;
 use App\Sustancia;
 use App\EpisodioAgresivo;
 use App\Tratamiento;
+use Illuminate\Support\Facades\Storage;
 
 class FichaAdiccionesController extends Controller
 {
+
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+    
     public function create($asistido_id){
         $asistido=Asistido::find($asistido_id);
         //para poder mostrar las sutancias cuando se agrega una adiccion

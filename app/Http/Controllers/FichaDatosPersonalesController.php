@@ -6,10 +6,18 @@ use App\FichaDatosPersonales;
 use App\Asistido;
 use Illuminate\Http\Request;
 use App\Http\Requests\FichaDatosPersonalesRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class FichaDatosPersonalesController extends Controller
 {
+
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+    
     public function create($id){
         $asistido=Asistido::find($id);
         $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($id);

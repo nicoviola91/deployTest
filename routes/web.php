@@ -205,17 +205,9 @@ Route::group(['prefix'=>'FichaLocalizacion'],function(){
         'uses'=>'FichaLocalizacionController@storeLocalizacion',
         'as'=>'FichaLocalizacion.storeLocalizacion',
     ]);
-    Route::get('/destroyLocalizacion/{localizacion_id}/{asistido_id}',[
+    Route::get('/destroyLocalizacion/{id}/{asistido_id}/{localizacionOZona}',[
         'uses'=>'FichaLocalizacionController@destroyLocalizacion',
         'as'=>'FichaLocalizacion.destroyLocalizacion',
-    ]);
-    Route::post('/storeZonaDePermanencia/{id}',[
-        'uses'=>'FichaLocalizacionController@storeZonaDePermanencia',
-        'as'=>'FichaLocalizacion.storeZonaDePermanencia',
-    ]);
-    Route::get('/destroyZonaDePermanencia/{zonaDePermanencia_id}/{asistido_id}',[
-        'uses'=>'FichaLocalizacionController@destroyZonaDePermanencia',
-        'as'=>'FichaLocalizacion.destroyZonaDePermanencia',
     ]);
 });
 Auth::routes();

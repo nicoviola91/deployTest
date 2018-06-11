@@ -20,6 +20,7 @@ class Direccion extends Model
         'institucion_id',
         'educacion_id',
         'localizacionHabitual_id',
+        'zonaDePermanencia_id',
 
     ];
 
@@ -38,6 +39,10 @@ class Direccion extends Model
 
     public function localizacionHabitual(){
         return $this->belongsTo('App\LocalizacionHabitual','localizacionHabitual_id');
+    }
+
+    public function zonaDePermanencia(){
+        return $this->belongsTo('App\ZonaDePermanencia','zonaDePermanencia_id');
     }
 
 }

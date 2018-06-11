@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Institucion;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstitucionRequest;
+use Illuminate\Support\Facades\Storage;
 
 class InstitucionController extends Controller
 {

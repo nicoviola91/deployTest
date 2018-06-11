@@ -8,11 +8,19 @@ use App\FichaEducacion;
 use App\Educacion;
 use App\Direccion;
 use App\TipoEducacion;
+use Illuminate\Support\Facades\Storage;
 
 
 
 class FichaEducacionController extends Controller
 {
+
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+    
     public function create($asistido_id){
         
         $asistido=Asistido::find($asistido_id);

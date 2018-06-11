@@ -20,7 +20,7 @@ class ZonaDePermanencia extends Model
     ];
 
     public function direccion(){
-        return $this->hasOne('App\Direccion');
+        return $this->hasOne('App\Direccion','zonaDePermanencia_id');
     }
     
     public function fichaLocalizacion(){
