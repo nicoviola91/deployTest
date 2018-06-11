@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFichaDatosPersonales extends Migration
+class RenameAsistidosIDOnDatosPersonales extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateFichaDatosPersonales extends Migration
      */
     public function up()
     {
-        Schema::create('fichasDatosPersonales', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('fichasDatosPersonales', function (Blueprint $table) {
+            $table->renameColumn('asistidos_id', 'asistido_id');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateFichaDatosPersonales extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fichasDatosPersonales');
+        Schema::table('fichasDatosPersonales', function (Blueprint $table) {
+            //
+        });
     }
 }
