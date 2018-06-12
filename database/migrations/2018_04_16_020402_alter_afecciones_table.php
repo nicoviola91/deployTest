@@ -14,8 +14,9 @@ class AlterAfeccionesTable extends Migration
     public function up()
     {
         Schema::table('afecciones', function (Blueprint $table) {
-            $table->integer('fichaSaludMental_id')->nullable()->unsigned();
-            $table->foreign('fichaSaludMental_id')->references('id')->on('fichasSaludMental');
+            //esto esta repetido!!
+            //$table->integer('fichaSaludMental_id')->nullable()->unsigned();
+            //$table->foreign('fichaSaludMental_id')->references('id')->on('fichasSaludMental');
         });
     }
 
