@@ -45,7 +45,8 @@ class AlertaController extends Controller
     public function store(AlertaRequest $request)
     {           
         $alerta = new Alerta($request->all());
-        $alerta->user_id = 5; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
+        $user_id=Auth::user()->id;
+        $alerta->user_id = $user_id; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
         $alerta->save();
         return redirect()->route('alerta.list');
     }
@@ -70,7 +71,7 @@ class AlertaController extends Controller
     public function showAll()
     {
         echo "<br>";
-        var_dump(Auth::user());
+       
         $data['alertas'] = Alerta::all();
         return view('alertas.listado', $data);
     }

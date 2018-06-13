@@ -8,7 +8,7 @@
 
 @section('pageHeader')
 <h1>
-	Alertas
+	Asistidos
 	<small>Nuevo Asistido</small>
 </h1>
 <ol class="breadcrumb">
