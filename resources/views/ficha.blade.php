@@ -80,59 +80,59 @@
 
         <ul class="nav nav-tabs no-print">
           
-          <li class="liTab personal">
+          <li class="liTab personal" data-id="{{$asistido->id}}">
             <a href="#tab_personal" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Datos Personales">
               <i class="icon fa fa-id-badge fa-fw"></i> 
               <span style="display: none;"> Datos Personales</span>
             </a>
           </li>
 
-          <li class="liTab legal">
+          <li class="liTab legal" data-id="{{$asistido->id}}">
             <a href="#tab_legal" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Ficha Legal">
               <i class="icon fa fa-legal fa-fw"></i> 
               <span style="display: none;"> Ficha Legal</span>
             </a>
           </li>
-          <li class="liTab educacion">
+          <li class="liTab educacion" data-id="{{$asistido->id}}">
             <a href="#tab_educacion" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Educación">
               <i class="icon fa fa-mortar-board fa-fw"></i> 
               <span style="display: none;"> Educación</span>
             </a>
           </li>
-          <li class="liTab empleo">
+          <li class="liTab empleo" data-id="{{$asistido->id}}">
             <a href="#tab_empleo" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Empleo">
               <i class="icon fa fa-gears fa-fw"></i> 
               <span style="display: none;"> Ficha Empleo</span>
             </a>
           </li>
 
-          <li class="liTab asistencia">
+          <li class="liTab asistencia" data-id="{{$asistido->id}}">
             <a href="#tab_asistencia" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Asistencia Social">
               <i class="icon fa fa-life-buoy fa-fw"></i> 
               <span style="display: none;"> Asistencia Social</span>
             </a>
           </li>
 
-          <li class="liTab necesidades">
+          <li class="liTab necesidades" data-id="{{$asistido->id}}">
             <a href="#tab_necesidades" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Necesidades">
               <i class="icon fa fa-hotel fa-fw"></i> 
               <span style="display: none;"> Necesidades</span>
             </a>
           </li>
 
-          <li class="liTab medica">
+          <li class="liTab medica" data-id="{{$asistido->id}}">
             <a href="#tab_medica" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Ficha Médica">
               <i class="icon fa fa-heartbeat fa-fw"></i> 
               <span style="display: none;"> Ficha Médica</span>
             </a>
           </li>
-          <li class="liTab mental">
+          <li class="liTab mental" data-id="{{$asistido->id}}">
             <a href="#tab_mental" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Salud Mental">
               <i class="icon fa fa-user-md fa-fw"></i> 
               <span style="display: none;"> Salud Mental</span>
             </a>
           </li>
-          <li class="liTab integral">
+          <li class="liTab integral" data-id="{{$asistido->id}}">
             <a href="#tab_integral" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Diagnóstico Integral">
               <i class="icon fa fa-stethoscope fa-fw"></i> 
               <span style="display: none;"> Diagnóstico Integral</span>
@@ -145,13 +145,13 @@
             </a>
           </li>
 
-          <li class="liTab familia">
+          <li class="liTab familia" data-id="{{$asistido->id}}">
             <a href="#tab_familia" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Familia y Amigos">
               <i class="icon fa fa-users fa-fw"></i> 
               <span style="display: none;"> Familia y Amigos</span>
             </a>
           </li>
-          <li class="liTab localizacion">
+          <li class="liTab localizacion" data-id="{{$asistido->id}}">
             <a href="#tab_localizacion" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Localización">
               <i class="icon fa fa-location-arrow fa-fw"></i> 
               <span style="display: none;"> Localización</span>
@@ -185,73 +185,73 @@
                   <h4>Fichas Disponibles</h4>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaDatosPersonales/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="http://localhost:8000/fichaDatosPersonales/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-id-badge"></i> Añadir Ficha de Datos Personales
                     </a>  
                   <?php endif ?>
                   
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaLegales/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="http://localhost:8000/fichaLegales/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-legal"></i> Añadir Ficha de Datos Legales
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-mortar-board"></i> Añadir Ficha de Eduacaion
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-gears"></i> Añadir Ficha de Empleo
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAsistenciaSocial): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-life-buoy"></i> Añadir Ficha de Asistencia Social
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-hotel"></i> Añadir Ficha Necesidades
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaMedica): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-heartbeat"></i> Añadir Ficha Medica
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaSaludMental): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-user-md"></i> Añadir Ficha de Salud Mental
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDiagnosticoIntegral): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-stethoscope"></i> Añadir Ficha de Diagnostico Integral
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-warning"></i> Añadir Ficha de Adicciones
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaFamilia): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-users"></i> Añadir Ficha de Familia y Amigos
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaLocalizacion): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="1" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-location-arrow"></i> Añadir Ficha de Localizacion
                     </a>  
                   <?php endif ?>
@@ -349,21 +349,6 @@
 
     });
 
-    $('.liTab.adicciones').click(function () {
-
-      console.log('FICHA ADICCIONES');
-
-      var id = $(this).data('id');
-      console.log(id);
-
-      $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
-
-        console.log(data);
-      
-      })
-
-    });
-
     $( ".liTab" ).hover(
       
       function() {
@@ -380,6 +365,42 @@
       }
 
     );
+
+</script>
+
+
+<script type="text/javascript">
+  
+  $('.liTab.adicciones').click(function () {
+
+    console.log('FICHA ADICCIONES');
+
+    var id = $(this).data('id');
+    console.log(id);
+
+    $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+      console.log(data);
+
+    })
+
+  });
+
+  $('.liTab.educacion').click(function () {
+
+    console.log('FICHA EDUCACION');
+
+    var id = $(this).data('id');
+    console.log(id);
+
+    $.get("{{route('fichaEducacion.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+      console.log(data);
+
+    })
+
+  });
+
 
 </script>
 
