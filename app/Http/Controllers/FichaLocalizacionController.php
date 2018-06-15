@@ -46,11 +46,13 @@ class FichaLocalizacionController extends Controller
         $input=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         if($tipo=='Localizacion'){
             $localizacion=new LocalizacionHabitual($input);
+            $localizacion->localizacionOZona='Localizacion';
             $fichaLocalizacion->localizacionesHabituales()->save($localizacion);
             $localizacion->save();
             $localizacion->direccion()->save($direccion);
         } else if($tipo=='Zona'){
             $zona=new ZonaDePermanencia($input);
+            $zona->localizacionOZona='Zona';
             $fichaLocalizacion->zonasDePermanencia()->save($zona);
             $zona->save();
             $zona->direccion()->save($direccion);
@@ -73,15 +75,20 @@ class FichaLocalizacionController extends Controller
 
     public function destroyLocalizacion($id,$asistido_id,$localizacionOZona){
 
+
         if($localizacionOZona=='Localizacion'){
             $localizacion=LocalizacionHabitual::find($id);
             $direccion=Direccion::where('localizacionHabitual_id',$id)->first();
-            $direccion->delete();
+            if(isset($direccion)){
+                $direccion->delete();
+            }
             $localizacion->delete();
-        }else if($localizacionOZona=='Zona'){
+        }else{
             $zona=ZonaDePermanencia::find($id);
             $direccion=Direccion::where('zonaDePermanencia_id',$id)->first();
-            $direccion->delete();
+            if(isset($direccion)){
+                $direccion->delete();
+            }
             $zona->delete();
 
         }
@@ -89,12 +96,4 @@ class FichaLocalizacionController extends Controller
         return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
     }
 
-    public function destroyZonaDePermanencia($zonaDePermanencia_id,$asistido_id){
-
-        $zonaDePermanencia=ZonaDePermanencia::find($zonaDePermanencia_id);
-        $direccion=Direccion::where('zonaDePermanencia_id',$zonaDePermanencia_id)->first();
-        $direccion->delete();
-        $zonaDePermanencia->delete();
-        return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
-    }
 }

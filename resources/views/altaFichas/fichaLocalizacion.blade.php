@@ -49,11 +49,11 @@
           <div id="collapseOne" class="panel-collapse collapse in">
             <div class="box-body ">
                 
-              @if(isset($fichaLocalizacion)>0)
+              @if(isset($fichaLocalizacion))
               
                 @foreach($localizaciones as $localizacion)
                   <div class="box-tools pull-right">
-                    <a href="{{ route('FichaLocalizacion.destroyLocalizacion',['id'=>$localizacion->id,'asistido_id'=>$asistido->id,$localizacion->localizacionOZona => 'localizacionOZona'])}}" class="descartarBtn" data-id="{{$localizacion->id}}" data-toggle="tooltip" data-title="Descartar Localización habitual">
+                    <a href="{{ route('FichaLocalizacion.destroyLocalizacion',['id'=>$localizacion->id,'asistido_id'=>$asistido->id,'localizacionOZona'=> $localizacion->localizacionOZona ])}}" class="descartarBtn" data-id="{{$localizacion->id}}" data-toggle="tooltip" data-title="Descartar Localización habitual">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
@@ -89,9 +89,19 @@
                     <dd>{{$localizacion->direccion->provincia}}</dd>
                     @endif
                     
+                    @if(isset($localizacion->condicion))
+                    <dt>Condición</dd>
+                    <dd>{{$localizacion->condicion}}</dd>
+                    @endif
+
                     @if(isset($localizacion->vivienda))
-                    <dt>Tipo de vivienda</dd>
+                    <dt>Vivienda</dd>
                     <dd>{{$localizacion->vivienda}}</dd>
+                    @endif
+
+                    @if(isset($localizacion->tipo))
+                    <dt>Tipo</dd>
+                    <dd>{{$localizacion->tipo}}</dd>
                     @endif
 
                     @if(isset($localizacion->referenteNombre))
@@ -114,11 +124,11 @@
                 @endif 
 
 
-                @if(isset($fichaLocalizacion)>0)
+                @if(isset($fichaLocalizacion))
               
                 @foreach($zonas as $zona)
                   <div class="box-tools pull-right">
-                    <a href="{{ route('FichaLocalizacion.destroyLocalizacion',['id'=>$localizacion->id,'asistido_id'=>$asistido->id,$localizacion->localizacionOZona => 'localizacionOZona'])}}" class="descartarBtn" data-id="{{$localizacion->id}}" data-toggle="tooltip" data-title="Descartar Localización habitual">
+                    <a href="{{ route('FichaLocalizacion.destroyLocalizacion',['id'=>$zona->id,'asistido_id'=>$asistido->id,$zona->localizacionOZona => 'localizacionOZona'])}}" class="descartarBtn" data-id="{{$zona->id}}" data-toggle="tooltip" data-title="Descartar Localización habitual">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
@@ -330,12 +340,12 @@
                     <div class="zona">
                         <span class="col-md-12">Ingrese días y horarios en que el asistido se encuentra en la zona de permanencia</span>
                         <br>
-                        <div class="form-group col-md-12 {{ $errors->has('dia') ? ' has-error' : '' }}">
-                            <label for="dia">Días</label>
-                            <input type="text" class="form-control" id="dia" placeholder="Ingrese días" name="dia">
-                            @if ($errors->has('dia'))
+                        <div class="form-group col-md-12 {{ $errors->has('dias') ? ' has-error' : '' }}">
+                            <label for="dias">Días</label>
+                            <input type="text" class="form-control" id="dia" placeholder="Ingrese días" name="dias">
+                            @if ($errors->has('dias'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('dia') }}</strong>
+                                    <strong>{{ $errors->first('dias') }}</strong>
                                 </span>
                             @endif
                         </div>
