@@ -33,7 +33,7 @@ class FichaFamiliaAmigosController extends Controller
 
     public function storeContacto(Request $request, $asistido_id){
         $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaFamiliaAmimgos=1;
+        $asistido->checkFichaFamiliaAmigos=1;
         $fichaFamiliaAmigos=$this->findFichaFamiliaAmigosByAsistidoId($asistido_id);
         $fichaFamiliaAmigos->checklistContactos=1;
         $contacto=new Contacto($request->all());
