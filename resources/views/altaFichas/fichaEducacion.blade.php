@@ -56,7 +56,7 @@
                   </div>
                   <dl class="dl-horizontal" >
                     
-                    @if(isset($educacion->institucion))
+                    @if(isset($educacion->tipo->descripcion))
                     <dt>Tipo de educación</dt>
                     <dd>{{$educacion->tipo->descripcion}}</dd>
                     @endif
