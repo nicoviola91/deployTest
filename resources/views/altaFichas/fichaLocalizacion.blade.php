@@ -49,7 +49,7 @@
           <div id="collapseOne" class="panel-collapse collapse in">
             <div class="box-body ">
                 
-              @if(count($fichaLocalizacion)>0)
+              @if(isset($fichaLocalizacion)>0)
               
                 @foreach($localizaciones as $localizacion)
                   <div class="box-tools pull-right">
@@ -114,7 +114,7 @@
                 @endif 
 
 
-                @if(count($fichaLocalizacion)>0)
+                @if(isset($fichaLocalizacion)>0)
               
                 @foreach($zonas as $zona)
                   <div class="box-tools pull-right">

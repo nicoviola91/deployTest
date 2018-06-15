@@ -149,7 +149,7 @@
                                                 </span>
                                               @endif
                                             </div>
-
+                                            
                                             <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
                                               <label for="observaciones">Observaciones</label>
                                               <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
@@ -451,7 +451,7 @@
                             <br>
                           <div class="form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
                               <label for="estado">Observaciones</label>
-                          <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" value="{{old('observaciones',$fichaAdiccion->observaciones)}}">
+                          <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" value="{{isset($fichaAdiccion->observaciones) ? $fichaAdiccion->observaciones : ''}}">
                               @if ($errors->has('observaciones'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('observaciones') }}</strong>

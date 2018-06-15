@@ -124,9 +124,9 @@
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
+								<a href="{{route('fichaEmpleo.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Empleo">
 										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Empleo
-								</button>
+								</a>
 						</div>
 					</dd>
 					@endif

@@ -18,9 +18,14 @@ class Empleo extends Model
         'telefonoReferente',
         'puestoReferente',
         'mailReferente',
+        'fichaEmpleo_id',
     ];
 
     public function fichaEmpleo(){
-        return $this->belongsTo('App\FichaEmpleo');
+        return $this->belongsTo('App\FichaEmpleo','fichaEmpleo_id');
+    }
+
+    public function direccion(){
+        return $this->hasOne('App\Direccion');
     }
 }

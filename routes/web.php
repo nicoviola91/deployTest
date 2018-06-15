@@ -214,6 +214,23 @@ Route::group(['prefix'=>'FichaLocalizacion'],function(){
         'as'=>'FichaLocalizacion.destroyLocalizacion',
     ]);
 });
+
+//FICHA EMPLEO
+Route::group(['prefix'=>'fichaEmpleo'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaEmpleoController@create',
+        'as'=>'fichaEmpleo.create',
+    ]);
+    Route::post('/storeEmpleo/{id}',[
+        'uses'=>'FichaEmpleoController@storeEmpleo',
+        'as'=>'fichaEmpleo.storeEmpleo',
+    ]);
+    Route::get('/destroyEmpleo/{id}/{asistido_id}',[
+        'uses'=>'FichaEmpleoController@destroyLocalizacion',
+        'as'=>'fichaEmpleo.destroyEmpleo',
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

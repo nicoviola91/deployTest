@@ -9,10 +9,14 @@ class FichaEmpleo extends Ficha
     //
     protected $table="fichasEmpleos";
     protected $fillable = [
-        'empleo_id'
+        'asistido_id'
     ];
 
     public function empleos(){
-        return $this->hasMany('App\Empleo');
+        return $this->hasMany('App\Empleo','fichaEmpleo_id');
+    }
+
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
     }
 }
