@@ -39,5 +39,9 @@ class FichaSaludMental extends Ficha
     public function institucion(){
         return $this->belongsTo('App\Institucion');
     }
+    
+    public function asistido(){
+        return $this->belongsTo('App\Asistido');
+    }
 
 }
