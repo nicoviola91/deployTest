@@ -6,6 +6,7 @@ use App\Asistido;
 use App\Alerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AsistidoController extends Controller
 {   
@@ -36,6 +37,11 @@ class AsistidoController extends Controller
         return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta);
     }
 
+    //para ir a la vista de creacion de un asistido cuando no se va desde una alerta
+    public function create(){
+        return view('asistidos.nuevo');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,11 +51,23 @@ class AsistidoController extends Controller
     public function store(Request $request,$alerta_id)
     {
         $asistido=new Asistido($request->all());
-        //hay que guardar el id de asistido en alerta(asistido_id)
         $alerta=Alerta::find($alerta_id);
+        $asistido->createdBy=Auth::user()->email;
         $asistido->save();
-        $alerta->asistido_id=$asistido->id;
+        $alerta->asistido()->associate($asistido);
         $alerta->save();
+        
+        
+        return redirect()->route('alerta.list');
+    }
+
+    //para guardar asistido cuando no es creado desde una alerta
+    public function storeNew(Request $request)
+    {
+        $asistido=new Asistido($request->all());
+        $asistido->createdBy=Auth::user()->email;
+        $asistido->save();
+        
         return redirect()->route('alerta.list');
     }
 

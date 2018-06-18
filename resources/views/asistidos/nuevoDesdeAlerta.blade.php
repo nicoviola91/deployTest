@@ -37,7 +37,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Documento</label>
-            <input type="text" class="form-control" id="documento" value={{ $alerta->dni }} name="documento" required>
+            <input type="text" class="form-control" id="dni" value={{ $alerta->dni }} name="dni" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Fecha Nacimiento</label>

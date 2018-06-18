@@ -24,7 +24,7 @@ class FichaEducacionController extends Controller
     public function create($asistido_id){
         
         $asistido=Asistido::find($asistido_id);
-        $fichaEducacion=FichaEducacion::where('asistido_id',$asistido_id)->first();
+        $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
         $niveles=array('Completo','Incompleto','En curso','Nunca iniciado');
         $tipos=array('Primario','Secundario','Terciario','Universitario','Curso');
         $orientaciones=array('Agrario', 'Arte', 'Comunicación', 'Turismo', 'Lenguas', 'Informática', 'Educación Física',
@@ -43,17 +43,13 @@ class FichaEducacionController extends Controller
 
     public function storeEducacion(Request $request, $asistido_id){
 
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaEducacion=1;
-        //$asistido->save();
+        Asistido::where('id',$asistido_id)->update(['checkFichaEducacion' =>1]);
 
         $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
         
-
         $educacionInput=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $educacion=new Educacion($educacionInput);
   
-
         if($request->input('tipoEducacion')=='Primario'){
             $tipoEducacion_id=1;
         }
@@ -72,8 +68,6 @@ class FichaEducacionController extends Controller
 
         $tipoEducacion=TipoEducacion::find($tipoEducacion_id);
         
-        
-        
         $fichaEducacion->educaciones()->save($educacion);
         $educacion->tipo()->associate($tipoEducacion);
         $educacion->save();
@@ -81,9 +75,6 @@ class FichaEducacionController extends Controller
         $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $direccion= new Direccion($direccionInput);
         $educacion->direccion()->save($direccion);
-
-
-
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
      
     }
@@ -106,8 +97,8 @@ class FichaEducacionController extends Controller
         $direccion->delete();
         $educacion->delete();
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
-       
+    }
 
-}
+
 
 }

@@ -32,21 +32,31 @@ class FichaEmpleoController extends Controller
     
     public function storeEmpleo(Request $request, $asistido_id){
 
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaEmpleo=1;
+        Asistido::where('id',$asistido_id)->update(['checkFichaEmpleo' =>1]);
         $fichaEmpleo=$this->findFichaEmpleoByAsistidoId($asistido_id);
         $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $direccion= new Direccion($direccionInput);
-        
         $input=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
-        
         $empleo=new Empleo($input);
         $fichaEmpleo->empleos()->save($empleo);
         $empleo->save();
-        $empleo->direccion()->save($empleo);
-
+        $empleo->direccion()->save($direccion);
         return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
     
+    }
+
+    public function storeConsideraciones(Request $request, $asistido_id){
+
+        if($request->input('checklistTieneEmpleo')=='on'){
+            $value=1;
+        }else{
+            $value=0;
+        }
+        $fichaEmpleo=$this->findFichaEmpleoByAsistidoId($asistido_id);
+        Asistido::where('id',$asistido_id)->update(['checkFichaEmpleo' =>1]);
+        FichaEmpleo::where('asistido_id',$asistido_id)
+        ->update(['checklistTieneEmpleo'=>$value]);
+        return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
     }
 
 
@@ -62,8 +72,7 @@ class FichaEmpleoController extends Controller
 
     public function destroyEmpleo($id,$asistido_id){
 
-
-        $empleo=FichaEmpleo::find($id);
+        $empleo=Empleo::find($id);
         $direccion=Direccion::where('empleo_id',$id)->first();
         $direccion->delete();
         $empleo->delete();

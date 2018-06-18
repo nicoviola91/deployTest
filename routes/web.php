@@ -32,9 +32,14 @@ Route::group(['prefix'=>'alert'],function(){
     Route::get('/new',function(){
         return view('alertas.nueva');
     });
+
     Route::post('/store',[
         'uses'=>'AlertaController@store',
         'as'=>'alerta.store'
+    ]);
+    Route::post('/storeNew',[
+        'uses'=>'AlertaController@storeNew',
+        'as'=>'alerta.storeNew'
     ]);
     Route::get('/list',[
         'uses'=>'AlertaController@showAll',
@@ -229,8 +234,12 @@ Route::group(['prefix'=>'fichaEmpleo'],function(){
         'uses'=>'FichaEmpleoController@storeEmpleo',
         'as'=>'fichaEmpleo.storeEmpleo',
     ]);
+    Route::post('/storeConsideraciones/{id}',[
+        'uses'=>'FichaEmpleoController@storeConsideraciones',
+        'as'=>'fichaEmpleo.storeConsideraciones',
+    ]);
     Route::get('/destroyEmpleo/{id}/{asistido_id}',[
-        'uses'=>'FichaEmpleoController@destroyLocalizacion',
+        'uses'=>'FichaEmpleoController@destroyEmpleo',
         'as'=>'fichaEmpleo.destroyEmpleo',
     ]);
 });

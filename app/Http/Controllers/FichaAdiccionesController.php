@@ -26,9 +26,9 @@ class FichaAdiccionesController extends Controller
         //para poder mostrar las sutancias cuando se agrega una adiccion
         $sustancias=Sustancia::all(['id','sustancia']);
 
-        $fichaAdiccion=FichaAdiccion::where('asistido_id',$asistido_id)->first();
+        $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         //en este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
-        if(!empty($fichaAdiccion)){
+        if(isset($fichaAdiccion)){
             $adicciones=Adiccion::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
             $episodiosAgresivos=EpisodioAgresivo::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
             $tratamientos=Tratamiento::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
@@ -43,50 +43,16 @@ class FichaAdiccionesController extends Controller
         return view('altaFichas.fichaAdicciones')->with('asistido',$asistido)->with('sustancias',$sustancias);
     }
 
-    public function get ($asistido_id) {
-
-        echo "GOlaaaaaaaaaaaa";
-        //return response()->json(array('success' => true, 'html'=>'Holaaaaaaaaaaaaaaaaaaaa'));
-
-        // $asistido = Asistido::find($asistido_id);
-        // $sustancias = Sustancia::all(['id','sustancia']);
-
-        // $fichaAdiccion = FichaAdiccion::where('asistido_id',$asistido_id)->first();
-
-        // if(!empty($fichaAdiccion)){
-            
-        //     //Si existe la devuelvo:
-        //     $adicciones = Adiccion::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
-        //     $episodiosAgresivos = EpisodioAgresivo::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
-        //     $tratamientos = Tratamiento::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
-            
-        //     $vista = view('altaFichas.fichaAdicciones')
-        //         ->with('asistido',$asistido)
-        //         ->with('sustancias',$sustancias)
-        //         ->with('adicciones',$adicciones)
-        //         ->with('fichaAdiccion',$fichaAdiccion)
-        //         ->with('episodiosAgresivos',$episodiosAgresivos)
-        //         ->with('tratamientos',$tratamientos)
-        //         ->render();
-
-        //     return response()->json(array('success' => true, 'html'=>$vista));
-
-        // } else {
-
-        //     //Si no existe se crea:
-        //     $vista = view('altaFichas.fichaAdicciones')->with('asistido',$asistido)->with('sustancias',$sustancias)->render();
-        //     return response()->json(array('success' => true, 'html'=>$vista));    
-        // }
-        
-    }
-
     public function storeAdiccion(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaAdicciones=1;
+        //Con update me aseguro de no generar duplicados y solo actualizar el registro existente
+        Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
+
         $sustancias=Sustancia::all(['id','sustancia']);
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
-        $fichaAdiccion->checklistAdicciones=1;
+        FichaAdiccion::where('asistido_id',$asistido_id)
+        ->update(['checklistAdicciones'=>1]);
+
         $adiccion=new Adiccion($request->all());
         //fichaAdiccion_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
         $fichaAdiccion->adicciones()->save($adiccion);
@@ -106,13 +72,12 @@ class FichaAdiccionesController extends Controller
 
     public function storeEpisodioAgresivo(Request $request, $asistido_id){
         $episodioAgresivo=new EpisodioAgresivo($request->all());
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaAdicciones=1;
+        Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
-        $fichaAdiccion->checklistEpisodiosAgresivos=1;
+        FichaAdiccion::where('asistido_id',$asistido_id)
+        ->update(['checklistEpisodiosAgresivos'=>1]);
         $fichaAdiccion->episodiosAgresivos()->save($episodioAgresivo);
         $episodioAgresivo->save();
-        $asistido->save();
 
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);     
     } 
@@ -125,13 +90,12 @@ class FichaAdiccionesController extends Controller
 
     public function storeTratamiento(Request $request,$asistido_id){
         $tratamiento=new Tratamiento($request->all());
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaAdicciones=1;
+        Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
-        $fichaAdiccion->checklistTratamiento=1;
+        FichaAdiccion::where('asistido_id',$asistido_id)
+        ->update(['checklistTratamiento'=>1]);
         $fichaAdiccion->tratamientos()->save($tratamiento);
         $tratamiento->save();
-        $asistido->save();
 
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
     }
@@ -144,46 +108,24 @@ class FichaAdiccionesController extends Controller
 
     public function storeConsideraciones(Request $request,$asistido_id){
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
-        $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaAdicciones=1;
-        
-        if(isset($request->checklistRequiereInternacion)){
-            $fichaAdiccion->checklistRequiereInternacion=1;
-        }
-        if(isset($request->checklistRequiereDerivacion)){
-            $fichaAdiccion->checklistRequiereDerivacion=1;
-        }
-        if(isset($request->checklistEmbarazo)){
-            $fichaAdiccion->checklistEmbarazo=1;
-        }
-
-        if(isset($request->observaciones)){
-            $fichaAdiccion->observaciones=$request->observaciones;
-        }
-        $fichaAdiccion->save();
-        $asistido->save();
-
-
+        Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
+        FichaAdiccion::where('asistido_id',$asistido_id)
+        ->update(['checklistRequiereInternacion'=>1, 'checklistRequiereDerivacion'=>1,'checklistEmbarazo'=>1,
+        'observaciones' =>$request->observaciones]);
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
-        //return redirect()->route('asistido.list');
 
     }
 
     public function findFichaAdiccionByAsistidoId($asistido_id){
         $fichaAdiccion=FichaAdiccion::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
-        if(empty($fichaAdiccion)){
+        if(!isset($fichaAdiccion)){
             $fichaAdiccion=new FichaAdiccion();
             $asistido->ficha()->save($fichaAdiccion);
         }
         return $fichaAdiccion;
     }
 
-
-    public function showAdicciones(){
-        $adicciones=Adiccion::all();
-
-    }
 
     
 }

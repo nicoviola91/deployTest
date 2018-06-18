@@ -120,7 +120,7 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaEmpleo)==1)
-					<dd><a href="#" class='text-light-blue'>Ficha de Empleo</a></dd>
+					<dd><a href="{{route('fichaEmpleo.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue'>Ficha de Empleo</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">

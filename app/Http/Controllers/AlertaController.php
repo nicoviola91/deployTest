@@ -121,6 +121,6 @@ class AlertaController extends Controller
     {
         $alerta=Alerta::find($id);
         $alerta->delete();
-        return view('alertas.listado');
+        return redirect()->route('alert.list');
     }
 }

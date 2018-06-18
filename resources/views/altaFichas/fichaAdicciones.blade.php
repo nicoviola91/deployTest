@@ -20,10 +20,12 @@
 <h1>
 	Ficha de Adicciones
 </h1>
-<ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-exclamation-triangle"></i> Asistidos</a></li>
-	<li class="active">Listado</li>
-</ol>
+<div>
+  <ol class="breadcrumb">
+    <li><a href="{{route('asistido.show',['id'=>$asistido->id])}}"><i class="fa fa-exclamation-triangle"></i> Asistido</a></li>
+    <li class="active">Ficha de Adicciones</li>
+  </ol>
+</div>
 @endsection
 
 @section('content')
@@ -309,7 +311,7 @@
                                   <dd>{{$tratamiento->estado}}</dd>
                                   @endif
                                   @if(isset($tratamiento->causaDeFin))
-                                  <dt>Causa de fin del tratamiento</dd>
+                                  <dt>Causa de finalización</dd>
                                   <dd>{{$tratamiento->causaDeFin}}</dd>
                                   @endif
                                   @if(isset($tratamiento->comentarios))
@@ -461,7 +463,9 @@
                         <div align="center">
                           <button  type="submit" class="btn btn-danger">Guardar Ficha de Adicciones</button>
                         </div>  
+
                       </form>
+                     
                     </div>
           </div>
 

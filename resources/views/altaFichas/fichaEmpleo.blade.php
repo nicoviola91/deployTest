@@ -59,6 +59,7 @@
                   </div>
                   
                   <dl class="dl-horizontal" >
+
                     @if(isset($empleo->puesto))
                     <dt>Puesto</dt>
                     <dd>{{$empleo->puesto}}</dd>
@@ -143,16 +144,34 @@
                 @endif 
 
 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Localización Habitual o Zona de permanencia</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Empleo</a>
             </div>
           </div>
+          <div class="box-body">
+            <form id="consideracionesGenerales-form" method="POST" action="{{ url('/fichaEmpleo/storeConsideraciones',['asistido_id'=>$asistido->id]) }}" >
+                {{ csrf_field() }}
+
+                <div class="form-group {{ $errors->has('checklistTieneEmpleo') ? ' has-error' : '' }}">
+                    <label for="checklistTieneEmpleo">El asistido actualmente tiene empleo</label>
+                    <input type="checkbox" id="checklistTieneEmpleo" name="checklistTieneEmpleo" {{(isset($fichaEmpleo->checklistTieneEmpleo) && $fichaEmpleo->checklistTieneEmpleo==1)  ? 'checked':''}}>
+                    @if ($errors->has('checklistTieneEmpleo'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('checklistTieneEmpleo') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div align="center">
+                    <button  type="submit" class="btn btn-danger">Guardar Ficha de Empleo</button>
+                </div>  
+
+            </form>  
+        </div>
         </div>
       </div>
       <div class="modal fade" id="modal-agregar">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-
                 <h4 class="modal-title"> Agregar Empleo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>

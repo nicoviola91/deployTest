@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ficha;
 use App\FichaDatosPersonales;
 use App\Asistido;
 use Illuminate\Http\Request;
@@ -30,23 +31,43 @@ class FichaDatosPersonalesController extends Controller
     }
 
     public function store(Request $request, $asistido_id){
+        //udpateOrCreate actualiza el registro si este ya existe, si no lo crea.
+        //el primer parametro es el where, el segundo los datos que queremos actualizar en el registro
+        //en este caso, buscamos una fichaDatosPersonales donde el asistido_id sea el $asistido_id
+        $partida=$request->input('tienePartida');
+        if($partida=='on'){
+            $value=true;
+        }else{
+            $value=false;
+        }
 
-        $fichaDatosPersonales= new FichaDatosPersonales($request->all());
+        FichaDatosPersonales::where('asistido_id',$asistido_id)
+            ->update
+            (['nombre' => $request->input('nombre'),
+            'apellido' => $request->input('apellido'),
+            'numeroDocumento' => $request->input('numeroDocumento'),
+            'fechaNacimiento' => $request->input('fechaNacimiento'),
+            'tienePartida' => $value,
+            'nacionalidad' => $request->input('nacionalidad'),
+            'fechaIngresoAlPais' => $request->input('fechaIngresoAlPais'),
+            'fechaNacimiento' => $request->input('fechaNacimiento'),
+            'celular' => $request->input('celular'),
+            'telefono' => $request->input('telefono'),
+            'email' => $request->input('email'),
+            'nombreContacto' => $request->input('nombreContacto'),
+            'telefonoContacto' => $request->input('telefonoContacto'),
+            'mailContacto' => $request->input('mailContacto')]);
+        $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($asistido_id);
         $asistido=Asistido::find($asistido_id);
         $asistido->checkFichaDatosPersonales=1;
-        $asistido->ficha()->save($ficha);
-
+        $asistido->ficha()->save($fichaDatosPersonales);
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
-
-
     }
 
     public function findFichaDatosPersonalesByAsistidoId($asistido_id){
         $fichaDatosPersonales=FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
-        $asistido=Asistido::find($asistido_id);
-        if(empty($fichaDatosPersonales)){
+        if(!isset($fichaDatosPersonales)){
             $fichaDatosPersonales=new FichaDatosPersonales();
-            $asistido->ficha()->save($fichaDatosPersonales);
         }
         return $fichaDatosPersonales;
     }
