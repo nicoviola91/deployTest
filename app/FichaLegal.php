@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class FichaLegal extends Model
 {
-    protected $table="fichasDatosLegales";
+    protected $table="fichasLegales";
     protected $fillable = [
         'chk_antecedentesPenales',
+        'asistido_id'
     ];
 
     public function asistido(){
@@ -16,7 +17,11 @@ class FichaLegal extends Model
     }
 
     public function antecedentes(){
-        return $this->hasMany('App\Asistido');
+        return $this->hasMany('App\Antecedente','fichaLegal_id');
+    }
+
+    public function usuariosCompartidos(){
+        return $this->hasMany('App\UsuarioCompartido','fichaLegal_id');
     }
 
 }

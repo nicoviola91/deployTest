@@ -145,9 +145,25 @@
 					</dd>
 					@endif
 					<br>
+					@if(($asistido->checkFichaLegal)==1)
+					<dd><a href="{{route('fichaLegal.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Legal">Ficha Legal</a></dd>
+					@else
+					<dd>
+						<div class="col-md-4">
+								
+								<a href="{{route('fichaLegal.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Legal">
+										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha Legal
+								</a>
+							
+						</div>
+					</dd>
+					@endif
+					<br>
+
 					@if(($asistido->checkFichaLocalizacion)==1)
 					<dd><a href="#" class='text-light-blue'>Ficha de Localización</a></dd>
 					@else
+
 					<dd>
 						<div class="col-md-4">
 								<a href="{{route('FichaLocalizacion.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Localización">

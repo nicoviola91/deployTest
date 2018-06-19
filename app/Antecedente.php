@@ -13,6 +13,8 @@ class Antecedente extends Model
         'profesional',
         'estadoTramite',
         'recomendacionPosadero',
+        'fichaLegal_id',
+        'ramaDerecho_id'
     ];
 
     public function ramaDerecho(){
@@ -20,6 +22,6 @@ class Antecedente extends Model
     }
     
     public function fichaLegal(){
-        return $this->belongsTo('App\FichaLegal');
+        return $this->belongsTo('App\FichaLegal','fichaLegal_id');
     }
 }

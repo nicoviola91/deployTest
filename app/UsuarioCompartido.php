@@ -31,5 +31,9 @@ class UsuarioCompartido extends Model
     }
     /*public function asistido(){
     	return $this->belongsTo('App\Asistido');
-    }*/
+	}*/
+	
+	public function fichaLegal(){
+		return $this->belongsTo('App\FichaLegal','fichaLegal_id');
+	}
 }

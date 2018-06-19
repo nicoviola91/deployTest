@@ -244,6 +244,22 @@ Route::group(['prefix'=>'fichaEmpleo'],function(){
     ]);
 });
 
+//FICHA LEGAL
+Route::group(['prefix'=>'fichaLegal'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaLegalController@create',
+        'as'=>'fichaLegal.create',
+    ]);
+    Route::post('/storeAntecedente/{id}',[
+        'uses'=>'FichaLegalController@storeAntecedente',
+        'as'=>'fichaLegal.storeAntecedente',
+    ]);
+    Route::get('/destroyAntecedente/{id}/{asistido_id}',[
+        'uses'=>'FichaLegalController@destroyAntecedente',
+        'as'=>'fichaLegal.destroyAntecedente',
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
