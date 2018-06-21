@@ -188,8 +188,9 @@
                   </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
-                  <div class="box-body">
+                  
                     @if(isset($fichaAdiccion))
+                    <div class="box-body">
                     @if (isset($fichaAdiccion->checklistEpisodiosAgresivos))
                     @foreach($episodiosAgresivos as $episodioAgresivo)
                         <div class="box-tools pull-right">
@@ -213,9 +214,9 @@
                         </dl>
                       @endforeach
                       @endif
+                  <div class="box-body">
                   @endif
-                  </div>
-
+                    
 
                   <div class="box-body">
                     <a href={{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>

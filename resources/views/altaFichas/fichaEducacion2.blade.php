@@ -13,16 +13,16 @@
       <div class="box-body">
       
       <div class="box-group">
-        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-        <div class="panel box box-danger">
+
+        <div class="panel box">
       
           <div class="box-header with-border">
             <h4 class="box-title">
-              <a data-toggle="collapse" href="#collapseOne" style="color: black;"> Educación </a>
+              <a data-toggle="collapse" href="#collapseEducacion" style="color: black;"> Educación </a>
             </h4>
           </div>
       
-          <div id="collapseOne" class="panel-collapse collapse in">
+          <div id="collapseEducacion" class="panel-collapse collapse in">
             <div class="box-body ">
               @if(isset($fichaEducacion))
                 @foreach($educaciones as $educacion)
@@ -101,14 +101,14 @@
                   </dl>
                 @endforeach
                 @endif 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus fa-fw"></i>  Agregar Educación</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregarEducacion"><i align="left" class="fa fa-plus fa-fw"></i>  Agregar Educación</a>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div class="modal fade" id="modal-agregar">
+      <div class="modal fade" id="modal-agregarEducacion">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             
@@ -271,7 +271,6 @@
       </div>
     </div>
 </div>
-
 
   @include('scripts.googleMaps')
 
