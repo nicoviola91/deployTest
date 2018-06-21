@@ -41,6 +41,36 @@ class FichaEducacionController extends Controller
         return view('altaFichas.fichaEducacion')->with('asistido',$asistido)->with('niveles',$niveles)->with('orientaciones',$orientaciones)->with('tipos',$tipos);
     }
 
+    public function get ($asistido_id){
+        
+        $asistido=Asistido::find($asistido_id);
+        $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
+        
+        $niveles=array('Completo','Incompleto','En curso','Nunca iniciado');
+        $tipos=array('Primario','Secundario','Terciario','Universitario','Curso');
+        $orientaciones=array('Agrario', 'Arte', 'Comunicación', 'Turismo', 'Lenguas', 'Informática', 'Educación Física',
+        'Ciencias Naturales', 'Ciencias Sociales y Humanidades','Economía y Administración');
+        
+        if(isset($fichaEducacion) && !empty($fichaEducacion)){
+            $educaciones=Educacion::where('ficha_educacion_id',$fichaEducacion->id)->get();
+            
+            $view = view('altaFichas.fichaEducacion2')->with('educaciones',$educaciones)
+                ->with('fichaEducacion',$fichaEducacion)
+                ->with('asistido',$asistido)
+                ->with('niveles',$niveles)
+                ->with('orientaciones',$orientaciones)
+                ->with('tipos',$tipos)
+                ->render();
+        }
+
+        $view = view('altaFichas.fichaEducacion2')->with('asistido',$asistido)->with('niveles',$niveles)->with('orientaciones',$orientaciones)->with('tipos',$tipos)->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
     public function storeEducacion(Request $request, $asistido_id){
 
         Asistido::where('id',$asistido_id)->update(['checkFichaEducacion' =>1]);

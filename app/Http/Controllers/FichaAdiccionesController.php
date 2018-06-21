@@ -43,6 +43,40 @@ class FichaAdiccionesController extends Controller
         return view('altaFichas.fichaAdicciones')->with('asistido',$asistido)->with('sustancias',$sustancias);
     }
 
+    public function get($asistido_id){
+
+        $asistido=Asistido::find($asistido_id);
+        //Para poder mostrar las sutancias cuando se agrega una adiccion
+        $sustancias=Sustancia::all(['id','sustancia']);
+
+        $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
+        
+        //En este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
+        if(isset($fichaAdiccion)){
+            
+            $adicciones=Adiccion::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+            $episodiosAgresivos=EpisodioAgresivo::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+            $tratamientos=Tratamiento::where('fichaAdiccion_id',$fichaAdiccion->id)->get();
+
+            $view = view('altaFichas.fichaAdicciones2')
+            ->with('asistido',$asistido)
+            ->with('sustancias',$sustancias)
+            ->with('adicciones',$adicciones)
+            ->with('fichaAdiccion',$fichaAdiccion)
+            ->with('episodiosAgresivos',$episodiosAgresivos)
+            ->with('tratamientos',$tratamientos)
+            ->render();
+        }
+        
+        $view = view('altaFichas.fichaAdicciones2')->with('asistido',$asistido)->with('sustancias',$sustancias)->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+
+    }
+
     public function storeAdiccion(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
         //Con update me aseguro de no generar duplicados y solo actualizar el registro existente

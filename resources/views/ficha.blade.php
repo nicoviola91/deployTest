@@ -39,6 +39,11 @@
       text-align: center !important;
     }
 
+    .tab-pane {
+
+      min-height: 300px !important;
+    }
+
 </style>
 
 <div class="row">
@@ -185,73 +190,73 @@
                   <h4>Fichas Disponibles</h4>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaDatosPersonales/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-id-badge"></i> Añadir Ficha de Datos Personales
                     </a>  
                   <?php endif ?>
                   
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="http://localhost:8000/fichaLegales/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-legal"></i> Añadir Ficha de Datos Legales
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-mortar-board"></i> Añadir Ficha de Eduacaion
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-gears"></i> Añadir Ficha de Empleo
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAsistenciaSocial): ?>
-                    <a href="http://localhost:8000/fichaAdicciones/create/1" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-life-buoy"></i> Añadir Ficha de Asistencia Social
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-hotel"></i> Añadir Ficha Necesidades
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaMedica): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-heartbeat"></i> Añadir Ficha Medica
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaSaludMental): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-user-md"></i> Añadir Ficha de Salud Mental
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDiagnosticoIntegral): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-stethoscope"></i> Añadir Ficha de Diagnostico Integral
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-warning"></i> Añadir Ficha de Adicciones
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaFamilia): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-users"></i> Añadir Ficha de Familia y Amigos
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaLocalizacion): ?>
-                    <a href="{{ url('/fichaEducaion/create/1')}}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
+                    <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
                       <i align="left" class="fa fa-location-arrow"></i> Añadir Ficha de Localizacion
                     </a>  
                   <?php endif ?>
@@ -264,66 +269,64 @@
           <!-- /.tab-pane -->
 
           <div class="tab-pane" id="tab_personal">
-            <div id="datosPersonal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasPersonal">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosPersonal"></div>
+            <div id="consultasPersonal"></div>
           </div>
 
           <div class="tab-pane" id="tab_legal">
-            <div id="datosLegal">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasLegal">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosLegal"></div>
+            <div id="consultasLegal"></div>
           </div>
 
           <div class="tab-pane" id="tab_educacion">
-            <div id="datosEducacion">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasEducacion">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosEducacion"></div>
+            <div id="consultasEducacion"></div>
           </div>
 
           <div class="tab-pane" id="tab_empleo">
-            <div id="datosEmpleo">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasEmpleo">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosEmpleo"></div>
+            <div id="consultasEmpleo"></div>
           </div>
 
           <div class="tab-pane" id="tab_asistencia">
-            <div id="datosAsistencia">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasAsistencia">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosAsistencia"></div>
+            <div id="consultasAsistencia"></div>
           </div>
 
           <div class="tab-pane" id="tab_necesidades">
-            <div id="datosNecesidades">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasNecesidades">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosNecesidades"></div>
+            <div id="consultasNecesidades"></div>
           </div>
 
           <div class="tab-pane" id="tab_medica">
-            <div id="datosMedica">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasMedica">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosMedica"></div>
+            <div id="consultasMedica"></div>
           </div>
 
           <div class="tab-pane" id="tab_mental">
-            <div id="datosMental">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasMental">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosMental"></div>
+            <div id="consultasMental"></div>
           </div>
 
           <div class="tab-pane" id="tab_integral">
-            <div id="datosIntegral">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasIntegral">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosIntegral"></div>
+            <div id="consultasIntegral"></div>
           </div>
 
           <div class="tab-pane" id="tab_adicciones">
-            <div id="datosAdicciones">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasAdicciones">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosAdicciones"></div>
+            <div id="consultasAdicciones"></div>
           </div>
 
           <div class="tab-pane" id="tab_familia">
-            <div id="datosFamilia">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasFamilia">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosFamilia"></div>
+            <div id="consultasFamilia"></div>
           </div>
 
           <div class="tab-pane" id="tab_localizacion">
-            <div id="datosLocalizacion">ACA VAN LOS DATOS TRAIDOS POR AJAX</div>
-            <div id="consultasLocalizacion">ACA VAN LAS CONSULTAS TRAIDAS POR AJAX</div>
+            <div id="datosLocalizacion"></div>
+            <div id="consultasLocalizacion"></div>
           </div>
-
-        
 
         </div> <!-- END TAB CONTENT -->
 
@@ -373,14 +376,15 @@
   
   $('.liTab.adicciones').click(function () {
 
-    console.log('FICHA ADICCIONES');
-
     var id = $(this).data('id');
-    console.log(id);
 
     $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
 
-      console.log(data);
+      if (data.status) {
+
+        $('#datosAdicciones').html(data.view);
+
+      }
 
     })
 
@@ -388,14 +392,16 @@
 
   $('.liTab.educacion').click(function () {
 
-    console.log('FICHA EDUCACION');
-
     var id = $(this).data('id');
-    console.log(id);
 
     $.get("{{route('fichaEducacion.get',['asistido_id'=>$asistido->id])}}", function(data){
 
       console.log(data);
+      if (data.status) {
+
+        $('#datosEducacion').html(data.view);
+
+      }
 
     })
 
