@@ -12,6 +12,6 @@ class TipoNecesidad extends Model
     ];
     
     public function necesidades(){
-        return $this->hasMany('App\Necesidad');
+        return $this->hasMany('App\Necesidad','tipoNecesidad_id');
     }
 }

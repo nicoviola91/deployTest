@@ -8,7 +8,8 @@ class FichaNecesidad extends Ficha
 {
     protected $table="fichasNecesidades";
     protected $fillable =[
-        'checklistNecesidades'
+        'checklistNecesidades',
+        'asistido_id'
     ];
 
     //falta representar el tema de la coleccion:: update: con el hasMany es suficiente
@@ -18,7 +19,7 @@ class FichaNecesidad extends Ficha
     }
     
     public function necesidades(){
-        return $this->hasMany('App\Necesidad');
+        return $this->hasMany('App\Necesidad','fichaNecesidad_id');
     }
     
 }

@@ -255,8 +255,24 @@ Route::group(['prefix'=>'fichaLegal'],function(){
         'as'=>'fichaLegal.storeAntecedente',
     ]);
     Route::get('/destroyAntecedente/{id}/{asistido_id}',[
-        'uses'=>'FichaLegalController@destroyAntecedente',
+        'uses'=>'FichaLegalController@destroyNecesidad',
         'as'=>'fichaLegal.destroyAntecedente',
+    ]);
+});
+
+//FICHA NECESIDADES
+Route::group(['prefix'=>'fichaNecesidades'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaNecesidadesController@create',
+        'as'=>'fichaNecesidades.create',
+    ]);
+    Route::post('/storeNecesidad/{id}',[
+        'uses'=>'FichaNecesidadesController@storeNecesidad',
+        'as'=>'fichaNecesidades.storeNecesidad',
+    ]);
+    Route::get('/destroyNecesidad/{id}/{asistido_id}',[
+        'uses'=>'FichaNecesidadesController@destroyNecesidad',
+        'as'=>'fichaNecesidades.destroyNecesidad',
     ]);
 });
 

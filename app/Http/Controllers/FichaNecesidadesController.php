@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\TipoNecesidad;
+use App\FichaNecesidad;
+use App\Necesidad;
+use App\Asistido;
+
+
+class FichaNecesidadesController extends Controller
+{
+    
+    public function __construct () {
+
+        $this->middleware('auth');
+
+    }
+    
+    public function create($asistido_id){
+        $asistido=Asistido::find($asistido_id);
+        $tiposNecesidades=TipoNecesidad::all(['id','descripcion']);
+        $fichaNecesidad=$this->findFichaNecesidadByAsistidoId($asistido_id);
+        if(isset($fichaNecesidad)){
+            $necesidades=Necesidad::where('fichaNecesidad_id',$fichaNecesidad->id)->get();
+            return view('altaFichas.fichaNecesidades')
+                ->with('asistido',$asistido)
+                ->with('tiposNecesidades',$tiposNecesidades)
+                ->with('necesidades',$necesidades);
+        }
+        return view('altaFichas.fichaNecesidades')->with('asistido',$asistido)->with('tiposNecesidades',$tiposNecesidades);
+    }
+
+    public function storeNecesidad(Request $request, $asistido_id){
+
+        $necesidad=new Necesidad($request->all());
+        Asistido::where('id',$asistido_id)->update(['checkFichaNecesidad' =>1]);
+        $fichaNecesidad=$this->findFichaNecesidadByAsistidoId($asistido_id);
+        FichaNecesidad::where('asistido_id',$asistido_id)
+        ->update(['checklistNecesidades'=>1]);
+        $fichaNecesidad->necesidades()->save($necesidad);
+        $necesidad->save();
+
+        return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]); 
+
+    }
+
+    
+    public function destroyNecesidad($id,$asistido_id){
+
+        $necesidad=Necesidad::find($id);
+        $necesidad->delete();
+        return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]);
+    }
+
+
+
+    public function findFichaNecesidadByAsistidoId($asistido_id){
+        $fichaNecesidad=FichaNecesidad::where('asistido_id',$asistido_id)->first();
+        $asistido=Asistido::find($asistido_id);
+        if(!isset($fichaNecesidad)){
+            $fichaNecesidad=new FichaNecesidad();
+            $asistido->ficha()->save($fichaNecesidad);
+        }
+        return $fichaNecesidad;
+    }
+}

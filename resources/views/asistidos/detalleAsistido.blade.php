@@ -186,13 +186,15 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaNecesidad)==1)
-					<dd><a href="#" class='text-light-blue'>Ficha de Necesidades</a></dd>
+					<dd>
+							<a href="{{route('fichaNecesidades.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue'>Ficha Necesidades</a>
+					</dd>
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
+								<a href="{{route('fichaNecesidades.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Necesidad">
 										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Necesidades
-								</button>
+								</a>
 						</div>
 					</dd>
 					@endif

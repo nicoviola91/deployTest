@@ -10,13 +10,15 @@ class Necesidad extends Model
     protected $fillable =[
         'especificacion',
         'fechaInicio',
-        'fechaFin'
+        'fechaFin',
+        'fichaNecesidad_id',
+        'tipoNecesidad_id',
     ];
 
     public function fichaNecesidad(){
-        return $this->belongsTo('App\FichaNecesidad');
+        return $this->belongsTo('App\FichaNecesidad','fichaNecesidad_id');
     }
     public function tipo(){
-        return $this->belongsTo('App\TipoNecesidad');
+        return $this->belongsTo('App\TipoNecesidad','tipoNecesidad_id');
     }
 }
