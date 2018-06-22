@@ -60,19 +60,16 @@
                 @endforeach
                 @endif 
 
-
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
+              <a href="#" data-toggle="modal" data-target="#modal-antecedentes"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal fade" id="modal-agregar">
+      <div class="modal fade" id="modal-antecedentes">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"> Agregar Antecedente</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Agregar Antecedente </h4>
             </div>
               <form id="nuevoContacto-form" method="POST" action="{{ route('fichaLegal.storeAntecedente',['asistido_id'=>$asistido->id]) }}">
                 {{ csrf_field() }}

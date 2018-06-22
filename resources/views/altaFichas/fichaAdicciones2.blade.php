@@ -16,15 +16,8 @@
             
 
 
-
-
-
-
-
-
-
             <div class="box-group">
-              <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+
               <div class="panel box box-warning">
                 <div class="box-header with-border black">
                   <h4 class="box-title">
