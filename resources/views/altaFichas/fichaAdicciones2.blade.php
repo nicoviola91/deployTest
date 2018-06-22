@@ -33,28 +33,31 @@
                             <a href="{{ route('fichaAdicciones.destroyAdiccion',['adiccion_id'=>$adiccion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$adiccion->id}}" data-toggle="tooltip" data-title="Descartar Adicción"> <i class="fa fa-trash"></i></a>
                           </div>
                           <dl class="dl-horizontal" >
-                              <dt>Sustancia de inicio</dt>
-                              <dd>{{$adiccion->sustanciaInicio}}</dd>
+                            <dt>Sustancia de inicio</dt>
+                            <dd>{{$adiccion->sustanciaInicio}}</dd>
 
-                              <dt>Sustancia de fin</dt>
-                              <dd>{{$adiccion->sustanciaFin}}</dd>
-                              
-                              @if(isset($adiccion->frecuencia))
+                            <dt>Sustancia de fin</dt>
+                            <dd>{{$adiccion->sustanciaFin}}</dd>
+                            
+                            @if(isset($adiccion->frecuencia))
                               <dt>Frecuencia</dt>
                               <dd>{{$adiccion->frecuencia}}</dd>
-                              @endif
-                              @if(isset($adiccion->modalidad))
+                            @endif
+                            
+                            @if(isset($adiccion->modalidad))
                               <dt>Modalidad</dt>
                               <dd>{{$adiccion->modalidad}}</dd>
-                              @endif
-                              @if(isset($adiccion->edadInicio))
+                            @endif
+                            
+                            @if(isset($adiccion->edadInicio))
                               <dt>Edad de inicio</dt>
                               <dd>{{$adiccion->edadInicio}}</dd>
-                              @endif
-                              @if(isset($adiccion->observaciones))
+                            @endif
+                            
+                            @if(isset($adiccion->observaciones))
                               <dt>Observaciones</dt>
                               <dd>{{$adiccion->observaciones}}</dd>
-                              @endif
+                            @endif
                           </dl>
                         @endforeach
                       @endif
@@ -83,75 +86,74 @@
                   </div>
             
                   <form id="nuevaAdiccion-form" method="POST" action="{{ url('/fichaAdicciones/storeAdiccion',['asistido_id'=>$asistido->id]) }}">
-                        {{ csrf_field() }}
-                         
-                         <div class="box-body"><div class="form-group">
-                                      
-                                       {!! Form::Label('sustanciaInicio', 'Sustancia de inicio:') !!}
-                                       <select class="form-control" name="sustanciaInicio" id="sustanciaInicio" required >
-                                         @foreach($sustancias as $sustancia)
-                                           <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
-                                         @endforeach
-                                       </select>
-                                     </div>
-                                     
-                                     <div class="form-group">
-                                       {!! Form::Label('sustanciaFin', 'Sustancia de fin:') !!}
-                                       <select class="form-control" name="sustanciaFin" id="sustanciaFin "required>
-                                         @foreach($sustancias as $sustancia)
-                                           <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
-                                         @endforeach
-                                       </select>
-                                     </div>
-                         
-                                     <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
-                                       <label for="frecuencia">Frecuencia</label>
-                                       <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia">
-                                       @if ($errors->has('frecuencia'))
-                                         <span class="help-block">
-                                             <strong>{{ $errors->first('frecuencia') }}</strong>
-                                         </span>
-                                       @endif
-                                     </div>
-                         
-                                     <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
-                                       <label for="modalidad">Modalidad</label>
-                                       <input type="text" class="form-control" id="modalidad" placeholder="Modalidad" name="modalidad">
-                                       @if ($errors->has('modalidad'))
-                                         <span class="help-block">
-                                             <strong>{{ $errors->first('modalidad') }}</strong>
-                                         </span>
-                                       @endif
-                                     </div>
+                    {{ csrf_field() }}
+                     
+                    <div class="box-body"><div class="form-group">
                                   
-                                     <div class="form-group {{ $errors->has('edadInicio') ? ' has-error' : '' }}">
-                                        <label for="edadInicio">Edad de inicio</label>
-                                        <input type="number" class="form-control" id="edadInicio" placeholder="Edad de inicio" name="edadInicio">
-                                        @if ($errors->has('edadInicio'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('edadInicio') }}</strong>
-                                          </span>
-                                        @endif
-                                      </div>
-                                      
-                                      <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
-                                        <label for="observaciones">Observaciones</label>
-                                        <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
-                                        @if ($errors->has('observaciones'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('observaciones') }}</strong>
-                                          </span>
-                                          @endif
-                                        </div>
-                                  </div>
-            
+                      {!! Form::Label('sustanciaInicio', 'Sustancia de inicio:') !!}
+                      <select class="form-control" name="sustanciaInicio" id="sustanciaInicio" required >
+                         @foreach($sustancias as $sustancia)
+                           <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
+                         @endforeach
+                       </select>
+                      </div>
+                     
+                      <div class="form-group">
+                       {!! Form::Label('sustanciaFin', 'Sustancia de fin:') !!}
+                       <select class="form-control" name="sustanciaFin" id="sustanciaFin "required>
+                         @foreach($sustancias as $sustancia)
+                           <option value="{{$sustancia->sustancia}}">{{$sustancia->sustancia}}</option>
+                         @endforeach
+                       </select>
+                      </div>
+         
+                      <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
+                       <label for="frecuencia">Frecuencia</label>
+                       <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia">
+                       @if ($errors->has('frecuencia'))
+                         <span class="help-block">
+                             <strong>{{ $errors->first('frecuencia') }}</strong>
+                         </span>
+                       @endif
+                      </div>
+         
+                      <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
+                       <label for="modalidad">Modalidad</label>
+                       <input type="text" class="form-control" id="modalidad" placeholder="Modalidad" name="modalidad">
+                       @if ($errors->has('modalidad'))
+                          <span class="help-block">
+                            <strong>{{ $errors->first('modalidad') }}</strong>
+                          </span>
+                       @endif
+                      </div>
+                  
+                      <div class="form-group {{ $errors->has('edadInicio') ? ' has-error' : '' }}">
+                        <label for="edadInicio">Edad de inicio</label>
+                        <input type="number" class="form-control" id="edadInicio" placeholder="Edad de inicio" name="edadInicio">
+                        @if ($errors->has('edadInicio'))
+                          <span class="help-block">
+                            <strong>{{ $errors->first('edadInicio') }}</strong>
+                          </span>
+                        @endif
+                      </div>
                       
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-danger">Agregar Adicción</button>
-                          </div>
+                      <div class="form-group {{ $errors->has('modalidad') ? ' has-error' : '' }}">
+                        <label for="observaciones">Observaciones</label>
+                        <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
+                        @if ($errors->has('observaciones'))
+                          <span class="help-block">
+                            <strong>{{ $errors->first('observaciones') }}</strong>
+                          </span>
+                        @endif
+                      </div>
+                    </div>
+        
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-danger">Agregar Adicción</button>
+                    </div>
+
                   </form>
-            
                 </div>
               </div>
             </div>
