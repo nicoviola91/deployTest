@@ -30,6 +30,27 @@ class FichaDatosPersonalesController extends Controller
         return view('altaFichas.fichaDatosPersonales')->with('asistido',$asistido);
     }
 
+    public function get ($id) {
+
+        $asistido=Asistido::find($id);
+        $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($id);
+        
+        if(isset($fichaDatosPersonales)){
+            
+            $view = view('altaFichas.fichaDatosPersonales2')
+                ->with('asistido',$asistido)
+                ->with('fichaDatosPersonales',$fichaDatosPersonales)
+                ->render();
+        }
+      
+        $view = view('altaFichas.fichaDatosPersonales2')->with('asistido',$asistido)->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
     public function store(Request $request, $asistido_id){
         //udpateOrCreate actualiza el registro si este ya existe, si no lo crea.
         //el primer parametro es el where, el segundo los datos que queremos actualizar en el registro

@@ -126,6 +126,10 @@ Route::group(['prefix'=>'fichaDatosPersonales'],function(){
         'uses'=>'FichaDatosPersonalesController@create',
         'as'=>'fichaDatosPersonales.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaDatosPersonalesController@get',
+        'as'=>'fichaDatosPersonales.get',
+    ]);
     Route::post('/store/{asistido_id}',[
         'uses'=>'FichaDatosPersonalesController@store',
         'as'=>'fichaDatosPersonales.store'
@@ -249,6 +253,10 @@ Route::group(['prefix'=>'fichaLegal'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaLegalController@create',
         'as'=>'fichaLegal.create',
+    ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaLegalController@get',
+        'as'=>'fichaLegal.get',
     ]);
     Route::post('/storeAntecedente/{id}',[
         'uses'=>'FichaLegalController@storeAntecedente',

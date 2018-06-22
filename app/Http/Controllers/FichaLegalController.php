@@ -34,6 +34,32 @@ class FichaLegalController extends Controller
         return view('altaFichas.fichaLegal')->with('asistido',$asistido)->with('ramasDerecho',$ramasDerecho);
     }
 
+    public function get ($asistido_id) {
+
+        $asistido=Asistido::find($asistido_id);
+        $ramasDerecho=RamaDerecho::all(['id','descripcion']);
+
+        $fichaLegal=$this->findFichaLegalByAsistidoId($asistido_id);
+        
+        if(isset($fichaLegal)){
+        
+            $antecedentes=Antecedente::where('fichaLegal_id',$fichaLegal->id)->get();
+        
+            $view = view('altaFichas.fichaLegal2')
+                ->with('asistido',$asistido)
+                ->with('ramasDerecho',$ramasDerecho)
+                ->with('antecedentes',$antecedentes)
+                ->render();
+        }
+
+        $view = view('altaFichas.fichaLegal2')->with('asistido',$asistido)->with('ramasDerecho',$ramasDerecho)->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
     public function storeAntecedente(Request $request, $asistido_id){
 
         $antecedente=new Antecedente($request->all());

@@ -23,15 +23,20 @@ class FichaEducacionController extends Controller
     
     public function create($asistido_id){
         
-        $asistido=Asistido::find($asistido_id);
-        $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
+        $asistido =Asistido::find($asistido_id);
+        $fichaEducacion =$this->findFichaEducacionByAsistidoId($asistido_id);
+        
         $niveles=array('Completo','Incompleto','En curso','Nunca iniciado');
         $tipos=array('Primario','Secundario','Terciario','Universitario','Curso');
         $orientaciones=array('Agrario', 'Arte', 'Comunicación', 'Turismo', 'Lenguas', 'Informática', 'Educación Física',
         'Ciencias Naturales', 'Ciencias Sociales y Humanidades','Economía y Administración');
+        
         if(!empty($fichaEducacion)){
+            
             $educaciones=Educacion::where('ficha_educacion_id',$fichaEducacion->id)->get();
-            return view('altaFichas.fichaEducacion')->with('educaciones',$educaciones)
+            
+            return view('altaFichas.fichaEducacion')
+                ->with('educaciones',$educaciones)
                 ->with('fichaEducacion',$fichaEducacion)
                 ->with('asistido',$asistido)
                 ->with('niveles',$niveles)
@@ -41,7 +46,7 @@ class FichaEducacionController extends Controller
         return view('altaFichas.fichaEducacion')->with('asistido',$asistido)->with('niveles',$niveles)->with('orientaciones',$orientaciones)->with('tipos',$tipos);
     }
 
-    public function get ($asistido_id){
+    public function get ($asistido_id) {
         
         $asistido=Asistido::find($asistido_id);
         $fichaEducacion=$this->findFichaEducacionByAsistidoId($asistido_id);
@@ -51,10 +56,12 @@ class FichaEducacionController extends Controller
         $orientaciones=array('Agrario', 'Arte', 'Comunicación', 'Turismo', 'Lenguas', 'Informática', 'Educación Física',
         'Ciencias Naturales', 'Ciencias Sociales y Humanidades','Economía y Administración');
         
-        if(isset($fichaEducacion) && !empty($fichaEducacion)){
+        if(!empty($fichaEducacion)){
+            
             $educaciones=Educacion::where('ficha_educacion_id',$fichaEducacion->id)->get();
             
-            $view = view('altaFichas.fichaEducacion2')->with('educaciones',$educaciones)
+            $view = view('altaFichas.fichaEducacion2')
+                ->with('educaciones',$educaciones)
                 ->with('fichaEducacion',$fichaEducacion)
                 ->with('asistido',$asistido)
                 ->with('niveles',$niveles)
@@ -80,7 +87,7 @@ class FichaEducacionController extends Controller
         $educacionInput=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $educacion=new Educacion($educacionInput);
   
-        if($request->input('tipoEducacion')=='Primario'){
+        if($request->input('tipoEducacion') =='Primario'){
             $tipoEducacion_id=1;
         }
         if($request->input('tipoEducacion')=='Secundario'){

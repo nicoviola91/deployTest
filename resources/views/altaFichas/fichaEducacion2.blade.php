@@ -24,7 +24,7 @@
       
           <div id="collapseEducacion" class="panel-collapse collapse in">
             <div class="box-body ">
-              @if(isset($fichaEducacion))
+              @if(isset($educaciones))
                 @foreach($educaciones as $educacion)
                   <div class="box-tools pull-right">
                     <a href="{{ route('fichaEducacion.destroyEducacion',['educacion_id'=>$educacion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$educacion->id}}" data-toggle="tooltip" data-title="Descartar Educacion">

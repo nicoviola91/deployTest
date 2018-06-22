@@ -74,10 +74,10 @@
           </div>
           <div class="box-footer no-padding">
             <ul class="nav nav-stacked">
-              <li><a href="#"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
-              <li><a href="#"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
-              <li><a href="#"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a></li>
-              <li><a href="#"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
+              <li><a href="javascript:void(0)"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
+              <li><a href="javascript:void(0)"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
+              <li><a href="javascript:void(0)"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a></li>
+              <li><a href="javascript:void(0)"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
             </ul>
           </div>
         </div>
@@ -146,7 +146,7 @@
           <li class="liTab adicciones" data-id="{{$asistido->id}}">
             <a href="#tab_adicciones" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Adicciones">
               <i class="icon fa fa-warning fa-fw"></i> 
-              <span style="display: none;"> Adicciones</span>
+              <span style="display: none;"> Adicciones </span>
             </a>
           </li>
 
@@ -174,7 +174,7 @@
 
         
 
-        <div class="tab-content">
+        <div class="tab-content" style="min-height: 400px;">
           
 
           <div class="tab-pane" id="tab_nueva">
@@ -400,6 +400,40 @@
       if (data.status) {
 
         $('#datosEducacion').html(data.view);
+
+      }
+
+    })
+
+  });
+
+  $('.liTab.personal').click(function () {
+
+    var id = $(this).data('id');
+
+    $.get("{{route('fichaDatosPersonales.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+      console.log(data);
+      if (data.status) {
+
+        $('#datosPersonal').html(data.view);
+
+      }
+
+    })
+
+  });
+
+  $('.liTab.legal').click(function () {
+
+    var id = $(this).data('id');
+
+    $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+      console.log(data);
+      if (data.status) {
+
+        $('#datosLegal').html(data.view);
 
       }
 
