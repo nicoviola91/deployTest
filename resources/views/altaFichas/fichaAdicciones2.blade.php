@@ -216,11 +216,6 @@
               </div>
             </div>
 
-
-
-
-
-
             <div class="modal fade in" id="modal-default3" style="display: none; padding-right: 17px;">
               <div class="modal-dialog">
                   <div class="modal-content">
