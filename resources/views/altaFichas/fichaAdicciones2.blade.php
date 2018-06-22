@@ -13,8 +13,6 @@
 
     <div class="col-md-10 col-md-offset-1">
         <div class="box-body">
-            
-
 
             <div class="box-group">
 
@@ -28,44 +26,42 @@
                 <div id="collapseOne" class="panel-collapse collapse">
                   <div class="box-body ">
                     @if(isset($fichaAdiccion))
-                        @if (isset($fichaAdiccion->checklistAdicciones)) 
+                      @if (isset($fichaAdiccion->checklistAdicciones)) 
                         @foreach($adicciones as $adiccion)
                         
-                            <div class="box-tools pull-right">
-                              
-                              <a href="{{ route('fichaAdicciones.destroyAdiccion',['adiccion_id'=>$adiccion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$adiccion->id}}" data-toggle="tooltip" data-title="Descartar Adicción">
-                                  <i class="fa fa-trash"></i>
-                              </a>
-                            </div>
-                            <dl class="dl-horizontal" >
-                                <dt>Sustancia de inicio</dt>
-                                <dd>{{$adiccion->sustanciaInicio}}</dd>
+                          <div class="box-tools pull-right">       
+                            <a href="{{ route('fichaAdicciones.destroyAdiccion',['adiccion_id'=>$adiccion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$adiccion->id}}" data-toggle="tooltip" data-title="Descartar Adicción"> <i class="fa fa-trash"></i></a>
+                          </div>
+                          <dl class="dl-horizontal" >
+                              <dt>Sustancia de inicio</dt>
+                              <dd>{{$adiccion->sustanciaInicio}}</dd>
 
-                                <dt>Sustancia de fin</dt>
-                                <dd>{{$adiccion->sustanciaFin}}</dd>
-                                
-                                @if(isset($adiccion->frecuencia))
-                                <dt>Frecuencia</dt>
-                                <dd>{{$adiccion->frecuencia}}</dd>
-                                @endif
-                                @if(isset($adiccion->modalidad))
-                                <dt>Modalidad</dt>
-                                <dd>{{$adiccion->modalidad}}</dd>
-                                @endif
-                                @if(isset($adiccion->edadInicio))
-                                <dt>Edad de inicio</dt>
-                                <dd>{{$adiccion->edadInicio}}</dd>
-                                @endif
-                                @if(isset($adiccion->observaciones))
-                                <dt>Observaciones</dt>
-                                <dd>{{$adiccion->observaciones}}</dd>
-                                @endif
-                            </dl>
+                              <dt>Sustancia de fin</dt>
+                              <dd>{{$adiccion->sustanciaFin}}</dd>
+                              
+                              @if(isset($adiccion->frecuencia))
+                              <dt>Frecuencia</dt>
+                              <dd>{{$adiccion->frecuencia}}</dd>
+                              @endif
+                              @if(isset($adiccion->modalidad))
+                              <dt>Modalidad</dt>
+                              <dd>{{$adiccion->modalidad}}</dd>
+                              @endif
+                              @if(isset($adiccion->edadInicio))
+                              <dt>Edad de inicio</dt>
+                              <dd>{{$adiccion->edadInicio}}</dd>
+                              @endif
+                              @if(isset($adiccion->observaciones))
+                              <dt>Observaciones</dt>
+                              <dd>{{$adiccion->observaciones}}</dd>
+                              @endif
+                          </dl>
                         @endforeach
-                        @endif
                       @endif
+                    @endif
                      
-                      <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Adicción</a>
+                    <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Adicción</a>
+                  
                   </div>
                 </div>
               </div>
@@ -490,5 +486,7 @@
 
           </div>
         </div>
-      </div>
+    </div>
+  </div>
+</div>
 
