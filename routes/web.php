@@ -284,6 +284,22 @@ Route::group(['prefix'=>'fichaNecesidades'],function(){
     ]);
 });
 
+//FICHA NECESIDADES
+Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaAsistenciaSocialController@create',
+        'as'=>'fichaAsistenciaSocial.create',
+    ]);
+    Route::post('/storeServicio/{id}',[
+        'uses'=>'FichaAsistenciaSocialController@storeServicio',
+        'as'=>'fichaAsistenciaSocial.storeServicio',
+    ]);
+    Route::get('/destroyServicio/{id}/{asistido_id}',[
+        'uses'=>'FichaAsistenciaSocialController@destroyServicio',
+        'as'=>'fichaAsistenciaSocial.destroyServicio',
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

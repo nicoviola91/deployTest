@@ -72,13 +72,13 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaAsistenciaSocial)==1)
-					<dd><a href="#" class='text-light-blue'>Ficha de Asistencia Social</a></dd>
+					<dd><a href="{{route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue'>Ficha de Asistencia Social</a></dd>
 					@else
 					<dd>
 						<div class="col-md-4">
-							<button type="button" class="btn btn-block btn-default btn-sm">
-									<i align="left" class="fa fa-plus-square"></i> Añadir Ficha Asistencia Social
-							</button>
+								<a href="{{route('fichaAsistenciaSocial.create',['id'=>$asistido->id])}}" class="btn btn-block btn-default btn-sm">
+										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha Asistencia Social
+								</a>
 						</div>
 					</dd>
 					@endif

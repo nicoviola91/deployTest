@@ -10,14 +10,16 @@ class ServicioSocial extends Model
     protected $fillable =[
         'fecha_inicio',
         'fecha_fin',
+        'tipo',
+        'prestador',
+        'direccion',
+        'telefono',
+        'referente',
+        'fichaAsistenciaSocial_id'
         
     ];
 
-	public function institucion(){
-        return $this->belongsTo('App\Institucion'); 
-    }  
-
    public function fichaAsistenciaSocial(){
-        return $this->belongsTo('App\fichaAsistenciaSocial');
+        return $this->belongsTo('App\fichaAsistenciaSocial','fichaAsistenciaSocial_id');
     }
 }
