@@ -73,9 +73,11 @@ class FichaLocalizacionController extends Controller
         return $fichaLocalizacion;
     }
 
-    public function destroyLocalizacion($id,$asistido_id,$localizacionOZona){
+    public function destroyLocalizacion(Request $request){
 
-
+        $localizacionOZona=$request->input('localizacionozona');
+        $asistido_id=$request->input('asistidoid');
+        $id=$request->input('id');
         if($localizacionOZona=='Localizacion'){
             $localizacion=LocalizacionHabitual::find($id);
             $direccion=Direccion::where('localizacionHabitual_id',$id)->first();
