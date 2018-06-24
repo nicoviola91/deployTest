@@ -136,7 +136,7 @@
                         <span>Período en que se utilizó el servicio</span>
                         <div class="form-group col-md-12 {{ $errors->has('fecha_inicio') ? ' has-error' : '' }}">
                             <label for="fecha_inicio">Desde</label>
-                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required >
                             @if ($errors->has('fecha_inicio'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('fecha_inicio') }}</strong>

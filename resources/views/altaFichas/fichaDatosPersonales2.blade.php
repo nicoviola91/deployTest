@@ -20,21 +20,21 @@
                     <h3 class="col-md-12">Datos Básicos</h3>
                     <div class="form-group col-md-6">
                       <label for="nombre">Nombre</label>
-                        <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}" {{isset($fichaDatosPersonales) ? 'readonly':''}}>
+                        <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required maxlength="250" value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}" {{isset($fichaDatosPersonales) ? 'readonly':''}}>
                     </div>
                     
                     <div class="form-group col-md-6">
                       <label for="apellido">Apellido</label>
-                      <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text" value="{{isset($fichaDatosPersonales->apellido) ? $fichaDatosPersonales->apellido : (isset($asistido->apellido) ? $asistido->apellido: '')}}">
+                      <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text" maxlength="250" value="{{isset($fichaDatosPersonales->apellido) ? $fichaDatosPersonales->apellido : (isset($asistido->apellido) ? $asistido->apellido: '')}}">
                     </div>
                     
                     <div class="form-group col-md-6">
                         <label for="numeroDocumento">Numero de documento <small class="text-muted">(sin guiones ni puntos)</small> </label>
-                        <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" maxlength="9" pattern="[0-9]*$" value="{{isset($fichaDatosPersonales->numeroDocumento) ? $fichaDatosPersonales->numeroDocumento : (isset($asistido->dni) ? $asistido->dni: '')}}">
+                        <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" maxlength="9" pattern="[0-9]*$" maxlength="250" value="{{isset($fichaDatosPersonales->numeroDocumento) ? $fichaDatosPersonales->numeroDocumento : (isset($asistido->dni) ? $asistido->dni: '')}}">
                     </div>
                     
                     <div class="form-group col-md-6">
-                        <label for="apellido">Fecha de nacimiento</label>
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
                         <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ingrese fecha de nacimiento" type="date" value="{{isset($fichaDatosPersonales->fechaNacimiento) ? $fichaDatosPersonales->fechaNacimiento : (isset($asistido->fechaNacimiento) ? $asistido->fechaNacimiento : '')}}">
                     </div>
                     
@@ -46,7 +46,7 @@
                     
                     <div class="form-group col-md-6">
                         <label for="nacionalidad">Nacionalidad</label>
-                        <input class="form-control" id="nacionalidad" name="nacionalidad" placeholder="Ingrese nacionalidad" type="text" value="{{isset($fichaDatosPersonales->nacionalidad) ? $fichaDatosPersonales->nacionalidad : ''}}">
+                        <input class="form-control" id="nacionalidad" name="nacionalidad" placeholder="Ingrese nacionalidad" type="text" maxlength="250" value="{{isset($fichaDatosPersonales->nacionalidad) ? $fichaDatosPersonales->nacionalidad : ''}}">
                     </div>
                     
                     <div class="form-group col-md-6">
@@ -57,7 +57,7 @@
                     <h3 class="col-md-12">Datos de Contacto</h3>
                     <div class="form-group col-md-6">
                         <label for="celular">Celular</label>
-                        <input class="form-control" id="celular" name="celular" maxlength="9" placeholder="Ingrese número de celular" pattern="[0-9]*$" type="text" value="{{isset($fichaDatosPersonales->celular) ? $fichaDatosPersonales->celular : ''}}">
+                        <input class="form-control" id="celular" name="celular" maxlength="9" placeholder="Ingrese número de celular" pattern="[0-9]*$" type="text" maxlength="250" value="{{isset($fichaDatosPersonales->celular) ? $fichaDatosPersonales->celular : ''}}">
                     </div>
                     
                     <div class="form-group col-md-6">
@@ -67,13 +67,13 @@
                     
                     <div class="form-group col-md-6">
                         <label for="email">E-mail</label>
-                        <input class="form-control" id="email" name="email" placeholder="Ingrese email" type="email" value="{{isset($fichaDatosPersonales->email) ? $fichaDatosPersonales->email : ''}}">
+                        <input class="form-control" id="email" name="email" placeholder="Ingrese email" type="email" maxlength="250" value="{{isset($fichaDatosPersonales->email) ? $fichaDatosPersonales->email : ''}}">
                     </div>
                     
                     <h3 class="col-md-12">Contacto Alternativo</h3>
                     <div class="form-group col-md-12">
                         <label for="nombreContacto">Nombre Contacto</label>
-                        <input class="form-control" id="nombreContacto" name="nombreContacto" placeholder="Ingrese el nombre de un contacto del asistido" type="text" value="{{isset($fichaDatosPersonales->nombreContacto) ? $fichaDatosPersonales->nombreContacto : ''}}">
+                        <input class="form-control" id="nombreContacto" name="nombreContacto" placeholder="Ingrese el nombre de un contacto del asistido" maxlength="250" type="text" value="{{isset($fichaDatosPersonales->nombreContacto) ? $fichaDatosPersonales->nombreContacto : ''}}">
                     </div>
                     
                     <div class="form-group col-md-6">
@@ -83,7 +83,7 @@
                     
                     <div class="form-group col-md-6">
                         <label for="mailContacto">E-mail Contacto</label>
-                        <input class="form-control" id="mailContacto" name="mailContacto" placeholder="Ingrese e-mail del contacto del asistido" type="email" value="{{isset($fichaDatosPersonales->mailContacto) ? $fichaDatosPersonales->mailContacto : ''}}">
+                        <input class="form-control" id="mailContacto" name="mailContacto" placeholder="Ingrese e-mail del contacto del asistido" type="email" maxlength="250" value="{{isset($fichaDatosPersonales->mailContacto) ? $fichaDatosPersonales->mailContacto : ''}}">
                     </div>
                     
                     <div class="box-footer">
