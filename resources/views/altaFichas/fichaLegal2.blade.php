@@ -1,39 +1,59 @@
+<style type="text/css">
+		
+    .pac-container {
+
+        z-index: 99999;
+    }
+
+    .preventoverflow{
+        
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis
+    }
+</style>
+
 <div class="row">
     
 
     <div class="col-md-12">
-      <h3 class="box-title"><i class="icon fa fa-legal fa-fw"></i> Ficha Legal
-      <span class="pull-right">
+        <h3 class="box-title"><i class="icon fa fa-legal fa-fw"></i> Ficha Legal
+        <span class="pull-right">
         <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
         <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
-      </span>
-      </h3>
+        </span>
+        </h3>
     </div>  
 
 
 
-  <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1">
     <div class="box-body">
-      <div class="box-group">
+        <div class="box-group">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
         <div class="panel box">
-          <div class="box-header with-border">
+            <div class="box-header with-border">
             <h4 class="box-title">
-              <a data-toggle="collapse" href="#collapseAntecedentes" style="color: black;"> Antecedentes </a>
+                <a data-toggle="collapse" href="#collapseAntecedentes" style="color: black;"> Antecedentes </a>
             </h4>
-          </div>
-          <div id="collapseAntecedentes" class="panel-collapse collapse in">
+            </div>
+            <div id="collapseAntecedentes" class="panel-collapse collapse in">
             <div class="box-body ">
                 
-              @if(($asistido->checkFichaLegal)==1)
-              
+                @if(($asistido->checkFichaLegal)==1)
+                
                 @foreach($antecedentes as $antecedente)
-                  <div class="box-tools pull-right">
-                    <a href="{{ route('fichaLegal.destroyAntecedente',['id'=>$antecedente->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$antecedente->id}}" data-toggle="tooltip" data-title="Descartar Antecedente">
+                    <div class="box-tools pull-right">
+                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$antecedente->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Antecedente">
+                    
                         <i class="fa fa-trash"></i>
                     </a>
-                  </div>
-                  <dl class="dl-horizontal" >
+                    </div>
+                    <dl class="dl-horizontal preventoverflow" >
+                    @if(isset($antecedente->ramaDerecho->descripcion))
+                    <dt>Tipo</dt>
+                    <dd>{{$antecedente->ramaDerecho->descripcion}}</dd>
+                    @endif
                     @if(isset($antecedente->resumen))
                     <dt>Resumen</dt>
                     <dd>{{$antecedente->resumen}}</dd>
@@ -54,24 +74,24 @@
                     <dt>Recomendación Posadero</dt>
                     <dd>{{$antecedente->recomendacionPosadero}}</dd>
                     @endif
-                 
+                    
 
-                  </dl>
+                    </dl>
                 @endforeach
                 @endif 
 
-              <a href="#" data-toggle="modal" data-target="#modal-antecedentes"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
+                <a href="#" data-toggle="modal" data-target="#modal-antecedentes"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-      <div class="modal fade" id="modal-antecedentes">
+        </div>
+        <div class="modal fade" id="modal-antecedentes">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+            <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"> Agregar Antecedente </h4>
             </div>
-              <form id="nuevoContacto-form" method="POST" action="{{ route('fichaLegal.storeAntecedente',['asistido_id'=>$asistido->id]) }}">
+                <form id="nuevoContacto-form" method="POST" action="{{ route('fichaLegal.storeAntecedente',['asistido_id'=>$asistido->id]) }}">
                 {{ csrf_field() }}
                 <div class="box-body">
 
@@ -145,8 +165,47 @@
             </div>
             </div>
         </div>
+
+
+        <div class="modal modal-danger fade" id="delete" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title text-center">Atención!</h4>
+                </div>
+                <form action="{{ route('fichaLegal.destroyAntecedente',['id','asistidoid'])}}" method="POST">
+                    {{method_field('get')}}
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                        <input type="hidden" name='id' id='id' value="">
+                        <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                        <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
         
         </div>
         
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#delete').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+
+</script>
