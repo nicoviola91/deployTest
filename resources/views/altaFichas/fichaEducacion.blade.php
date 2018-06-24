@@ -204,7 +204,7 @@
                   <!-- ESTO DEBE MOSTRARSE SOLO CUANDO EL TIPO DE EDUCACION SELECCIONADO ES TERCIARIO O UNIVERSITARIO O CURSO!-->
                   <div class="form-group tituloObtenido col-md-12 {{ $errors->has('tituloObtenido') ? ' has-error' : '' }}" style="display: none;"> 
                     <label for="tituloObtenido">Título obtenido</label>
-                    <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido">
+                    <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido" maxlength="250">
                     @if ($errors->has('tituloObtenido'))
                       <span class="help-block">
                           <strong>{{ $errors->first('tituloObtenido') }}</strong>
@@ -214,7 +214,7 @@
 
                   <div class="form-group col-md-12 {{ $errors->has('institucion') ? ' has-error' : '' }}">
                     <label for="institucion">Nombre de la institución</label>
-                    <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required>
+                    <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required maxlength="250">
                     @if ($errors->has('institucion'))
                       <span class="help-block">
                           <strong>{{ $errors->first('institucion') }}</strong>
@@ -224,43 +224,43 @@
                    
                   <label class="col-md-12">Dirección de la institución</label>
                   <div class="form-group col-md-12">
-                    <input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false">
+                    <input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false" maxlength="250">
                     <p class="help-block"><i class="icon fa fa-chevron-up"></i> Podés usar este campo para validar la dirección, sino ingresala manualmente</p>
                   </div>
 
                   <div class="form-group col-md-6">
                     <label>Calle</label>
-                    <input class="form-control" id="route" name="calle" required>
+                    <input class="form-control" id="route" name="calle" required maxlength="250">
                   </div>
                   <div class="form-group col-md-2">
                     <label>Número</label>
-                    <input class="form-control" id="street_number" name="numero">
+                    <input class="form-control" id="street_number" name="numero" maxlength="250">
                   </div>
                   <div class="form-group col-md-2">
                     <label>Piso</label>
-                    <input class="form-control" name="piso">
+                    <input class="form-control" name="piso" maxlength="250">
                   </div>
                   <div class="form-group col-md-2">
                     <label>Dpto</label>
-                    <input class="form-control" name="departamento">
+                    <input class="form-control" name="departamento" maxlength="250">
                   </div>
 
                   <div class="form-group col-md-3">
                     <label>Localidad</label>
-                    <input class="form-control" id="locality" name="localidad">
+                    <input class="form-control" id="locality" name="localidad" maxlength="250">
                   </div>
                   <div class="form-group col-md-3">
                     <label>CP</label>
-                    <input class="form-control" id="postal_code" name="codigoPostal">
+                    <input class="form-control" id="postal_code" name="codigoPostal" maxlength="250">
                   </div>
                   <div class="form-group col-md-3">
                     <label>Provincia</label>
-                    <input class="form-control" id="administrative_area_level_1" name="provincia">
+                    <input class="form-control" id="administrative_area_level_1" name="provincia" maxlength="250">
                   </div>
                   
                   <div class="form-group col-md-3">
                     <label>Pais</label>
-                    <input class="form-control" id="country" name="pais">
+                    <input class="form-control" id="country" name="pais" maxlength="250">
                   </div>
 
                   <input class="form-control" id="lat" name="lat" style="display: none;">
@@ -268,7 +268,7 @@
 
                   <div class="form-group col-md-12">
                     <label>Mas detalles (entre calles)</label>
-                    <input class="form-control" name="entreCalles">
+                    <input class="form-control" name="entreCalles" maxlength="250">
                   </div>
 
                   <div class="form-group col-md-6 {{ $errors->has('inicio') ? ' has-error' : '' }}">
@@ -291,7 +291,7 @@
                     </div>
                     <div class="form-group col-md-12 {{ $errors->has('comentarios') ? ' has-error' : '' }}">
                         <label for="comentarios">Comentarios</label>
-                        <input type="text" class="form-control" id="comentarios" placeholder="Comentarios adicionales" name="comentarios">
+                        <input type="text" class="form-control" id="comentarios" placeholder="Comentarios adicionales" name="comentarios" maxlength="6000">
                         @if ($errors->has('comentarios'))
                           <span class="help-block">
                               <strong>{{ $errors->first('comentarios') }}</strong>
