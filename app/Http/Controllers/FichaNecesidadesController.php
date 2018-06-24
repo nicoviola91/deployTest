@@ -47,9 +47,11 @@ class FichaNecesidadesController extends Controller
     }
 
     
-    public function destroyNecesidad($id,$asistido_id){
+    public function destroyNecesidad(Request $request){
 
-        $necesidad=Necesidad::find($id);
+        $necesidad_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $necesidad=Necesidad::find($necesidad_id);
         $necesidad->delete();
         return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]);
     }
