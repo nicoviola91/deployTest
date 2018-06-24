@@ -284,7 +284,7 @@ Route::group(['prefix'=>'fichaNecesidades'],function(){
     ]);
 });
 
-//FICHA NECESIDADES
+//FICHA ASISTENCIA SOCIAL
 Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaAsistenciaSocialController@create',
@@ -294,7 +294,7 @@ Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
         'uses'=>'FichaAsistenciaSocialController@storeServicio',
         'as'=>'fichaAsistenciaSocial.storeServicio',
     ]);
-    Route::get('/destroyServicio/{id}/{asistido_id}',[
+    Route::delete('/destroyServicio/{id}/{asistido_id}',[
         'uses'=>'FichaAsistenciaSocialController@destroyServicio',
         'as'=>'fichaAsistenciaSocial.destroyServicio',
     ]);

@@ -66,9 +66,11 @@ class FichaAsistenciaSocialController extends Controller
     }
 
     
-    public function destroyServicio($id,$asistido_id){
+    public function destroyServicio(Request $request){
 
-        $servicio=ServicioSocial::find($id);
+        $servicio_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $servicio=ServicioSocial::find($servicio_id);
         $servicio->delete();
         return redirect()->route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido_id]);
     }

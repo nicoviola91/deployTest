@@ -63,7 +63,8 @@
                   
                     @foreach($servicios as $servicio)
                       <div class="box-tools pull-right">
-                        <a href="{{ route('fichaAsistenciaSocial.destroyServicio',['id'=>$servicio->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$servicio->id}}" data-toggle="tooltip" data-title="Descartar Servicio Social">
+                      <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$servicio->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Servicio Social">
+                            
                             <i class="fa fa-trash"></i>
                         </a>
                       </div>
@@ -196,9 +197,48 @@
                 </div>
                 </div>
             </div>
+            <div class="modal modal-danger fade" id="delete" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title text-center">Atención!</h4>
+                    </div>
+                    <form action="{{ route('fichaAsistenciaSocial.destroyServicio',['id','asistidoid'])}}" method="POST">
+                        {{method_field('delete')}}
+                        {{csrf_field()}}
+                        <div class="modal-body">
+                            <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                            <input type="hidden" name='id' id='id' value="">
+                            <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                            <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
             
             </div>
             
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#delete').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+</script>
+
 @endsection
