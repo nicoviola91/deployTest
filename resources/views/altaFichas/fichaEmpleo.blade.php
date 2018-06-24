@@ -18,7 +18,13 @@
 		.pac-container {
 
 			z-index: 99999;
-		}
+        }
+        .preventoverflow{
+            
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
 
 	</style>
 
@@ -53,12 +59,12 @@
               
                 @foreach($empleos as $empleo)
                   <div class="box-tools pull-right">
-                    <a href="{{ route('fichaEmpleo.destroyEmpleo',['id'=>$empleo->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$empleo->id}}" data-toggle="tooltip" data-title="Descartar Empleo">
+                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$empleo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Empleo">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
                   
-                  <dl class="dl-horizontal" >
+                  <dl class="dl-horizontal preventoverflow" >
 
                     @if(isset($empleo->puesto))
                     <dt>Puesto</dt>
@@ -168,6 +174,7 @@
         </div>
         </div>
       </div>
+
       <div class="modal fade" id="modal-agregar">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -182,7 +189,7 @@
 
                     <div class="form-group col-md-12 {{ $errors->has('empleador') ? ' has-error' : '' }}">
                         <label for="empleador">Ingrese nombre de la empresa</label>
-                        <input type="text" class="form-control" id="empleador" placeholder="Ingrese el nombre del empleador" name="empleador" required>
+                        <input type="text" class="form-control" id="empleador" placeholder="Ingrese el nombre del empleador" name="empleador" maxlength="250" required>
                         @if ($errors->has('empleador'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('empleador') }}</strong>
@@ -192,7 +199,7 @@
 
                     <div class="form-group col-md-12 {{ $errors->has('puesto') ? ' has-error' : '' }}">
                         <label for="puesto">Puesto</label>
-                        <input type="text" class="form-control" id="puesto" placeholder="Ingrese el puesto" name="puesto" required>
+                        <input type="text" class="form-control" id="puesto" placeholder="Ingrese el puesto" name="puesto" maxlength="250" required>
                         @if ($errors->has('puesto'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('puesto') }}</strong>
@@ -202,7 +209,7 @@
 
                     <div class="form-group col-md-12 {{ $errors->has('descripcion') ? ' has-error' : '' }}">
                         <label for="descripcion">Descripción</label>
-                        <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripción" name="descripcion">
+                        <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripción" name="descripcion" maxlength="250">
                         @if ($errors->has('descripcion'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('descripcion') }}</strong>
@@ -232,44 +239,44 @@
 
                     <div class="form-group col-md-12">
                         <label class="col-md-12">Ubicación</label>
-                        <input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false" >
+                        <input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false" maxlength="250" >
                         <p class="help-block"><i class="icon fa fa-chevron-up"></i> Podés usar este campo para validar la dirección, sino ingresala manualmente</p>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Calle</label>
-                        <input class="form-control" id="route" name="calle" required></input>
+                        <input class="form-control" id="route" name="calle" maxlength="250" required></input>
                     </div>
 
                     <div class="form-group col-md-2">
                         <label>Número</label>
-                        <input class="form-control" id="street_number" name="numero"></input>
+                        <input class="form-control" id="street_number" name="numero" maxlength="250"></input>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Piso</label>
-                        <input class="form-control" name="piso"></input>
+                        <input class="form-control" name="piso" maxlength="250"></input>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Dpto</label>
-                        <input class="form-control" name="departamento"></input>
+                        <input class="form-control" name="departamento" maxlength="250"></input>
                     </div>
 
                     <div class="form-group col-md-3">
                         <label>Localidad</label>
-                        <input class="form-control" id="locality" name="localidad"></input>
+                        <input class="form-control" id="locality" name="localidad" maxlength="250"></input>
                     </div>
                     <div class="form-group col-md-3">
                         <label>CP</label>
-                        <input class="form-control" id="postal_code" name="codigoPostal"></input>
+                        <input class="form-control" id="postal_code" name="codigoPostal" maxlength="250"></input>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Provincia</label>
-                        <input class="form-control" id="administrative_area_level_1" name="provincia"></input>
+                        <input class="form-control" id="administrative_area_level_1" name="provincia" maxlength="250"></input>
                     </div>
                     
                     <div class="form-group col-md-3">
                         <label>Pais</label>
-                        <input class="form-control" id="country" name="pais"></input>
+                        <input class="form-control" id="country" name="pais" maxlength="250"></input>
                     </div>
 
                     <input class="form-control" id="lat" name="lat" style="display: none;"></input>
@@ -277,14 +284,14 @@
 
                     <div class="form-group col-md-12">
                         <label>Entre calles</label>
-                        <input class="form-control" name="entreCalles"></input>
+                        <input class="form-control" name="entreCalles" maxlength="250"></input>
                     </div>
                             
                     <div class="referente">
                 
                         <div class="form-group col-md-12 {{ $errors->has('nombreReferente') ? ' has-error' : '' }}">
                             <label for="nombreReferente">Nombre del referente</label>
-                            <input type="text" class="form-control" id="nombreReferente" placeholder="Ingrese nombre y apellido de un referente " name="nombreReferente">
+                            <input type="text" class="form-control" id="nombreReferente" placeholder="Ingrese nombre y apellido de un referente " name="nombreReferente" maxlength="250">
                             @if ($errors->has('nombreReferente'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nombreReferente') }}</strong>
@@ -294,7 +301,7 @@
 
                         <div class="form-group col-md-12 {{ $errors->has('telefonoReferente') ? ' has-error' : '' }}">
                             <label for="telefonoReferente">Teléfono del referente</label>
-                            <input type="text" class="form-control" id="telefonoReferente" placeholder="Ingrese un teléfono del referente " name="telefonoReferente">
+                            <input type="text" class="form-control" id="telefonoReferente" placeholder="Ingrese un teléfono del referente " name="telefonoReferente" maxlength="250">
                             @if ($errors->has('telefonoReferente'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('telefonoReferente') }}</strong>
@@ -305,7 +312,7 @@
 
                         <div class="form-group col-md-12 {{ $errors->has('puestoReferente') ? ' has-error' : '' }}">
                             <label for="puestoReferente">Puesto del referente</label>
-                            <input type="text" class="form-control" id="puestoReferente" placeholder="Ingrese el puesto del referente" name="puestoReferente">
+                            <input type="text" class="form-control" id="puestoReferente" placeholder="Ingrese el puesto del referente" name="puestoReferente"maxlength="250">
                             @if ($errors->has('puestoReferente'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('puestoReferente') }}</strong>
@@ -315,7 +322,7 @@
 
                         <div class="form-group col-md-12 {{ $errors->has('mailReferente') ? ' has-error' : '' }}">
                             <label for="mailReferente">E-mail del referente</label>
-                            <input type="email" class="form-control" id="mailReferente" placeholder="Ingrese un e-mail del referente " name="mailReferente">
+                            <input type="email" class="form-control" id="mailReferente" placeholder="Ingrese un e-mail del referente " name="mailReferente" maxlength="250">
                             @if ($errors->has('mailReferente'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('mailReferente') }}</strong>
@@ -333,6 +340,31 @@
             </div>
             </div>
         </div>
+
+        <div class="modal modal-danger fade" id="delete" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title text-center">Atención!</h4>
+                </div>
+                <form action="{{ route('fichaEmpleo.destroyEmpleo',['id','asistidoid'])}}" method="POST">
+                    {{method_field('get')}}
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                        <input type="hidden" name='id' id='id' value="">
+                        <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                        <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
         
         </div>
 
@@ -348,5 +380,17 @@
 @section('scripts') 
 
   @include('scripts.googleMaps')
+
+<script type="text/javascript">
+
+    $('#delete').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+</script>
 
 @endsection

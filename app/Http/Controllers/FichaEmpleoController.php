@@ -70,11 +70,15 @@ class FichaEmpleoController extends Controller
         return $fichaEmpleo;
     }
 
-    public function destroyEmpleo($id,$asistido_id){
+    public function destroyEmpleo(Request $request){
 
-        $empleo=Empleo::find($id);
-        $direccion=Direccion::where('empleo_id',$id)->first();
-        $direccion->delete();
+        $empleo_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $empleo=Empleo::find($empleo_id);
+        $direccion=Direccion::where('empleo_id',$empleo_id)->first();
+        if(isset($direccion)){
+            $direccion->delete();
+        }
         $empleo->delete();
         
         return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);

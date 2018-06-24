@@ -44,7 +44,9 @@ class FichaFamiliaAmigosController extends Controller
         return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
     }
 
-    public function destroyContacto($contacto_id,$asistido_id){
+    public function destroyContacto(Request $request){
+        $contacto_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
         $contacto=Contacto::find($contacto_id);
         $contacto->delete();
         return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);

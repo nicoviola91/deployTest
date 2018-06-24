@@ -133,7 +133,9 @@ class FichaEducacionController extends Controller
         $asistido_id=$request->input('asistidoid');
         $educacion=Educacion::find($educacion_id);
         $direccion=Direccion::where('educacion_id',$educacion_id)->first();
-        $direccion->delete();
+        if(isset($direccion)){
+            $direccion->delete();
+        }
         $educacion->delete();
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
     }
