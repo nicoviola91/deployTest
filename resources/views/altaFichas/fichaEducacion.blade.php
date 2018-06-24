@@ -17,7 +17,14 @@
 		.pac-container {
 
 			z-index: 99999;
-		}
+    }
+    
+    .preventoverflow{
+            
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
 
 	</style>
 
@@ -32,29 +39,39 @@
 
 @section('content')
 <div class="row">
-  <!-- left column -->
-  <div class="col-md-10 col-md-offset-1">
-    <div class="box-body">
+
+    <div class="col-md-12">
+      <h3 class="box-title"><i class="icon fa fa-mortar-board fa-fw"></i> Ficha de Educación
+      <span class="pull-right">
+        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
+        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
+      </span>
+      </h3>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <div class="box-body">
+      
       <div class="box-group">
-        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-        <div class="panel box box-danger">
+
+        <div class="panel box">
+      
           <div class="box-header with-border">
             <h4 class="box-title">
-              <a data-toggle="collapse" href="#collapseOne">
-                Educación
-              </a>
+              <a data-toggle="collapse" href="#collapseEducacion" style="color: black;"> Educación </a>
             </h4>
           </div>
-          <div id="collapseOne" class="panel-collapse collapse in">
+      
+          <div id="collapseEducacion" class="panel-collapse collapse in">
             <div class="box-body ">
-              @if(isset($fichaEducacion))
+              @if(isset($educaciones))
                 @foreach($educaciones as $educacion)
                   <div class="box-tools pull-right">
-                    <a href="{{ route('fichaEducacion.destroyEducacion',['educacion_id'=>$educacion->id,'asistido_id'=>$asistido->id])}}" class="descartarBtn" data-id="{{$educacion->id}}" data-toggle="tooltip" data-title="Descartar Educacion">
-                        <i class="fa fa-trash"></i>
+                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$educacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Educación">
+                      <i class="fa fa-trash"></i>
                     </a>
                   </div>
-                  <dl class="dl-horizontal" >
+                  <dl class="dl-horizontal preventoverflow" >
                     
                     @if(isset($educacion->tipo->descripcion))
                     <dt>Tipo de educación</dt>
@@ -108,28 +125,30 @@
                     @endif
                     
                     @if(isset($educacion->inicio))
-                    <dt>Inicio de los estudios</dd>
+                    <dt>Inicio de los estudios</dt>
                     <dd>{{$educacion->inicio}}</dd>
                     @endif
 
                     @if(isset($educacion->fin))
-                    <dt>Fin de los estudios</dd>
+                    <dt>Fin de los estudios</dt>
                     <dd>{{$educacion->fin}}</dd>
                     @endif
 
                     @if(isset($educacion->comentarios))
-                    <dt>Comentarios</dd>
+                    <dt>Comentarios</dt>
                     <dd>{{$educacion->comentarios}}</dd>
                     @endif
                   </dl>
                 @endforeach
                 @endif 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus fa-fw"></i>  Agregar Educación</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregarEducacion"><i align="left" class="fa fa-plus fa-fw"></i>  Agregar Educación</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal fade" id="modal-agregar">
+
+
+      <div class="modal fade" id="modal-agregarEducacion">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             
@@ -137,20 +156,30 @@
                 <h4 class="modal-title"><i class="fa fa-plus fa-fw"></i> Agregar Educación <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button></h4>
             </div>
+              
+
+
+
+
               <form id="nuevoContacto-form" method="POST" action="{{ route('fichaEducacion.storeEducacion',['asistido_id'=>$asistido->id]) }}">
                 {{ csrf_field() }}
+                
+
+
+
+
                 <div class="box-body">
                    
-                    <div class="form-group col-md-6">
-                      {!! Form::Label('tipo', 'Tipo de estudios') !!}
-                      
-                      <select class="form-control" name="tipoEducacion" id="tipoEducacion" required>
-                        @foreach($tipos as $tipo)
-                          <option value="{{$tipo}}">{{$tipo}}</option>
-                        @endforeach
-                      </select>           
-                  
-                    </div>
+                  <div class="form-group col-md-6">
+                    {!! Form::Label('tipo', 'Tipo de estudios') !!}
+                    
+                    <select class="form-control" name="tipoEducacion" id="tipoEducacion" required>
+                      @foreach($tipos as $tipo)
+                        <option value="{{$tipo}}">{{$tipo}}</option>
+                      @endforeach
+                    </select>           
+                
+                  </div>
                               
                   <div class="form-group col-md-6">
                     {!! Form::Label('nivelAlcanzado', 'Nivel alcanzado') !!}
@@ -162,37 +191,36 @@
                     </select>
                   </div>
                
-                <!-- ESTO DE ACA ABAJO (ORIENTACION) SOLO DEBE MOSTRARSE CUANDO SELECCIONAN COMO TIPO DE EDUCACION LA SECUNDARIA!-->
-                <div class="form-group orientacion col-md-12" style="display: none;">
-                  {!! Form::Label('orientacion', 'Orientacion') !!}
-                  <select class="form-control" name="orientacion" id="orientacion" >
-                    @foreach($orientaciones as $orientacion)
-                      <option value="{{$orientacion}}">{{$orientacion}}</option>
-                    @endforeach
-                  </select>
-                </div>
+                  <!-- ESTO DE ACA ABAJO (ORIENTACION) SOLO DEBE MOSTRARSE CUANDO SELECCIONAN COMO TIPO DE EDUCACION LA SECUNDARIA!-->
+                  <div class="form-group orientacion col-md-12" style="display: none;">
+                    {!! Form::Label('orientacion', 'Orientacion') !!}
+                    <select class="form-control" name="orientacion" id="orientacion" >
+                      @foreach($orientaciones as $orientacion)
+                        <option value="{{$orientacion}}">{{$orientacion}}</option>
+                      @endforeach
+                    </select>
+                  </div>
 
-                <!-- ESTO DEBE MOSTRARSE SOLO CUANDO EL TIPO DE EDUCACION SELECCIONADO ES TERCIARIO O UNIVERSITARIO O CURSO!-->
-                <div class="form-group tituloObtenido col-md-12 {{ $errors->has('tituloObtenido') ? ' has-error' : '' }}" style="display: none;"> 
-                  <label for="tituloObtenido">Título obtenido</label>
-                  <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido">
-                  @if ($errors->has('tituloObtenido'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('tituloObtenido') }}</strong>
-                    </span>
-                  @endif
-                </div>
+                  <!-- ESTO DEBE MOSTRARSE SOLO CUANDO EL TIPO DE EDUCACION SELECCIONADO ES TERCIARIO O UNIVERSITARIO O CURSO!-->
+                  <div class="form-group tituloObtenido col-md-12 {{ $errors->has('tituloObtenido') ? ' has-error' : '' }}" style="display: none;"> 
+                    <label for="tituloObtenido">Título obtenido</label>
+                    <input type="text" class="form-control" id="tituloObtenido" placeholder="Ingrese título obtenido" name="tituloObtenido">
+                    @if ($errors->has('tituloObtenido'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('tituloObtenido') }}</strong>
+                      </span>
+                    @endif
+                  </div>
 
-                <div class="form-group col-md-12 {{ $errors->has('institucion') ? ' has-error' : '' }}">
-                  <label for="institucion">Nombre de la institución</label>
-                  <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required>
-                  @if ($errors->has('institucion'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('institucion') }}</strong>
-                    </span>
-                  @endif
-                </div>
-
+                  <div class="form-group col-md-12 {{ $errors->has('institucion') ? ' has-error' : '' }}">
+                    <label for="institucion">Nombre de la institución</label>
+                    <input type="text" class="form-control" id="institucion" placeholder="Ingrese nombre completo de la institución" name="institucion" required>
+                    @if ($errors->has('institucion'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('institucion') }}</strong>
+                      </span>
+                    @endif
+                  </div>
                    
                   <label class="col-md-12">Dirección de la institución</label>
                   <div class="form-group col-md-12">
@@ -202,45 +230,45 @@
 
                   <div class="form-group col-md-6">
                     <label>Calle</label>
-                    <input class="form-control" id="route" name="calle" required></input>
+                    <input class="form-control" id="route" name="calle" required>
                   </div>
                   <div class="form-group col-md-2">
                     <label>Número</label>
-                    <input class="form-control" id="street_number" name="numero"></input>
+                    <input class="form-control" id="street_number" name="numero">
                   </div>
                   <div class="form-group col-md-2">
                     <label>Piso</label>
-                    <input class="form-control" name="piso"></input>
+                    <input class="form-control" name="piso">
                   </div>
                   <div class="form-group col-md-2">
                     <label>Dpto</label>
-                    <input class="form-control" name="departamento"></input>
+                    <input class="form-control" name="departamento">
                   </div>
 
                   <div class="form-group col-md-3">
                     <label>Localidad</label>
-                    <input class="form-control" id="locality" name="localidad"></input>
+                    <input class="form-control" id="locality" name="localidad">
                   </div>
                   <div class="form-group col-md-3">
                     <label>CP</label>
-                    <input class="form-control" id="postal_code" name="codigoPostal"></input>
+                    <input class="form-control" id="postal_code" name="codigoPostal">
                   </div>
                   <div class="form-group col-md-3">
                     <label>Provincia</label>
-                    <input class="form-control" id="administrative_area_level_1" name="provincia"></input>
+                    <input class="form-control" id="administrative_area_level_1" name="provincia">
                   </div>
                   
                   <div class="form-group col-md-3">
                     <label>Pais</label>
-                    <input class="form-control" id="country" name="pais"></input>
+                    <input class="form-control" id="country" name="pais">
                   </div>
 
-                  <input class="form-control" id="lat" name="lat" style="display: none;"></input>
-                  <input class="form-control" id="lng" name="lng" style="display: none;"></input>
+                  <input class="form-control" id="lat" name="lat" style="display: none;">
+                  <input class="form-control" id="lng" name="lng" style="display: none;">
 
                   <div class="form-group col-md-12">
                     <label>Mas detalles (entre calles)</label>
-                    <input class="form-control" name="entreCalles"></input>
+                    <input class="form-control" name="entreCalles">
                   </div>
 
                   <div class="form-group col-md-6 {{ $errors->has('inicio') ? ' has-error' : '' }}">
@@ -273,15 +301,42 @@
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-danger">Agregar Educación </button>
                       </div>
-                      </form>
+                    </div>
+                  </div>
+                </form>
                     </div>
                   </div>
                 </div>
-              </div>
 
-            </div>
-          </div>
+
+                <div class="modal modal-danger fade" id="delete" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title text-center">Atención!</h4>
+                        </div>
+                        <form action="{{ route('fichaEducacion.destroyEducacion',['id','asistidoid'])}}" method="POST">
+                            {{method_field('get')}}
+                            {{csrf_field()}}
+                            <div class="modal-body">
+                                <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                                <input type="hidden" name='id' id='id' value="">
+                                <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                                <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
       </div>
+    </div>
+</div>
 @endsection
 
 
@@ -310,6 +365,15 @@
       }
 
     });
+
+    $('#delete').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
 
   </script>
 

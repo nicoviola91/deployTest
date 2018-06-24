@@ -127,8 +127,10 @@ class FichaEducacionController extends Controller
 
     }
 
-    public function destroyEducacion($educacion_id,$asistido_id){
+    public function destroyEducacion(Request $request){
 
+        $educacion_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
         $educacion=Educacion::find($educacion_id);
         $direccion=Direccion::where('educacion_id',$educacion_id)->first();
         $direccion->delete();

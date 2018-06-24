@@ -43,7 +43,7 @@
     
 
         <div class="col-md-12">
-          <h3 class="box-title"><i class="icon fa fa-legal fa-fw"></i> Ficha Asistencia Social
+          <h3 class="box-title"><i class="icon fa fa-life-bouy fa-fw"></i> Ficha Asistencia Social
           <span class="pull-right">
             <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
             <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
