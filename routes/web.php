@@ -263,7 +263,7 @@ Route::group(['prefix'=>'fichaLegal'],function(){
         'as'=>'fichaLegal.storeAntecedente',
     ]);
     Route::get('/destroyAntecedente/{id}/{asistido_id}',[
-        'uses'=>'FichaLegalController@destroyNecesidad',
+        'uses'=>'FichaLegalController@destroyAntecedente',
         'as'=>'fichaLegal.destroyAntecedente',
     ]);
 });

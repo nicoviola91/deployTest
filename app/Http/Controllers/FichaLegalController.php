@@ -75,9 +75,10 @@ class FichaLegalController extends Controller
     }
 
     
-    public function destroyAntecedente($id,$asistido_id){
-
-        $antecedente=Antecedente::find($id);
+    public function destroyAntecedente(Request $request){
+        $antecedente_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $antecedente=Antecedente::find($antecedente_id);
         $antecedente->delete();
         return redirect()->route('fichaLegal.create',['asistido_id'=>$asistido_id]);
     }

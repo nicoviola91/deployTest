@@ -18,7 +18,7 @@ class Antecedente extends Model
     ];
 
     public function ramaDerecho(){
-        return $this->belongsTo('App\RamaDerecho');
+        return $this->belongsTo('App\RamaDerecho','ramaDerecho_id');
     }
     
     public function fichaLegal(){

@@ -12,6 +12,6 @@ class RamaDerecho extends Model
     ];
 
     public function antecedentes(){
-    	return $this->hasMany('App\Antecedente');
+    	return $this->hasMany('App\Antecedente','ramaDerecho_id');
     }
 }
