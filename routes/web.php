@@ -300,6 +300,27 @@ Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
     ]);
 });
 
+//FICHA DIAGNOSTICO INTEGRAL
+Route::group(['prefix'=>'fichaDiagnosticoIntegral'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaDiagnosticoIntegralController@create',
+        'as'=>'fichaDiagnosticoIntegral.create',
+    ]);
+    Route::post('/storeCurso/{id}',[
+        'uses'=>'FichaDiagnosticoIntegralController@storeCurso',
+        'as'=>'fichaDiagnosticoIntegral.storeCurso',
+    ]);
+    Route::post('/storeDiagnostico/{id}',[
+        'uses'=>'FichaDiagnosticoIntegralController@storeDiagnostico',
+        'as'=>'fichaDiagnosticoIntegral.storeDiagnostico',
+    ]);
+    Route::get('/destroyCurso/{id}/{asistido_id}',[
+        'uses'=>'FichaDiagnosticoIntegralController@destroyCurso',
+        'as'=>'fichaDiagnosticoIntegral.destroyCurso',
+    ]);
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

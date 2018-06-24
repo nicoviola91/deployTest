@@ -11,12 +11,12 @@ class CursoDeAccion extends Model
      *
      * @var array
      */
-    protected $table="cursosDeAccion";
+    protected $table="cursosDeAcciones";
     protected $fillable = [
-        'meta','fechaDesde','fechaHasta','accion',
+        'meta','fechaDesde','fechaHasta','accion','fichaDiagnosticoIntegral_id'
     ];
 
    	public function fichaDiagnosticoIntegral(){
-   		return $this->belongsTo('App\FichaDiagnosticoIntegral');
+   		return $this->belongsTo('App\FichaDiagnosticoIntegral','fichaDiagnosticoIntegral_id');
    	}
 }

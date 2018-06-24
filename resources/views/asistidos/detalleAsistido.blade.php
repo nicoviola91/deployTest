@@ -96,13 +96,14 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaDiagnosticoIntegral)==1)
+					<dd><a href="{{route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido->id]) }}" class='text-light-blue' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title=" Ficha Diagnostico Integral">Ficha </a></dd>
+					
 					@else
-					<dd><a href="#" class='text-light-blue'>Ficha de Diagnóstico Integral</a></dd>
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
-										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Diagnóstico Integral
-								</button>
+								<a href="{{route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido->id]) }}" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha de Diagnostico Integral">
+									<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Diagnóstico Integral
+								</a>
 						</div>
 					<dd>
 					@endif

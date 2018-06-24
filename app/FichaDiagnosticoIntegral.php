@@ -14,11 +14,11 @@ class FichaDiagnosticoIntegral extends Ficha
      */
     protected $table="fichasDiagnosticosIntegrales";
     protected $fillable = [
-        'diagnostico','trabajoInterdisciplinario',
+        'diagnostico','trabajoInterdisciplinario','asistido_id'
     ];
 
    	public function cursosDeAccion(){
-   		return $this->HasMany('App\CursoDeAccion');
+   		return $this->HasMany('App\CursoDeAccion','fichaDiagnosticoIntegral_id');
    	}
 
    	public function asistido(){
