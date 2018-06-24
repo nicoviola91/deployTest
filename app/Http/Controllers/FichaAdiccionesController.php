@@ -96,8 +96,10 @@ class FichaAdiccionesController extends Controller
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);       
     }
 
-    public function destroyAdiccion($adiccion_id,$asistido_id){
+    public function destroyAdiccion(Request $request){
 
+        $adiccion_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
         $adiccion=Adiccion::find($adiccion_id);
         $adiccion->delete();
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
@@ -116,7 +118,10 @@ class FichaAdiccionesController extends Controller
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);     
     } 
 
-    public function destroyEpisodioAgresivo($episodioAgresivo_id,$asistido_id){
+    public function destroyEpisodioAgresivo(Request $request){
+
+        $episodioAgresivo_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
         $episodioAgresivo=EpisodioAgresivo::find($episodioAgresivo_id);
         $episodioAgresivo->delete();
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
@@ -134,7 +139,10 @@ class FichaAdiccionesController extends Controller
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
     }
 
-    public function destroyTratamiento($tratamiento_id,$asistido_id){
+    public function destroyTratamiento(Request $request){
+        
+        $tratamiento_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
         $tratamiento=Tratamiento::find($tratamiento_id);
         $tratamiento->delete();
         return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);

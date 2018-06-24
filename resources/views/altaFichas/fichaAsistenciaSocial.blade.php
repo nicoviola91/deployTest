@@ -18,7 +18,14 @@
 		.pac-container {
 
 			z-index: 99999;
-		}
+        }
+        
+        .preventoverflow{
+            
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
 
 	</style>
 
@@ -63,12 +70,11 @@
                   
                     @foreach($servicios as $servicio)
                       <div class="box-tools pull-right">
-                      <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$servicio->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Servicio Social">
-                            
+                        <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$servicio->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Servicio Social">
                             <i class="fa fa-trash"></i>
                         </a>
                       </div>
-                      <dl class="dl-horizontal" >
+                      <dl class="dl-horizontal preventoverflow" >
                         @if(isset($servicio->tipo))
                         <dt>Tipo</dt>
                         <dd>{{$servicio->tipo}}</dd>
@@ -83,7 +89,7 @@
                         @endif
                         @if(isset($servicio->prestador))
                         <dt>Prestador</dt>
-                        <dd>{{$servicio->prestador}}</dd>
+                        <dd>{!! $servicio->prestador  !!}</dd>
                         @endif
                         @if(isset($servicio->direccion))
                         <dt>Dirección</dt>
@@ -103,7 +109,7 @@
                     @endforeach
                     @endif 
     
-                  <a href="#" data-toggle="modal" data-target="#modal-servicios"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-servicios"><i align="left" class="fa fa-plus"></i>  Agregar Servicio Social</a>
                 </div>
               </div>
             </div>
@@ -130,7 +136,7 @@
                         <span>Período en que se utilizó el servicio</span>
                         <div class="form-group col-md-12 {{ $errors->has('fecha_inicio') ? ' has-error' : '' }}">
                             <label for="fecha_inicio">Desde</label>
-                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" >
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
                             @if ($errors->has('fecha_inicio'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('fecha_inicio') }}</strong>
@@ -140,7 +146,7 @@
 
                         <div class="form-group col-md-12 {{ $errors->has('fecha_fin') ? ' has-error' : '' }}">
                             <label for="fecha_fin">Desde</label>
-                            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" >
+                            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
                             @if ($errors->has('fecha_fin'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('fecha_fin') }}</strong>
