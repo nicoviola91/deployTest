@@ -14,7 +14,10 @@ class Tratamiento extends Model
         'estado',
         'causaDeFin',
         'comentarios',
-        'fichaAdiccion_id'
+        'fichaAdiccion_id',
+        'fichaSaludMental_id',
+        'fichaMedica_id',
+        'profesional_id'
     ];
 
     public function profesional(){
@@ -30,10 +33,14 @@ class Tratamiento extends Model
     }
 
     public function fichaSaludMental(){
-        return $this->belongsTo('App\FichaSaludMental');
+        return $this->belongsTo('App\FichaSaludMental','fichaSaludMental_id');
     }
 
     public function fichaMedica(){
-        return $this->belongsTo('App\FichaMedica');
+        return $this->belongsTo('App\FichaMedica','fichaMedica_id');
+    }
+
+    public function institucion(){
+        return $this->hasOne('App\Institucion');
     }
 }

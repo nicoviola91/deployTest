@@ -10,15 +10,12 @@ class Patologia extends Model
     protected $fillable=[
         'descripcion',
         'comentarios',
+        'fichaSaludMental_id',
+        'tipo'
     ];
 
-    public function afeccion(){
-        return $this->belongsTo('App\Afeccion');
-    }
-    public function fichasMedicas(){
-    	return $this->belongsToMany('App\FichaMedica');
-    }
-    public function fichasSaludMental(){
-        return $this->belongsToMany('App\FichaSaludMental');
+    
+    public function fichaSaludMental(){
+        return $this->belongsTo('App\FichaSaludMental','fichaSaludMental_id');
     }
 }

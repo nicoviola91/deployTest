@@ -10,14 +10,15 @@ class Medicacion extends Model
     protected $fillable=[
         'droga',
         'dosis',
-        'posologia',
+        'frecuencia',//cambiar en tabla, se llama posologia
         'inicio',
         'fin',
-        'recetada',
+        'recetada',//Dentro de recetada va indicada bajo receta o automedicacion 
+        'fichaSaludMental_id'
     ];
 
-    public function profesionalQueReceta(){
-        return $this->belongsTo('App\Profesional');
+    public function profesional(){
+        return $this->hasOne('App\Profesional');
     }
 
     public function tratamiento(){
@@ -25,7 +26,7 @@ class Medicacion extends Model
     }
 
     public function fichaSaludMental(){
-        return $this->belongsTo('App\FichaSaludMental');
+        return $this->belongsTo('App\FichaSaludMental','fichaSaludMental_id');
     }
 
     public function fichaMedica(){

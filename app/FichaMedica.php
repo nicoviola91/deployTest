@@ -38,7 +38,7 @@ class FichaMedica extends Model
 		return $this->hasMany('App\Medicacion');
 	}    
     public function tratamientos(){
-		return $this->hasMany('App\Tratamiento');
+		return $this->hasMany('App\Tratamiento','fichaMedica_id');
 	}
 	public function sintomas(){
 		return $this->belongsToMany('App\Sintoma');		

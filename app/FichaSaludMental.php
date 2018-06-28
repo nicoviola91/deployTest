@@ -9,7 +9,10 @@ class FichaSaludMental extends Ficha
     protected $table='fichasSaludMental';
     protected $fillable=[
         'checkSintomasMentales',
-        'signosObservables',
+        'estadoMental',
+        'ansiedad',//add
+        'depresivo',//add
+        'trastornoCognitivo',//add
         'orientado',
         'intoxicado',
         'discurso',
@@ -18,26 +21,31 @@ class FichaSaludMental extends Ficha
         'checkAgresiones',
         'checkDerivacion',
         'checkInternacion',
+        'asistido_id',
+
     ];
+    //Ya esta todo chequeado el modelo y sus dependencias
+    //seguir por vista o controladores
+    
 
     public function patologias(){
-        return $this->hasMany('App\Patologia');
+        return $this->hasMany('App\Patologia','fichaSaludMental_id');
     }
 
     public function medicaciones(){
-        return $this->hasMany('App\Medicacion');
+        return $this->hasMany('App\Medicacion','fichaSaludMental_id');
     }
 
     public function tratamientos(){
-        return $this->hasMany('App\Tratamiento');
+        return $this->hasMany('App\Tratamiento','fichaSaludMental_id');
     }
 
     public function episodiosAgesivos(){
-        return $this->hasMany('App\EpisodioAgresivo');
+        return $this->hasMany('App\EpisodioAgresivo','fichaSaludMental_id');
     }
 
     public function institucion(){
-        return $this->belongsTo('App\Institucion');
+        return $this->hasOne('App\Institucion','fichaSaludMental_id');
     }
     
     public function asistido(){

@@ -20,6 +20,6 @@ class EpisodioAgresivo extends Model
     }
 
     public function fichaSaludMental(){
-        return $this->belongsTo('App\FichaSaludMental');
+        return $this->belongsTo('App\FichaSaludMental','fichaSaludMental_id');
     }
 }

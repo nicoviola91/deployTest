@@ -33,4 +33,5 @@ class Profesional extends Model
     public function fichaMedica(){
         return $this->hasOne('App\FichaMedica');
     }
+
 }

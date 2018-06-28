@@ -34,7 +34,7 @@
           <div class="box-body">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-            <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}" {{isset($fichaDatosPersonales) ? 'readonly':''}}>
+            <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}" >
             </div>
             <div class="form-group">
               <label for="apellido">Apellido</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="numeroDocumento">Numero de documento</label>
-                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" maxlength="9" pattern="[0-9]*$" value="{{isset($fichaDatosPersonales->numeroDocumento) ? $fichaDatosPersonales->numeroDocumento : (isset($asistido->dni) ? $asistido->dni: '')}}">
+                <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" maxlength="9" pattern="[0-9]*$" value="{{isset($fichaDatosPersonales->numeroDocumento) ? $fichaDatosPersonales->numeroDocumento : (isset($asistido->dni) ? $asistido->dni: '')}}" >
                 <small><p class='help-block'>El número de documento no debe contener guiones ni puntos.</p></small>
             </div>
             <div class="form-group">

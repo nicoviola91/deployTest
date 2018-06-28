@@ -10,7 +10,12 @@ class Institucion extends Model
     protected $fillable=[
         'nombre',
         'cuit',
-        'responsable'
+        'responsable',
+        'telefono',
+        'mail',
+        'fichaSaludMental_id',
+        'tratamiento_id'
+        
     ];
 
     public function comunidades(){
@@ -26,7 +31,7 @@ class Institucion extends Model
     }
 
     public function fichaSaludMental(){
-        return $this->hasMany('App\FichaSaludMental');
+        return $this->belongsTo('App\FichaSaludMental','fichaSaludMental_id');
     }
 
     public function consultasMedicas(){
@@ -35,6 +40,10 @@ class Institucion extends Model
 
     public function intervenciones(){
         return $this->hasMany('App\Intervencion');
+    }
+
+    public function tratamiento(){
+        return $this->belongsTo('App\Tratamiento');
     }
 
 }
