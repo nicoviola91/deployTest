@@ -27,6 +27,7 @@ class Asistido extends Model
         'checkFichaMedica',
         'checkFichaNecesidad',
         'checkFichaSaludMental',
+        'owner',
         
     ];
 

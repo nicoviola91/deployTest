@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Asistido;
 use App\Alerta;
+use App\User;
+use App\Notifications\AltaAlerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
 use Illuminate\Support\Facades\Auth;
@@ -48,16 +50,20 @@ class AsistidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$alerta_id)
+    //Para guardar un asistido desde una Alerta
+    public function store(Request $request,$alerta_id) 
     {
+
         $asistido=new Asistido($request->all());
         $alerta=Alerta::find($alerta_id);
         $asistido->createdBy=Auth::user()->email;
-        $asistido->save();
+        $asistido->owner = $alerta->user_id;
+        $asistido->save(); 
         $alerta->asistido()->associate($asistido);
         $alerta->save();
-        
-        
+        $usuario = $alerta->user_id;
+        $usuarioNotif = User::find($usuario);
+        $usuarioNotif->notify(new AltaAlerta($alerta));
         return redirect()->route('alerta.list');
     }
 

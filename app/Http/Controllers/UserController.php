@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Notifications\AltaUsuario;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use Illuminate\Routing\Route;
@@ -46,7 +47,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->tipoUsuario_id = '1';
         $user->save();
-        
+        $user->notify(new AltaUsuario($user));
         return view('auth.login');
     }
 
