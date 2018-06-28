@@ -454,9 +454,89 @@
 
   });
 
-  // $('.liTab.educacion').click(function () {
+  $('.liTab.personal').click(function () {
 
-  //   if ($('#datosEducacion').html() == '') {
+    if ($('#datosPersonal').html() == '' || $('#consultasPersonal').html() == '') {
+
+      var id = $(this).data('id');
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaDatosPersonales.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+        if (data.status) {
+
+          $('#datosPersonal').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasDatosPersonales'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasPersonal').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
+
+  });
+
+    $('.liTab.legal').click(function () {
+
+    if ($('#datosLegal').html() == '' || $('#consultasLegal').html() == '') {
+
+      var id = $(this).data('id');
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+        if (data.status) {
+
+          $('#datosLegal').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasLegales'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasLegal').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
+
+  });
+
+  // $('.liTab.legal').click(function () {
+
+  //   if ($('#datosLegal').html() == '') {
 
   //     var id = $(this).data('id');
 
@@ -465,67 +545,19 @@
   //       closeButton: false
   //     });
 
-  //     $.get("{{route('fichaEducacion.get',['asistido_id'=>$asistido->id])}}", function(data){
+  //     $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
 
   //       console.log(data);
   //       if (data.status) {
 
-  //         $('#datosEducacion').html(data.view);
+  //         $('#datosLegal').html(data.view);
   //         loading.modal('hide');
   //       }
 
   //     })
   //   }
+
   // });
-
-  $('.liTab.personal').click(function () {
-
-    if ($('#datosPersonal').html() == '') {
-
-      var id = $(this).data('id');
-
-      var loading = bootbox.dialog({
-        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
-        closeButton: false
-      });
-
-      $.get("{{route('fichaDatosPersonales.get',['asistido_id'=>$asistido->id])}}", function(data){
-
-        console.log(data);
-        if (data.status) {
-
-          $('#datosPersonal').html(data.view);
-          loading.modal('hide');
-        }
-
-      })
-    }
-  });
-
-  $('.liTab.legal').click(function () {
-
-    if ($('#datosLegal').html() == '') {
-
-      var id = $(this).data('id');
-
-      var loading = bootbox.dialog({
-        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
-        closeButton: false
-      });
-
-      $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
-
-        console.log(data);
-        if (data.status) {
-
-          $('#datosLegal').html(data.view);
-          loading.modal('hide');
-        }
-
-      })
-    }
-
-  });
 
 
 </script>

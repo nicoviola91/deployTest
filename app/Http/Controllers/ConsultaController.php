@@ -83,8 +83,9 @@ class ConsultaController extends Controller
         return view('consultas.listado', $data);
     }
 
-    //id asistido, consultable_type?,
     public function getView () {
+
+        //Recibe por parametros: consultable_id (el id de la ficha), consultable_type (el tipo de ficha)
 
         $view = view('consultas.consultas')->render();
 
