@@ -33,7 +33,9 @@
   <script src="{{ asset('/bootstrap/dist/js/bootstrap.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('/js/adminlte.min.js') }}"></script>
-
+  <!-- Bootbox -->
+  <script src="{{ asset('/bootbox/bootbox.min.js') }}"></script>
+  
   @yield('head')
 
 </head>

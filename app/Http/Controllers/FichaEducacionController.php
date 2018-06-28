@@ -68,9 +68,10 @@ class FichaEducacionController extends Controller
                 ->with('orientaciones',$orientaciones)
                 ->with('tipos',$tipos)
                 ->render();
+        } else {
+            
+            $view = view('altaFichas.fichaEducacion2')->with('asistido',$asistido)->with('niveles',$niveles)->with('orientaciones',$orientaciones)->with('tipos',$tipos)->render();
         }
-
-        $view = view('altaFichas.fichaEducacion2')->with('asistido',$asistido)->with('niveles',$niveles)->with('orientaciones',$orientaciones)->with('tipos',$tipos)->render();
 
         return response()->json([
             'status' => true,

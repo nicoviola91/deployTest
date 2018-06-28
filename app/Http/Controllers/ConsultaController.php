@@ -55,7 +55,7 @@ class ConsultaController extends Controller
         $consulta->save();
 
         var_dump($consulta);
-        //return redirect()->route('alerta.list');
+        //return redirect()->route('consulta.list');
     }
 
     /**
@@ -81,6 +81,17 @@ class ConsultaController extends Controller
         var_dump(Auth::user());
         $data['consultas'] = Consulta::all();
         return view('consultas.listado', $data);
+    }
+
+    //id asistido, consultable_type?,
+    public function getView () {
+
+        $view = view('consultas.consultas')->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
     }
 
 }
