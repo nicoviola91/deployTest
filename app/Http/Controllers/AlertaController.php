@@ -47,6 +47,7 @@ class AlertaController extends Controller
         $alerta = new Alerta($request->all());
         $user_id=Auth::user()->id;
         $alerta->user_id = $user_id; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
+        $alerta->estado = 1;
         $alerta->save();
         return redirect()->route('alerta.list');
     }
@@ -72,7 +73,7 @@ class AlertaController extends Controller
     {
         echo "<br>";
        
-        $data['alertas'] = Alerta::all();
+        $data['alertas'] = Alerta::all()->where('estado','=',0);
         return view('alertas.listado', $data);
     }
 
@@ -84,7 +85,7 @@ class AlertaController extends Controller
      */
     public function showMap()
     {
-        $data['alertas'] = Alerta::all();
+        $data['alertas'] = Alerta::all()->where('estado','=',0);
         return view('alertas.map', $data);
     }
 
@@ -120,7 +121,8 @@ class AlertaController extends Controller
     public function destroy($id)
     {
         $alerta=Alerta::find($id);
-        $alerta->delete();
-        return redirect()->route('alert.list');
+        $alerta->estado=2;
+        $alerta->save();
+        return redirect()->route('alerta.list');
     }
 }

@@ -59,11 +59,11 @@ class AsistidoController extends Controller
         $asistido->createdBy=Auth::user()->email;
         $asistido->owner = $alerta->user_id;
         $asistido->save(); 
-        $alerta->asistido()->associate($asistido);
-        $alerta->save();
         $usuario = $alerta->user_id;
         $usuarioNotif = User::find($usuario);
         $usuarioNotif->notify(new AltaAlerta($alerta));
+        $alerta->asistido()->associate($asistido);
+        $alerta->save();
         return redirect()->route('alerta.list');
     }
 

@@ -64,7 +64,7 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $alerta->nombre }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $alerta->apellido }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $alerta->dni }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $alerta->user_id }} 
+							<td class="text-center" style="vertical-align: middle;">{{ $alerta->user->name }} 
 								@if (isset($alerta->lat) && isset($alerta->lng))
 								<span class="pull-right"> 
 									<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
