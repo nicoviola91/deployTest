@@ -550,7 +550,7 @@
                       <h4 class="modal-title text-center">Atención!</h4>
                   </div>
                         
-                  <form action="{{ route('fichaAdicciones.destroyTratamiento',['id','asistidoid'])}}" method="POST">
+                  <form action="{{ route('fichasaludMental.destroyMedicacion',['id','asistidoid'])}}" method="POST">
                       {{method_field('get')}}
                       {{csrf_field()}}
                       <div class="modal-body">
@@ -651,7 +651,25 @@
 @section('scripts')
 <script type="text/javascript">
 
-    
+    window.onload=function(){
+        $('#recetada').val('Indicada bajo receta')
+        $('.profesional').show()
+        $('.automedicacion').hide()
+    }
+
+    $('#recetada').change(function () {
+
+    if ($(this).val() == 'Indicada bajo receta') {
+        $('.profesional').show();
+        $('.automedicacion').hide();
+
+    } else {
+
+        $('.automedicacion').show();
+        $('.profesional').hide();
+
+    } 
+    });
 
     $('#delete').on('show.bs.modal',function(event){
         var a = $(event.relatedTarget)

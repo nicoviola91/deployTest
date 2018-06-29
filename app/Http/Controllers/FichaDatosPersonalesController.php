@@ -87,8 +87,12 @@ class FichaDatosPersonalesController extends Controller
 
     public function findFichaDatosPersonalesByAsistidoId($asistido_id){
         $fichaDatosPersonales=FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
+        $asistido=Asistido::find($asistido_id);
         if(!isset($fichaDatosPersonales)){
             $fichaDatosPersonales=new FichaDatosPersonales();
+            $fichaDatosPersonales->nombre=$asistido->nombre;
+            $fichaDatosPersonales->asistido_id=$asistido_id;
+            $fichaDatosPersonales->save();
         }
         return $fichaDatosPersonales;
     }

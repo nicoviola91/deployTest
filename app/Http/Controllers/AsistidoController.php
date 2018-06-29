@@ -63,7 +63,7 @@ class AsistidoController extends Controller
         $alerta->save();
         $usuario = $alerta->user_id;
         $usuarioNotif = User::find($usuario);
-        $usuarioNotif->notify(new AltaAlerta($alerta));
+        #$usuarioNotif->notify(new AltaAlerta($alerta));
         return redirect()->route('alerta.list');
     }
 
