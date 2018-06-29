@@ -66,10 +66,10 @@ class FichaAdiccionesController extends Controller
             ->with('episodiosAgresivos',$episodiosAgresivos)
             ->with('tratamientos',$tratamientos)
             ->render();
+        } else {
+            $view = view('altaFichas.fichaAdicciones2')->with('asistido',$asistido)->with('sustancias',$sustancias)->render();
         }
         
-        $view = view('altaFichas.fichaAdicciones2')->with('asistido',$asistido)->with('sustancias',$sustancias)->render();
-
         return response()->json([
             'status' => true,
             'view' => $view,

@@ -41,9 +41,12 @@ class FichaDatosPersonalesController extends Controller
                 ->with('asistido',$asistido)
                 ->with('fichaDatosPersonales',$fichaDatosPersonales)
                 ->render();
-        }
-      
-        $view = view('altaFichas.fichaDatosPersonales2')->with('asistido',$asistido)->render();
+
+        } else {
+
+           $view = view('altaFichas.fichaDatosPersonales2')->with('asistido',$asistido)->render();
+
+        }      
 
         return response()->json([
             'status' => true,

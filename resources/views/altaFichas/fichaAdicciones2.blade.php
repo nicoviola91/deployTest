@@ -71,7 +71,9 @@
                     @endif
                   @endif
                    
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Adicción</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar">
+                    <i align="left" class="fa fa-plus fa-fw"></i>  Agregar Adicción
+                  </a>
                 
                 </div>
               </div>
@@ -237,16 +239,15 @@
                       </dl>
                     @endforeach
                     @endif
-                <div class="box-body">
-                @endif
-                  
+                @endif                  
 
-                <div class="box-body">
-                  <a href={{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
-                </div>
-              </div>
+                  <a href="{{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default3">
+                    <i align="left" class="fa fa-plus fa-fw"></i> Agregar Episodio Agresivo
+                  </a>
             </div>
           </div>
+        </div>
+      </div>
 
           <div class="modal fade in" id="modal-default3" style="display: none; padding-right: 17px;">
             <div class="modal-dialog">
@@ -378,7 +379,9 @@
                     @endforeach
                     @endif
                   @endif
-                  <a href="{{route('fichaAdicciones.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
+                  <a href="{{route('fichaAdicciones.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2">
+                    <i align="left" class="fa fa-plus fa-fw"></i> Agregar Tratamiento
+                  </a>
                 </div>
               </div>
             </div>

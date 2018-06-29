@@ -191,73 +191,73 @@
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-id-badge"></i> Añadir Ficha de Datos Personales
+                      <i align="left" class="fa fa-id-badge"></i> <span class="hidden-xs">Añadir</span> Ficha de Datos Personales
                     </a>  
                   <?php endif ?>
                   
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-legal"></i> Añadir Ficha de Datos Legales
+                      <i align="left" class="fa fa-legal"></i> <span class="hidden-xs">Añadir</span> Ficha de Datos Legales
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-mortar-board"></i> Añadir Ficha de Eduacaion
+                      <i align="left" class="fa fa-mortar-board"></i> <span class="hidden-xs">Añadir</span> Ficha de Eduacaion
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-gears"></i> Añadir Ficha de Empleo
+                      <i align="left" class="fa fa-gears"></i> <span class="hidden-xs">Añadir</span> Ficha de Empleo
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAsistenciaSocial): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-life-buoy"></i> Añadir Ficha de Asistencia Social
+                      <i align="left" class="fa fa-life-buoy"></i> <span class="hidden-xs">Añadir</span> Ficha de Asistencia Social
                     </a>
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDatosPersonales): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-hotel"></i> Añadir Ficha Necesidades
+                      <i align="left" class="fa fa-hotel"></i> <span class="hidden-xs">Añadir</span> Ficha Necesidades
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaMedica): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-heartbeat"></i> Añadir Ficha Medica
+                      <i align="left" class="fa fa-heartbeat"></i> <span class="hidden-xs">Añadir</span> Ficha Medica
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaSaludMental): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-user-md"></i> Añadir Ficha de Salud Mental
+                      <i align="left" class="fa fa-user-md"></i> <span class="hidden-xs">Añadir</span> Ficha de Salud Mental
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaDiagnosticoIntegral): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-stethoscope"></i> Añadir Ficha de Diagnostico Integral
+                      <i align="left" class="fa fa-stethoscope"></i> <span class="hidden-xs">Añadir</span> Ficha de Diagnostico Integral
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaAdicciones): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-warning"></i> Añadir Ficha de Adicciones
+                      <i align="left" class="fa fa-warning"></i> <span class="hidden-xs">Añadir</span> Ficha de Adicciones
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaFamilia): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-users"></i> Añadir Ficha de Familia y Amigos
+                      <i align="left" class="fa fa-users"></i> <span class="hidden-xs">Añadir</span> Ficha de Familia y Amigos
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaLocalizacion): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Datos Personales">
-                      <i align="left" class="fa fa-location-arrow"></i> Añadir Ficha de Localizacion
+                      <i align="left" class="fa fa-location-arrow"></i> <span class="hidden-xs">Añadir</span> Ficha de Localizacion
                     </a>  
                   <?php endif ?>
                 </div>
@@ -376,70 +376,188 @@
   
   $('.liTab.adicciones').click(function () {
 
-    var id = $(this).data('id');
+    if ($('#datosAdicciones').html() == '' || $('#consultasAdicciones').html() == '') {
 
-    $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
+      var id = $(this).data('id');
 
-      if (data.status) {
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
 
-        $('#datosAdicciones').html(data.view);
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaAdicciones.get',['asistido_id'=>$asistido->id])}}", function(data){
 
-      }
+        if (data.status) {
 
-    })
+          $('#datosAdicciones').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasAdicciones'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasAdicciones').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
 
   });
 
   $('.liTab.educacion').click(function () {
 
-    var id = $(this).data('id');
+    if ($('#datosEducacion').html() == '' || $('#consultasEducacion').html() == '') {
 
-    $.get("{{route('fichaEducacion.get',['asistido_id'=>$asistido->id])}}", function(data){
+      var id = $(this).data('id');
 
-      console.log(data);
-      if (data.status) {
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
 
-        $('#datosEducacion').html(data.view);
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaEducacion.get',['asistido_id'=>$asistido->id])}}", function(data){
 
-      }
+        if (data.status) {
 
-    })
+          $('#datosEducacion').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasEducaciones'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasEducacion').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
 
   });
 
   $('.liTab.personal').click(function () {
 
-    var id = $(this).data('id');
+    if ($('#datosPersonal').html() == '' || $('#consultasPersonal').html() == '') {
 
-    $.get("{{route('fichaDatosPersonales.get',['asistido_id'=>$asistido->id])}}", function(data){
+      var id = $(this).data('id');
 
-      console.log(data);
-      if (data.status) {
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
 
-        $('#datosPersonal').html(data.view);
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaDatosPersonales.get',['asistido_id'=>$asistido->id])}}", function(data){
 
-      }
+        if (data.status) {
 
-    })
+          $('#datosPersonal').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasDatosPersonales'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasPersonal').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
 
   });
 
-  $('.liTab.legal').click(function () {
+    $('.liTab.legal').click(function () {
 
-    var id = $(this).data('id');
+    if ($('#datosLegal').html() == '' || $('#consultasLegal').html() == '') {
 
-    $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
+      var id = $(this).data('id');
 
-      console.log(data);
-      if (data.status) {
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
 
-        $('#datosLegal').html(data.view);
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
 
-      }
+        if (data.status) {
 
-    })
+          $('#datosLegal').html(data.view);
+        } 
+
+      });
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasLegales'])}}", function(data){
+
+        if (data.status) {
+
+          $('#consultasLegal').html(data.view);
+        }
+
+      });
+
+      $.when(ficha, consultas).done(function () {
+
+        loading.modal('hide');
+      });
+
+    }
 
   });
+
+  // $('.liTab.legal').click(function () {
+
+  //   if ($('#datosLegal').html() == '') {
+
+  //     var id = $(this).data('id');
+
+  //     var loading = bootbox.dialog({
+  //       message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+  //       closeButton: false
+  //     });
+
+  //     $.get("{{route('fichaLegal.get',['asistido_id'=>$asistido->id])}}", function(data){
+
+  //       console.log(data);
+  //       if (data.status) {
+
+  //         $('#datosLegal').html(data.view);
+  //         loading.modal('hide');
+  //       }
+
+  //     })
+  //   }
+
+  // });
 
 
 </script>

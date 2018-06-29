@@ -115,7 +115,11 @@ Route::group(['prefix'=>'asistido'],function(){
 Route::group(['prefix'=>'consultas'],function(){
     Route::post('/store',[
         'uses'=>'ConsultaController@store',
-        'as'=>'consulta.store'
+        'as'=>'consultas.store'
+    ]);
+    Route::get('/getView/{id}/{type}',[
+        'uses'=>'ConsultaController@getView',
+        'as'=>'consultas.getView',
     ]);
 });
 
