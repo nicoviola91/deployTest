@@ -36,6 +36,8 @@ class AsistidoController extends Controller
     public function createFromAlert($id)
     {
         $alerta=Alerta::find($id);
+        $alerta->estado=1;
+        $alerta->save();
         return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta);
     }
 

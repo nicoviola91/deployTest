@@ -94,8 +94,8 @@ class FichaDatosPersonalesController extends Controller
         if(!isset($fichaDatosPersonales)){
             $fichaDatosPersonales=new FichaDatosPersonales();
             $fichaDatosPersonales->nombre=$asistido->nombre;
-            $fichaDatosPersonales->asistido_id=$asistido_id;
-            $fichaDatosPersonales->save();
+            $asistido->ficha()->save($fichaDatosPersonales);
+            
         }
         return $fichaDatosPersonales;
     }

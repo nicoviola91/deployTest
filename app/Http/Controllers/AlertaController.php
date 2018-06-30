@@ -47,7 +47,7 @@ class AlertaController extends Controller
         $alerta = new Alerta($request->all());
         $user_id=Auth::user()->id;
         $alerta->user_id = $user_id; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
-        $alerta->estado = 1;
+        $alerta->estado = 0;
         $alerta->save();
         return redirect()->route('alerta.list');
     }
