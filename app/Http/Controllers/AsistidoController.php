@@ -66,6 +66,7 @@ class AsistidoController extends Controller
         #$usuarioNotif->notify(new AltaAlerta($alerta));
         $usuarioNotif->notify(new AltaAlerta($alerta));
         $alerta->asistido()->associate($asistido);
+        $alerta->estado = 1;
         $alerta->save();
         return redirect()->route('alerta.list');
     }
