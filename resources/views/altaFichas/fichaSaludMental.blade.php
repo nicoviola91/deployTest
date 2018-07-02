@@ -251,11 +251,7 @@
                       </dl>
                     @endforeach
                     @endif
-                <div class="box-body">
                 @endif
-                  
-
-                <div class="box-body">
                   <a href={{route('fichaSaludMental.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
                 </div>
               </div>
@@ -285,7 +281,7 @@
                                 <div class="profesional">
                                     <div class="form-group {{ $errors->has('nombreProfesional') ? ' has-error' : '' }}">
                                         <label for="nombreProfesional">Nombre del profesional que recetó</label>
-                                        <input type="text" class="form-control" id="nombreProfesional" placeholder="Nombre del profesional" name="nombreProfesional" maxlength="250">
+                                        <input type="text" class="form-control" id="nombreProfesional" placeholder="Nombre del profesional" name="nombreProfesional" maxlength="250" required>
                                         @if ($errors->has('nombreProfesional'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('nombreProfesional') }}</strong>
@@ -294,7 +290,7 @@
                                     </div>
                                     <div class="form-group {{ $errors->has('apellidoProfesional') ? ' has-error' : '' }}">
                                         <label for="apellidoProfesional">Apellido del profesional que recetó</label>
-                                        <input type="text" class="form-control" id="apellidoProfesional" placeholder="Apellido del profesional" name="apellidoProfesional" maxlength="250">
+                                        <input type="text" class="form-control" id="apellidoProfesional" placeholder="Apellido del profesional" name="apellidoProfesional" maxlength="250" required>
                                         @if ($errors->has('apellidoProfesional'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('apellidoProfesional') }}</strong>
@@ -314,7 +310,7 @@
                                 <div class="automedicacion">
                                     <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
                                         <label for="droga">Droga</label>
-                                        <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250">
+                                        <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250" required>
                                         @if ($errors->has('droga'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('droga') }}</strong>
@@ -380,7 +376,7 @@
                       <h4 class="modal-title text-center">Atención!</h4>
                   </div>
                         
-                  <form action="{{ route('fichaAdicciones.destroyEpisodioAgresivo',['id','asistidoid'])}}" method="POST">
+                  <form action="{{ route('fichaSaludMental.destroyMedicacion',['id','asistidoid'])}}" method="POST">
                       {{method_field('get')}}
                       {{csrf_field()}}
                       <div class="modal-body">
@@ -468,6 +464,7 @@
                               <dt>E-mail</dt>
                               <dd>{{$tratamiento->institucion->email}}</dd>
                               @endif
+
                               @if(isset($tratamiento->profesional->nombre))
                               <dt>Nombre profesional</dt>
                               <dd>{{$tratamiento->profesional->nombre}}</dd>
@@ -519,7 +516,7 @@
 
                             <div class="form-group col-md-12" style="display: none;">
                                 {!! Form::Label('tipo', 'Tipo') !!}
-                                <select class="form-control" name="tipo" id="tipo" >
+                                <select class="form-control" name="tipo" id="tipo" required>
                                     <option value="Ambulatorio">Ambulatorio</option>
                                     <option value="Internación">Internación</option>
                                 </select>
@@ -561,64 +558,134 @@
                               </span>
                             @endif
                           </div>
-                          <span>Medicación</span>
-                          <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
-                            <label for="droga">Droga</label>
-                            <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250">
-                            @if ($errors->has('droga'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('droga') }}</strong>
-                              </span>
-                            @endif
-                          </div>
-                          <div class="form-group {{ $errors->has('dosis') ? ' has-error' : '' }}">
-                            <label for="dosis">Dosis</label>
-                            <input type="text" class="form-control" id="dosis" placeholder="Dosis" name="dosis" maxlength="250">
-                            @if ($errors->has('dosis'))
+                          <div class="form-group {{ $errors->has('medicacionEnTratamiento') ? ' has-error' : '' }}">
+                                <input type="checkbox" id="medicacionEnTratamiento" name="medicacionEnTratamiento" >
+                                @if ($errors->has('medicacionEnTratamiento'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('dosis') }}</strong>
+                                    <strong>{{ $errors->first('medicacionEnTratamiento') }}</strong>
                                 </span>
-                            @endif
+                                @endif
+                                <label for="checkDerivacion">El tratamiento incluye medicación</label>
                             </div>
-                            <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
-                                <label for="frecuencia">Frecuencia</label>
-                                <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia" maxlength="250">
-                                @if ($errors->has('frecuencia'))
+                          <div class="mostrarMedicacion">
+                          <span>Medicación</span>
+                            <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
+                                <label for="droga">Droga</label>
+                                <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250" required>
+                                @if ($errors->has('droga'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('droga') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('dosis') ? ' has-error' : '' }}">
+                                <label for="dosis">Dosis</label>
+                                <input type="text" class="form-control" id="dosis" placeholder="Dosis" name="dosis" maxlength="250">
+                                @if ($errors->has('dosis'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('frecuencia') }}</strong>
+                                        <strong>{{ $errors->first('dosis') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
-                                <span>Hospital, institución, particular o comunidad terapeutica donde realiza el tratamiento</span>
-                                <label for="nombreInstitucion">Nombre</label>
-                                <input type="text" class="form-control" id="nombreInstitucion" placeholder="Nombre" name="nombreInstitucion" maxlength="250">
-                                @if ($errors->has('nombreInstitucion'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('nombreInstitucion') }}</strong>
-                                    </span>
-                                @endif
+                            
+                                <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
+                                    <label for="frecuencia">Frecuencia</label>
+                                    <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia" maxlength="250">
+                                    @if ($errors->has('frecuencia'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('frecuencia') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="form-group {{ $errors->has('direccionInstitucion') ? ' has-error' : '' }}">
-                                <label for="direccionInstitucion">Dirección</label>
-                                <input type="text" class="form-control" id="direccionInstitucion" placeholder="Dirección" name="direccionInstitucion" maxlength="250">
-                                @if ($errors->has('direccionInstitucion'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('direccionInstitucion') }}</strong>
-                                    </span>
+                            <div class="form-group {{ $errors->has('institucionEnTratamiento') ? ' has-error' : '' }}">
+                                <input type="checkbox" id="institucionEnTratamiento" name="institucionEnTratamiento" >
+                                @if ($errors->has('institucionEnTratamiento'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('institucionEnTratamiento') }}</strong>
+                                </span>
                                 @endif
+                                <label for="institucionEnTratamiento">El tratamiento se realiza o realizó en un hospital, institución, particular o comunidad terapeutica</label>
                             </div>
-                            <div class="form-group {{ $errors->has('emailInstitucion') ? ' has-error' : '' }}">
-                                <label for="emailInstitucion">E-mail</label>
-                                <input type="email" class="form-control" id="emailInstitucion" placeholder="E-mail " name="emailInstitucion" maxlength="250">
-                                @if ($errors->has('emailInstitucion'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('emailInstitucion') }}</strong>
-                                    </span>
+                            <div class="mostrarInstitucion">
+                                <div class="form-group {{ $errors->has('nombreInstitucion') ? ' has-error' : '' }}">
+                                    <span></span>
+                                    <label for="nombreInstitucion">Nombre</label>
+                                    <input type="text" class="form-control" id="nombreInstitucion" placeholder="Nombre" name="nombreInstitucion" maxlength="250" required>
+                                    @if ($errors->has('nombreInstitucion'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('nombreInstitucion') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('direccionInstitucion') ? ' has-error' : '' }}">
+                                    <label for="direccionInstitucion">Dirección</label>
+                                    <input type="text" class="form-control" id="direccionInstitucion" placeholder="Dirección" name="direccionInstitucion" maxlength="250">
+                                    @if ($errors->has('direccionInstitucion'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('direccionInstitucion') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('emailInstitucion') ? ' has-error' : '' }}">
+                                    <label for="emailInstitucion">E-mail</label>
+                                    <input type="email" class="form-control" id="emailInstitucion" placeholder="E-mail " name="emailInstitucion" maxlength="250">
+                                    @if ($errors->has('emailInstitucion'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('emailInstitucion') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('profesionalEnTratamiento') ? ' has-error' : '' }}">
+                                <input type="checkbox" id="profesionalEnTratamiento" name="profesionalEnTratamiento" >
+                                @if ($errors->has('profesionalEnTratamiento'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('profesionalEnTratamiento') }}</strong>
+                                </span>
                                 @endif
+                                <label for="profesionalEnTratamiento">Profesional a cargo del tratamiento</label>
                             </div>
-        
-
+                            <div class="mostrarProfesional">
+                                <div class="form-group {{ $errors->has('nombreProfesional') ? ' has-error' : '' }}">
+                                    <span>Profesional a cargo del tratamiento</span>
+                                    <label for="nombreProfesional">Nombre del profesional</label>
+                                    <input type="text" class="form-control" id="nombreProfesional" placeholder="Nombre " name="nombreProfesional" maxlength="250" required>
+                                    @if ($errors->has('nombreProfesional'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('nombreProfesional') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                
+                                <div class="form-group {{ $errors->has('apellidoProfesional') ? ' has-error' : '' }}">
+                                    <label for="apellidoProfesional">Apellido del profesional</label>
+                                    <input type="text" class="form-control" id="apellidoProfesional" placeholder="Apellido " name="apellidoProfesional" maxlength="250">
+                                    @if ($errors->has('apellidoProfesional'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('apellidoProfesional') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('especialidadProfesional') ? ' has-error' : '' }}">
+                                    <label for="especialidadProfesional">Especialidad</label>
+                                    <input type="text" class="form-control" id="especialidadProfesional" placeholder="Especialidad " name="especialidadProfesional" maxlength="250">
+                                    @if ($errors->has('especialidadProfesional'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('especialidadProfesional') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('cargoProfesional') ? ' has-error' : '' }}">
+                                    <label for="cargoProfesional">Cargo</label>
+                                    <input type="text" class="form-control" id="cargoProfesional" placeholder="Cargo " name="cargoProfesional" maxlength="250">
+                                    @if ($errors->has('cargoProfesional'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('cargoProfesional') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
@@ -639,7 +706,7 @@
                           <h4 class="modal-title text-center">Atención!</h4>
                       </div>
                             
-                      <form action="{{ route('fichaAdicciones.destroyTratamiento',['id','asistidoid'])}}" method="POST">
+                      <form action="{{ route('fichaSaludMental.destroyTratamiento',['id','asistidoid'])}}" method="POST">
                           {{method_field('get')}}
                           {{csrf_field()}}
                           <div class="modal-body">
@@ -655,14 +722,128 @@
                       </div>
                   </div>
               </div>
+
+              <div class="box-group">
+                <div class="panel box box-danger">
+                    <div class="box-header with-border">
+                    <h4 class="box-title">
+                        <a data-toggle="collapse" href="#collapseTwo" style="color: black;"> Episodios Agresivos</a>
+                    </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                    
+                        @if(isset($fichaSaludMental))
+                        <div class="box-body">
+                        @if (isset($fichaSaludMental->checkAgresiones))
+                        @foreach($episodiosAgresivos as $episodioAgresivo)
+                            <div class="box-tools pull-right">
+                            <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            </div>
+                            <dl class="dl-horizontal preventoverflow" >
+                                <dt>Tipo</dt>
+                                <dd>{{$episodioAgresivo->tipo}}</dd>
+                                
+                                @if(isset($episodioAgresivo->lugar))
+                                <dt>Lugar</dt>
+                                <dd>{{$episodioAgresivo->lugar}}</dd>
+                                @endif
+                                @if(isset($episodioAgresivo->fecha))
+                                <dt>Fecha</dt>
+                                <dd>{{$episodioAgresivo->fecha}}</dd>
+                                @endif
+                            </dl>
+                        @endforeach
+                        @endif
+                        @endif 
+                        <a href={{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
+                    </div>
+                    </div>
+                </div>
+                </div>
     
     
     
-
-
-
-
-
+                <div class="modal fade in" id="modal-default3" style="display: none; padding-right: 17px;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Agregar Episodio Agresivo</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <form id="episodiosAgresivos-form" method="POST" action="{{ route('fichaSaludMental.storeEpisodioAgresivo',['asistido_id'=>$asistido->id]) }}" >
+                                {{ csrf_field() }}
+                                <div class="box-body">
+                                <div class="form-group {{ $errors->has('tipo') ? ' has-error' : '' }}">
+                                    <label for="tipo">Tipo</label>
+                                    <input type="text" class="form-control" id="tipo" placeholder="Tipo" name="tipo" maxlength="250">
+                                    @if ($errors->has('tipo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tipo') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('lugar') ? ' has-error' : '' }}">
+                                    <label for="lugar">Lugar</label>
+                                    <input type="text" class="form-control" id="lugar" placeholder="Lugar" name="lugar" maxlength="250">
+                                    @if ($errors->has('lugar'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('lugar') }}</strong>
+                                        </span>
+                                    @endif
+                                    </div>
+                                    <div class="form-group {{ $errors->has('fecha') ? ' has-error' : '' }}">
+                                        <label for="fecha">Fecha</label>
+                                        <input type="date" class="form-control" id="fecha" placeholder="Fecha" name="fecha">
+                                        @if ($errors->has('fecha'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('fecha') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-danger">Agregar Episodio Agresivo</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+    
+                <div class="modal modal-danger fade" id="delete4" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title text-center">Atención!</h4>
+                        </div>
+                            
+                        <form action="{{ route('fichaSaludMental.destroyEpisodioAgresivo',['id','asistidoid'])}}" method="POST">
+                            {{method_field('get')}}
+                            {{csrf_field()}}
+                            <div class="modal-body">
+                                <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                                <input type="hidden" name='id' id='id' value="">
+                                <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                                <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+    
+    
 
           <div class="box-group">
             <div class="panel box box-gray">
@@ -673,52 +854,115 @@
               </div>
               <div id="collapseThree" class="panel-collapse collapse in">
                 <div class="box-body">
-                  <form id="consideracionesGenerales-form" method="POST" action="{{ url('/fichaAdicciones/storeConsideraciones',['asistido_id'=>$asistido->id]) }}" >
+                  <form id="consideracionesGenerales-form" method="POST" action="{{ route('fichaSaludMental.storeConsideraciones',['asistido_id'=>$asistido->id]) }}" >
                     {{ csrf_field() }}
 
-                      <div class="form-group {{ $errors->has('checklistRequiereDerivacion') ? ' has-error' : '' }}">
-                          
-                          <input type="checkbox" id="checklistRequiereDerivacion" name="checklistRequiereDerivacion" {{isset($fichaAdiccion->checklistRequiereDerivacion) && ($fichaAdiccion->checklistRequiereDerivacion==1) ? 'checked':''}}>
-                          @if ($errors->has('checklistRequiereDerivacion'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('checklistRequiereDerivacion') }}</strong>
-                            </span>
-                          @endif
-                          <label for="checklistRequiereDerivacion">Requiere derivación     </label>
-                        </div>
+                    <div class="form-group" style="display: none;">
+                        {!! Form::Label('estadoMental', 'Estado mental') !!}
+                        <select class="form-control" name="estadoMental" id="estadoMental" >
+                            <option value="No presenta síntomas mentales">No presenta síntomas mentales</option>
+                            <option value="Presenta síntomas mentales">Presenta síntomas mentales</option>
+                            <option value="No se puede determinar">No se puede determinar</option>
+                        </select>
+                    </div>
+                    <span>Signos observables</span>
+                    <div class="form-group {{ $errors->has('ansiedad') ? ' has-error' : '' }}">
+                        <input type="checkbox" id="ansiedad" name="ansiedad" {{isset($fichaSaludMental->ansiedad) && ($fichaSaludMental->ansiedad==1) ? 'checked':''}}>
+                        @if ($errors->has('ansiedad'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('ansiedad') }}</strong>
+                        </span>
+                        @endif
+                        <label for="ansiedad">Ansiedad</label>
+                    </div>
+                    <div class="form-group {{ $errors->has('depresivo') ? ' has-error' : '' }}">
+                        <input type="checkbox" id="depresivo" name="depresivo" {{isset($fichaSaludMental->depresivo) && ($fichaSaludMental->depresivo==1) ? 'checked':''}}>
+                        @if ($errors->has('depresivo'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('depresivo') }}</strong>
+                        </span>
+                        @endif
+                        <label for="depresivo">Estado depresivo</label>
+                    </div>
+                    <div class="form-group {{ $errors->has('delirios') ? ' has-error' : '' }}">
+                        <input type="checkbox" id="delirios" name="delirios" {{isset($fichaSaludMental->delirios) && ($fichaSaludMental->delirios==1) ? 'checked':''}}>
+                        @if ($errors->has('delirios'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('delirios') }}</strong>
+                        </span>
+                        @endif
+                        <label for="delirios">Delirios</label>
+                    </div>
+                    <div class="form-group {{ $errors->has('trastornoCognitivo') ? ' has-error' : '' }}">
+                        <input type="checkbox" id="trastornoCognitivo" name="trastornoCognitivo" {{isset($fichaSaludMental->trastornoCognitivo) && ($fichaSaludMental->trastornoCognitivo==1) ? 'checked':''}}>
+                        @if ($errors->has('trastornoCognitivo'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('trastornoCognitivo') }}</strong>
+                        </span>
+                        @endif
+                        <label for="trastornoCognitivo">Trastorno cognitivo</label>
+                    </div>
+
+                    <div class="form-group {{ $errors->has('checkDerivacion') ? ' has-error' : '' }}">
+                        <input type="checkbox" id="checkDerivacion" name="checkDerivacion" {{isset($fichaSaludMental->checkDerivacion) && ($fichaSaludMental->checkDerivacion==1) ? 'checked':''}}>
+                        @if ($errors->has('checkDerivacion'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('checkDerivacion') }}</strong>
+                        </span>
+                        @endif
+                        <label for="checkDerivacion">Requiere derivación</label>
+                    </div>
 
 
-                      <div class="form-group {{ $errors->has('checklistRequiereInternacion') ? ' has-error' : '' }}">
-                          
-                          <input type="checkbox" id="checklistRequiereInternacion" name="checklistRequiereInternacion" {{isset($fichaAdiccion->checklistRequiereInternacion) && ($fichaAdiccion->checklistRequiereInternacion==1) ? 'checked':''}}>
-                          @if ($errors->has('checklistRequiereInternacion'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('checklistRequiereInternacion') }}</strong>
-                            </span>
-                          @endif
-                          <label for="checklistRequiereInternacion">Requiere internación      </label>
+                    <div class="form-group {{ $errors->has('checkInternacion') ? ' has-error' : '' }}">
+                        
+                        <input type="checkbox" id="checkInternacion" name="checkInternacion" {{isset($fichaSaludMental->checkInternacion) && ($fichaSaludMental->checkInternacion==1) ? 'checked':''}}>
+                        @if ($errors->has('checkInternacion'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('checkInternacion') }}</strong>
+                        </span>
+                        @endif
+                        <label for="checkInternacion">Requiere internación</label>
+                    </div>
+                    <div class="mostrarInstitucion2">
+                        <div class="form-group {{ $errors->has('nombreInstitucion2') ? ' has-error' : '' }}">
+                            <label for="nombreInstitucion2">Nombre</label>
+                            <input type="text" class="form-control" id="nombreInstitucion2" placeholder="Nombre" name="nombreInstitucion2" maxlength="250">
+                            @if ($errors->has('nombreInstitucion2'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('nombreInstitucion2') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                        <div class="form-group {{ $errors->has('direccionInstitucion2') ? ' has-error' : '' }}">
+                            <label for="direccionInstitucion2">Dirección</label>
+                            <input type="text" class="form-control" id="direccionInstitucion2" placeholder="Dirección" name="direccionInstitucion2" maxlength="250">
+                            @if ($errors->has('direccionInstitucion2'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('direccionInstitucion2') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('telefonoInstitucion2') ? ' has-error' : '' }}">
+                            <label for="telefonoInstitucion2">E-mail</label>
+                            <input type="text" class="form-control" id="telefonoInstitucion2" placeholder="E-mail " name="telefonoInstitucion2" maxlength="250">
+                            @if ($errors->has('telefonoInstitucion2'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('telefonoInstitucion2') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('referenteInstitucion2') ? ' has-error' : '' }}">
+                            <label for="referenteInstitucion2">E-mail</label>
+                            <input type="text" class="form-control" id="referenteInstitucion2" placeholder="E-mail " name="referenteInstitucion2" maxlength="250">
+                            @if ($errors->has('referenteInstitucion2'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('referenteInstitucion2') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
 
-                      <div class="form-group {{ $errors->has('checklistEmbarazo') ? ' has-error' : '' }}">
-                          
-                          <input type="checkbox" id="checklistEmbarazo" name="checklistEmbarazo" {{isset($fichaAdiccion->checklistEmbarazo) && ($fichaAdiccion->checklistEmbarazo==1) ? 'checked':''}}>
-                          @if ($errors->has('checklistEmbarazo'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('checklistEmbarazo') }}</strong>
-                            </span>
-                          @endif
-                          <label for="checklistEmbarazo">Está embarazada      </label>
-                        </div>
-                        <br>
-                      <div class="form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
-                          <label for="estado">Observaciones</label>
-                      <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" value="{{isset($fichaAdiccion->observaciones) ? $fichaAdiccion->observaciones : ''}}">
-                          @if ($errors->has('observaciones'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('observaciones') }}</strong>
-                            </span>
-                          @endif
-                        </div>
                     <div align="right">
                       <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
                     </div>  
@@ -745,6 +989,71 @@
         $('.profesional').show()
         $('.automedicacion').hide()
     }
+
+    window.onload=function(){
+        $('.mostrarInstitucion').hide()
+    }
+
+    window.onload=function(){
+        $('.mostrarMedicacion').hide()
+    }
+
+    window.onload=function(){   
+        $('.mostrarInstitucion').hide()
+    }
+    
+    window.onload=function(){
+        $('.mostrarProfesional').hide()
+    }
+    
+    
+    $('#checkInternacion').change(function(){
+        if ($(this).val() == true){
+
+            $('.mostrarInstitucion2').show()
+
+        }else{
+
+            $('.mostrarInstitucion2').hide()
+
+        }
+    })
+
+    $('#medicacionEnTratamiento').change(function(){
+        if ($(this).val() == true){
+
+            $('.mostrarMedicacion').show()
+
+        }else{
+
+            $('.mostrarMedicacion').hide()
+
+        }
+    })
+
+    $('#institucionEnTratamiento').change(function(){
+        if ($(this).val() == true){
+
+            $('.mostrarInstitucion').show()
+
+        }else{
+
+            $('.mostrarInstitucion').hide()
+
+        }
+    })
+
+    $('#profesionalEnTratamiento').change(function(){
+        if ($(this).val() == true){
+
+            $('.mostrarProfesional').show()
+
+        }else{
+
+            $('.mostrarProfesional').hide()
+
+        }
+    })
 
     $('#recetada').change(function () {
 
@@ -779,6 +1088,15 @@
     })
 
     $('#delete3').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+
+    $('#delete4').on('show.bs.modal',function(event){
         var a = $(event.relatedTarget)
         var id= a.data('id')
         var asistidoid= a.data('asistidoid')

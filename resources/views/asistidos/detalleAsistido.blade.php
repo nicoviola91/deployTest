@@ -201,13 +201,15 @@
 					@endif
 					<br>
 					@if(($asistido->checkFichaSaludMental)==1)
-					<dd><a href="#" class='text-light-blue'>Ficha de Salud Mental</a></dd>
+					<dd>
+						<a href="{{route('fichaSaludMental.create',['asistido_id'=>$asistido->id])}}" class='text-light-blue'>Ficha Salud Mental</a>
+					</dd>
 					@else
 					<dd>
 						<div class="col-md-4">
-								<button type="button" class="btn btn-block btn-default btn-sm">
-										<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Salud Mental
-								</button>
+								<a href="{{route('fichaSaludMental.create',['asistido_id'=>$asistido->id])}}" class='btn btn-block btn-default btn-sm' data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Salud Mental">
+									<i align="left" class="fa fa-plus-square"></i> Añadir Ficha de Salud Mental
+								</a>
 						</div>
 					</dd>
 					@endif

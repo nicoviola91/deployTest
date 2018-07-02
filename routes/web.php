@@ -325,6 +325,55 @@ Route::group(['prefix'=>'fichaDiagnosticoIntegral'],function(){
 });
 
 
+//FICHA SALUD MENTAL
+Route::group(['prefix'=>'fichaSaludMental'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaSaludMentalController@create',
+        'as'=>'fichaSaludMental.create',
+    ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaSaludMentalController@get',
+        'as'=>'fichaSaludMental.get',
+    ]);
+    Route::post('/storePatologia/{id}',[
+        'uses'=>'FichaSaludMentalController@storePatologia',
+        'as'=>'fichaSaludMental.storePatologia',
+    ]);
+    Route::post('/storeEpisodioAgresivo/{id}',[
+        'uses'=>'FichaAdiccionesController@storeEpisodioAgresivo',
+        'as'=>'fichaSaludMental.storeEpisodioAgresivo',
+    ]);
+    Route::post('/storeTratamiento/{id}',[
+        'uses'=>'FichaSaludMental@storeTratamiento',
+        'as'=>'fichaSaludMental.storeTratamiento',
+    ]);
+    Route::post('/storeMedicacion/{id}',[
+        'uses'=>'FichaSaludMental@storeMedicacion',
+        'as'=>'fichaSaludMental.storeMedicacion',
+    ]);
+    Route::post('/storeConsideraciones/{id}',[
+        'uses'=>'FichaSaludMental@storeConsideraciones',
+        'as'=>'fichaSaludMental.storeConsideraciones',
+    ]);
+    Route::get('/destroyMedicacion/{medicacion_id}/{asistido_id}',[
+        'uses'=>'FichaSaludMental@destroyMedicacion',
+        'as'=>'fichaSaludMental.destroyMedicacion'
+    ]);
+    Route::get('/destroyPatologia/{patologia_id}/{asistido_id}',[
+        'uses'=>'FichaSaludMental@destroyPatologia',
+        'as'=>'fichaSaludMental.destroyPatologia'
+    ]);
+    Route::get('/destroyEpisodioAgresivo/{episodioAgresivo_id}/{asistido_id}',[
+        'uses'=>'FichaSaludMental@destroyEpisodioAgresivo',
+        'as'=>'fichaSaludMental.destroyEpisodioAgresivo'
+    ]);
+    Route::get('/destroyTratamiento/{tratamiento_id}/{asistido_id}',[
+        'uses'=>'FichaSaludMental@destroyTratamiento',
+        'as'=>'fichaSaludMental.destroyTratamiento'
+    ]);
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -151,8 +151,27 @@ class FichaAdiccionesController extends Controller
     public function storeConsideraciones(Request $request,$asistido_id){
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
+
+        $requiereInternacion=$request->input('checklistRequiereInternacion');
+        if($requiereInternacion=='on'){
+            $requiereInternacionValue=1;
+        }else{
+            $requiereInternacionValue=0;
+        }
+        $requiereDerivacion=$request->input('checklistRequiereDerivacion');
+        if($requiereDerivacion=='on'){
+            $requiereDerivacionValue=1;
+        }else{
+            $requiereDerivacionValue=0;
+        }
+        $embarazo=$request->input('checklistEmbarazo');
+        if($embarazo=='on'){
+            $checklistEmbarazoValue=1;
+        }else{
+            $checklistEmbarazoValue=0;
+        }
         FichaAdiccion::where('asistido_id',$asistido_id)
-        ->update(['checklistRequiereInternacion'=>1, 'checklistRequiereDerivacion'=>1,'checklistEmbarazo'=>1,
+        ->update(['checklistRequiereInternacion'=>$requiereInternacionValue, 'checklistRequiereDerivacion'=>$requiereDerivacionValue,'checklistEmbarazo'=>$checklistEmbarazoValue,
         'observaciones' =>$request->observaciones]);
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
 

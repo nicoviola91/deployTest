@@ -270,16 +270,14 @@
                       </dl>
                     @endforeach
                     @endif
-                <div class="box-body">
-                @endif
-                  
-
-                <div class="box-body">
+                  @endif 
                   <a href={{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
                 </div>
               </div>
             </div>
           </div>
+
+
 
           <div class="modal fade in" id="modal-default3" style="display: none; padding-right: 17px;">
             <div class="modal-dialog">
