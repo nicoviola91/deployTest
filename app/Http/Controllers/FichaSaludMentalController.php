@@ -10,6 +10,7 @@ use App\Institucion;
 use App\EpisodioAgresivo;
 use App\Medicacion;
 use App\Asistido;
+use App\Profesional;
 
 class FichaSaludMentalController extends Controller
 {
@@ -102,20 +103,28 @@ class FichaSaludMentalController extends Controller
     }
 
     public function storeMedicacion(Request $request,$asistido_id){
-        $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
-        $medicacion=new Medicacion($medicacion_input);
-        if($request->has('nombreProfesional')){
-            $profesional_input=$request->except(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
+        //var_dump($request);
+
+        if($request->has('nombre') && $request->has('droga') && ($request->input('nombre')!== null) && ($request->input('droga')!== null)){
+            $profesional_input=$request->only(['nombre','apellido']);
+            $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
             $profesional=new Profesional($profesional_input);
-            $medicacion->profesional()->save($profesional);
+            $medicacion=new Medicacion($medicacion_input);
             $profesional->save();
+            $profesional->medicacion()->save($medicacion);
         }
+        
+        if($request->has('droga') && ($request->input('droga')!== null) && ($request->input('nombre')== null)){
+            $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
+            $medicacion=new Medicacion($medicacion_input);
+            $medicacion->save();
+        }
+        
         Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
         $fichaSaludMental=$this->findFichaSaludMentalByAsistidoId($asistido_id);
         FichaSaludMental::where('asistido_id',$asistido_id)
         ->update(['checkMedicacion'=>1]);
         $fichaSaludMental->medicaciones()->save($medicacion);
-        $medicacion->save();
 
         return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
     }
@@ -126,10 +135,11 @@ class FichaSaludMentalController extends Controller
         $asistido_id=$request->input('asistidoid');
         $medicacion=Medicacion::find($medicacion_id);
         if(isset($medicacion->profesional)){
+            $medicacion->delete();
             $profesional=$medicacion->profesional;
             $profesional->delete();
         }
-        $medicacion->delete();
+        
         return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
     }
 
@@ -139,18 +149,27 @@ class FichaSaludMentalController extends Controller
         if($request->has('droga')){
             $medicacion_input=$request->only(['droga','dosis','frecuencia']);
             $medicacion=new Medicacion($medicacion_input);
-            $tratamiento->medicacion()->save($medicacion);
+            $tratamiento->save();
+            $tratamiento->medicaciones()->save($medicacion);
             $medicacion->save();
         }
         if($request->has('nombreInstitucion')){
-            $institucion_input=$request->only(['nombreInstitucion','direccionInstitucion','emailInstitucion']);
-            $institucion=new Institucion($institucion_input);
+            $institucion=new Institucion;
+            $institucion->nombre=$request->nombreInstitucion;
+            $institucion->direccion=$request->direccionInstitucion;
+            $institucion->email=$request->emailInstitucion;
+            $tratamiento->save();
             $tratamiento->institucion()->save($institucion);
+
             $institucion->save();
         }
-        if($request->has('nombreProfesional')){
-            $profesional_input=$request->only(['nombreProfesional','apellidoProfesional','especialidadProfesional','cargoProfesional']);
-            $profesional=new Profesional($profesional_input);
+        if($request->has('nombre')){
+            $profesional=new Profesional;
+            $profesional->nombre=$request->nombre;
+            $profesional->apellido=$request->apellido;
+            $profesional->especialidad=$request->especialidadProfesional;
+            $profesional->cargo=$request->cargoProfesional;
+            $profesional->save();
             $tratamiento->profesional()->associate($profesional);
             $tratamiento->save();
         }
@@ -170,19 +189,22 @@ class FichaSaludMentalController extends Controller
         $tratamiento_id=$request->input('id');
         $asistido_id=$request->input('asistidoid');
         $tratamiento=Tratamiento::find($tratamiento_id);
-        if(isset($tratamiento->medicacion)){
-            $medicacion=$tratamiento->medicacion;
+        if(isset($tratamiento->medicaciones)){
+            $medicacion=$tratamiento->medicaciones;
             $medicacion->delete();
         }
         if(isset($tratamiento->institucion)){
             $institucion=$tratamiento->institucion;
             $institucion->delete();
         }
+
+        $tratamiento->delete();
+
         if(isset($tratamiento->profesional)){
             $profesional=$tratamiento->profesional;
             $profesional->delete();
         }
-        $tratamiento->delete();
+        
 
 
         return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
@@ -216,6 +238,7 @@ class FichaSaludMentalController extends Controller
     public function storeConsideraciones(Request $request,$asistido_id){
         $fichaSaludMental=$this->findFichaSaludMentalByAsistidoId($asistido_id);
         Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        $estadoMental=$request->input('estadoMental');
 
         $ansiedad=$request->input('ansiedad');
         if($ansiedad=='on'){
@@ -241,15 +264,36 @@ class FichaSaludMentalController extends Controller
         }else{
             $trastornoCognitivoValue=0;
         }
+        $requiereDerivacion=$request->input('checkDerivacion');
+        if($requiereDerivacion=='on'){
+            $requiereDerivacionValue=1;
+        }else{
+            $requiereDerivacionValue=0;
+        }
+        $requiereInternacion=$request->input('checkInternacion');
+        if($requiereInternacion=='on'){
+            $requiereInternacionValue=1;
+        }else{
+            $requiereInternacionValue=0;
+        }
         if($request->has('nombreInstitucion2')){
-            $institucion_input=$request->only(['nombreInstitucion2','direccionInstitucion2','telefonoInstitucion2','referenteInstitucion2']);
-            $institucion=new Institucion(institucion_input);
-            $fichaSaludMental= FichaSaludMental::where('asistido_id',$asistido_id);
-            $fichaSaludMental->institucion()->save($institucion);
+            $institucion=Institucion::updateOrCreate(
+                ['nombre'=>$request->nombreInstitucion2,
+                'direccion'=>$request->direccionInstitucion2,
+                'email'=>$request->emailInstitucion2,
+                'telefono'=>$request->telefonoInstitucion2]);
             $institucion->save();
+            $fichaSaludMental->institucion()->save($institucion);
+            
         }
         FichaSaludMental::where('asistido_id',$asistido_id)
-        ->update(['estadoMental'=>$request->estadoMental]);
+        ->update(['estadoMental'=>$estadoMental,
+        'ansiedad'=>$ansiedadValue,
+        'depresivo'=>$depresivoValue,
+        'orientado'=>$deliriosValue,
+        'trastornoCognitivo'=>$trastornoCognitivoValue,
+        'checkDerivacion'=>$requiereDerivacionValue,
+        'checkInternacion'=>$requiereInternacionValue]);
         return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
 
     }

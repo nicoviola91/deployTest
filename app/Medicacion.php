@@ -14,11 +14,14 @@ class Medicacion extends Model
         'inicio',
         'fin',
         'recetada',//Dentro de recetada va indicada bajo receta o automedicacion 
-        'fichaSaludMental_id'
+        'fichaSaludMental_id',
+        'profesional_id',
+        'fichaSaludMental_id',
+        'fichaMedica_id'
     ];
 
     public function profesional(){
-        return $this->hasOne('App\Profesional');
+        return $this->belongsTo('App\Profesional','profesional_id');
     }
 
     public function tratamiento(){
@@ -30,7 +33,7 @@ class Medicacion extends Model
     }
 
     public function fichaMedica(){
-        return $this->belongsTo('App\FichaMedica');
+        return $this->belongsTo('App\FichaMedica','fichaMedica_id');//ver que del lado de ficha medica este fichaMedica_id
     }
 
 }

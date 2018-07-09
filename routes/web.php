@@ -340,35 +340,35 @@ Route::group(['prefix'=>'fichaSaludMental'],function(){
         'as'=>'fichaSaludMental.storePatologia',
     ]);
     Route::post('/storeEpisodioAgresivo/{id}',[
-        'uses'=>'FichaAdiccionesController@storeEpisodioAgresivo',
+        'uses'=>'FichaSaludMentalController@storeEpisodioAgresivo',
         'as'=>'fichaSaludMental.storeEpisodioAgresivo',
     ]);
     Route::post('/storeTratamiento/{id}',[
-        'uses'=>'FichaSaludMental@storeTratamiento',
+        'uses'=>'FichaSaludMentalController@storeTratamiento',
         'as'=>'fichaSaludMental.storeTratamiento',
     ]);
     Route::post('/storeMedicacion/{id}',[
-        'uses'=>'FichaSaludMental@storeMedicacion',
+        'uses'=>'FichaSaludMentalController@storeMedicacion',
         'as'=>'fichaSaludMental.storeMedicacion',
     ]);
     Route::post('/storeConsideraciones/{id}',[
-        'uses'=>'FichaSaludMental@storeConsideraciones',
+        'uses'=>'FichaSaludMentalController@storeConsideraciones',
         'as'=>'fichaSaludMental.storeConsideraciones',
     ]);
     Route::get('/destroyMedicacion/{medicacion_id}/{asistido_id}',[
-        'uses'=>'FichaSaludMental@destroyMedicacion',
+        'uses'=>'FichaSaludMentalController@destroyMedicacion',
         'as'=>'fichaSaludMental.destroyMedicacion'
     ]);
     Route::get('/destroyPatologia/{patologia_id}/{asistido_id}',[
-        'uses'=>'FichaSaludMental@destroyPatologia',
+        'uses'=>'FichaSaludMentalController@destroyPatologia',
         'as'=>'fichaSaludMental.destroyPatologia'
     ]);
     Route::get('/destroyEpisodioAgresivo/{episodioAgresivo_id}/{asistido_id}',[
-        'uses'=>'FichaSaludMental@destroyEpisodioAgresivo',
+        'uses'=>'FichaSaludMentalController@destroyEpisodioAgresivo',
         'as'=>'fichaSaludMental.destroyEpisodioAgresivo'
     ]);
     Route::get('/destroyTratamiento/{tratamiento_id}/{asistido_id}',[
-        'uses'=>'FichaSaludMental@destroyTratamiento',
+        'uses'=>'FichaSaludMentalController@destroyTratamiento',
         'as'=>'fichaSaludMental.destroyTratamiento'
     ]);
 });

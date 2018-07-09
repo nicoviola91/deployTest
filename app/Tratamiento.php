@@ -25,7 +25,7 @@ class Tratamiento extends Model
     }
 
     public function medicaciones(){
-        return $this->hasMany('App\Medicacion');
+        return $this->hasOne('App\Medicacion');
     }
 
     public function fichaAdiccion(){

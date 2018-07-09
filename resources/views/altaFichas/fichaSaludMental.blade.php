@@ -155,6 +155,7 @@
               </div>
             </div>
           </div>
+        </div>
 
           <div class="modal modal-danger fade" id="delete" style="display: none;">
               <div class="modal-dialog">
@@ -208,20 +209,19 @@
                   @if (isset($fichaSaludMental->checkMedicacion))
                   @foreach($medicaciones as $medicacion)
                       <div class="box-tools pull-right">
-                          <i class="fa fa-trash"></i>
-                          <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
-                        </a>
+                          <a href=""  data-target="#delete2" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
+                                <i class="fa fa-trash"></i></a>
                       </div>
                       <dl class="dl-horizontal preventoverflow" >
                           <dt>Tipo</dt>
                           <dd>{{$medicacion->recetada}}</dd>
                           
                           @if(isset($medicacion->profesional->nombre))
-                          <dt>Nombre del profesional que recetó</dt>
+                          <dt>Nombre del profesional</dt>
                           <dd>{{$medicacion->profesional->nombre}}</dd>
                           @endif
                           @if(isset($medicacion->profesional->apellido))
-                          <dt>Apellido del profesional que recetó</dt>
+                          <dt>Apellido del profesional</dt>
                           <dd>{{$medicacion->profesional->apellido}}</dd>
                           @endif
                           @if(isset($medicacion->receta))
@@ -270,30 +270,30 @@
                       
                       <form id="medicaciones-form" method="POST" action="{{ route('fichaSaludMental.storeMedicacion',['asistido_id'=>$asistido->id]) }}" >
                           {{ csrf_field() }}
-                          <div class="box-body">
-                                <div class="form-group recetada col-md-12" style="display: none;">
-                                    {!! Form::Label('recetada', 'Tipo') !!}
+                          <div class="box-body col-md-12">
+                                <div class="form-group" >
+                                    {!! Form::Label('tipo', 'Tipo') !!}
                                     <select class="form-control" name="recetada" id="recetada" >
                                         <option value="Indicada bajo receta">Indicada bajo receta</option>
                                         <option value="Automedicación">Automedicación</option>
                                     </select>
                                 </div>
                                 <div class="profesional">
-                                    <div class="form-group {{ $errors->has('nombreProfesional') ? ' has-error' : '' }}">
-                                        <label for="nombreProfesional">Nombre del profesional que recetó</label>
-                                        <input type="text" class="form-control" id="nombreProfesional" placeholder="Nombre del profesional" name="nombreProfesional" maxlength="250" required>
-                                        @if ($errors->has('nombreProfesional'))
+                                    <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                        <label for="nombre">Nombre del profesional que recetó</label>
+                                        <input type="text" class="form-control" id="nombre" placeholder="Nombre del profesional" name="nombre" maxlength="250">
+                                        @if ($errors->has('nombre'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('nombreProfesional') }}</strong>
+                                            <strong>{{ $errors->first('nombre') }}</strong>
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="form-group {{ $errors->has('apellidoProfesional') ? ' has-error' : '' }}">
-                                        <label for="apellidoProfesional">Apellido del profesional que recetó</label>
-                                        <input type="text" class="form-control" id="apellidoProfesional" placeholder="Apellido del profesional" name="apellidoProfesional" maxlength="250" required>
-                                        @if ($errors->has('apellidoProfesional'))
+                                    <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
+                                        <label for="apellido">Apellido del profesional que recetó</label>
+                                        <input type="text" class="form-control" id="apellido" placeholder="Apellido del profesional" name="apellido" maxlength="250" >
+                                        @if ($errors->has('apellido'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('apellidoProfesional') }}</strong>
+                                                <strong>{{ $errors->first('apellido') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="automedicacion">
                                     <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
                                         <label for="droga">Droga</label>
-                                        <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250" required>
+                                        <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250">
                                         @if ($errors->has('droga'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('droga') }}</strong>
@@ -430,31 +430,33 @@
                               <dt>Fecha de finalización</dt>
                               <dd>{{$tratamiento->fin}}</dd>
                               @endif
-                              @if(isset($tratamiento->medicacion->droga))
-                              <span>Medicación</span>
-                              <dt>Droga</dt>
-                              <dd>{{$tratamiento->medicacion->droga}}</dd>
+                              @if(isset($tratamiento->estado))
+                              <dt>Estado</dt>
+                              <dd>{{$tratamiento->estado}}</dd>
                               @endif
-                              @if(isset($tratamiento->medicacion->dosis))
+                              @if(isset($tratamiento->causaDeFin))
+                              <dt>Causa de fin</dt>
+                              <dd>{{$tratamiento->causaDeFin}}</dd>
+                              @endif
+                              @if(isset($tratamiento->medicaciones->droga))
+                              <dt>Droga medicación</dt>
+                              <dd>{{$tratamiento->medicaciones->droga}}</dd>
+                              @endif
+                              @if(isset($tratamiento->medicaciones->dosis))
                               <dt>Dosis</dt>
-                              <dd>{{$tratamiento->medicacion->dosis}}</dd>
+                              <dd>{{$tratamiento->medicaciones->dosis}}</dd>
                               @endif
-                              @if(isset($tratamiento->medicacion->frecuencia))
+                              @if(isset($tratamiento->medicaciones->frecuencia))
                               <dt>Frecuencia</dt>
-                              <dd>{{$tratamiento->medicacion->frecuencia}}</dd>
-                              @endif
-                              @if(isset($tratamiento->medicacion->inicio))
-                              <dt>Fecha de inicio</dt>
-                              <dd>{{$tratamiento->medicacion->inicio}}</dd>
-                              @endif
-                              @if(isset($tratamiento->medicacion->fin))
-                              <dt>Fecha de finalización</dt>
-                              <dd>{{$tratamiento->medicacion->fin}}</dd>
+                              <dd>{{$tratamiento->medicaciones->frecuencia}}</dd>
                               @endif
                               @if(isset($tratamiento->institucion->nombre))
-                              <span>Lugar de tratamiento</span>
-                              <dt>Nombre</dt>
+                              <dt>Lugar tratamiento</dt>
                               <dd>{{$tratamiento->institucion->nombre}}</dd>
+                              @endif
+                              @if(isset($tratamiento->institucion->direccion))
+                              <dt>Dirección</dt>
+                              <dd>{{$tratamiento->institucion->direccion}}</dd>
                               @endif
                               @if(isset($tratamiento->institucion->telefono))
                               <dt>Teléfono</dt>
@@ -512,9 +514,9 @@
                     <div class="modal-body">
                       <form id="tratamiento-form" method="POST" action="{{ route('fichaSaludMental.storeTratamiento',['asistido_id'=>$asistido->id]) }}" >
                         {{ csrf_field() }}
-                        <div class="box-body">
+                        <div class="box-body  col-md-12">
 
-                            <div class="form-group col-md-12" style="display: none;">
+                            <div class="form-group">
                                 {!! Form::Label('tipo', 'Tipo') !!}
                                 <select class="form-control" name="tipo" id="tipo" required>
                                     <option value="Ambulatorio">Ambulatorio</option>
@@ -540,7 +542,7 @@
                                 </span>
                                 @endif
                             </div>
-                            <div class="form-group col-md-12" style="display: none;">
+                            <div class="form-group">
                                 {!! Form::Label('estado', 'Estado del tratamiento') !!}
                                 <select class="form-control" name="estado" id="estado" >
                                     <option value="Cumple con el tratamiento">Cumple con el tratamiento</option>
@@ -559,7 +561,7 @@
                             @endif
                           </div>
                           <div class="form-group {{ $errors->has('medicacionEnTratamiento') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="medicacionEnTratamiento" name="medicacionEnTratamiento" >
+                                <input type="checkbox" id="medicacionEnTratamientoid" name="medicacionEnTratamiento" onclick="checkMedicacionEnTratamiento()">
                                 @if ($errors->has('medicacionEnTratamiento'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('medicacionEnTratamiento') }}</strong>
@@ -571,7 +573,7 @@
                           <span>Medicación</span>
                             <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
                                 <label for="droga">Droga</label>
-                                <input type="text" class="form-control" id="droga" placeholder="Droga" name="droga" maxlength="250" required>
+                                <input type="text" class="form-control" id="droga1" placeholder="Droga" name="droga" maxlength="250" >
                                 @if ($errors->has('droga'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('droga') }}</strong>
@@ -598,8 +600,8 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('institucionEnTratamiento') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="institucionEnTratamiento" name="institucionEnTratamiento" >
+                            <div class="form-group {{ $errors->has('institucionEnTratamientoid') ? ' has-error' : '' }}">
+                                <input type="checkbox" id="institucionEnTratamientoid" name="institucionEnTratamiento" onclick="checkInstitucionEnTratamiento()" >
                                 @if ($errors->has('institucionEnTratamiento'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('institucionEnTratamiento') }}</strong>
@@ -611,7 +613,7 @@
                                 <div class="form-group {{ $errors->has('nombreInstitucion') ? ' has-error' : '' }}">
                                     <span></span>
                                     <label for="nombreInstitucion">Nombre</label>
-                                    <input type="text" class="form-control" id="nombreInstitucion" placeholder="Nombre" name="nombreInstitucion" maxlength="250" required>
+                                    <input type="text" class="form-control" id="nombreInstitucion1" placeholder="Nombre" name="nombreInstitucion" maxlength="250" >
                                     @if ($errors->has('nombreInstitucion'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('nombreInstitucion') }}</strong>
@@ -638,32 +640,32 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('profesionalEnTratamiento') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="profesionalEnTratamiento" name="profesionalEnTratamiento" >
+                                <input type="checkbox" id="profesionalEnTratamientoid" name="profesionalEnTratamiento" onclick="checkProfesionalEnTratamiento()">
                                 @if ($errors->has('profesionalEnTratamiento'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('profesionalEnTratamiento') }}</strong>
                                 </span>
                                 @endif
-                                <label for="profesionalEnTratamiento">Profesional a cargo del tratamiento</label>
+                                <label for="profesionalEnTratamiento">Hay un profesional a cargo del tratamiento</label>
                             </div>
                             <div class="mostrarProfesional">
-                                <div class="form-group {{ $errors->has('nombreProfesional') ? ' has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
                                     <span>Profesional a cargo del tratamiento</span>
-                                    <label for="nombreProfesional">Nombre del profesional</label>
-                                    <input type="text" class="form-control" id="nombreProfesional" placeholder="Nombre " name="nombreProfesional" maxlength="250" required>
-                                    @if ($errors->has('nombreProfesional'))
+                                    <label for="nombre">Nombre del profesional</label>
+                                    <input type="text" class="form-control" id="nombre1" placeholder="Nombre " name="nombre" maxlength="250" >
+                                    @if ($errors->has('nombre'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('nombreProfesional') }}</strong>
+                                            <strong>{{ $errors->first('nombre') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                                 
-                                <div class="form-group {{ $errors->has('apellidoProfesional') ? ' has-error' : '' }}">
-                                    <label for="apellidoProfesional">Apellido del profesional</label>
-                                    <input type="text" class="form-control" id="apellidoProfesional" placeholder="Apellido " name="apellidoProfesional" maxlength="250">
-                                    @if ($errors->has('apellidoProfesional'))
+                                <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
+                                    <label for="apellido">Apellido del profesional</label>
+                                    <input type="text" class="form-control" id="apellido" placeholder="Apellido " name="apellido" maxlength="250">
+                                    @if ($errors->has('apellido'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('apellidoProfesional') }}</strong>
+                                            <strong>{{ $errors->first('apellido') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -757,7 +759,7 @@
                         @endforeach
                         @endif
                         @endif 
-                        <a href={{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
+                        <a href={{route('fichaSaludMental.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
                     </div>
                     </div>
                 </div>
@@ -765,7 +767,7 @@
     
     
     
-                <div class="modal fade in" id="modal-default3" style="display: none; padding-right: 17px;">
+                <div class="modal fade in" id="modal-default4" style="display: none; padding-right: 17px;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -857,15 +859,16 @@
                   <form id="consideracionesGenerales-form" method="POST" action="{{ route('fichaSaludMental.storeConsideraciones',['asistido_id'=>$asistido->id]) }}" >
                     {{ csrf_field() }}
 
-                    <div class="form-group" style="display: none;">
+                    <div class="form-group" >
                         {!! Form::Label('estadoMental', 'Estado mental') !!}
                         <select class="form-control" name="estadoMental" id="estadoMental" >
-                            <option value="No presenta síntomas mentales">No presenta síntomas mentales</option>
-                            <option value="Presenta síntomas mentales">Presenta síntomas mentales</option>
-                            <option value="No se puede determinar">No se puede determinar</option>
+                            <option value="No presenta síntomas mentales" {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No presenta síntomas mentales') ? 'selected':''}}>No presenta síntomas mentales</option>
+                            <option value="Presenta síntomas mentales"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='Presenta síntomas mentales') ? 'selected':''}}>Presenta síntomas mentales</option>
+                            <option value="No se puede determinar"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No se puede determinar') ? 'selected':''}}>No se puede determinar</option>
                         </select>
                     </div>
                     <span>Signos observables</span>
+                    
                     <div class="form-group {{ $errors->has('ansiedad') ? ' has-error' : '' }}">
                         <input type="checkbox" id="ansiedad" name="ansiedad" {{isset($fichaSaludMental->ansiedad) && ($fichaSaludMental->ansiedad==1) ? 'checked':''}}>
                         @if ($errors->has('ansiedad'))
@@ -885,7 +888,7 @@
                         <label for="depresivo">Estado depresivo</label>
                     </div>
                     <div class="form-group {{ $errors->has('delirios') ? ' has-error' : '' }}">
-                        <input type="checkbox" id="delirios" name="delirios" {{isset($fichaSaludMental->delirios) && ($fichaSaludMental->delirios==1) ? 'checked':''}}>
+                        <input type="checkbox" id="delirios" name="delirios" {{isset($fichaSaludMental->orientado) && ($fichaSaludMental->orientado==1) ? 'checked':''}}>
                         @if ($errors->has('delirios'))
                         <span class="help-block">
                             <strong>{{ $errors->first('delirios') }}</strong>
@@ -916,7 +919,7 @@
 
                     <div class="form-group {{ $errors->has('checkInternacion') ? ' has-error' : '' }}">
                         
-                        <input type="checkbox" id="checkInternacion" name="checkInternacion" {{isset($fichaSaludMental->checkInternacion) && ($fichaSaludMental->checkInternacion==1) ? 'checked':''}}>
+                        <input type="checkbox" id="checkInternacion2" name="checkInternacion" {{isset($fichaSaludMental->checkInternacion) && ($fichaSaludMental->checkInternacion==1) ? 'checked':''}} onclick="checkRequiereInternacion()">
                         @if ($errors->has('checkInternacion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('checkInternacion') }}</strong>
@@ -927,7 +930,7 @@
                     <div class="mostrarInstitucion2">
                         <div class="form-group {{ $errors->has('nombreInstitucion2') ? ' has-error' : '' }}">
                             <label for="nombreInstitucion2">Nombre</label>
-                            <input type="text" class="form-control" id="nombreInstitucion2" placeholder="Nombre" name="nombreInstitucion2" maxlength="250">
+                            <input type="text" class="form-control" id="nombreInstitucion2" placeholder="Nombre" name="nombreInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->nombre) ? $fichaSaludMental->institucion->nombre : ''}}" >
                             @if ($errors->has('nombreInstitucion2'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nombreInstitucion2') }}</strong>
@@ -936,7 +939,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('direccionInstitucion2') ? ' has-error' : '' }}">
                             <label for="direccionInstitucion2">Dirección</label>
-                            <input type="text" class="form-control" id="direccionInstitucion2" placeholder="Dirección" name="direccionInstitucion2" maxlength="250">
+                            <input type="text" class="form-control" id="direccionInstitucion2" placeholder="Dirección" name="direccionInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->direccion) ? $fichaSaludMental->institucion->direccion : ''}}">
                             @if ($errors->has('direccionInstitucion2'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('direccionInstitucion2') }}</strong>
@@ -944,8 +947,9 @@
                             @endif
                         </div>
                         <div class="form-group {{ $errors->has('telefonoInstitucion2') ? ' has-error' : '' }}">
-                            <label for="telefonoInstitucion2">E-mail</label>
-                            <input type="text" class="form-control" id="telefonoInstitucion2" placeholder="E-mail " name="telefonoInstitucion2" maxlength="250">
+                            <label for="telefonoInstitucion2">Teléfono</label>
+                            <input type="text" class="form-control" id="telefonoInstitucion2" placeholder="Teléfono" name="telefonoInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->telefono) ? $fichaSaludMental->institucion->telefono : ''}}" >
+
                             @if ($errors->has('telefonoInstitucion2'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('telefonoInstitucion2') }}</strong>
@@ -954,7 +958,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('referenteInstitucion2') ? ' has-error' : '' }}">
                             <label for="referenteInstitucion2">E-mail</label>
-                            <input type="text" class="form-control" id="referenteInstitucion2" placeholder="E-mail " name="referenteInstitucion2" maxlength="250">
+                            <input type="text" class="form-control" id="referenteInstitucion2" placeholder="E-mail " name="referenteInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->email) ? $fichaSaludMental->institucion->email : ''}}">
                             @if ($errors->has('referenteInstitucion2'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('referenteInstitucion2') }}</strong>
@@ -986,29 +990,27 @@
 
     window.onload=function(){
         $('#recetada').val('Indicada bajo receta')
+        document.getElementById("nombre").required = true
         $('.profesional').show()
-        $('.automedicacion').hide()
-    }
-
-    window.onload=function(){
+        $('.automedicacion').show()
+        $('.institucionEnTratamiento').show()
         $('.mostrarInstitucion').hide()
-    }
-
-    window.onload=function(){
         $('.mostrarMedicacion').hide()
-    }
-
-    window.onload=function(){   
-        $('.mostrarInstitucion').hide()
-    }
-    
-    window.onload=function(){
         $('.mostrarProfesional').hide()
+
+        var requiereInternacion=document.getElementById("checkInternacion2")
+        if (requiereInternacion.checked == true){
+            $('.mostrarInstitucion2').show() 
+        }else{
+            $('.mostrarInstitucion2').hide() 
+        }
+        
+
     }
     
     
     $('#checkInternacion').change(function(){
-        if ($(this).val() == true){
+        if ($(this).checked){
 
             $('.mostrarInstitucion2').show()
 
@@ -1019,52 +1021,76 @@
         }
     })
 
-    $('#medicacionEnTratamiento').change(function(){
-        if ($(this).val() == true){
+    function checkMedicacionEnTratamiento(){
+        var chkMed = document.getElementById("medicacionEnTratamientoid")
 
+        if (chkMed.checked == true){
             $('.mostrarMedicacion').show()
-
+            document.getElementById("droga1").required = true
+            
         }else{
-
-            $('.mostrarMedicacion').hide()
-
+            $('.mostrarMedicacion').hide()   
+            document.getElementById("droga1").required = false
         }
-    })
+    }
+   
+    function checkInstitucionEnTratamiento(){
+        var chkInst = document.getElementById("institucionEnTratamientoid")
 
-    $('#institucionEnTratamiento').change(function(){
-        if ($(this).val() == true){
-
+        if (chkInst.checked == true){
+            document.getElementById("nombreInstitucion1").required = true
             $('.mostrarInstitucion').show()
-
         }else{
-
-            $('.mostrarInstitucion').hide()
-
+            $('.mostrarInstitucion').hide()   
+            document.getElementById("nombreInstitucion1").required = false
         }
-    })
+    }
 
-    $('#profesionalEnTratamiento').change(function(){
-        if ($(this).val() == true){
+    function checkProfesionalEnTratamiento(){
+        var chkProf = document.getElementById("profesionalEnTratamientoid")
 
+        if (chkProf.checked == true){
             $('.mostrarProfesional').show()
-
+            document.getElementById("nombre1").required = true
+            
         }else{
-
-            $('.mostrarProfesional').hide()
-
+            $('.mostrarProfesional').hide()   
+            document.getElementById("nombre1").required = false
         }
-    })
+    }
+
+    function checkRequiereInternacion(){
+        var chkInternacion = document.getElementById("checkInternacion2")
+
+        if (chkInternacion.checked == true){
+            $('.mostrarInstitucion2').show()
+            document.getElementById("nombreInstitucion2").required = true
+            
+        }else{
+            $('.mostrarInstitucion2').hide()   
+            document.getElementById("nombreInstitucion2").required = false
+        }
+    }
+
+   
+
+
 
     $('#recetada').change(function () {
 
     if ($(this).val() == 'Indicada bajo receta') {
         $('.profesional').show();
-        $('.automedicacion').hide();
+        $('.automedicacion').show();
+        document.getElementById("nombre").required = true
+        document.getElementById("droga").required = true
+
 
     } else {
 
         $('.automedicacion').show();
         $('.profesional').hide();
+        document.getElementById("nombre").required = false
+        document.getElementById("droga").required = true
 
     } 
     });

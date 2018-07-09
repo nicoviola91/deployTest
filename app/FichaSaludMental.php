@@ -24,8 +24,7 @@ class FichaSaludMental extends Ficha
         'asistido_id',
 
     ];
-    //Ya esta todo chequeado el modelo y sus dependencias
-    //seguir por vista o controladores
+    
     
 
     public function patologias(){
@@ -40,7 +39,7 @@ class FichaSaludMental extends Ficha
         return $this->hasMany('App\Tratamiento','fichaSaludMental_id');
     }
 
-    public function episodiosAgesivos(){
+    public function episodiosAgresivos(){
         return $this->hasMany('App\EpisodioAgresivo','fichaSaludMental_id');
     }
 

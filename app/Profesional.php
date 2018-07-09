@@ -15,7 +15,7 @@ class Profesional extends Model
     ];
 
     public function medicacion(){
-        return $this->hasOne('App\Medicacion');
+        return $this->hasMany('App\Medicacion','profesional_id');
     }
     public function tratamientos(){
         return $this->hasMany('App\Tratamiento');
