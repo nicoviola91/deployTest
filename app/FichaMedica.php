@@ -22,6 +22,7 @@ class FichaMedica extends Model
         'discapacidadAuditiva',
         'discapacidadMotriz',
         'observacionDiscapacidad',
+        'profesional_id'
     ];
 
     public function asistido(){
@@ -29,27 +30,28 @@ class FichaMedica extends Model
     }
     //Profesional=Medico de Cabecera
 	public function profesional(){
-		return $this->belongsTo('App\Profesional');
+		return $this->belongsTo('App\Profesional','profesional_id');
 	}
 	public function patologias(){
-		return $this->belongsToMany('App\Patologia');
+		return $this->hasMany('App\Patologia','fichaMedica_id');
 	}
 	public function medicaciones(){
-		return $this->hasMany('App\Medicacion');
+		return $this->hasMany('App\Medicacion','fichaMedica_id');
 	}    
     public function tratamientos(){
 		return $this->hasMany('App\Tratamiento','fichaMedica_id');
 	}
 	public function sintomas(){
-		return $this->belongsToMany('App\Sintoma');		
-	}
+		return $this->hasMany('App\Sintoma','fichaMedica_id');		
+    }//borrar fk a sintoma_id
+    
 	public function consultasMedicas(){
-		return $this->hasMany('App\ConsultaMedica');
+		return $this->hasMany('App\ConsultaMedica','fichaMedica_id');
 	}
 	public function intervenciones(){
 		return $this->hasMany('App\Intervencion');	
 	}
     public function evaluacionDiagnostica(){
-		return $this->hasOne('App\EvaluacionDiagnostica');
+		return $this->hasOne('App\EvaluacionDiagnostica','fichaMedica_id');
 	}
 }

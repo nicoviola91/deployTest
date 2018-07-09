@@ -35,7 +35,7 @@ class Institucion extends Model
     }
 
     public function consultasMedicas(){
-        return $this->hasMany('App\ConsultaMedica');
+        return $this->hasMany('App\ConsultaMedica','institucion_id');
     }
 
     public function intervenciones(){

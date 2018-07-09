@@ -16,7 +16,6 @@ class Medicacion extends Model
         'recetada',//Dentro de recetada va indicada bajo receta o automedicacion 
         'fichaSaludMental_id',
         'profesional_id',
-        'fichaSaludMental_id',
         'fichaMedica_id'
     ];
 

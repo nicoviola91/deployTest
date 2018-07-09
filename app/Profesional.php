@@ -24,14 +24,14 @@ class Profesional extends Model
         return $this->hasMany('App\Consulta');
     }
     public function consultasMedicas(){
-        return $this->hasMany('App\ConsultaMedica');
+        return $this->hasMany('App\ConsultaMedica','profesional_id');
     }
     public function intervenciones(){
         return $this->hasMany('App\Intervencion');
     }
     //Medico de Cabecera en Ficha Medica
     public function fichaMedica(){
-        return $this->hasOne('App\FichaMedica');
+        return $this->hasOne('App\FichaMedica','profesional_id');
     }
 
 }

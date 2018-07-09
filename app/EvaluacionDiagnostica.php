@@ -9,6 +9,7 @@ class EvaluacionDiagnostica extends Model
     protected $table="fichasMedicas";
     protected $fillable = [
         'descripcion',
+        'fichaMedica_id',
     ];
 
     public function tratamiento(){
@@ -18,6 +19,6 @@ class EvaluacionDiagnostica extends Model
     	return $this->belongsTo('App\Profesional');
     }
     public function fichaMedica(){
-    	return $this->belongsTo('App\FichaMedica');
+    	return $this->belongsTo('App\FichaMedica','fichaMedica_id');
     }
 }

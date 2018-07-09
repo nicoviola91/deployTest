@@ -13,6 +13,9 @@ class Intervencion extends Model
         'fecha', 
         'tratamientoIndicado',
         'medicacion',
+        'fichaMedica_id',
+        'profesional_id',
+        'institucion_id',
     ];
 
     public function institucion(){
@@ -24,6 +27,6 @@ class Intervencion extends Model
     }
     
     public function fichaMedica(){
-    	return $this->belongsTo('App\FichaMedica');
+    	return $this->belongsTo('App\FichaMedica','fichaMedica_id');
     }
 }
