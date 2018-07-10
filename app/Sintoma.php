@@ -13,7 +13,7 @@ class Sintoma extends Model
     ];
 
     public function fichasMedicas(){
-    	return $this->belongsTo('App\FichaMedica','fichaMedica_id');
+    	return $this->belongsToMany('App\FichaMedica','fichaMedica_id');
     }
     //agregar fk a la tabla sintomas
 
