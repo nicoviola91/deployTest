@@ -314,9 +314,6 @@
     </div>
 </div>
 
-
-  @include('scripts.googleMaps')
-
   <script type="text/javascript">
     
     $('#tipoEducacion').change(function () {

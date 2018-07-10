@@ -44,7 +44,7 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {           
         $consulta = new Consulta($request->all());
-        $consulta->user_id = 4; //TODO: ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
+        $consulta->user_id = Auth::user()->id; //TODO: ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
         $consulta->consultable_type = 'fichasMedicas'; //TODO: ACA HAY QUE PONER EL TIPO DE FICHA 
         $consulta->consultable_id = 1; //TODO: ACA HAY QUE PONER EL ID DE LA FICHA
 
@@ -83,11 +83,13 @@ class ConsultaController extends Controller
         return view('consultas.listado', $data);
     }
 
-    public function getView () {
+    public function getView ($consultable_id, $consultable_type) {
 
         //Recibe por parametros: consultable_id (el id de la ficha), consultable_type (el tipo de ficha)
+        $data['consultable_id'] = $consultable_id;
+        $data['consultable_type'] = $consultable_type;
 
-        $view = view('consultas.consultas')->render();
+        $view = view('consultas.consultas', $data)->render();
 
         return response()->json([
             'status' => true,

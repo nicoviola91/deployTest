@@ -18,17 +18,45 @@ class FichaEmpleoController extends Controller
     }
 
     public function create($asistido_id){
+        
         $asistido=Asistido::find($asistido_id);
         $fichaEmpleo=FichaEmpleo::where('asistido_id',$asistido_id)->first();
+        
         if(!empty($fichaEmpleo)){
             $empleos=Empleo::where('fichaEmpleo_id',$fichaEmpleo->id)->get();
             return view('altaFichas.fichaEmpleo')->with('empleos',$empleos)
                 ->with('asistido',$asistido)
                 ->with('fichaEmpleo',$fichaEmpleo);
         }
+        
         return view('altaFichas.fichaEmpleo')->with('asistido',$asistido)->with('fichaEmpleo',$fichaEmpleo);
     }
 
+    public function get ($id) {
+
+        $asistido=Asistido::find($id);
+        $fichaEmpleo=FichaEmpleo::where('asistido_id',$id)->first();
+        
+        if(isset($fichaEmpleo) && !empty($fichaEmpleo)){
+            
+            $empleos=Empleo::where('fichaEmpleo_id',$fichaEmpleo->id)->get();
+            
+            $view = view('altaFichas.fichaEmpleo2')->with('empleos',$empleos)
+                ->with('asistido',$asistido)
+                ->with('fichaEmpleo',$fichaEmpleo)
+                ->render();
+
+        } else {
+
+           $view = view('altaFichas.fichaEmpleo2')->with('asistido',$asistido)->with('fichaEmpleo',$fichaEmpleo)->render();
+
+        }      
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
     
     public function storeEmpleo(Request $request, $asistido_id){
 

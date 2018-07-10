@@ -238,6 +238,10 @@ Route::group(['prefix'=>'fichaEmpleo'],function(){
         'uses'=>'FichaEmpleoController@create',
         'as'=>'fichaEmpleo.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaEmpleoController@get',
+        'as'=>'fichaEmpleo.get',
+    ]);
     Route::post('/storeEmpleo/{id}',[
         'uses'=>'FichaEmpleoController@storeEmpleo',
         'as'=>'fichaEmpleo.storeEmpleo',

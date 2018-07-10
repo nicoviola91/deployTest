@@ -1,11 +1,3 @@
-<style type="text/css">
-  .preventoverflow{
-      
-      white-space: normal;
-      overflow: hidden;
-      text-overflow: ellipsis
-  }
-</style>
 
 <div class="row">
 
@@ -13,7 +5,7 @@
 
     <div class="box-body">
       <h3 class="box-title" style="margin-bottom: 20px;">
-        <i class="icon fa fa-comments fa-fw"></i> Consultas (<span id="cantidadConsultas">5</span>)
+        <i class="icon fa fa-comments fa-fw"></i> Consultas (<span id="cantidadConsultas"><?php echo isset($consultas) && count($consultas) ? count($consultas) : '0' ?></span>)
         <span class="pull-right">
           <a type="button" class="btn btn-default btn-sm no-print agregarConsultaBtn" href="#formNuevaConsulta"><i class="fa fa-plus-square fa-fw"></i> &nbsp;Agregar&nbsp;&nbsp;</a>
         </span>
@@ -50,7 +42,7 @@
      
     </div>
 
-    <div class="box box-solid" id="boxNuevaConsulta">
+    <div class="box box-solid" id="">
       <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta" enctype="multipart/form-data">
         {{ csrf_field() }}
         <h3 class="box-title"><i class="icon fa fa-comments-o fa-fw"></i> Nueva Consulta</h3>
@@ -59,14 +51,14 @@
         <label for="adjunto" id="agregarAdjunto">Archivo Adjunto</label>
         <input type="file" id="adjunto" name="adjunto">
 
-        <input type="hidden" name="consultable_type" value=""> <!-- TIPO DE FICHA -->
-        <input type="hidden" name="consultable_id" value=""> <!-- ID DE LA FICHA -->
+        <input type="hidden" name="consultable_type" value="<?php echo $consultable_type ?>"> <!-- TIPO DE FICHA -->
+        <input type="hidden" name="consultable_id" value="<?php echo $consultable_id ?>"> <!-- ID DE LA FICHA -->
         
         <p class="help-block"><small>Admite jpg, jpeg, png, pdf, doc, xls, txt</small></p>
 
         <div class="box-footer">
           <button type="button" class="btn btn-default">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="consultaSubmitBtn">Enviar Solicitud</button>
+          <button type="submit" class="btn btn-primary" id="submitConsultaBtn">Enviar Solicitud</button>
         </div>
       </form>
     </div> <!-- FIN BOX NUEVA CONSULTA -->
@@ -77,7 +69,6 @@
 <script>
   $(function () {
 
-    //bootstrap WYSIHTML5 - text editor
     $('.textareaEditor').wysihtml5({
       toolbar: {
         "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
