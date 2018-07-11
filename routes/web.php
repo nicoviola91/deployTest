@@ -21,6 +21,9 @@ Route::get('/ficha', function () {
     return view('ficha');
 });
 
+//Downloads
+Route::get('/download/{path}/{file}', 'DownloadsController@download');
+
 //USERS
 Route::get('/user/create','UserController@create');
 Route::get('/user/list','UserController@showAll');

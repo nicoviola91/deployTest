@@ -11,7 +11,8 @@ class Consulta extends Model
         'mensaje',
         'consultable_id',
         'consultable_type',
-        'user_id'
+        'user_id',
+        'adjunto'
     ];
     
     public function user(){

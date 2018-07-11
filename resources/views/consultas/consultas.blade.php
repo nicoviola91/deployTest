@@ -39,12 +39,51 @@
               <p><?php echo $consulta->mensaje ?></p>
               
               <?php if (isset($consulta->adjunto)): ?>
+
+                <?php 
+
+                  $extension = pathinfo($consulta->adjunto, PATHINFO_EXTENSION);
+                  
+                  switch ($extension) {
+                    
+                    case 'pdf':
+                      $icono = "fa-file-pdf-o text-red";
+                      break;
+
+                    case 'docx':
+                      $icono = "fa-file-word-o text-blue";
+                      break;
+
+                    case 'doc':
+                      $icono = "fa-file-word-o text-blue";
+                      break;
+
+                    case 'xls':
+                      $icono = "fa-file-excel-o text-green";
+                      break;
+
+                    case 'xlsx':
+                      $icono = "fa-file-excel-o text-green";
+                      break;
+
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                      $icono = "fa-file-image-o text-orange";
+                      break;
+                    
+                    default:
+                      $icono = "fa-file-text-o text-black";
+                      break;
+                  }
+                ?>
+
                 <div class="attachment-block clearfix">
-                  <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                  <a href="/download/{{$consulta->adjunto}}" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
                   <ul class="mailbox-attachments">
                     <li style="border: none; width: 90px;"> 
                       <span class="mailbox-attachment-icon" style="padding: 0px;">
-                        <i class="fa fa-file-pdf-o text-red"></i>
+                        <i class="fa <?php echo $icono ?>"></i>
                       </span>
                     </li>
                   </ul>

@@ -63,9 +63,12 @@ class ConsultaController extends Controller
                 break;
         }
 
-        $file = Storage::disk('local')->put('/consultas/', 'CONTENIDO');
-        
-        var_dump($file);
+        $validation = $request->validate([
+            'adjunto' => 'file|mimes:jpeg,png,gif,doc,docx,xls,xlsx,txt,pdf|max:20480'
+        ]);
+
+        $path = $request->file('adjunto')->store('consultas');
+        $consulta->adjunto = $path;
 
         $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
@@ -124,6 +127,11 @@ class ConsultaController extends Controller
             'status' => true,
             'view' => $view,
         ]);
+    }
+
+    public function descargarAdjunto ($path) {
+
+        return response()->download($path, "Adjunto");
     }
 
 }
