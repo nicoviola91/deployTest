@@ -100,6 +100,7 @@
      
     </div>
 
+    <?php if (isset($ficha)): ?>
     <div class="box box-solid" id="">
       <form class="form-horizontal" method="POST" action="{{ url('/consultas/store') }}" id="formNuevaConsulta" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -120,6 +121,7 @@
         </div>
       </form>
     </div> <!-- FIN BOX NUEVA CONSULTA -->
+    <?php endif ?>
 
   </div>
 </div>

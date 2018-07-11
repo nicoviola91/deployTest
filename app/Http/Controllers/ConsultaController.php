@@ -4,8 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Consulta;
 use App\Asistido;
-use App\Ficha;
+
 use App\FichaDatosPersonales;
+use App\FichaAdiccion;
+use App\FichaAsistenciaSocial;
+use App\FichaDiagnosticoIntegral;
+use App\FichaEducacion;
+use App\FichaEmpleo;
+use App\FichaLegal;
+use App\FichaLocalizacion;
+use App\FichaNecesidad;
+use App\FichaMedica;
+use App\FichaSaludMental;
+use App\FichaFamiliaAmigos;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -52,14 +64,56 @@ class ConsultaController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
+        $asistido_id = $request->asistido_id;
+
         switch ($request->tipo) {
 
             case 'fichasDatosPersonales':
-                $ficha = FichaDatosPersonales::where('asistido_id',$request->asistido_id)->first();
+                $ficha = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
                 break;
-            
-            default:
-                # code...
+
+            case 'fichasAdicciones':
+                $ficha = FichaAdiccion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasAsistenciasSociales':
+                $ficha = FichaAsistenciaSocial::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasDiagnosticosIngegrales':
+                $ficha = FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasEducaciones':
+                $ficha = FichaEducacion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasEmpleos':
+                $ficha = FichaEmpleo::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasFamiliaAmigos':
+                $ficha = FichaFamiliaAmigos::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasLegales':
+                $ficha = FichaLegal::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasLocalizacion':
+                $ficha = FichaLocalizacion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasMedicas':
+                $ficha = FichaMedica::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasSaludMental':
+                $ficha = FichaSaludMental::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasNecesidaddes':
+                $ficha = FichaNecesidad::where('asistido_id',$asistido_id)->first();
                 break;
         }
 
@@ -67,8 +121,11 @@ class ConsultaController extends Controller
             'adjunto' => 'file|mimes:jpeg,png,gif,doc,docx,xls,xlsx,txt,pdf|max:20480'
         ]);
 
-        $path = $request->file('adjunto')->store('consultas');
-        $consulta->adjunto = $path;
+        if (null != $request->file('adjunto')) {
+           
+            $path = $request->file('adjunto')->store('consultas');
+            $consulta->adjunto = $path;
+        }
 
         $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
@@ -110,16 +167,62 @@ class ConsultaController extends Controller
             case 'fichasDatosPersonales':
                 $ficha = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
                 break;
+
+            case 'fichasAdicciones':
+                $ficha = FichaAdiccion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasAsistenciasSociales':
+                $ficha = FichaAsistenciaSocial::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasDiagnosticosIngegrales':
+                $ficha = FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasEducaciones':
+                $ficha = FichaEducacion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasEmpleos':
+                $ficha = FichaEmpleo::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasFamiliaAmigos':
+                $ficha = FichaFamiliaAmigos::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasLegales':
+                $ficha = FichaLegal::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasLocalizacion':
+                $ficha = FichaLocalizacion::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasMedicas':
+                $ficha = FichaMedica::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasSaludMental':
+                $ficha = FichaSaludMental::where('asistido_id',$asistido_id)->first();
+                break;
+
+            case 'fichasNecesidaddes':
+                $ficha = FichaNecesidad::where('asistido_id',$asistido_id)->first();
+                break;
             
             default:
                 break;
         
         }
 
-        if (isset($ficha) && !empty($ficha))
+        if (isset($ficha) && !empty($ficha)) {            
             $consultas = $ficha->consultas;
+            $data['consultas'] = $consultas;
+            $data['ficha'] = $ficha; 
+        }
 
-        $data['consultas'] = $consultas;
 
         $view = view('consultas.consultas', $data)->render();
 
