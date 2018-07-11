@@ -105,16 +105,16 @@ class ConsultaController extends Controller
         switch ($tipo) {
             
             case 'fichasDatosPersonales':
-                $fichaDatosPersonales = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
-                if (isset($fichaDatosPersonales) && !empty($fichaDatosPersonales))
-                    $consultas = $fichaDatosPersonales->consultas;
+                $ficha = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
                 break;
             
             default:
-                $consultas = array();
                 break;
         
         }
+
+        if (isset($ficha) && !empty($ficha))
+            $consultas = $ficha->consultas;
 
         $data['consultas'] = $consultas;
 
