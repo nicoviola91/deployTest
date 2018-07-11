@@ -17,6 +17,9 @@
   <script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
+  <!-- MeetSelva -->
+  <script src="{{ asset('/letterAvatar/letterAvatar.js') }}"></script>
+
 @endsection
 
 @section('pageHeader')

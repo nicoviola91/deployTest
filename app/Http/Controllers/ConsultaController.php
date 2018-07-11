@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Consulta;
+use App\Asistido;
+use App\Ficha;
+use App\FichaDatosPersonales;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,20 +46,30 @@ class ConsultaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {           
-        $consulta = new Consulta($request->all());
-        $consulta->user_id = Auth::user()->id; //TODO: ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
-        $consulta->consultable_type = 'fichasMedicas'; //TODO: ACA HAY QUE PONER EL TIPO DE FICHA 
-        $consulta->consultable_id = 1; //TODO: ACA HAY QUE PONER EL ID DE LA FICHA
+    {   
+        $consulta = new Consulta([
+            'mensaje' => $request->mensaje,
+            'user_id' => Auth::user()->id,
+        ]);
 
-        //$file = Storage::disk('local')->put('/consultas/archivo_prueba.txt', 'CONTENIDO');
+        switch ($request->tipo) {
+
+            case 'fichasDatosPersonales':
+                $ficha = FichaDatosPersonales::where('asistido_id',$request->asistido_id)->first();
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $file = Storage::disk('local')->put('/consultas/', 'CONTENIDO');
         
-        //var_dump($file);
+        var_dump($file);
 
-        $consulta->save();
-
-        var_dump($consulta);
+        $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
+
     }
 
     /**
@@ -78,16 +92,31 @@ class ConsultaController extends Controller
     public function showAll()
     {
         echo "<br>";
-        var_dump(Auth::user());
         $data['consultas'] = Consulta::all();
         return view('consultas.listado', $data);
     }
 
-    public function getView ($consultable_id, $consultable_type) {
+    public function getView ($asistido_id, $tipo) {
 
         //Recibe por parametros: consultable_id (el id de la ficha), consultable_type (el tipo de ficha)
-        $data['consultable_id'] = $consultable_id;
-        $data['consultable_type'] = $consultable_type;
+        $data['asistido_id'] = $asistido_id;
+        $data['tipo'] = $tipo;
+        
+        switch ($tipo) {
+            
+            case 'fichasDatosPersonales':
+                $fichaDatosPersonales = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
+                if (isset($fichaDatosPersonales) && !empty($fichaDatosPersonales))
+                    $consultas = $fichaDatosPersonales->consultas;
+                break;
+            
+            default:
+                $consultas = array();
+                break;
+        
+        }
+
+        $data['consultas'] = $consultas;
 
         $view = view('consultas.consultas', $data)->render();
 

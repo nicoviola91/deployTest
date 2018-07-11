@@ -8,7 +8,10 @@ class Consulta extends Model
 {
     protected $table="consultas";
     protected $fillable = [
-        'mensaje'
+        'mensaje',
+        'consultable_id',
+        'consultable_type',
+        'user_id'
     ];
     
     public function user(){

@@ -34,7 +34,7 @@ class FichaDatosPersonalesController extends Controller
 
         $asistido=Asistido::find($id);
         $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($id);
-        
+
         if(isset($fichaDatosPersonales)){
             
             $view = view('altaFichas.fichaDatosPersonales2')
@@ -92,7 +92,7 @@ class FichaDatosPersonalesController extends Controller
         $fichaDatosPersonales=FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaDatosPersonales)){
-            $fichaDatosPersonales=new FichaDatosPersonales();
+            $fichaDatosPersonales = new FichaDatosPersonales();
             $fichaDatosPersonales->nombre=$asistido->nombre;
             $asistido->ficha()->save($fichaDatosPersonales);
             
