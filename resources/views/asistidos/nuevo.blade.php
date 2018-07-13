@@ -31,15 +31,15 @@
                 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nombre</label>
-                  <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre" required >
+                  <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre"  maxlength="250" required >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Apellido</label>
-                  <input type="text" class="form-control" id="apellido"  placeholder='Apellido' name="apellido" required>
+                  <input type="text" class="form-control" id="apellido"  placeholder='Apellido' name="apellido"  maxlength="250" required>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Documento</label>
-                  <input type="text" class="form-control" id="documento"  placeholder='DNI' name="documento" required>
+                  <input type="text" class="form-control" id="documento"  placeholder='DNI' name="documento"  maxlength="10" required>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Fecha Nacimiento</label>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Observaciones</label>
-                  <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+                  <textarea class="form-control" id="observaciones" name="observaciones"  maxlength="250" rows="3"></textarea>
                 </div>
 
               </div>

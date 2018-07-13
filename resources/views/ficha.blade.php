@@ -106,7 +106,11 @@
             <ul class="nav nav-stacked">
               <li><a href="javascript:void(0)"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
               <li><a href="javascript:void(0)"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
-              <li><a href="javascript:void(0)"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a></li>
+              <li>
+                @if(isset($asistido->sexo->descripcion))
+                <a href="javascript:void(0)"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a>
+                @endif
+              </li>
               <li><a href="javascript:void(0)"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
             </ul>
           </div>

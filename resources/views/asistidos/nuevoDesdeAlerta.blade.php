@@ -29,15 +29,15 @@
         <div class="box-body">  
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre</label>
-            <input type="text" class="form-control" id="name" value={{ $alerta->nombre }} name="nombre" required >
+            <input type="text" class="form-control" id="name" value={{ $alerta->nombre }} name="nombre" maxlength="250" required >
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Apellido</label>
-            <input type="text" class="form-control" id="apellido" value={{ $alerta->apellido }} name="apellido" required>
+            <input type="text" class="form-control" id="apellido" value={{ $alerta->apellido }} name="apellido"  maxlength="250" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Documento</label>
-            <input type="text" class="form-control" id="dni" value={{ $alerta->dni }} name="dni" required>
+            <input type="text" class="form-control" id="dni" value={{ $alerta->dni }} name="dni"  maxlength="10" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Fecha Nacimiento</label>
@@ -45,7 +45,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Observaciones</label>
-            <textarea class="form-control" id="observaciones" name="observaciones" value={{ $alerta->observaciones }} rows="3"></textarea>
+            <textarea class="form-control" id="observaciones" name="observaciones"  maxlength="250" value={{ $alerta->observaciones }} rows="3"></textarea>
           </div>
         </div>
         <div class="box-footer">

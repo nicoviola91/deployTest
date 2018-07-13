@@ -9,11 +9,13 @@ class Sintoma extends Model
     protected $table="sintomas";
     protected $fillable = [
         'nombre',
-        'fichaMedica_id'
+        'fichaMedica_id',
+        'sintoma_id',
+        'fichasMedicas_id',
     ];
 
     public function fichasMedicas(){
-    	return $this->belongsToMany('App\FichaMedica','fichaMedica_id');
+    	return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','sintoma_id','fichasMedicas_id');
     }
     //agregar fk a la tabla sintomas
 

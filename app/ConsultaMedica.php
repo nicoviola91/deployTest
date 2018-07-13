@@ -12,7 +12,7 @@ class ConsultaMedica extends Model
         'diagnostico',
         'fichaMedica_id',
         'institucion_id',
-        'profesional_id'
+        'profesional_id',
     ];
 
     public function fichaMedica(){

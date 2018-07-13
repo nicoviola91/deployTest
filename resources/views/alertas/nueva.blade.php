@@ -32,7 +32,7 @@
                 
                 <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
                   <label for="exampleInputEmail1">Nombre</label>
-                  <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+                  <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" maxlength="250" required>
                   @if ($errors->has('nombre'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nombre') }}</strong>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Apellido</label>
-                  <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" required>
+                  <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" maxlength="250" required>
                   @if ($errors->has('apellido'))
                     <span class="help-block">
                         <strong>{{ $errors->first('apellido') }}</strong>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('dni') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Documento</label>
-                  <input type="text" class="form-control" id="documento" placeholder="Documento" name="dni" required>
+                  <input type="text" class="form-control" id="documento" placeholder="Documento" name="dni"  maxlength="10" required>
                   @if ($errors->has('dni'))
                     <span class="help-block">
                         <strong>{{ $errors->first('dni') }}</strong>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Fecha Nacimiento</label>
-                  <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+                  <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" >
                   @if ($errors->has('fechaNacimiento'))
                     <span class="help-block">
                         <strong>{{ $errors->first('fechaNacimiento') }}</strong>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
                   <label for="exampleInputPassword1">Observaciones</label>
-                  <textarea class="form-control" id="observaciones" name="observaciones" rows="3" placeholder="(OPCIONAL)"></textarea>
+                  <textarea class="form-control" id="observaciones" name="observaciones" rows="3" maxlength="250" placeholder="(OPCIONAL)"></textarea>
                   @if ($errors->has('observaciones'))
                     <span class="help-block">
                         <strong>{{ $errors->first('observaciones') }}</strong>

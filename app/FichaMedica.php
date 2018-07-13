@@ -31,9 +31,10 @@ class FichaMedica extends Model
     //Profesional=Medico de Cabecera
 	public function profesional(){
 		return $this->belongsTo('App\Profesional','profesional_id');
-	}
-	public function patologias(){
-		return $this->hasMany('App\Patologia','fichaMedica_id');
+    }
+    //enfermedades son tos, neumonia, etc. Van a estar categorizadas por la afeccion
+	public function enfermedades(){
+		return $this->belongsToMany('App\Enfermedad','fichasMedicas_enfermedades','fichaMedica_id','enfermedad_id');
 	}
 	public function medicaciones(){
 		return $this->hasMany('App\Medicacion','fichaMedica_id');
@@ -42,8 +43,8 @@ class FichaMedica extends Model
 		return $this->hasMany('App\Tratamiento','fichaMedica_id');
 	}
 	public function sintomas(){
-		return $this->hasMany('App\Sintoma','fichaMedica_id');		
-    }//borrar fk a sintoma_id
+		return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','fichasMedicas_id','sintoma_id');		
+    }
     
 	public function consultasMedicas(){
 		return $this->hasMany('App\ConsultaMedica','fichaMedica_id');
