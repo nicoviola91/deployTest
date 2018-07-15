@@ -31,7 +31,7 @@ class Profesional extends Model
     }
     //Medico de Cabecera en Ficha Medica
     public function fichaMedica(){
-        return $this->hasOne('App\FichaMedica','profesional_id');
+        return $this->hasMany('App\FichaMedica','profesional_id');
     }
 
 }

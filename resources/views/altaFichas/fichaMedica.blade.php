@@ -60,46 +60,403 @@
                   Estado General de Salud
                 </h4>
               </div>
-              <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="box-body">
-                  <form id="consideracionesGenerales-form" method="POST" action="{{ route('fichaMedica.storeConsideraciones',['asistido_id'=>$asistido->id]) }}" >
-                    {{ csrf_field() }}
+              <div id="collapseOne" class="panel-collapse collapse in"><!-- tienen que cerrar al final de todo-->
+                <div class="box-body"><!-- tienen que cerrar al final de todo-->
 
-                    <div class="form-group" >
-                        {!! Form::Label('estadoMental', 'Estado mental') !!}
-                        <select class="form-control" name="estadoMental" id="estadoMental" >
-                            <option value="No presenta síntomas mentales" {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No presenta síntomas mentales') ? 'selected':''}}>No presenta síntomas mentales</option>
-                            <option value="Presenta síntomas mentales"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='Presenta síntomas mentales') ? 'selected':''}}>Presenta síntomas mentales</option>
-                            <option value="No se puede determinar"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No se puede determinar') ? 'selected':''}}>No se puede determinar</option>
-                        </select>
-                    </div>
-                
-                        <div class="form-group {{ $errors->has('altura') ? ' has-error' : '' }}">
-                            <label for="altura">Altura (cm) </label>
-                            <input type="text" class="form-control" id="altura" placeholder="Indique altura del asistido, en centímetros" name="altura" maxlength="250" value="{{isset($fichaMedica->altura) ? $fichaMedica->altura : ''}}" >
-                            @if ($errors->has('altura'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('altura') }}</strong>
-                                </span>
-                            @endif
+                    <h3>Síntomas visibles</h3>
+                  @if(isset($fichaMedica))
+                    @if (isset($fichaMedica->sintomas)) 
+                    
+                      @foreach($fichaMedica->sintomas as $sintoma)
+                        <div class="box-tools pull-right">    
+                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Síntoma">
+                          <i class="fa fa-trash"></i></a>
                         </div>
-                        <div class="form-group {{ $errors->has('peso') ? ' has-error' : '' }}">
-                            <label for="peso">Pesokg (cm) </label>
-                            <input type="text" class="form-control" id="peso" placeholder="Indique peso del asistido, en kilogramos" name="peso" maxlength="250" value="{{isset($fichaMedica->peso) ? $fichaMedica->peso : ''}}" >
-                            @if ($errors->has('peso'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('peso') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                       
+                        <dl class="dl-horizontal preventoverflow" >
+                        @if(isset($sintoma->nombre))
+                          <dt>Síntoma</dt>
+                          <dd>{{$sintoma->nombre}}</dd>
+                        @endif
+                        </dl>
+                      @endforeach
+                    @endif
+                  @endif
                         
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>Agregar Síntoma</a>
+                  <div class="modal fade" id="modal-agregar">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Agregar Síntoma </h4>
+                            </div>
+                      
+                            <form id="nuevoSintoma-form" method="POST" action="{{ route('fichaMedica.storeSintoma',['asistido_id'=>$asistido->id]) }}">
+                              {{ csrf_field() }}
+                               
+                              <div class="box-body"><div class="form-group">
+                                            
+                                {!! Form::Label('descripcion', 'Síntoma') !!}
+                                <select class="form-control" name="sintoma" id="sintoma" >
+                                    @foreach($sintomas as $sintoma)
+                                        <option value="$sintoma->id">{{$sintoma->nombre}}</option>
+                                    @endforeach
+                                        @foreach($sintoma->nombre as $nombreSintoma)
+                                            <option value="{{$sintoma->id}}">{{$sintoma->nombre}}</option>
+                                        
+                                    @endforeach
+                                </select>
+                                </div>
+                  
+                              <div class="modal-footer">
+                               
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-danger">Agregar Síntoma</button>
+                              </div>
+            
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal modal-danger fade" id="delete" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title text-center">Atención!</h4>
+                            </div>
+                            <form action="{{ route('fichaSaludMental.destroySintoma',['id','asistidoid'])}}" method="POST">
+                                {{method_field('get')}}
+                                {{csrf_field()}}
+                                <div class="modal-body">
+                                    <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                                    <input type="hidden" name='id' id='id' value="">
+                                    <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                                    <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                        
+                        <h3>Consultas médicas previas</h3>
+                        @if(isset($fichaMedica))
+                            @if (isset($fichaMedica->consultasMedicas)) 
+                            
+                            @foreach($fichaMedica->consultasMedicas as $consultaMedica)
+                                <div class="box-tools pull-right">    
+                                <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$consultaMedica->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Consulta Médica">
+                                <i class="fa fa-trash"></i></a>
+                                </div>
+                                <dl class="dl-horizontal preventoverflow" >
+                                    @if(isset($consultaMedica->fecha))
+                                    <dt>Fecha</dt>
+                                    <dd>{{$consultaMedica->fecha}}</dd>
+                                    @endif
+                                    @if(isset($consultaMedica->institucion->nombre))
+                                    <dt>Nombre de la institución</dt>
+                                    <dd>{{$consultaMedica->institucion->nombre}}</dd>
+                                    @endif
+                                    @if(isset($consultaMedica->profesional->nombre))
+                                    <dt>Nombre profesional</dt>
+                                    <dd>{{$consultaMedica->profesional->nombre}}</dd>
+                                    @endif
+                                    @if(isset($consultaMedica->profesional->apellido))
+                                    <dt>Apellido profesional</dt>
+                                    <dd>{{$consultaMedica->profesional->apellido}}</dd>
+                                    @endif
+                                    @if(isset($consultaMedica->profesional->especialidad))
+                                    <dt>Especialidad</dt>
+                                    <dd>{{$consultaMedica->profesional->especialidad}}</dd>
+                                    @endif
+                                    @if(isset($consultaMedica->diagnostico))
+                                    <dt>Diagnóstico</dt>
+                                    <dd>{{$consultaMedica->diagnostico}}</dd>
+                                    @endif
+                                </dl>
+                            @endforeach
+                            @endif
+                        @endif
+                        <a href="#" data-toggle="modal" data-target="#modal-agregar2"><i align="left" class="fa fa-plus"></i>  Agregar Consulta médica</a>
+                        
+                        <div class="modal fade" id="modal-agregar2">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Agregar Consulta médica </h4>
+                            </div>
+                            
+                            <form id="nuevaConsulta-form" method="POST" action="{{ route('fichaMedica.storeConsulta',['asistido_id'=>$asistido->id]) }}">
+                                {{ csrf_field() }}
+                                <div class="box-body">
+                                <div class="form-group {{ $errors->has('fecha') ? ' has-error' : '' }}">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" >
+                                    @if ($errors->has('fecha'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fecha') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('nombreInstitucion') ? ' has-error' : '' }}">
+                                    <label for="nombreInstitucion">Institución</label>
+                                    <input type="text" class="form-control" id="fecha" name="nombreInstitucion" maxlength="250" required>
+                                    @if ($errors->has('nombreInstitucion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nombreInstitucion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('nombreProfesional') ? ' has-error' : '' }}">
+                                    <label for="nombreProfesional">Nombre profesional</label>
+                                    <input type="text" class="form-control" id="fecha" name="nombreProfesional" maxlength="250" required>
+                                    @if ($errors->has('nombreProfesional'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nombreProfesional') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('apellidoProfesional') ? ' has-error' : '' }}">
+                                    <label for="apellidoProfesional">Apellido profesional</label>
+                                    <input type="text" class="form-control" id="fecha" name="apellidoProfesional" maxlength="250" >
+                                    @if ($errors->has('apellidoProfesional'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('apellidoProfesional') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('especialidad') ? ' has-error' : '' }}">
+                                    <label for="especialidad">Especialidad</label>
+                                    <input type="text" class="form-control" id="fecha" name="especialidad" maxlength="250" >
+                                    @if ($errors->has('especialidad'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('especialidad') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('diagnostico') ? ' has-error' : '' }}">
+                                    <label for="diagnostico">Diagnóstico</label>
+                                    <input type="text" class="form-control" placeholder="Diagnóstico indicado por el profesional o institución" id="fecha" name="diagnostico" maxlength="250" >
+                                    @if ($errors->has('diagnostico'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('diagnostico') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                    
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-danger">Agregar Consulta médica</button>
+                                </div>
+                            </div>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="modal modal-danger fade" id="delete2" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title text-center">Atención!</h4>
+                                </div>
+                                <form action="{{ route('fichaSaludMental.destroyConsulta',['id','asistidoid'])}}" method="POST">
+                                    {{method_field('get')}}
+                                    {{csrf_field()}}
+                                    <div class="modal-body">
+                                        <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                                        <input type="hidden" name='id' id='id' value="">
+                                        <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                                        <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Médico de cabecera</h3>
+                 
+                        @if(isset($fichaMedica))
+                            @if (isset($fichaMedica->profesional)) 
+                            
+                            @foreach($fichaMedica->profesional as $profesional)
+                                <div class="box-tools pull-right">    
+                                <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Profesional">
+                                <i class="fa fa-trash"></i></a>
+                                </div>
+                                <dl class="dl-horizontal preventoverflow" >
+                                    @if(isset($profesional->nombre))
+                                    <dt>Nombre</dt>
+                                    <dd>{{$profesional->nombre}}</dd>
+                                    @endif
+                                    @if(isset($profesional->apellido))
+                                    <dt>Apellido</dt>
+                                    <dd>{{$profesional->apellido}}</dd>
+                                    @endif
+                                    @if(isset($profesional->especialidad))
+                                    <dt>Especialidad</dt>
+                                    <dd>{{$profesional->especialidad}}</dd>
+                                    @endif
+                                </dl>
+                            @endforeach
+                            @endif
+                        @endif
+                                
+                        <a href="#" data-toggle="modal" data-target="#modal-agregar3"><i align="left" class="fa fa-plus"></i>Agregar Médico de cabecera</a>
+                        <div class="modal fade" id="modal-agregar3">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Agregar Médico de cabecera </h4>
+                                </div>
+                            
+                                <form id="nuevoProfesional-form" method="POST" action="{{ route('fichaMedica.storeProfesional',['asistido_id'=>$asistido->id]) }}">
+                                {{ csrf_field() }}
+                                
+                                <div class="box-body">
+                                    <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                        <label for="nombre">Nombre profesional</label>
+                                        <input type="text" class="form-control" id="fecha" name="nombre" maxlength="250" required>
+                                        @if ($errors->has('nombre'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('nombre') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
+                                        <label for="apellido">Apellido profesional</label>
+                                        <input type="text" class="form-control" id="fecha" name="apellido" maxlength="250" >
+                                        @if ($errors->has('apellido'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('apellido') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group {{ $errors->has('especialidad') ? ' has-error' : '' }}">
+                                        <label for="especialidad">Especialidad</label>
+                                        <input type="text" class="form-control" id="fecha" name="especialidad" maxlength="250" >
+                                        @if ($errors->has('especialidad'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('especialidad') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-danger">Agregar Médico de cabecera</button>
+                                </div>
+                                </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="modal modal-danger fade" id="delete3" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title text-center">Atención!</h4>
+                                </div>
+                                <form action="{{ route('fichaSaludMental.destroyProfesional',['id','asistidoid'])}}" method="POST">
+                                    {{method_field('get')}}
+                                    {{csrf_field()}}
+                                    <div class="modal-body">
+                                        <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                                        <input type="hidden" name='id' id='id' value="">
+                                        <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                                        <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <form id="estadoGeneral-form" method="POST" action="{{ route('fichaMedica.storeEstadoGeneral',['asistido_id'=>$asistido->id]) }}" >
+                                {{ csrf_field() }}
+            
+
+                        <div class="form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergias()" {{isset($fichaMedica->alergicoA) && ($fichaMedica->alergicoA==1) ? 'checked':''}}>
+                            @if ($errors->has('checkAlergico'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('checkAlergico') }}</strong>
+                            </span>
+                            @endif
+                            <label for="checkAlergico">El asistido tiene alguna alergia</label>
+                        </div>
+
+                        <div class="form-group checkAlergico {{ $errors->has('alergicoA') ? ' has-error' : '' }}">
+                            <label for="alergicoA">Alergias</label>
+                        <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value={{isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' }}>
+                            @if ($errors->has('alergicoA'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('alergicoA') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocial()" {{isset($fichaMedica->obraSocial) && ($fichaMedica->obraSocial==1) ? 'checked':''}}>
+                            @if ($errors->has('checkObraSocial'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('checkObraSocial') }}</strong>
+                            </span>
+                            @endif
+                            <label for="checkObraSocial">El asistido tiene obra social</label>
+                        </div>
+                        
+                        <div class="form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
+                            <label for="obraSocial">Obra social</label>
+                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese obra social del asistido" name="obraSocial" maxlength="250" value={{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}>
+                            @if ($errors->has('obraSocial'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('obraSocial') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
+                            <label for="antecedentes">Antecedentes</label>
+                        <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}>
+                            @if ($errors->has('antecedentes'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('antecedentes') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+
                     <div align="right">
-                      <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
+                        <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
                     </div>  
-                  </form> 
+                    </form> 
+
+
+
+                   
+                 
+
+                  
                 </div>
-              </div>
+              </div> <!--aca cerraria el primer div marcado-->
+
             </div>
           </div>
 
@@ -109,18 +466,18 @@
             <div class="panel box box-warning">
               <div class="box-header with-border black">
                 <h4 class="box-title">
-                  <a data-toggle="collapse" href="#collapseOne" style="color: black;"> Patologías o afecciones</a>
+                  <a data-toggle="collapse" href="#collapseTwo" style="color: black;"> Patologías o afecciones</a>
                 </h4>
               </div>
 
-              <div id="collapseOne" class="panel-collapse collapse in">
+              <div id="collapseTwo" class="panel-collapse collapse in">
                 <div class="box-body ">
                   @if(isset($fichaMedica))
                     @if (isset($fichaMedica->checkEnfermedades)) 
                       @foreach($enfermedades as $enfermedad)
                       
                         <div class="box-tools pull-right">    
-                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$enfermedad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia">
+                          <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$enfermedad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia">
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <dl class="dl-horizontal preventoverflow" >
@@ -141,20 +498,14 @@
                     @endif
                   @endif
                    
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Patología o afección</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar4"><i align="left" class="fa fa-plus"></i>  Agregar Patología o afección</a>
                 
                 </div>
               </div>
             </div>
           </div>
 
-
-
-
-
-
-
-          <div class="modal fade" id="modal-agregar">
+          <div class="modal fade" id="modal-agregar4">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -163,46 +514,33 @@
                   <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Agregar Patología o afección </h4>
                 </div>
           
-                <form id="nuevaPatologia-form" method="POST" action="{{ route('fichaMedica.storePatologia',['asistido_id'=>$asistido->id]) }}">
+                <form id="nuevaPatologia-form" method="POST" action="{{ route('fichaMedica.storeEnfermedad',['asistido_id'=>$asistido->id]) }}">
                   {{ csrf_field() }}
                    
-                  <div class="box-body"><div class="form-group">
-                                
-                    {!! Form::Label('descripcion', 'Tipo de afección') !!}
-                    <select class="form-control" name="descripcion" id="descripcion" required>
-                        @foreach($afecciones as $afeccion)
-                            <option value="$afeccion->id">{{$afeccion->tipo}}</option>
-                        @endforeach
-                            @foreach($afeccion->enfermedades as $enfermedad)
-                                <option value="{{$enfermedad->id}}">{{$enfermedad->descripcion}}</option>
-                            
-                        @endforeach
-                    </select>
-                    </div>
+                  <div class="box-body">
+                      <div class="form-group">  
+                        {!! Form::Label('afeccion', 'Tipo de afección') !!}
+                            <select class="form-control" name="afeccion" id="afeccion" required>
+                                @foreach($afecciones as $afeccion)
+                                    <option value="$afeccion->id">{{$afeccion->tipo}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">  
+                        {!! Form::Label('enfermedad', 'Patología') !!}
+                            <select class="form-control" name="enfermedad" id="enfermedad" required>
+                                @foreach($enfermedades as $enfermedad)
+                                    <option value="{{$enfermedad->id}}">{{$enfermedad->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                    
-                    <div class="form-group">
-                     {!! Form::Label('tipo', 'Afección') !!}
-                     <select class="form-control" name="tipo" id="tipo ">
-                         <option value="Crónica">Crónica</option>
-                         <option value="Transitoria">Transitoria</option>
-                     </select>
-                    </div>
-       
-                    
-                    <div class="form-group {{ $errors->has('comentarios') ? ' has-error' : '' }}">
-                     <label for="comentarios">Comentarios</label>
-                     <input type="text" class="form-control" id="comentarios" placeholder="Comentarios adicionales" name="comentarios" maxlength="250">
-                     @if ($errors->has('comentarios'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('comentarios') }}</strong>
-                        </span>
-                     @endif
-                    </div>
       
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-danger">Agregar Patología</button>
                   </div>
+                </div>
 
                 </form>
               </div>
@@ -210,7 +548,7 @@
           </div>
         
 
-          <div class="modal modal-danger fade" id="delete" style="display: none;">
+          <div class="modal modal-danger fade" id="delete4" style="display: none;">
               <div class="modal-dialog">
                   <div class="modal-content">
                   <div class="modal-header">
@@ -218,7 +556,7 @@
                       <span aria-hidden="true">×</span></button>
                       <h4 class="modal-title text-center">Atención!</h4>
                   </div>
-                  <form action="{{ route('fichaSaludMental.destroyPatologia',['id','asistidoid'])}}" method="POST">
+                  <form action="{{ route('fichaMedica.destroyEnfermedad',['id','asistidoid'])}}" method="POST">
                       {{method_field('get')}}
                       {{csrf_field()}}
                       <div class="modal-body">
@@ -235,6 +573,98 @@
               </div>
           </div>
 
+          <div class="box-group">
+            <div class="panel box box-success">
+                <div class="box-header with-border">
+                <h4 class="box-title">
+                    <a data-toggle="collapse" href="#collapseThree" style="color: black;">Tratamientos</a>
+                </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                <div class="box-body">
+                    @if(isset($fichaMedica))
+                    @if (isset($fichaMedica->checkTratamiento))
+                    @foreach($tratamientos as $tratamiento)
+                        <div class="box-tools pull-right">
+                        <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        </div>
+                        <dl class="dl-horizontal preventoverflow" >
+                            <dt>Tipo</dt>
+                            <dd>{{$tratamiento->tipo}}</dd>
+                            
+                            @if(isset($tratamiento->inicio))
+                            <dt>Fecha de inicio</dt>
+                            <dd>{{$tratamiento->inicio}}</dd>
+                            @endif
+                            @if(isset($tratamiento->fin))
+                            <dt>Fecha de finalización</dt>
+                            <dd>{{$tratamiento->fin}}</dd>
+                            @endif
+                            @if(isset($tratamiento->estado))
+                            <dt>Estado</dt>
+                            <dd>{{$tratamiento->estado}}</dd>
+                            @endif
+                            @if(isset($tratamiento->causaDeFin))
+                            <dt>Causa de fin</dt>
+                            <dd>{{$tratamiento->causaDeFin}}</dd>
+                            @endif
+                            @if(isset($tratamiento->medicaciones->droga))
+                            <dt>Droga medicación</dt>
+                            <dd>{{$tratamiento->medicaciones->droga}}</dd>
+                            @endif
+                            @if(isset($tratamiento->medicaciones->dosis))
+                            <dt>Dosis</dt>
+                            <dd>{{$tratamiento->medicaciones->dosis}}</dd>
+                            @endif
+                            @if(isset($tratamiento->medicaciones->frecuencia))
+                            <dt>Frecuencia</dt>
+                            <dd>{{$tratamiento->medicaciones->frecuencia}}</dd>
+                            @endif
+                            @if(isset($tratamiento->institucion->nombre))
+                            <dt>Lugar tratamiento</dt>
+                            <dd>{{$tratamiento->institucion->nombre}}</dd>
+                            @endif
+                            @if(isset($tratamiento->institucion->direccion))
+                            <dt>Dirección</dt>
+                            <dd>{{$tratamiento->institucion->direccion}}</dd>
+                            @endif
+                            @if(isset($tratamiento->institucion->telefono))
+                            <dt>Teléfono</dt>
+                            <dd>{{$tratamiento->institucion->telefono}}</dd>
+                            @endif
+                            @if(isset($tratamiento->institucion->email))
+                            <dt>E-mail</dt>
+                            <dd>{{$tratamiento->institucion->email}}</dd>
+                            @endif
+
+                            @if(isset($tratamiento->profesional->nombre))
+                            <dt>Nombre profesional</dt>
+                            <dd>{{$tratamiento->profesional->nombre}}</dd>
+                            @endif
+                            @if(isset($tratamiento->profesional->apellido))
+                            <dt>Apellido profesional</dt>
+                            <dd>{{$tratamiento->profesional->apellido}}</dd>
+                            @endif
+                            @if(isset($tratamiento->profesional->especialidad))
+                            <dt>Especialidad</dt>
+                            <dd>{{$tratamiento->profesional->especialidad}}</dd>
+                            @endif
+                            @if(isset($tratamiento->profesional->cargo))
+                            <dt>Cargo</dt>
+                            <dd>{{$tratamiento->profesional->cargo}}</dd>
+                            @endif
+
+                        </dl>
+                    @endforeach
+                    @endif
+                    @endif
+                    <a href="{{route('fichaMedica.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
+                </div>
+                </div>
+            </div>
+            </div>
 
 
 
@@ -243,6 +673,229 @@
 
 
 
+
+
+            <div class="modal fade in" id="modal-default2" style="display: none; padding-right: 17px;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Agregar Tratamiento</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="tratamiento-form" method="POST" action="{{ route('fichaSaludMental.storeTratamiento',['asistido_id'=>$asistido->id]) }}" >
+                    {{ csrf_field() }}
+                    <div class="box-body  col-md-12">
+
+                        <div class="form-group">
+                            {!! Form::Label('tipo', 'Tipo') !!}
+                            <select class="form-control" name="tipo" id="tipo" required>
+                                <option value="Ambulatorio">Ambulatorio</option>
+                                <option value="Internación">Internación</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('inicio') ? ' has-error' : '' }}">
+                            <label for="lugar">Fecha de inicio</label>
+                            <input type="date" class="form-control" id="inicio" placeholder="Indique fecha de inicio del tratamiento" name="inicio">
+                            @if ($errors->has('inicio'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('inicio') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('fin') ? ' has-error' : '' }}">
+                            <label for="fin">Fecha de finalización</label>
+                            <input type="date" class="form-control" id="fin" placeholder="Indique fecha de finalización del tratamiento, si la hay" name="fin">
+                            @if ($errors->has('fin'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('fin') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            {!! Form::Label('estado', 'Estado del tratamiento') !!}
+                            <select class="form-control" name="estado" id="estado" >
+                                <option value="Cumple con el tratamiento">Cumple con el tratamiento</option>
+                                <option value="No cumple con el tratamiento">No cumple con el tratamiento</option>
+                                <option value="Cumple parcialmente">Cumple parcialmente</option>
+                                <option value="Abandonó">Abandonó</option>
+                            </select>
+                        </div>
+                        <div class="form-group {{ $errors->has('causaDeFin') ? ' has-error' : '' }}">
+                        <label for="causaDeFin">Causa de finalización</label>
+                        <input type="text" class="form-control" id="causaDeFin" placeholder="Si el tratamiento fue abandonado o no es cumplido, indique la causa" name="causaDeFin" maxlength="250">
+                        @if ($errors->has('causaDeFin'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('causaDeFin') }}</strong>
+                            </span>
+                        @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('medicacionEnTratamiento') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="medicacionEnTratamientoid" name="medicacionEnTratamiento" onclick="checkMedicacionEnTratamiento()">
+                            @if ($errors->has('medicacionEnTratamiento'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('medicacionEnTratamiento') }}</strong>
+                            </span>
+                            @endif
+                            <label for="checkDerivacion">El tratamiento incluye medicación</label>
+                        </div>
+                        <div class="mostrarMedicacion">
+                        
+                        <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
+                            <label for="droga">Droga</label>
+                            <input type="text" class="form-control" id="droga1" placeholder="Droga" name="droga" maxlength="250" >
+                            @if ($errors->has('droga'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('droga') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('dosis') ? ' has-error' : '' }}">
+                            <label for="dosis">Dosis</label>
+                            <input type="text" class="form-control" id="dosis" placeholder="Dosis" name="dosis" maxlength="250">
+                            @if ($errors->has('dosis'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('dosis') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        
+                            <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
+                                <label for="frecuencia">Frecuencia</label>
+                                <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia" maxlength="250">
+                                @if ($errors->has('frecuencia'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('frecuencia') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('institucionEnTratamientoid') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="institucionEnTratamientoid" name="institucionEnTratamiento" onclick="checkInstitucionEnTratamiento()" >
+                            @if ($errors->has('institucionEnTratamiento'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('institucionEnTratamiento') }}</strong>
+                            </span>
+                            @endif
+                            <label for="institucionEnTratamiento">El tratamiento se realiza o realizó en un hospital, institución, particular o comunidad terapeutica</label>
+                        </div>
+                        <div class="mostrarInstitucion">
+                            <div class="form-group {{ $errors->has('nombreInstitucion') ? ' has-error' : '' }}">
+                                <span></span>
+                                <label for="nombreInstitucion">Nombre</label>
+                                <input type="text" class="form-control" id="nombreInstitucion1" placeholder="Nombre de la institución" name="nombreInstitucion" maxlength="250" >
+                                @if ($errors->has('nombreInstitucion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nombreInstitucion') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('direccionInstitucion') ? ' has-error' : '' }}">
+                                <label for="direccionInstitucion">Dirección</label>
+                                <input type="text" class="form-control" id="direccionInstitucion" placeholder="Dirección" name="direccionInstitucion" maxlength="250">
+                                @if ($errors->has('direccionInstitucion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('direccionInstitucion') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('emailInstitucion') ? ' has-error' : '' }}">
+                                <label for="emailInstitucion">E-mail</label>
+                                <input type="email" class="form-control" id="emailInstitucion" placeholder="E-mail " name="emailInstitucion" maxlength="250">
+                                @if ($errors->has('emailInstitucion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('emailInstitucion') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('profesionalEnTratamiento') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="profesionalEnTratamientoid" name="profesionalEnTratamiento" onclick="checkProfesionalEnTratamiento()">
+                            @if ($errors->has('profesionalEnTratamiento'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('profesionalEnTratamiento') }}</strong>
+                            </span>
+                            @endif
+                            <label for="profesionalEnTratamiento">Hay un profesional a cargo del tratamiento</label>
+                        </div>
+                        <div class="mostrarProfesional">
+                            <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                
+                                <label for="nombre">Nombre del profesional</label>
+                                <input type="text" class="form-control" id="nombre1" placeholder="Nombre " name="nombre" maxlength="250" >
+                                @if ($errors->has('nombre'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            
+                            <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
+                                <label for="apellido">Apellido del profesional</label>
+                                <input type="text" class="form-control" id="apellido" placeholder="Apellido " name="apellido" maxlength="250">
+                                @if ($errors->has('apellido'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('apellido') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('especialidadProfesional') ? ' has-error' : '' }}">
+                                <label for="especialidadProfesional">Especialidad</label>
+                                <input type="text" class="form-control" id="especialidadProfesional" placeholder="Especialidad " name="especialidadProfesional" maxlength="250">
+                                @if ($errors->has('especialidadProfesional'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('especialidadProfesional') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('cargoProfesional') ? ' has-error' : '' }}">
+                                <label for="cargoProfesional">Cargo</label>
+                                <input type="text" class="form-control" id="cargoProfesional" placeholder="Cargo " name="cargoProfesional" maxlength="250">
+                                @if ($errors->has('cargoProfesional'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cargoProfesional') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Agregar Tratamiento</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>  
+
+            <div class="modal modal-danger fade" id="delete4" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title text-center">Atención!</h4>
+                    </div>
+                        
+                    <form action="{{ route('fichaMedica.destroyTratamiento',['id','asistidoid'])}}" method="POST">
+                        {{method_field('get')}}
+                        {{csrf_field()}}
+                        <div class="modal-body">
+                            <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
+                            <input type="hidden" name='id' id='id' value="">
+                            <input type="hidden" name='asistidoid' id='asistidoid' value="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
+                            <button type="submit" class="btn btn-outline">Si, eliminar</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -252,17 +905,17 @@
             <div class="panel box box-danger">
               <div class="box-header with-border">
                 <h4 class="box-title">
-                  <a data-toggle="collapse" href="#collapseTwo" style="color: black;">Medicaciones</a>
+                  <a data-toggle="collapse" href="#collapseFour" style="color: black;">Medicaciones</a>
                 </h4>
               </div>
-              <div id="collapseTwo" class="panel-collapse collapse in">
+              <div id="collapseFour" class="panel-collapse collapse in">
                 
-                  @if(isset($fichaSaludMental))
+                  @if(isset($fichaMedica))
                   <div class="box-body">
-                  @if (isset($fichaSaludMental->checkMedicacion))
+                  @if (isset($fichaMedica->checkMedicacion))
                   @foreach($medicaciones as $medicacion)
                       <div class="box-tools pull-right">
-                          <a href=""  data-target="#delete2" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
+                          <a href=""  data-target="#delete5" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
                                 <i class="fa fa-trash"></i></a>
                       </div>
                       <dl class="dl-horizontal preventoverflow" >
@@ -305,7 +958,7 @@
                     @endforeach
                     @endif
                 @endif
-                  <a href={{route('fichaSaludMental.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
+                  <a href={{route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
                 </div>
               </div>
             </div>
@@ -321,9 +974,11 @@
                     </div>
                     <div class="modal-body">
                       
-                      <form id="medicaciones-form" method="POST" action="{{ route('fichaSaludMental.storeMedicacion',['asistido_id'=>$asistido->id]) }}" >
+                      <form id="medicaciones-form" method="POST" action="{{ route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id]) }}" >
                           {{ csrf_field() }}
                           <div class="box-body col-md-12">
+                              <span>Solo complete esta Sección si el paciente no posee ninguna patología diagnosticada, caso contrario complete la Sección “Medicación” del Menú: “Tratamiento”
+                                </span>
                                 <div class="form-group" >
                                     {!! Form::Label('tipo', 'Tipo') !!}
                                     <select class="form-control" name="recetada" id="recetada" >
@@ -420,7 +1075,7 @@
               </div>
           </div>
 
-          <div class="modal modal-danger fade" id="delete2" style="display: none;">
+          <div class="modal modal-danger fade" id="delete5" style="display: none;">
               <div class="modal-dialog">
                   <div class="modal-content">
                   <div class="modal-header">
@@ -429,7 +1084,7 @@
                       <h4 class="modal-title text-center">Atención!</h4>
                   </div>
                         
-                  <form action="{{ route('fichaSaludMental.destroyMedicacion',['id','asistidoid'])}}" method="POST">
+                  <form action="{{ route('fichaMedica.destroyMedicacion',['id','asistidoid'])}}" method="POST">
                       {{method_field('get')}}
                       {{csrf_field()}}
                       <div class="modal-body">
@@ -449,370 +1104,62 @@
 
 
 
-
-
-
-
-
-          <div class="box-group">
-                <div class="panel box box-success">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" href="#collapseThree" style="color: black;">Tratamientos</a>
-                    </h4>
-                  </div>
-                  <div id="collapseThree" class="panel-collapse collapse in">
-                    <div class="box-body">
-                      @if(isset($fichaSaludMental))
-                      @if (isset($fichaSaludMental->checkTratamiento))
-                      @foreach($tratamientos as $tratamiento)
-                          <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                          </div>
-                          <dl class="dl-horizontal preventoverflow" >
-                              <dt>Tipo</dt>
-                              <dd>{{$tratamiento->tipo}}</dd>
-                              
-                              @if(isset($tratamiento->inicio))
-                              <dt>Fecha de inicio</dt>
-                              <dd>{{$tratamiento->inicio}}</dd>
-                              @endif
-                              @if(isset($tratamiento->fin))
-                              <dt>Fecha de finalización</dt>
-                              <dd>{{$tratamiento->fin}}</dd>
-                              @endif
-                              @if(isset($tratamiento->estado))
-                              <dt>Estado</dt>
-                              <dd>{{$tratamiento->estado}}</dd>
-                              @endif
-                              @if(isset($tratamiento->causaDeFin))
-                              <dt>Causa de fin</dt>
-                              <dd>{{$tratamiento->causaDeFin}}</dd>
-                              @endif
-                              @if(isset($tratamiento->medicaciones->droga))
-                              <dt>Droga medicación</dt>
-                              <dd>{{$tratamiento->medicaciones->droga}}</dd>
-                              @endif
-                              @if(isset($tratamiento->medicaciones->dosis))
-                              <dt>Dosis</dt>
-                              <dd>{{$tratamiento->medicaciones->dosis}}</dd>
-                              @endif
-                              @if(isset($tratamiento->medicaciones->frecuencia))
-                              <dt>Frecuencia</dt>
-                              <dd>{{$tratamiento->medicaciones->frecuencia}}</dd>
-                              @endif
-                              @if(isset($tratamiento->institucion->nombre))
-                              <dt>Lugar tratamiento</dt>
-                              <dd>{{$tratamiento->institucion->nombre}}</dd>
-                              @endif
-                              @if(isset($tratamiento->institucion->direccion))
-                              <dt>Dirección</dt>
-                              <dd>{{$tratamiento->institucion->direccion}}</dd>
-                              @endif
-                              @if(isset($tratamiento->institucion->telefono))
-                              <dt>Teléfono</dt>
-                              <dd>{{$tratamiento->institucion->telefono}}</dd>
-                              @endif
-                              @if(isset($tratamiento->institucion->email))
-                              <dt>E-mail</dt>
-                              <dd>{{$tratamiento->institucion->email}}</dd>
-                              @endif
-
-                              @if(isset($tratamiento->profesional->nombre))
-                              <dt>Nombre profesional</dt>
-                              <dd>{{$tratamiento->profesional->nombre}}</dd>
-                              @endif
-                              @if(isset($tratamiento->profesional->apellido))
-                              <dt>Apellido profesional</dt>
-                              <dd>{{$tratamiento->profesional->apellido}}</dd>
-                              @endif
-                              @if(isset($tratamiento->profesional->especialidad))
-                              <dt>Especialidad</dt>
-                              <dd>{{$tratamiento->profesional->especialidad}}</dd>
-                              @endif
-                              @if(isset($tratamiento->profesional->cargo))
-                              <dt>Cargo</dt>
-                              <dd>{{$tratamiento->profesional->cargo}}</dd>
-                              @endif
-
-                          </dl>
-                        @endforeach
-                        @endif
-                      @endif
-                      <a href="{{route('fichaSaludMental.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-              <div class="modal fade in" id="modal-default2" style="display: none; padding-right: 17px;">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Agregar Tratamiento</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form id="tratamiento-form" method="POST" action="{{ route('fichaSaludMental.storeTratamiento',['asistido_id'=>$asistido->id]) }}" >
-                        {{ csrf_field() }}
-                        <div class="box-body  col-md-12">
-
-                            <div class="form-group">
-                                {!! Form::Label('tipo', 'Tipo') !!}
-                                <select class="form-control" name="tipo" id="tipo" required>
-                                    <option value="Ambulatorio">Ambulatorio</option>
-                                    <option value="Internación">Internación</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group {{ $errors->has('inicio') ? ' has-error' : '' }}">
-                                <label for="lugar">Fecha de inicio</label>
-                                <input type="date" class="form-control" id="inicio" placeholder="Indique fecha de inicio del tratamiento" name="inicio">
-                                @if ($errors->has('inicio'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('inicio') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group {{ $errors->has('fin') ? ' has-error' : '' }}">
-                                <label for="fin">Fecha de finalización</label>
-                                <input type="date" class="form-control" id="fin" placeholder="Indique fecha de finalización del tratamiento, si la hay" name="fin">
-                                @if ($errors->has('fin'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('fin') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                {!! Form::Label('estado', 'Estado del tratamiento') !!}
-                                <select class="form-control" name="estado" id="estado" >
-                                    <option value="Cumple con el tratamiento">Cumple con el tratamiento</option>
-                                    <option value="No cumple con el tratamiento">No cumple con el tratamiento</option>
-                                    <option value="Cumple parcialmente">Cumple parcialmente</option>
-                                    <option value="Abandonó">Abandonó</option>
-                                </select>
-                            </div>
-                          <div class="form-group {{ $errors->has('causaDeFin') ? ' has-error' : '' }}">
-                            <label for="causaDeFin">Causa de finalización</label>
-                            <input type="text" class="form-control" id="causaDeFin" placeholder="Si el tratamiento fue abandonado o no es cumplido, indique la causa" name="causaDeFin" maxlength="250">
-                            @if ($errors->has('causaDeFin'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('causaDeFin') }}</strong>
-                              </span>
-                            @endif
-                          </div>
-                          <div class="form-group {{ $errors->has('medicacionEnTratamiento') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="medicacionEnTratamientoid" name="medicacionEnTratamiento" onclick="checkMedicacionEnTratamiento()">
-                                @if ($errors->has('medicacionEnTratamiento'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('medicacionEnTratamiento') }}</strong>
-                                </span>
-                                @endif
-                                <label for="checkDerivacion">El tratamiento incluye medicación</label>
-                            </div>
-                          <div class="mostrarMedicacion">
-                          
-                            <div class="form-group {{ $errors->has('droga') ? ' has-error' : '' }}">
-                                <label for="droga">Droga</label>
-                                <input type="text" class="form-control" id="droga1" placeholder="Droga" name="droga" maxlength="250" >
-                                @if ($errors->has('droga'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('droga') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group {{ $errors->has('dosis') ? ' has-error' : '' }}">
-                                <label for="dosis">Dosis</label>
-                                <input type="text" class="form-control" id="dosis" placeholder="Dosis" name="dosis" maxlength="250">
-                                @if ($errors->has('dosis'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('dosis') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            
-                                <div class="form-group {{ $errors->has('frecuencia') ? ' has-error' : '' }}">
-                                    <label for="frecuencia">Frecuencia</label>
-                                    <input type="text" class="form-control" id="frecuencia" placeholder="Frecuencia" name="frecuencia" maxlength="250">
-                                    @if ($errors->has('frecuencia'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('frecuencia') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('institucionEnTratamientoid') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="institucionEnTratamientoid" name="institucionEnTratamiento" onclick="checkInstitucionEnTratamiento()" >
-                                @if ($errors->has('institucionEnTratamiento'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('institucionEnTratamiento') }}</strong>
-                                </span>
-                                @endif
-                                <label for="institucionEnTratamiento">El tratamiento se realiza o realizó en un hospital, institución, particular o comunidad terapeutica</label>
-                            </div>
-                            <div class="mostrarInstitucion">
-                                <div class="form-group {{ $errors->has('nombreInstitucion') ? ' has-error' : '' }}">
-                                    <span></span>
-                                    <label for="nombreInstitucion">Nombre</label>
-                                    <input type="text" class="form-control" id="nombreInstitucion1" placeholder="Nombre de la institución" name="nombreInstitucion" maxlength="250" >
-                                    @if ($errors->has('nombreInstitucion'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nombreInstitucion') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group {{ $errors->has('direccionInstitucion') ? ' has-error' : '' }}">
-                                    <label for="direccionInstitucion">Dirección</label>
-                                    <input type="text" class="form-control" id="direccionInstitucion" placeholder="Dirección" name="direccionInstitucion" maxlength="250">
-                                    @if ($errors->has('direccionInstitucion'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('direccionInstitucion') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group {{ $errors->has('emailInstitucion') ? ' has-error' : '' }}">
-                                    <label for="emailInstitucion">E-mail</label>
-                                    <input type="email" class="form-control" id="emailInstitucion" placeholder="E-mail " name="emailInstitucion" maxlength="250">
-                                    @if ($errors->has('emailInstitucion'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('emailInstitucion') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('profesionalEnTratamiento') ? ' has-error' : '' }}">
-                                <input type="checkbox" id="profesionalEnTratamientoid" name="profesionalEnTratamiento" onclick="checkProfesionalEnTratamiento()">
-                                @if ($errors->has('profesionalEnTratamiento'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('profesionalEnTratamiento') }}</strong>
-                                </span>
-                                @endif
-                                <label for="profesionalEnTratamiento">Hay un profesional a cargo del tratamiento</label>
-                            </div>
-                            <div class="mostrarProfesional">
-                                <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
-                                    
-                                    <label for="nombre">Nombre del profesional</label>
-                                    <input type="text" class="form-control" id="nombre1" placeholder="Nombre " name="nombre" maxlength="250" >
-                                    @if ($errors->has('nombre'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nombre') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                
-                                <div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }}">
-                                    <label for="apellido">Apellido del profesional</label>
-                                    <input type="text" class="form-control" id="apellido" placeholder="Apellido " name="apellido" maxlength="250">
-                                    @if ($errors->has('apellido'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('apellido') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group {{ $errors->has('especialidadProfesional') ? ' has-error' : '' }}">
-                                    <label for="especialidadProfesional">Especialidad</label>
-                                    <input type="text" class="form-control" id="especialidadProfesional" placeholder="Especialidad " name="especialidadProfesional" maxlength="250">
-                                    @if ($errors->has('especialidadProfesional'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('especialidadProfesional') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group {{ $errors->has('cargoProfesional') ? ' has-error' : '' }}">
-                                    <label for="cargoProfesional">Cargo</label>
-                                    <input type="text" class="form-control" id="cargoProfesional" placeholder="Cargo " name="cargoProfesional" maxlength="250">
-                                    @if ($errors->has('cargoProfesional'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('cargoProfesional') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-danger">Agregar Tratamiento</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>  
-    
-              <div class="modal modal-danger fade" id="delete3" style="display: none;">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span></button>
-                          <h4 class="modal-title text-center">Atención!</h4>
-                      </div>
-                            
-                      <form action="{{ route('fichaSaludMental.destroyTratamiento',['id','asistidoid'])}}" method="POST">
-                          {{method_field('get')}}
-                          {{csrf_field()}}
-                          <div class="modal-body">
-                              <p class="text-center">¿Está seguro que desea eliminar? Esta acción es irreversible</p>
-                              <input type="hidden" name='id' id='id' value="">
-                              <input type="hidden" name='asistidoid' id='asistidoid' value="">
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No, cancelar</button>
-                              <button type="submit" class="btn btn-outline">Si, eliminar</button>
-                          </div>
-                      </form>
-                      </div>
-                  </div>
-              </div>
-
               <div class="box-group">
                 <div class="panel box box-danger">
                     <div class="box-header with-border">
                     <h4 class="box-title">
-                        <a data-toggle="collapse" href="#collapseTwo" style="color: black;"> Episodios Agresivos</a>
+                        <a data-toggle="collapse" href="#collapseFive" style="color: black;"> Intervenciones quirúrgicas</a>
                     </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div id="collapseFive" class="panel-collapse collapse in">
                     
-                        @if(isset($fichaSaludMental))
+                        @if(isset($fichaMedica))
                         <div class="box-body">
-                        @if (isset($fichaSaludMental->checkAgresiones))
-                        @foreach($episodiosAgresivos as $episodioAgresivo)
+                        @if (isset($fichaMedica->checkIntervencion))
+                        @foreach($intervenciones as $intervencion)
                             <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                            <a href="#"  data-target="#delete6" class="descartarBtn" data-id="{{$intervencion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Intervención">
                                 <i class="fa fa-trash"></i>
                             </a>
                             </div>
                             <dl class="dl-horizontal preventoverflow" >
-                                <dt>Tipo</dt>
-                                <dd>{{$episodioAgresivo->tipo}}</dd>
-                                
-                                @if(isset($episodioAgresivo->lugar))
-                                <dt>Lugar</dt>
-                                <dd>{{$episodioAgresivo->lugar}}</dd>
+                                @if(isset($intervencion->diagnostico))
+                                <dt>Diagnóstico</dt>
+                                <dd>{{$intervencion->diagnostico}}</dd>
                                 @endif
-                                @if(isset($episodioAgresivo->fecha))
-                                <dt>Fecha</dt>
-                                <dd>{{$episodioAgresivo->fecha}}</dd>
+                                @if(isset($intervencion->tipoOperacion))
+                                <dt>Tipo de operación</dt>
+                                <dd>{{$intervencion->tipoOperacion}}</dd>
+                                @endif
+                                @if(isset($intervencion->institucion->nombre))
+                                <dt>Hospital o institución</dt>
+                                <dd>{{$intervencion->institucion->nombre}}</dd>
+                                @endif
+                                @if(isset($intervencion->profesional->nombre))
+                                <dt>Nombre médico</dt>
+                                <dd>{{$intervencion->profesional->nombre}}</dd>
+                                @endif
+                                @if(isset($intervencion->profesional->apellido))
+                                <dt>Apellido médico</dt>
+                                <dd>{{$intervencion->profesional->apellido}}</dd>
+                                @endif
+                                @if(isset($intervencion->fecha))
+                                <dt>Fecha intervención</dt>
+                                <dd>{{$intervencion->fecha}}</dd>
+                                @endif
+                                @if(isset($intervencion->tratamientoIndicado))
+                                <dt>Tratamiento indicado</dt>
+                                <dd>{{$intervencion->tratamientoIndicado}}</dd>
+                                @endif
+                                @if(isset($intervencion->medicacion))
+                                <dt>Medicación</dt>
+                                <dd>{{$intervencion->medicacion}}</dd>
                                 @endif
                             </dl>
                         @endforeach
                         @endif
                         @endif 
-                        <a href={{route('fichaSaludMental.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
+                        <a href={{route('fichaMedica.storeIntervencion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4"><i align="left" class="fa fa-plus"></i>  Agregar Intervención quirúrgica</a>
                     </div>
                     </div>
                 </div>
@@ -826,45 +1173,81 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">Agregar Episodio Agresivo</h4>
+                            <h4 class="modal-title">Agregar Intervención quirúrgica</h4>
                         </div>
                         <div class="modal-body">
                             
-                            <form id="episodiosAgresivos-form" method="POST" action="{{ route('fichaSaludMental.storeEpisodioAgresivo',['asistido_id'=>$asistido->id]) }}" >
+                            <form id="intervenciones-form" method="POST" action="{{ route('fichaMedica.storeIntervencion',['asistido_id'=>$asistido->id]) }}" >
                                 {{ csrf_field() }}
                                 <div class="box-body">
-                                <div class="form-group {{ $errors->has('tipo') ? ' has-error' : '' }}">
-                                    <label for="tipo">Tipo</label>
-                                    <input type="text" class="form-control" id="tipo" placeholder="Tipo" name="tipo" maxlength="250">
-                                    @if ($errors->has('tipo'))
+                                <div class="form-group {{ $errors->has('diagnostico') ? ' has-error' : '' }}">
+                                    <label for="diagnostico">Diagnóstico</label>
+                                    <input type="text" class="form-control" id="diagnostico" placeholder="Diagnóstico" name="diagnostico" maxlength="250" required>
+                                    @if ($errors->has('diagnostico'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('tipo') }}</strong>
+                                        <strong>{{ $errors->first('diagnostico') }}</strong>
                                     </span>
                                     @endif
                                 </div>
-                                <div class="form-group {{ $errors->has('lugar') ? ' has-error' : '' }}">
-                                    <label for="lugar">Lugar</label>
-                                    <input type="text" class="form-control" id="lugar" placeholder="Lugar" name="lugar" maxlength="250">
-                                    @if ($errors->has('lugar'))
+                                <div class="form-group {{ $errors->has('tipoOperacion') ? ' has-error' : '' }}">
+                                    <label for="tipoOperacion">Tipo de operación</label>
+                                    <input type="text" class="form-control" id="tipoOperacion" placeholder="Tipo de operación quirúrgica" name="tipoOperacion" maxlength="250" required>
+                                    @if ($errors->has('tipoOperacion'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('lugar') }}</strong>
+                                            <strong>{{ $errors->first('tipoOperacion') }}</strong>
                                         </span>
                                     @endif
-                                    </div>
-                                    <div class="form-group {{ $errors->has('fecha') ? ' has-error' : '' }}">
-                                        <label for="fecha">Fecha</label>
-                                        <input type="date" class="form-control" id="fecha" placeholder="Fecha" name="fecha">
-                                        @if ($errors->has('fecha'))
+                                </div>
+                                <div class="form-group {{ $errors->has('institucion') ? ' has-error' : '' }}">
+                                    <label for="institucion">Institución</label>
+                                    <input type="text" class="form-control" id="institucion" placeholder="Institución de salud donde se realizó la intervención" name="institucion" maxlength="250" required>
+                                    @if ($errors->has('institucion'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('fecha') }}</strong>
+                                            <strong>{{ $errors->first('institucion') }}</strong>
                                         </span>
-                                        @endif
-                                    </div>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('medico') ? ' has-error' : '' }}">
+                                    <label for="medico">Médico</label>
+                                    <input type="text" class="form-control" id="medico" placeholder="Médico responsable de la intervención" name="medico" maxlength="250" required>
+                                    @if ($errors->has('medico'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('medico') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('fecha') ? ' has-error' : '' }}">
+                                    <label for="fecha">Fecha de la intervención</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                    @if ($errors->has('fecha'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fecha') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('tratamientoIndicado') ? ' has-error' : '' }}">
+                                    <label for="tratamientoIndicado">Tratamiento indicado</label>
+                                    <input type="text" class="form-control" id="tratamientoIndicado" placeholder="Indique tratamiento indicado o rehabilitación" name="tratamientoIndicado" maxlength="250" required>
+                                    @if ($errors->has('tratamientoIndicado'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tratamientoIndicado') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('medicacion') ? ' has-error' : '' }}">
+                                    <label for="medicacion">Medicación</label>
+                                    <input type="text" class="form-control" id="medicacion" name="medicacion" placeholder="Medicación" maxlength="250" required>
+                                    @if ($errors->has('medicacion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('medicacion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                                 </div>
                             
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-danger">Agregar Episodio Agresivo</button>
+                                    <button type="submit" class="btn btn-danger">Agregar Intervención quirúrgica</button>
                                 </div>
                             </form>
                         </div>
@@ -872,7 +1255,7 @@
                     </div>
                 </div>
     
-                <div class="modal modal-danger fade" id="delete4" style="display: none;">
+                <div class="modal modal-danger fade" id="delete6" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -881,7 +1264,7 @@
                             <h4 class="modal-title text-center">Atención!</h4>
                         </div>
                             
-                        <form action="{{ route('fichaSaludMental.destroyEpisodioAgresivo',['id','asistidoid'])}}" method="POST">
+                        <form action="{{ route('fichaMedica.destroyIntervencion',['id','asistidoid'])}}" method="POST">
                             {{method_field('get')}}
                             {{csrf_field()}}
                             <div class="modal-body">
@@ -897,16 +1280,12 @@
                         </div>
                     </div>
                 </div>
-    
-    
-                <!--Aca estaba el box group consideraciones generales-->
-          
+
+
         </div>
-        </div>
-      </div>
-  </div>
+    </div>
 </div>
-</div>
+
 
 
 @endsection
@@ -915,48 +1294,32 @@
 <script type="text/javascript">
 
     window.onload=function(){
-        $('#recetada').val('Indicada bajo receta')
-        document.getElementById("nombre").required = true
-        $('.profesional').show()
-        $('.automedicacion').show()
-        $('.institucionEnTratamiento').show()
-        $('.mostrarInstitucion').hide()
-        $('.mostrarMedicacion').hide()
-        $('.mostrarProfesional').hide()
+        //$('#recetada').val('Indicada bajo receta')
+        //document.getElementById("nombre").required = true
+        // $('.automedicacion').show()
+        // $('.institucionEnTratamiento').show()
+        // $('.mostrarInstitucion').hide()
+        // $('.mostrarMedicacion').hide()
+        // $('.mostrarProfesional').hide()
 
-        var requiereInternacion=document.getElementById("checkInternacion2")
-        if (requiereInternacion.checked == true){
-            $('.mostrarInstitucion2').show() 
+        var esAlergico=document.getElementById("checkAlergico")
+        if (esAlergico.checked == true){
+            $('.checkAlergico').show() 
         }else{
-            $('.mostrarInstitucion2').hide() 
+            $('.checkAlergico').hide() 
         }
         
 
     }
-    
-    
-    $('#checkInternacion').change(function(){
-        if ($(this).checked){
 
-            $('.mostrarInstitucion2').show()
+    function alergias(){
+        var chkAlergia = document.getElementById("checkAlergico")
 
-        }else{
-
-            $('.mostrarInstitucion2').hide()
-
-        }
-    })
-
-    function checkMedicacionEnTratamiento(){
-        var chkMed = document.getElementById("medicacionEnTratamientoid")
-
-        if (chkMed.checked == true){
-            $('.mostrarMedicacion').show()
-            document.getElementById("droga1").required = true
+        if (chkAlergia.checked == true){
+            $('.checkAlergico').show()
             
         }else{
-            $('.mostrarMedicacion').hide()   
-            document.getElementById("droga1").required = false
+            $('.checkAlergico').hide()   
         }
     }
    

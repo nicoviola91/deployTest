@@ -17,6 +17,6 @@ class Sintoma extends Model
     public function fichasMedicas(){
     	return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','sintoma_id','fichasMedicas_id');
     }
-    //agregar fk a la tabla sintomas
+    
 
 }

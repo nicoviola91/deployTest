@@ -188,13 +188,6 @@
 
 
 
-
-
-
-
-
-
-
           <div class="box-group">
             <div class="panel box box-danger">
               <div class="box-header with-border">

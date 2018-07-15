@@ -311,6 +311,24 @@ Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
     ]);
 });
 
+//FICHA MEDICA
+Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaAsistenciaSocialController@create',
+        'as'=>'fichaAsistenciaSocial.create',
+    ]);
+    Route::post('/storeSintoma/{id}',[
+        'uses'=>'FichaMedicaController@storeSintoma',
+        'as'=>'fichaMedica.storeSintoma',
+    ]);
+    Route::delete('/destroyServicio/{id}/{asistido_id}',[
+        'uses'=>'FichaAsistenciaSocialController@destroyServicio',
+        'as'=>'fichaAsistenciaSocial.destroyServicio',
+    ]);
+});
+
+
+
 //FICHA DIAGNOSTICO INTEGRAL
 Route::group(['prefix'=>'fichaDiagnosticoIntegral'],function(){
     Route::get('/create/{id}',[

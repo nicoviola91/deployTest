@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConsultaMedica extends Model
 {
-    protected $table="consultasMedicas";//corregir nombre de la tabla en base!
+    protected $table="consultasMedicas";
     protected $fillable = [
         'fecha',
         'diagnostico',

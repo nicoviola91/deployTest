@@ -11,6 +11,7 @@ class Afeccion extends Model
         'tipo',
     ];
 
+    //la afeccion categoriza las enfermedades
     public function enfermedades(){
         $return->hasMany('App\Enfermedad','afeccion_id');
     }
