@@ -311,22 +311,6 @@ Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
     ]);
 });
 
-//FICHA MEDICA
-Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
-    Route::get('/create/{id}',[
-        'uses'=>'FichaAsistenciaSocialController@create',
-        'as'=>'fichaAsistenciaSocial.create',
-    ]);
-    Route::post('/storeSintoma/{id}',[
-        'uses'=>'FichaMedicaController@storeSintoma',
-        'as'=>'fichaMedica.storeSintoma',
-    ]);
-    Route::delete('/destroyServicio/{id}/{asistido_id}',[
-        'uses'=>'FichaAsistenciaSocialController@destroyServicio',
-        'as'=>'fichaAsistenciaSocial.destroyServicio',
-    ]);
-});
-
 
 
 //FICHA DIAGNOSTICO INTEGRAL
@@ -395,6 +379,79 @@ Route::group(['prefix'=>'fichaSaludMental'],function(){
     Route::get('/destroyTratamiento/{tratamiento_id}/{asistido_id}',[
         'uses'=>'FichaSaludMentalController@destroyTratamiento',
         'as'=>'fichaSaludMental.destroyTratamiento'
+    ]);
+});
+
+
+//FICHA MEDICA
+Route::group(['prefix'=>'fichaMedica'],function(){
+    Route::get('/create/{id}',[
+        'uses'=>'FichaMedicaController@create',
+        'as'=>'fichaMedica.create',
+    ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaMedicaController@get',
+        'as'=>'fichaMedica.get',
+    ]);
+    Route::post('/storeSintoma/{id}',[
+        'uses'=>'FichaMedicaController@storeSintoma',
+        'as'=>'fichaMedica.storeSintoma',
+    ]);
+    Route::post('/storeProfesional/{id}',[
+        'uses'=>'FichaMedicaController@storeProfesional',
+        'as'=>'fichaMedica.storeProfesional',
+    ]);
+    Route::post('/storeConsulta/{id}',[
+        'uses'=>'FichaMedicaController@storeConsulta',
+        'as'=>'fichaMedica.storeConsulta',
+    ]);
+    Route::post('/storeTratamiento/{id}',[
+        'uses'=>'FichaMedicaController@storeTratamiento',
+        'as'=>'fichaMedica.storeTratamiento',
+    ]);
+    Route::post('/storeMedicacion/{id}',[
+        'uses'=>'FichaMedicaController@storeMedicacion',
+        'as'=>'fichaMedica.storeMedicacion',
+    ]);
+    Route::post('/storeEnfermedad/{id}',[
+        'uses'=>'FichaMedicaController@storeEnfermedad',
+        'as'=>'fichaMedica.storeEnfermedad',
+    ]);
+    Route::post('/storeEstadoGeneral/{id}',[
+        'uses'=>'FichaMedicaController@storeEstadoGeneral',
+        'as'=>'fichaMedica.storeEstadoGeneral',
+    ]);
+    Route::post('/storeIntervencion/{id}',[
+        'uses'=>'FichaMedicaController@storeIntervencion',
+        'as'=>'fichaMedica.storeIntervencion',
+    ]);
+    Route::get('/destroyProfesional/{profesional_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyProfesional',
+        'as'=>'fichaMedica.destroyProfesional'
+    ]);
+    Route::get('/destroyMedicacion/{medicacion_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyMedicacion',
+        'as'=>'fichaMedica.destroyMedicacion'
+    ]);
+    Route::get('/destroyConsulta/{consulta_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyConsulta',
+        'as'=>'fichaMedica.destroyConsulta'
+    ]);
+    Route::get('/destroySintoma/{sintoma_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroySintoma',
+        'as'=>'fichaMedica.destroySintoma'
+    ]);
+    Route::get('/destroyTratamiento/{tratamiento_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyTratamiento',
+        'as'=>'fichaMedica.destroyTratamiento'
+    ]);
+    Route::get('/destroyEnfermedad/{enfermedad_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyEnfermedad',
+        'as'=>'fichaMedica.destroyEnfermedad'
+    ]);
+    Route::get('/destroyIntervencion/{intervencion_id}/{asistido_id}',[
+        'uses'=>'FichaMedicaController@destroyIntervencion',
+        'as'=>'fichaMedica.destroyIntervencion'
     ]);
 });
 
