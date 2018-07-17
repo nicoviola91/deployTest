@@ -6,8 +6,6 @@ services:
         context: .
         dockerfile: DockerfileApp
     hostname: app
-    volumes:
-      - .:/var/www
     environment:
       - DB_DATABASE=posadero
       - DB_HOST=db

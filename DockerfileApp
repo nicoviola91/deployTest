@@ -13,17 +13,6 @@ RUN php -r "unlink('composer-setup.php');"
 RUN ln -sf /var/composer/composer.phar /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 
-#RUN mkdir -p  /var/www/storage
-#RUN mkdir /var/www/storage/app
-#RUN mkdir /var/www/storage/framework
-#RUN mkdir /var/www/storage/framework/sessions
-#RUN mkdir /var/www/storage/framework/views
-#RUN mkdir /var/www/storage/framework/cache
-#RUN mkdir /var/www/storage/logs
-#RUN chown -R www-data /var/www/storage
-#RUN chmod -R 775 /var/www/storage
-
-
 #####################################
 # Install dependencies
 #####################################
@@ -45,12 +34,6 @@ RUN apt-get update && apt install -y \
     zip \
     && docker-php-ext-install -j$(nproc) gmp
 
-#####################################
-# Install Nodejs (DELETE?)
-#####################################
-#RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-#RUN apt-get install -y nodejs
-#RUN npm i npm@latest -g
 
 #####################################
 # Configure FPM
@@ -65,9 +48,19 @@ RUN usermod -u 1000 www-data
 WORKDIR /var/www
 COPY . /var/www
 
-#RUN composer global require hirak/prestissimo
 RUN composer install
-#RUN npm install
-#RUN npm run development
 
-CMD ["php-fpm"]
+RUN rm -rf /var/www/storage
+RUN mkdir -p  /var/www/storage
+RUN mkdir /var/www/storage/app
+RUN mkdir /var/www/storage/framework
+RUN mkdir /var/www/storage/framework/sessions
+RUN mkdir /var/www/storage/framework/views
+RUN mkdir /var/www/storage/framework/cache
+RUN mkdir /var/www/storage/logs
+RUN chown -R www-data /var/www/storage
+RUN chmod -R 775 /var/www/storage
+RUN rm .env*
+
+#CMD ["php-fpm"]
+CMD ["/var/www/start.sh"]
