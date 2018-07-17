@@ -11,11 +11,11 @@ class Sintoma extends Model
         'nombre',
         'fichaMedica_id',
         'sintoma_id',
-        'fichasMedicas_id',
+        'fichaMedica_id',
     ];
 
     public function fichasMedicas(){
-    	return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','sintoma_id','fichasMedicas_id');
+    	return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','sintoma_id','fichaMedica_id');
     }
     
 

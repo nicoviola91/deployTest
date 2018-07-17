@@ -63,11 +63,11 @@
               <div id="collapseOne" class="panel-collapse collapse in"><!-- tienen que cerrar al final de todo-->
                 <div class="box-body"><!-- tienen que cerrar al final de todo-->
 
-                    <h3>Síntomas visibles</h3>
+                    <h4>Síntomas visibles</h4>
                   @if(isset($fichaMedica))
-                    @if (isset($fichaMedica->sintomas)) 
+                    @if (isset($fichaMedica->sintomasDelAsistido)) 
                     
-                      @foreach($fichaMedica->sintomas as $sintoma)
+                      @foreach($fichaMedica->sintomasDelAsistido as $sintoma)
                         <div class="box-tools pull-right">    
                           <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Síntoma">
                           <i class="fa fa-trash"></i></a>
@@ -95,20 +95,16 @@
                             <form id="nuevoSintoma-form" method="POST" action="{{ route('fichaMedica.storeSintoma',['asistido_id'=>$asistido->id]) }}">
                               {{ csrf_field() }}
                                
-                              <div class="box-body"><div class="form-group">
-                                            
-                                {!! Form::Label('descripcion', 'Síntoma') !!}
-                                <select class="form-control" name="sintoma" id="sintoma" >
-                                    @foreach($sintomas as $sintoma)
-                                        <option value="$sintoma->id">{{$sintoma->nombre}}</option>
-                                    @endforeach
-                                        @foreach($sintoma->nombre as $nombreSintoma)
+                              <div class="box-body">
+                                  <div class="form-group">   
+                                    {!! Form::Label('descripcion', 'Síntoma') !!}
+                                    <select class="form-control" name="sintoma" id="sintoma" >
+                                        @foreach($sintomasGenericos as $sintoma)
                                             <option value="{{$sintoma->id}}">{{$sintoma->nombre}}</option>
-                                        
-                                    @endforeach
-                                </select>
+                                        @endforeach
+                                    </select>
+                                    </div>
                                 </div>
-                  
                               <div class="modal-footer">
                                
                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
@@ -127,7 +123,7 @@
                                 <span aria-hidden="true">×</span></button>
                                 <h4 class="modal-title text-center">Atención!</h4>
                             </div>
-                            <form action="{{ route('fichaSaludMental.destroySintoma',['id','asistidoid'])}}" method="POST">
+                            <form action="{{ route('fichaMedica.destroySintoma',['id','asistidoid'])}}" method="POST">
                                 {{method_field('get')}}
                                 {{csrf_field()}}
                                 <div class="modal-body">
@@ -146,7 +142,7 @@
                     
                    
                         
-                        <h3>Consultas médicas previas</h3>
+                        <h4>Consultas médicas previas</h4>
                         @if(isset($fichaMedica))
                             @if (isset($fichaMedica->consultasMedicas)) 
                             
@@ -270,7 +266,7 @@
                                     <span aria-hidden="true">×</span></button>
                                     <h4 class="modal-title text-center">Atención!</h4>
                                 </div>
-                                <form action="{{ route('fichaSaludMental.destroyConsulta',['id','asistidoid'])}}" method="POST">
+                                <form action="{{ route('fichaMedica.destroyConsulta',['id','asistidoid'])}}" method="POST">
                                     {{method_field('get')}}
                                     {{csrf_field()}}
                                     <div class="modal-body">
@@ -287,7 +283,7 @@
                             </div>
                         </div>
 
-                        <h3>Médico de cabecera</h3>
+                        <h4>Médico de cabecera</h4>
                  
                         @if(isset($fichaMedica))
                             @if (isset($fichaMedica->profesional)) 
@@ -373,7 +369,7 @@
                                     <span aria-hidden="true">×</span></button>
                                     <h4 class="modal-title text-center">Atención!</h4>
                                 </div>
-                                <form action="{{ route('fichaSaludMental.destroyProfesional',['id','asistidoid'])}}" method="POST">
+                                <form action="{{ route('fichaMedica.destroyProfesional',['id','asistidoid'])}}" method="POST">
                                     {{method_field('get')}}
                                     {{csrf_field()}}
                                     <div class="modal-body">
@@ -396,7 +392,7 @@
             
 
                         <div class="form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergias()" {{isset($fichaMedica->alergicoA) && ($fichaMedica->alergicoA==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->alergicoA) && ($fichaMedica->alergicoA==1) ? 'checked':''}}>
                             @if ($errors->has('checkAlergico'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkAlergico') }}</strong>
@@ -414,25 +410,28 @@
                             </span>
                             @endif
                         </div>
+
+
                         <div class="form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocial()" {{isset($fichaMedica->obraSocial) && ($fichaMedica->obraSocial==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" {{isset($fichaMedica->obraSocial) && ($fichaMedica->obraSocial==1) ? 'checked':''}}>
                             @if ($errors->has('checkObraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkObraSocial') }}</strong>
                             </span>
                             @endif
-                            <label for="checkObraSocial">El asistido tiene obra social</label>
+                            <label for="checkObraSocial">El asistido tiene Obra Social</label>
                         </div>
-                        
+
                         <div class="form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
-                            <label for="obraSocial">Obra social</label>
-                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese obra social del asistido" name="obraSocial" maxlength="250" value={{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}>
+                            <label for="obraSocial">Obra Social</label>
+                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value={{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}>
                             @if ($errors->has('obraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('obraSocial') }}</strong>
                             </span>
                             @endif
                         </div>
+                        
                         <div class="form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
                             <label for="antecedentes">Antecedentes</label>
                         <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}>
@@ -474,7 +473,7 @@
                 <div class="box-body ">
                   @if(isset($fichaMedica))
                     @if (isset($fichaMedica->checkEnfermedades)) 
-                      @foreach($enfermedades as $enfermedad)
+                      @foreach($enfermedadesDelAsistido as $enfermedad)
                       
                         <div class="box-tools pull-right">    
                           <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$enfermedad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia">
@@ -529,7 +528,7 @@
                         <div class="form-group">  
                         {!! Form::Label('enfermedad', 'Patología') !!}
                             <select class="form-control" name="enfermedad" id="enfermedad" required>
-                                @foreach($enfermedades as $enfermedad)
+                                @foreach($enfermedadesGenericas as $enfermedad)
                                     <option value="{{$enfermedad->id}}">{{$enfermedad->descripcion}}</option>
                                 @endforeach
                             </select>
@@ -684,7 +683,7 @@
                     <h4 class="modal-title">Agregar Tratamiento</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="tratamiento-form" method="POST" action="{{ route('fichaSaludMental.storeTratamiento',['asistido_id'=>$asistido->id]) }}" >
+                    <form id="tratamiento-form" method="POST" action="{{ route('fichaMedica.storeTratamiento',['asistido_id'=>$asistido->id]) }}" >
                     {{ csrf_field() }}
                     <div class="box-body  col-md-12">
 
@@ -1301,6 +1300,7 @@
         // $('.mostrarInstitucion').hide()
         // $('.mostrarMedicacion').hide()
         // $('.mostrarProfesional').hide()
+   
 
         var esAlergico=document.getElementById("checkAlergico")
         if (esAlergico.checked == true){
@@ -1308,11 +1308,18 @@
         }else{
             $('.checkAlergico').hide() 
         }
-        
+
+        var tieneObraSocial=document.getElementById("checkObraSocial")
+        if (tieneObraSocial.checked == true){
+            $('.checkObraSocial').show() 
+        }else{
+            $('.checkObraSocial').hide() 
+        }
+
 
     }
 
-    function alergias(){
+    function alergiaFunction(){
         var chkAlergia = document.getElementById("checkAlergico")
 
         if (chkAlergia.checked == true){
@@ -1322,6 +1329,18 @@
             $('.checkAlergico').hide()   
         }
     }
+
+    function obraSocialFunction(){
+        var chkObraSocial = document.getElementById("checkObraSocial")
+
+        if (chkObraSocial.checked == true){
+            $('.checkObraSocial').show()
+            
+        }else{
+            $('.checkObraSocial').hide()   
+        }
+    }
+    
    
     function checkInstitucionEnTratamiento(){
         var chkInst = document.getElementById("institucionEnTratamientoid")

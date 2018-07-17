@@ -417,6 +417,7 @@ Route::group(['prefix'=>'fichaMedica'],function(){
         'uses'=>'FichaMedicaController@storeEnfermedad',
         'as'=>'fichaMedica.storeEnfermedad',
     ]);
+    
     Route::post('/storeEstadoGeneral/{id}',[
         'uses'=>'FichaMedicaController@storeEstadoGeneral',
         'as'=>'fichaMedica.storeEstadoGeneral',
