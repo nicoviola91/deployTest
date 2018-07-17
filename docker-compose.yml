@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  app:
+    build:
+        context: .
+        dockerfile: DockerfileApp
+    hostname: app
+    volumes:
+      - .:/var/www
+    environment:
+      - DB_DATABASE=posadero
+      - DB_HOST=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - APP_KEY=FB4783DF975A1679DF9893E306D92277
+      - APP_DEBUG=true
+      - APP_LOG_LEVEL=debug
+      - APP_ENV=local
+      - APP_URL=http://localhost:8000
+      - MAIL_DRIVER=smtp
+      - MAIL_HOST=smtp.mailtrap.io
+      - MAIL_PORT=2525
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+    links:
+      - db
+
+  nginx:
+    build:
+        context: .
+        dockerfile: DockerfileNginx
+    hostname: nginx
+    ports:
+      - 8001:80
+    links:
+      - app
+
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=posadero
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
