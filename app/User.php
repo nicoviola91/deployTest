@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     protected $table="users";
     protected $fillable = [
-        'name','apellido','email', 'password','dni',
+        'name','apellido','email', 'password','dni', 'tipoUsuario_id'
     ];
 
     /**
@@ -40,6 +40,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Consulta');
     }
     public function tipoUsuario(){
-        return $this->belongsTo('App\TipoUsuario');
+        return $this->belongsTo('App\TipoUsuario','tipoUsuario_id');
     }
 }

@@ -12,7 +12,7 @@ class TipoUsuario extends Model
     ];
     
     public function users(){
-        return $this->hasMany('App\Users');
+        return $this->hasMany('App\Users','tipoUsuario_id');
     }
     //Comentario para dani
 }

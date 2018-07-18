@@ -10,6 +10,7 @@ use Laracasts\Flash\Flash;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Redirector;
 use App\Http\Requests\UserRequest;
+use App\TipoUsuario;
 
 class UserController extends Controller
 {
@@ -45,8 +46,11 @@ class UserController extends Controller
     
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
-        $user->tipoUsuario_id = '1';
+        $tipoUsuario=TipoUsuario::find(2);//trae el tipo de usuario con id 2 en la tabla de tipos de usuuarios
+
+        $user->tipoUsuario()->associate($tipoUsuario); 
         $user->save();
+        
         $user->notify(new AltaUsuario($user));
         return view('auth.login');
     }
