@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Javascript; //para poder levantar las las enfermedades dependiendo de la afeccion en la view
+//use Javascript; //para poder levantar las las enfermedades dependiendo de la afeccion en la view
 use App\FichaMedica;
 use App\Tratamiento;
 use App\Institucion;
@@ -35,18 +35,17 @@ class FichaMedicaController extends Controller
         $afecciones=Afeccion::all();
         
         if(isset($fichaMedica)){
-            
-            $sintomasDelAsistido=$fichaMedica->sintomas->all();
-            //Sintoma::where('fichaMedica_id',$fichaMedica->id)->get();//revisar si funciona, es una relacion many to many
+            //para traer de la relacion many to many los relacionados con esta ficha medica
+            $sintomasDelAsistido=FichaMedica::find($fichaMedica->id)->sintomas;
             $consultasMedicas=ConsultaMedica::where('fichaMedica_id',$fichaMedica->id)->get();
-            $profesionales=$fichaMedica->profesional(); //ver si no falta un ->get()
+            $profesionales=$fichaMedica->profesional()->get(); 
             $enfermedadesDelAsistido=$fichaMedica->enfermedades->all();
             $tratamientos=Tratamiento::where('fichaMedica_id',$fichaMedica->id)->get();
             $medicaciones=Medicacion::where('fichaMedica_id',$fichaMedica->id)->get();
             $intervenciones=Intervencion::where('fichaMedica_id',$fichaMedica->id)->get();
             $afeccionesGenericas=Afeccion::all();
             
-
+            
             return view('altaFichas.fichaMedica')
                 ->with('asistido',$asistido)
                 ->with('sintomasGenericos',$sintomasGenericos)
@@ -98,19 +97,134 @@ class FichaMedicaController extends Controller
 
     }
 
+    public function storeSintoma(Request $request,$asistido_id){
+
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkSintomas'=>1]);
+
+        $sintoma=Sintoma::find($request->sintoma); //contiene el id del sintoma, que viene del value del select de la vista
+        $fichaMedica->sintomas()->attach($sintoma);
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);     
+
+    }
+
+    public function destroySintoma(Request $request){
+
+        $sintoma_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $sintoma=Sintoma::find($sintoma_id);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $fichaMedica->sintomas()->detach($sintoma);
+        
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);      
+    
+
+    }
+
+    public function storeConsulta(Request $request, $asistido_id){
+
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkConsultasMedicas'=>1]);
+        $institucion=Institucion::create(['nombre'=>$request->nombreInstitucion]);
+        
+        $profesional=Profesional::create(['nombre'=>$request->nombreProfesional,'apellido'=>$request->apellidoProfesional,
+        'especialidad'=>$request->especialidad]);
+        $consulta=new ConsultaMedica(['fecha'=>$request->fecha,'diagnostico'=>$request->diagnostico]);
+        $fichaMedica->consultasMedicas()->save($consulta);
+        $institucion->consultasMedicas()->save($consulta);
+        $profesional->consultasMedicas()->save($consulta);
+        
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+    }
+
+    public function destroyConsulta(Request $request){
+
+        $consulta_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $consulta=ConsultaMedica::find($consulta_id);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $profesional=Profesional::find($consulta->profesional_id);
+        $institucion=Institucion::find($consulta->institucion_id);
+        if(isset($consulta)){
+            $consulta->delete();
+        }
+        if(isset($profesional)){
+            $profesional->delete();
+        }
+        
+        if(isset($institucion)){
+            $institucion->delete();
+        }
+        
+
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);      
+    
+    }
+
+    public function storeProfesional(Request $request, $asistido_id){
+
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkMedicoDeCabecera'=>1]);
+        $profesional=Profesional::create(['nombre'=>$request->nombre,'apellido'=>$request->apellido,
+        'especialidad'=>$request->especialidad]);
+        $profesional->fichaMedica()->save($fichaMedica);
+        
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+    }
+
+    public function destroyProfesional(Request $request){
+        $profesional_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $profesional=Profesional::find($profesional_id);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $fichaMedica->profesional()->dissociate();
+        $fichaMedica->checkMedicoDeCabecera=0;
+        $fichaMedica->save();
+        $profesional->delete();
+
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+    }
+
+    public function storeEstadoGeneral(Request $request,$asistido_id){
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+
+        if($request->checkAlergico=='on'){
+            $alergicoValue=1;
+        }else{
+            $alergicoValue=0;
+        }
+
+        if($request->checkObraSocial=='on'){
+            $obraSocialValue=1;
+        }else{
+            $obraSocialValue=0;
+        }
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['altura'=>$request->altura,'peso'=>$request->peso,'checkAlergico'=>$alergicoValue,
+        'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes]);
+
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+    }
+
     public function storePatologia(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
         //Con update me aseguro de no generar duplicados y solo actualizar el registro existente
-        // Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        // FichaSaludMental::where('asistido_id',$asistido_id)
-        // ->update(['checkPatologias'=>1]);
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkEnfermedades'=>1]);
 
-        // $patologia=new Patologia($request->all());
-        // //fichaMedica_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
-        // $fichaMedica->patologias()->save($patologia);
-        // $patologia->save();
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);       
+        $enfermedad=Enfermedad::create('descripcion'=>$request->);
+        //fichaMedica_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
+        $fichaMedica->enfermedades()->save($patologia);
+        $patologia->save();
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);       
     }
 
     public function destroyPatologia(Request $request){
@@ -123,14 +237,7 @@ class FichaMedicaController extends Controller
 
     }
 
-    public function storeSintoma(Request $request,$asistido_id){
-
-    }
-
-    public function destroySintoma(Request $request){
-        
-    }
-
+    
     public function storeMedicacion(Request $request,$asistido_id){
         //var_dump($request);
 

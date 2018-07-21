@@ -22,7 +22,9 @@ class FichaMedica extends Model
         'discapacidadAuditiva',
         'discapacidadMotriz',
         'observacionDiscapacidad',
-        'profesional_id'
+        'profesional_id',
+        'fichaMedica_id',
+        'sintoma_id'
     ];
 
     public function asistido(){
@@ -43,7 +45,7 @@ class FichaMedica extends Model
 		return $this->hasMany('App\Tratamiento','fichaMedica_id');
 	}
 	public function sintomas(){
-		return $this->belongsToMany('App\FichaMedica','fichasMedicas_sintomas','fichaMedica_id','sintoma_id');		
+		return $this->belongsToMany('App\Sintoma','fichasMedicas_sintomas','fichaMedica_id','sintoma_id');		
     }
     
 	public function consultasMedicas(){
