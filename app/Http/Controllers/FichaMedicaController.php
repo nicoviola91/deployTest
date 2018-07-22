@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Javascript; //para poder levantar las las enfermedades dependiendo de la afeccion en la view
+//use Javascript; para poder levantar las las enfermedades dependiendo de la afeccion en la view
 use App\FichaMedica;
 use App\Tratamiento;
 use App\Institucion;
@@ -212,138 +212,138 @@ class FichaMedicaController extends Controller
         return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
-    public function storePatologia(Request $request, $asistido_id){
+    public function storeEnfermedad(Request $request, $asistido_id){
         //falta obtener lo que esta dentro del dropdown , no lo esta agarrando
         //Con update me aseguro de no generar duplicados y solo actualizar el registro existente
         Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['checkEnfermedades'=>1]);
-
-        $enfermedad=Enfermedad::create('descripcion'=>$request->);
+        $enfermedad=Enfermedad::find($request->enfermedad);
         //fichaMedica_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
-        $fichaMedica->enfermedades()->save($patologia);
-        $patologia->save();
+        $fichaMedica->enfermedades()->attach($enfermedad);
         return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);       
     }
 
-    public function destroyPatologia(Request $request){
+    public function destroyEnfermedad(Request $request){
 
-        // $patologia_id=$request->input('id');
-        // $asistido_id=$request->input('asistidoid');
-        // $patologia=Patologia::find($patologia_id);
-        // $patologia->delete();
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        $enfermedad_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $enfermedad=Enfermedad::find($enfermedad_id);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $fichaMedica->enfermedades()->detach($enfermedad);
+
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
 
     }
 
     
     public function storeMedicacion(Request $request,$asistido_id){
-        //var_dump($request);
 
-        // if($request->has('nombre') && $request->has('droga') && ($request->input('nombre')!== null) && ($request->input('droga')!== null)){
-        //     $profesional_input=$request->only(['nombre','apellido']);
-        //     $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
-        //     $profesional=new Profesional($profesional_input);
-        //     $medicacion=new Medicacion($medicacion_input);
-        //     $profesional->save();
-        //     $profesional->medicacion()->save($medicacion);
-        // }
+        var_dump($request);
+        if($request->has('nombre') && $request->has('droga') && ($request->input('nombre')!== null) && ($request->input('droga')!== null)){
+            $profesional_input=$request->only(['nombre','apellido']);
+            $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
+            $profesional=new Profesional($profesional_input);
+            $medicacion=new Medicacion($medicacion_input);
+            $profesional->save();
+            $profesional->medicacion()->save($medicacion);
+        }
         
-        // if($request->has('droga') && ($request->input('droga')!== null) && ($request->input('nombre')== null)){
-        //     $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
-        //     $medicacion=new Medicacion($medicacion_input);
-        //     $medicacion->save();
-        // }
+        if($request->has('droga') && ($request->input('droga')!== null) && ($request->input('nombre')== null)){
+            $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
+            $medicacion=new Medicacion($medicacion_input);
+            $medicacion->save();
+        }
         
-        // Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        // FichaSaludMental::where('asistido_id',$asistido_id)
-        // ->update(['checkMedicacion'=>1]);
-        // $fichaMedica->medicaciones()->save($medicacion);
+        Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkMedicacion'=>1]);
+        $fichaMedica->medicaciones()->save($medicacion);
 
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyMedicacion(Request $request){
         
-        // $medicacion_id=$request->input('id');
-        // $asistido_id=$request->input('asistidoid');
-        // $medicacion=Medicacion::find($medicacion_id);
-        // if(isset($medicacion->profesional)){
-        //     $medicacion->delete();
-        //     $profesional=$medicacion->profesional;
-        //     $profesional->delete();
-        // }
+        $medicacion_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $medicacion=Medicacion::find($medicacion_id);
+        if(isset($medicacion->profesional)){
+            $medicacion->delete();
+            $profesional=$medicacion->profesional;
+            $profesional->delete();
+        }
         
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
     public function storeTratamiento(Request $request,$asistido_id){
-        // $tratamiento_input=$request->only(['tipo','inicio','fin','estado','causaDeFin']);
-        // $tratamiento=new Tratamiento($tratamiento_input);
-        // if($request->has('droga')){
-        //     $medicacion_input=$request->only(['droga','dosis','frecuencia']);
-        //     $medicacion=new Medicacion($medicacion_input);
-        //     $tratamiento->save();
-        //     $tratamiento->medicaciones()->save($medicacion);
-        //     $medicacion->save();
-        // }
-        // if($request->has('nombreInstitucion')){
-        //     $institucion=new Institucion;
-        //     $institucion->nombre=$request->nombreInstitucion;
-        //     $institucion->direccion=$request->direccionInstitucion;
-        //     $institucion->email=$request->emailInstitucion;
-        //     $tratamiento->save();
-        //     $tratamiento->institucion()->save($institucion);
+        $tratamiento_input=$request->only(['tipo','inicio','fin','estado','causaDeFin']);
+        $tratamiento=new Tratamiento($tratamiento_input);
+        if($request->has('droga') && isset($request->droga)){
+            $medicacion_input=$request->only(['droga','dosis','frecuencia']);
+            $medicacion=new Medicacion($medicacion_input);
+            $tratamiento->save();
+            $tratamiento->medicaciones()->save($medicacion);
+            $medicacion->save();
+        }
+        if($request->has('nombreInstitucion') && isset($request->nombreInstitucion)){
+            $institucion=new Institucion;
+            $institucion->nombre=$request->nombreInstitucion;
+            $institucion->direccion=$request->direccionInstitucion;
+            $institucion->email=$request->emailInstitucion;
+            $tratamiento->save();
+            $tratamiento->institucion()->save($institucion);
 
-        //     $institucion->save();
-        // }
-        // if($request->has('nombre')){
-        //     $profesional=new Profesional;
-        //     $profesional->nombre=$request->nombre;
-        //     $profesional->apellido=$request->apellido;
-        //     $profesional->especialidad=$request->especialidadProfesional;
-        //     $profesional->cargo=$request->cargoProfesional;
-        //     $profesional->save();
-        //     $tratamiento->profesional()->associate($profesional);
-        //     $tratamiento->save();
-        // }
+            $institucion->save();
+        }
+        if($request->has('nombre') && isset($request->nombre)){
+            $profesional=new Profesional;
+            $profesional->nombre=$request->nombre;
+            $profesional->apellido=$request->apellido;
+            $profesional->especialidad=$request->especialidadProfesional;
+            $profesional->cargo=$request->cargoProfesional;
+            $profesional->save();
+            $tratamiento->profesional()->associate($profesional);
+            $tratamiento->save();
+        }
 
-        // Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        // FichaSaludMental::where('asistido_id',$asistido_id)
-        // ->update(['checkTratamiento'=>1]);
-        // $fichaMedica->tratamientos()->save($tratamiento);
-        // $tratamiento->save();
+        Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkTratamiento'=>1]);
+        $fichaMedica->tratamientos()->save($tratamiento);
+        $tratamiento->save();
 
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyTratamiento(Request $request){
         
-        // $tratamiento_id=$request->input('id');
-        // $asistido_id=$request->input('asistidoid');
-        // $tratamiento=Tratamiento::find($tratamiento_id);
-        // if(isset($tratamiento->medicaciones)){
-        //     $medicacion=$tratamiento->medicaciones;
-        //     $medicacion->delete();
-        // }
-        // if(isset($tratamiento->institucion)){
-        //     $institucion=$tratamiento->institucion;
-        //     $institucion->delete();
-        // }
+        $tratamiento_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $tratamiento=Tratamiento::find($tratamiento_id);
+        if(isset($tratamiento->medicaciones)){
+            $medicacion=$tratamiento->medicaciones;
+            $medicacion->delete();
+        }
+        if(isset($tratamiento->institucion)){
+            $institucion=$tratamiento->institucion;
+            $institucion->delete();
+        }
 
-        // $tratamiento->delete();
+        $tratamiento->delete();
 
-        // if(isset($tratamiento->profesional)){
-        //     $profesional=$tratamiento->profesional;
-        //     $profesional->delete();
-        // }
+        if(isset($tratamiento->profesional)){
+            $profesional=$tratamiento->profesional;
+            $profesional->delete();
+        }
         
 
 
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
 

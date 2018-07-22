@@ -146,14 +146,14 @@ class FichaSaludMentalController extends Controller
     public function storeTratamiento(Request $request,$asistido_id){
         $tratamiento_input=$request->only(['tipo','inicio','fin','estado','causaDeFin']);
         $tratamiento=new Tratamiento($tratamiento_input);
-        if($request->has('droga')){
+        if($request->has('droga') && isset($request->droga)){
             $medicacion_input=$request->only(['droga','dosis','frecuencia']);
             $medicacion=new Medicacion($medicacion_input);
             $tratamiento->save();
             $tratamiento->medicaciones()->save($medicacion);
             $medicacion->save();
         }
-        if($request->has('nombreInstitucion')){
+        if($request->has('nombreInstitucion') && isset($request->nombreInstitucion)){
             $institucion=new Institucion;
             $institucion->nombre=$request->nombreInstitucion;
             $institucion->direccion=$request->direccionInstitucion;
@@ -163,7 +163,7 @@ class FichaSaludMentalController extends Controller
 
             $institucion->save();
         }
-        if($request->has('nombre')){
+        if($request->has('nombre') && isset($request->nombre)){
             $profesional=new Profesional;
             $profesional->nombre=$request->nombre;
             $profesional->apellido=$request->apellido;
