@@ -256,7 +256,7 @@ class FichaMedicaController extends Controller
             $medicacion->save();
         }
         
-        Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['checkMedicacion'=>1]);
@@ -310,7 +310,7 @@ class FichaMedicaController extends Controller
             $tratamiento->save();
         }
 
-        Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['checkTratamiento'=>1]);
@@ -347,91 +347,50 @@ class FichaMedicaController extends Controller
     }
 
 
-    public function storeEpisodioAgresivo(Request $request, $asistido_id){
-        // $episodioAgresivo=new EpisodioAgresivo($request->all());
-        // Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        // FichaSaludMental::where('asistido_id',$asistido_id)
-        // ->update(['checkAgresiones'=>1]);
-        // $fichaMedica->episodiosAgresivos()->save($episodioAgresivo);
-        // $episodioAgresivo->save();
+    public function storeIntervencion(Request $request, $asistido_id){
 
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);     
-    } 
+        $intervencion_input=$request->only(['diagnostico','tipoOperacion','fecha','tratamientoIndicado','medicacion']);
+        $intervencion=new Intervencion($intervencion_input);
+        FichaMedica::where('asistido_id',$asistido_id)
+        ->update(['checkIntervencion'=>1]);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        var_dump($fichaMedica);
+        $intervencion->fichaMedica()->associate($fichaMedica);
 
-    public function destroyEpisodioAgresivo(Request $request){
+        if($request->has('institucion') && isset($request->institucion)){
 
-        // $episodioAgresivo_id=$request->input('id');
-        // $asistido_id=$request->input('asistidoid');
-        // $episodioAgresivo=EpisodioAgresivo::find($episodioAgresivo_id);
-        // $episodioAgresivo->delete();
-        // return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+            $institucion=Institucion::create(['nombre'=>$request->institucion]);
+            $institucion->save();
+            $institucion->intervenciones()->save($intervencion);
+        }
+        if($request->has('medico') && isset($request->medico)){
+            $profesional=Profesional::create(['nombre'=>$request->medico]);
+            $profesional->save();
+            $profesional->intervenciones()->save($intervencion);
+        }
+        Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
+        
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
-    
-    
+    public function destroyIntervencion(Request $request){
 
-    public function storeConsideraciones(Request $request,$asistido_id){
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        // Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
-        // $estadoMental=$request->input('estadoMental');
+        $intervencion_id=$request->input('id');
+        $asistido_id=$request->input('asistidoid');
+        $intervencion=Intervencion::find($intervencion_id);
+        $institucion=$intervencion->institucion;
+        $profesional=$intervencion->profesional;
+        $intervencion->delete();
 
-        // $ansiedad=$request->input('ansiedad');
-        // if($ansiedad=='on'){
-        //     $ansiedadValue=1;
-        // }else{
-        //     $ansiedadValue=0;
-        // }
-        // $depresivo=$request->input('depresivo');
-        // if($depresivo=='on'){
-        //     $depresivoValue=1;
-        // }else{
-        //     $depresivoValue=0;
-        // }
-        // $delirios=$request->input('delirios');
-        // if($delirios=='on'){
-        //     $deliriosValue=1;
-        // }else{
-        //     $deliriosValue=0;
-        // }
-        // $trastornoCognitivo=$request->input('trastornoCognitivo');
-        // if($trastornoCognitivo=='on'){
-        //     $trastornoCognitivoValue=1;
-        // }else{
-        //     $trastornoCognitivoValue=0;
-        // }
-        // $requiereDerivacion=$request->input('checkDerivacion');
-        // if($requiereDerivacion=='on'){
-        //     $requiereDerivacionValue=1;
-        // }else{
-        //     $requiereDerivacionValue=0;
-        // }
-        // $requiereInternacion=$request->input('checkInternacion');
-        // if($requiereInternacion=='on'){
-        //     $requiereInternacionValue=1;
-        // }else{
-        //     $requiereInternacionValue=0;
-        // }
-        // if($request->has('nombreInstitucion2')){
-        //     $institucion=Institucion::updateOrCreate(
-        //         ['nombre'=>$request->nombreInstitucion2,
-        //         'direccion'=>$request->direccionInstitucion2,
-        //         'email'=>$request->emailInstitucion2,
-        //         'telefono'=>$request->telefonoInstitucion2]);
-        //     $institucion->save();
-        //     $fichaMedica->institucion()->save($institucion);
-            
-        // }
-        // FichaSaludMental::where('asistido_id',$asistido_id)
-        // ->update(['estadoMental'=>$estadoMental,
-        // 'ansiedad'=>$ansiedadValue,
-        // 'depresivo'=>$depresivoValue,
-        // 'orientado'=>$deliriosValue,
-        // 'trastornoCognitivo'=>$trastornoCognitivoValue,
-        // 'checkDerivacion'=>$requiereDerivacionValue,
-        // 'checkInternacion'=>$requiereInternacionValue]);
-        // return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        if(isset($institucion)){
+            $institucion->delete();
+        }
 
+        if(isset($profesional)){
+            $profesional->delete();
+        }
+        
+        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
     public function findFichaMedicaByAsistidoId($asistido_id){

@@ -24,7 +24,8 @@ class FichaMedica extends Model
         'observacionDiscapacidad',
         'profesional_id',
         'fichaMedica_id',
-        'sintoma_id'
+        'sintoma_id',
+        ''
     ];
 
     public function asistido(){
@@ -52,7 +53,7 @@ class FichaMedica extends Model
 		return $this->hasMany('App\ConsultaMedica','fichaMedica_id');
 	}
 	public function intervenciones(){
-		return $this->hasMany('App\Intervencion');	
+		return $this->hasMany('App\Intervencion','fichaMedica_id');	
 	}
     public function evaluacionDiagnostica(){
 		return $this->hasOne('App\EvaluacionDiagnostica','fichaMedica_id');
