@@ -22,6 +22,9 @@ class FichaDatosPersonales extends Ficha
         'nombreContacto',
         'telefonoContacto',
         'mailContacto',
+        'sexo_id',
+        'estadoDocumento_id',
+        'estadoCivil_id',
     ];
 
     public function asistido(){
@@ -31,10 +34,10 @@ class FichaDatosPersonales extends Ficha
         return $this->belongsTo('App\Sexo');
     }
     public function estadoCivil(){
-        return $this->belongsTo('App\EstadoCivil');    
+        return $this->belongsTo('App\EstadoCivil','estadoCivil_id');    
     }
     public function estadoDocumento(){
-        return $this->belongsTo('App\EstadoDocumento');
+        return $this->belongsTo('App\EstadoDocumento','estadoDocumento_id');
     }
     public function tipoDocumento(){
         return $this->belongsTo('App\TipoDocumento');

@@ -65,7 +65,7 @@ class ConsultaController extends Controller
         ]);
 
         $asistido_id = $request->asistido_id;
-
+        //$url = '/asistido/show2/'.$asistido_id;
         switch ($request->tipo) {
 
             case 'fichasDatosPersonales':
@@ -126,10 +126,11 @@ class ConsultaController extends Controller
             $path = $request->file('adjunto')->store('consultas');
             $consulta->adjunto = $path;
         }
-
+        //$usuarioNotif = Asistido::find($asistido_id)->owner();
+        //$usuarioNotif->notify(new NuevaConslta($consulta));
         $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
-
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     /**

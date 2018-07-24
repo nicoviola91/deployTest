@@ -96,6 +96,10 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@createFromAlert',
         'as'=>'asistido.newFromAlert'
     ]);
+    Route::get('/new',[
+        'uses'=>'AsistidoController@create',
+        'as'=>'asistidos.nuevo'
+    ]);
     Route::post('/store/{alerta_id}',[
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',

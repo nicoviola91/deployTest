@@ -28,6 +28,56 @@
                       <input class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido" type="text" maxlength="250" value="{{isset($fichaDatosPersonales->apellido) ? $fichaDatosPersonales->apellido : (isset($asistido->apellido) ? $asistido->apellido: '')}}">
                     </div>
                     
+                    <!-- inicio nico intentando hacecr algo util -->
+                    <div class="form-group col-md-6">
+                        {!! Form::Label('sexo_id', 'Sexo') !!}
+                        @if (isset($fichaDatosPersonales->sexo_id))
+                            <select class="form-control" name="sexo_id" id="sexo_id">
+                                @foreach($sexos as $sexo)
+                                    <option value="{{$fichaDatosPersonales->sexo_id}}">{{$fichaDatosPersonales->sexo->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <select class="form-control" name="sexo_id" id="sexo_id">
+                                @foreach($sexos as $sexo)
+                                    <option value="{{$sexo->id}}">{{$sexo->descripcion}}</option>
+                                @endforeach
+                            </select>    
+                        @endif
+                    </div>
+                    <div class="form-group col-md-6">
+                        {!! Form::Label('estadoCivil_id', 'Estado Civil') !!}
+                        @if (isset($fichaDatosPersonales->estadoCivil_id))
+                            <select class="form-control" name="estadoCivil_id" id="estadoCivil_id">
+                                @foreach($estadosCiviles as $estadoCivil)
+                                    <option value="{{$fichaDatosPersonales->estadoCivil_id}}">{{$fichaDatosPersonales->estadoCivil->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <select class="form-control" name="estadoCivil_id" id="estadoCivil_id">
+                                @foreach($estadosCiviles as $estadoCivil)
+                                    <option value="{{$estadoCivil->id}}">{{$estadoCivil->descripcion}}</option>
+                                @endforeach
+                            </select>    
+                        @endif
+                    </div>
+                    <div class="form-group col-md-6">
+                        {!! Form::Label('estadoDocumento_id', 'Estado Documento') !!}
+                        @if (isset($fichaDatosPersonales->estadoDocumento_id))
+                            <select class="form-control" name="estadoDocumento_id" id="estadoDocumento_id">
+                                @foreach($estadosDocumento as $estadoDocumento)
+                                    <option value="{{$fichaDatosPersonales->estadoDocumento_id}}">{{$fichaDatosPersonales->estadoDocumento->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <select class="form-control" name="estadoDocumento_id" id="estadoDocumento_id">
+                                @foreach($estadosDocumento as $estadoDocumento)
+                                    <option value="{{$estadoDocumento->id}}">{{$estadoDocumento->descripcion}}</option>
+                                @endforeach
+                            </select>    
+                        @endif
+                    </div>
+                    <!-- Fin nico intentando hacer algo util -->
                     <div class="form-group col-md-6">
                         <label for="numeroDocumento">Numero de documento <small class="text-muted">(sin guiones ni puntos)</small> </label>
                         <input class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese numero de documento" type="text" maxlength="9" pattern="[0-9]*$" maxlength="250" value="{{isset($fichaDatosPersonales->numeroDocumento) ? $fichaDatosPersonales->numeroDocumento : (isset($asistido->dni) ? $asistido->dni: '')}}">
