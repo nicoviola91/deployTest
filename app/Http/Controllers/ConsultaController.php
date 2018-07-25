@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Consulta;
 use App\Asistido;
-
+use App\User;
+use App\Notifications\NuevaConsulta;
 use App\FichaDatosPersonales;
 use App\FichaAdiccion;
 use App\FichaAsistenciaSocial;
@@ -126,8 +127,9 @@ class ConsultaController extends Controller
             $path = $request->file('adjunto')->store('consultas');
             $consulta->adjunto = $path;
         }
-        //$usuarioNotif = Asistido::find($asistido_id)->owner();
-        //$usuarioNotif->notify(new NuevaConslta($consulta));
+        $asistido_notif = Asistido::where('id',$asistido_id)->get()->first();
+        $usuarioNotif = User::where('id',$asistido_notif->owner)->get()->first();
+        $usuarioNotif->notify(new NuevaConsulta($consulta, $asistido_notif));
         $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
         return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);

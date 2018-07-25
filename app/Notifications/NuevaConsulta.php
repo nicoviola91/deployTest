@@ -6,21 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use App\User;
+use App\Asistido;
 use App\Consulta;
 
 class NuevaConsulta extends Notification
 {
     use Queueable;
     private $consulta;
+    private $asistido;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Consulta $consulta)
+    public function __construct(Consulta $consulta, Asistido $asistido)
     {
         $this->consulta=$consulta;
+        $this->asistido=$asistido;
     }
 
     /**
@@ -42,10 +45,15 @@ class NuevaConsulta extends Notification
      */
     public function toMail($notifiable)
     {
+        $asistido_id = $this->asistido->id;
+        $persona = User::where('id',$this->consulta->user_id)->get()->first();
+        $nombre_ficha = $this->consulta->consultable_type;
         return (new MailMessage)
-                    ->line('Se ha hecho una nueva consulta sobre tu asistido')
-                    ->action('Ver Consulta', url('/'))
-                    ->line('Gracias por usar la aplicación!');
+                    ->line($persona->name.' ha hecho una nueva consulta en la ficha '.$nombre_ficha.' de tu asistido')
+                    ->line('Consulta:'.$this->consulta->mensaje)
+                    ->action('Ir al asistido', url('/asistido/show2/'.$asistido_id))
+                    ->line('Gracias por usar nuestra aplicación!')
+                    ->salutation('LumenCor - Red de Posaderos');
     }
 
     /**
