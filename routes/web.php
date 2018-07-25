@@ -25,13 +25,17 @@ Route::get('/ficha', function () {
 Route::get('/download/{path}/{file}', 'DownloadsController@download');
 
 //USERS
+//TODO COMO FILTRAMOS CON MIDDLEWARE ESTAS RUTAS?
+
 Route::get('/user/create','UserController@create');
 Route::get('/user/list','UserController@showAll');
 Route::get('/user/profile','UserController@profile');
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
-Route::group(['prefix'=>'alert'],function(){
+//TODO esto deberia poder verse siendo usuario Samaritano, pero no se ve. Ver si
+//TODO el orden esta afectando
+Route::group(['prefix'=>'alert','middleware'=>['generarAlertas','admin']],function(){
     Route::get('/new',function(){
         return view('alertas.nueva');
     });
@@ -91,7 +95,7 @@ Route::group(['prefix'=>'comunidad'],function(){
 });
 
 //ASISTIDOS
-Route::group(['prefix'=>'asistido'],function(){
+Route::group(['prefix'=>'asistido','middleware'=>'admin'],function(){
     Route::get('/newFromAlert/{id}',[
         'uses'=>'AsistidoController@createFromAlert',
         'as'=>'asistido.newFromAlert'
@@ -119,7 +123,7 @@ Route::group(['prefix'=>'asistido'],function(){
 });
 
 //CONSULTAS/INTERACCIONES
-Route::group(['prefix'=>'consultas'],function(){
+Route::group(['prefix'=>'consultas','middleware'=>'admin'],function(){
     Route::post('/store',[
         'uses'=>'ConsultaController@store',
         'as'=>'consultas.store'
@@ -132,7 +136,7 @@ Route::group(['prefix'=>'consultas'],function(){
 
 
 //FICHA DATOS PERSONALES
-Route::group(['prefix'=>'fichaDatosPersonales'],function(){
+Route::group(['prefix'=>'fichaDatosPersonales','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaDatosPersonalesController@create',
         'as'=>'fichaDatosPersonales.create',
@@ -148,7 +152,7 @@ Route::group(['prefix'=>'fichaDatosPersonales'],function(){
 });
 
 //FICHA ADICCIONES
-Route::group(['prefix'=>'fichaAdicciones'],function(){
+Route::group(['prefix'=>'fichaAdicciones','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
@@ -188,7 +192,7 @@ Route::group(['prefix'=>'fichaAdicciones'],function(){
 });
 
 //FICHA FAMILIA Y AMIGOS
-Route::group(['prefix'=>'fichaFamiliaAmigos'],function(){
+Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaFamiliaAmigosController@create',
         'as'=>'fichaFamiliaAmigos.create',
@@ -204,7 +208,7 @@ Route::group(['prefix'=>'fichaFamiliaAmigos'],function(){
 });
 
 //FICHA EDUCACION
-Route::group(['prefix'=>'fichaEducacion'],function(){
+Route::group(['prefix'=>'fichaEducacion','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaEducacionController@create',
         'as'=>'fichaEducacion.create',
@@ -224,7 +228,7 @@ Route::group(['prefix'=>'fichaEducacion'],function(){
 });
 
 //FICHA LOCALIZACION
-Route::group(['prefix'=>'FichaLocalizacion'],function(){
+Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaLocalizacionController@create',
         'as'=>'FichaLocalizacion.create',
@@ -240,7 +244,7 @@ Route::group(['prefix'=>'FichaLocalizacion'],function(){
 });
 
 //FICHA EMPLEO
-Route::group(['prefix'=>'fichaEmpleo'],function(){
+Route::group(['prefix'=>'fichaEmpleo','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaEmpleoController@create',
         'as'=>'fichaEmpleo.create',
@@ -264,7 +268,7 @@ Route::group(['prefix'=>'fichaEmpleo'],function(){
 });
 
 //FICHA LEGAL
-Route::group(['prefix'=>'fichaLegal'],function(){
+Route::group(['prefix'=>'fichaLegal','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaLegalController@create',
         'as'=>'fichaLegal.create',
@@ -284,7 +288,7 @@ Route::group(['prefix'=>'fichaLegal'],function(){
 });
 
 //FICHA NECESIDADES
-Route::group(['prefix'=>'fichaNecesidades'],function(){
+Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaNecesidadesController@create',
         'as'=>'fichaNecesidades.create',
@@ -300,7 +304,7 @@ Route::group(['prefix'=>'fichaNecesidades'],function(){
 });
 
 //FICHA ASISTENCIA SOCIAL
-Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
+Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaAsistenciaSocialController@create',
         'as'=>'fichaAsistenciaSocial.create',
@@ -318,7 +322,7 @@ Route::group(['prefix'=>'fichaAsistenciaSocial'],function(){
 
 
 //FICHA DIAGNOSTICO INTEGRAL
-Route::group(['prefix'=>'fichaDiagnosticoIntegral'],function(){
+Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaDiagnosticoIntegralController@create',
         'as'=>'fichaDiagnosticoIntegral.create',
@@ -339,7 +343,7 @@ Route::group(['prefix'=>'fichaDiagnosticoIntegral'],function(){
 
 
 //FICHA SALUD MENTAL
-Route::group(['prefix'=>'fichaSaludMental'],function(){
+Route::group(['prefix'=>'fichaSaludMental','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaSaludMentalController@create',
         'as'=>'fichaSaludMental.create',
@@ -388,7 +392,7 @@ Route::group(['prefix'=>'fichaSaludMental'],function(){
 
 
 //FICHA MEDICA
-Route::group(['prefix'=>'fichaMedica'],function(){
+Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaMedicaController@create',
         'as'=>'fichaMedica.create',
