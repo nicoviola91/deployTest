@@ -41,43 +41,43 @@
             <div class="box-body ">
                 
                 @if(($asistido->checkFichaLegal)==1)
-                
-                @foreach($antecedentes as $antecedente)
-                    <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$antecedente->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Antecedente">
-                    
-                        <i class="fa fa-trash"></i>
-                    </a>
-                    </div>
-                    <dl class="dl-horizontal preventoverflow" >
-                    @if(isset($antecedente->ramaDerecho->descripcion))
-                    <dt>Tipo</dt>
-                    <dd>{{$antecedente->ramaDerecho->descripcion}}</dd>
-                    @endif
-                    @if(isset($antecedente->resumen))
-                    <dt>Resumen</dt>
-                    <dd>{{$antecedente->resumen}}</dd>
-                    @endif
-                    @if(isset($antecedente->radicacion))
-                    <dt>Radicación</dt>
-                    <dd>{{$antecedente->radicacion}}</dd>
-                    @endif
-                    @if(isset($antecedente->profesional))
-                    <dt>Profesional a cargo</dt>
-                    <dd>{{$antecedente->profesional}}</dd>
-                    @endif
-                    @if(isset($antecedente->estadoTramite))
-                    <dt>Estado del trámite</dt>
-                    <dd>{{$antecedente->estadoTramite}}</dd>
-                    @endif
-                    @if(isset($antecedente->recomendacionPosadero))
-                    <dt>Recomendación Posadero</dt>
-                    <dd>{{$antecedente->recomendacionPosadero}}</dd>
-                    @endif
-                    
 
-                    </dl>
-                @endforeach
+                    @if(isset($antecedentes) && count($antecedentes))
+                        @foreach($antecedentes as $antecedente)
+                            <div class="box-tools pull-right">
+                            <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$antecedente->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Antecedente">
+                            
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            </div>
+                            <dl class="dl-horizontal preventoverflow" >
+                                @if(isset($antecedente->ramaDerecho->descripcion))
+                                <dt>Tipo</dt>
+                                <dd>{{$antecedente->ramaDerecho->descripcion}}</dd>
+                                @endif
+                                @if(isset($antecedente->resumen))
+                                <dt>Resumen</dt>
+                                <dd>{{$antecedente->resumen}}</dd>
+                                @endif
+                                @if(isset($antecedente->radicacion))
+                                <dt>Radicación</dt>
+                                <dd>{{$antecedente->radicacion}}</dd>
+                                @endif
+                                @if(isset($antecedente->profesional))
+                                <dt>Profesional a cargo</dt>
+                                <dd>{{$antecedente->profesional}}</dd>
+                                @endif
+                                @if(isset($antecedente->estadoTramite))
+                                <dt>Estado del trámite</dt>
+                                <dd>{{$antecedente->estadoTramite}}</dd>
+                                @endif
+                                @if(isset($antecedente->recomendacionPosadero))
+                                <dt>Recomendación Posadero</dt>
+                                <dd>{{$antecedente->recomendacionPosadero}}</dd>
+                                @endif
+                            </dl>
+                        @endforeach
+                    @endif
                 @endif 
 
                 <a href="#" data-toggle="modal" data-target="#modal-antecedentes"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>

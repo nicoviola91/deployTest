@@ -37,13 +37,14 @@ class FichaAsistenciaSocialController extends Controller
         
             $servicios=ServicioSocial::where('fichaAsistenciaSocial_id',$fichaAsistenciaSocial->id)->get();
         
-            $view = view('altaFichas.fichaAsistenciaSocial')
+            $view = view('altaFichas.fichaAsistenciaSocial2')
                 ->with('asistido',$asistido)
                 ->with('servicios',$servicios)
                 ->render();
+        } else {
+            
+            $view = view('altaFichas.fichaAsistenciaSocial2')->with('asistido',$asistido)->render();
         }
-
-        $view = view('altaFichas.fichaAsistenciaSocial')->with('asistido',$asistido)->render();
 
         return response()->json([
             'status' => true,
@@ -83,6 +84,8 @@ class FichaAsistenciaSocialController extends Controller
         if(!isset($fichaAsistenciaSocial)){
             $fichaAsistenciaSocial=new FichaAsistenciaSocial();
             $asistido->ficha()->save($fichaAsistenciaSocial);
+            $asistido->update(['checkFichaAsistenciaSocial' =>1]);
+
         }
         return $fichaAsistenciaSocial;
     }

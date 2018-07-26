@@ -309,6 +309,10 @@ Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(
         'uses'=>'FichaAsistenciaSocialController@create',
         'as'=>'fichaAsistenciaSocial.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaAsistenciaSocialController@get',
+        'as'=>'fichaAsistenciaSocial.get',
+    ]);
     Route::post('/storeServicio/{id}',[
         'uses'=>'FichaAsistenciaSocialController@storeServicio',
         'as'=>'fichaAsistenciaSocial.storeServicio',
