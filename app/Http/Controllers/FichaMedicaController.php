@@ -65,37 +65,48 @@ class FichaMedicaController extends Controller
 
     public function get($asistido_id){
 
-        // $asistido=Asistido::find($asistido_id);
+        $asistido=Asistido::find($asistido_id);
 
-        // $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
         
-        // //En este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
-        // if(isset($fichaMedica)){
+        //En este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
+        if(isset($fichaMedica)){
+            //para traer de la relacion many to many los relacionados con esta ficha medica
+            $sintomasDelAsistido=FichaMedica::find($fichaMedica->id)->sintomas;
+            $consultasMedicas=ConsultaMedica::where('fichaMedica_id',$fichaMedica->id)->get();
+            $profesionales=$fichaMedica->profesional()->get(); 
+            $enfermedadesDelAsistido=$fichaMedica->enfermedades->all();
+            $tratamientos=Tratamiento::where('fichaMedica_id',$fichaMedica->id)->get();
+            $medicaciones=Medicacion::where('fichaMedica_id',$fichaMedica->id)->get();
+            $intervenciones=Intervencion::where('fichaMedica_id',$fichaMedica->id)->get();
+            $afeccionesGenericas=Afeccion::all();
             
-        //     $adicciones=Adiccion::where('fichaMedica_id',$fichaMedica->id)->get();
-        //     $episodiosAgresivos=EpisodioAgresivo::where('fichaMedica_id',$fichaMedica->id)->get();
-        //     $tratamientos=Tratamiento::where('fichaMedica_id',$fichaMedica->id)->get();
-        //     $patologias=Patologia::where('fichaMedica_id',$fichaMedica->id)->get();
-        //     $medicaciones=Medicacion::where('fichaMedica_id',$fichaMedica->id)->get();
-
-        //     $view = view('altaFichas.fichaMedica')
-        //     ->with('asistido',$asistido)
-        //         ->with('patologias',$patologias)
-        //         ->with('episodiosAgresivos',$episodiosAgresivos)
-        //         ->with('fichaMedica',$fichaMedica)
-        //         ->with('medicaciones',$medicaciones)
-        //         ->with('tratamientos',$tratamientos)
-        //     ->render();
-        // } else {
-        //     $view = view('altaFichas.fichaMedica')->with('asistido',$asistido)->render();
-        // }
+            
+            return view('altaFichas.fichaMedica')
+                ->with('asistido',$asistido)
+                ->with('sintomasGenericos',$sintomasGenericos)
+                ->with('sintomasDelAsistido',$sintomasDelAsistido)
+                ->with('profesionales',$profesionales)
+                ->with('fichaMedica',$fichaMedica)
+                ->with('medicaciones',$medicaciones)
+                ->with('tratamientos',$tratamientos)
+                ->with('intervenciones',$intervenciones)
+                ->with('consultasMedicas',$consultasMedicas)
+                ->with('enfermedadesGenericas',$enfermedadesGenericas)
+                ->with('enfermedadesDelAsistido',$enfermedadesDelAsistido)
+                ->with('afecciones',$afecciones)
+                ->render();
+        } else {
+            $view = view('altaFichas.fichaMedica')->with('asistido',$asistido)->render();
+        }
         
-        // return response()->json([
-        //     'status' => true,
-        //     'view' => $view,
-        // ]);
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
 
     }
+
 
     public function storeSintoma(Request $request,$asistido_id){
 
