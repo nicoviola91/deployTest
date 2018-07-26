@@ -92,6 +92,8 @@ class FichaLegalController extends Controller
             $fichaLegal=new FichaLegal();
             $fichaLegal->createdBy=Auth::user()->id;
             $asistido->ficha()->save($fichaLegal);
+            $fichaLegal->checkFichaLegal=1;
+            $fichaLegal->save();
         }
         return $fichaLegal;
     }
