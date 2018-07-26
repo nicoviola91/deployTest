@@ -65,20 +65,22 @@
 
                     <h4>Síntomas visibles</h4>
                   @if(isset($fichaMedica))
-                    @if (isset($fichaMedica->sintomasDelAsistido)) 
+                  
+                    @if(isset($fichaMedica->checkSintomas)) 
                     
-                      @foreach($fichaMedica->sintomasDelAsistido as $sintoma)
+                      @foreach($sintomasDelAsistido as $sintoma)
                         <div class="box-tools pull-right">    
                           <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Síntoma">
                           <i class="fa fa-trash"></i></a>
                         </div>
-                        <dl class="dl-horizontal preventoverflow" >
-                        @if(isset($sintoma->nombre))
-                          <dt>Síntoma</dt>
-                          <dd>{{$sintoma->nombre}}</dd>
-                        @endif
-                        </dl>
+                        <ul class="dl-horizontal preventoverflow" >
+                            @if(isset($sintoma->nombre))
+                            <li>{{$sintoma->nombre}}</li>
+                            @endif
+                        </ul>
+
                       @endforeach
+                    
                     @endif
                   @endif
                         
@@ -196,7 +198,7 @@
                                 <div class="box-body">
                                 <div class="form-group {{ $errors->has('fecha') ? ' has-error' : '' }}">
                                     <label for="fecha">Fecha</label>
-                                    <input type="date" class="form-control" id="fecha" name="fecha" >
+                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
                                     @if ($errors->has('fecha'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fecha') }}</strong>
@@ -286,11 +288,11 @@
                         <h4>Médico de cabecera</h4>
                  
                         @if(isset($fichaMedica))
-                            @if (isset($fichaMedica->profesional)) 
+                            @if (isset($fichaMedica->checkMedicoDeCabecera)) 
                             
-                            @foreach($fichaMedica->profesional as $profesional)
+                            @foreach($profesionales as $profesional)
                                 <div class="box-tools pull-right">    
-                                <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Profesional">
+                                <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$profesional->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Profesional">
                                 <i class="fa fa-trash"></i></a>
                                 </div>
                                 <dl class="dl-horizontal preventoverflow" >
@@ -307,11 +309,13 @@
                                     <dd>{{$profesional->especialidad}}</dd>
                                     @endif
                                 </dl>
+                            </div>
                             @endforeach
                             @endif
                         @endif
-                                
-                        <a href="#" data-toggle="modal" data-target="#modal-agregar3"><i align="left" class="fa fa-plus"></i>Agregar Médico de cabecera</a>
+                        @if($fichaMedica->checkMedicoDeCabecera==0)
+                        <a href="#" data-toggle="modal" data-target="#modal-agregar3"}}><i align="left" class="fa fa-plus"></i>Agregar Médico de cabecera</a>
+                        @endif
                         <div class="modal fade" id="modal-agregar3">
                             <div class="modal-dialog">
                             <div class="modal-content">
@@ -389,10 +393,30 @@
 
                         <form id="estadoGeneral-form" method="POST" action="{{ route('fichaMedica.storeEstadoGeneral',['asistido_id'=>$asistido->id]) }}" >
                                 {{ csrf_field() }}
-            
+
+                        <div class="form-group  {{ $errors->has('altura') ? ' has-error' : '' }}">
+                            <label for="altura">Altura</label>
+                        <input type="number" min=0 max=999 class="form-control" id="altura" placeholder="Ingrese altura en centímetros" name="altura" maxlength="250" value={{isset($fichaMedica->altura) ? ($fichaMedica->altura) : '' }}>
+                            @if ($errors->has('altura'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('altura') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group  {{ $errors->has('peso') ? ' has-error' : '' }}">
+                            <label for="peso">Peso</label>
+                        <input type="number" min=0 step="0.01" max=999 class="form-control" id="peso" placeholder="Ingrese peso en kilogramos. Para especificar decimales utilice una coma" name="peso" maxlength="250" value={{isset($fichaMedica->peso) ? ($fichaMedica->peso) : '' }}>
+                            @if ($errors->has('peso'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('peso') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+    
 
                         <div class="form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->alergicoA) && ($fichaMedica->alergicoA==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->checkAlergico) && ($fichaMedica->checkAlergico==1) ? 'checked':''}}>
                             @if ($errors->has('checkAlergico'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkAlergico') }}</strong>
@@ -413,7 +437,7 @@
 
 
                         <div class="form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" {{isset($fichaMedica->obraSocial) && ($fichaMedica->obraSocial==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" {{isset($fichaMedica->checkObraSocial) && ($fichaMedica->checkObraSocial==1) ? 'checked':''}}>
                             @if ($errors->has('checkObraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkObraSocial') }}</strong>
@@ -442,7 +466,7 @@
                             @endif
                         </div>
 
-                    <div align="right">
+                    <div align="center">
                         <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
                     </div>  
                     </form> 
@@ -480,9 +504,9 @@
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <dl class="dl-horizontal preventoverflow" >
-                        @if(isset($enfermedad->afeccion))
+                        @if(isset($enfermedad->afeccion->tipo))
                           <dt>Tipo</dt>
-                          <dd>{{$enfermedad->afeccion}}</dd>
+                          <dd>{{$enfermedad->afeccion->tipo}}</dd>
                         @endif
                         @if(isset($enfermedad->descripcion))
                           <dt>Descripción</dt>
@@ -585,7 +609,7 @@
                     @if (isset($fichaMedica->checkTratamiento))
                     @foreach($tratamientos as $tratamiento)
                         <div class="box-tools pull-right">
-                        <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
+                        <a href="#"  data-target="#delete5" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
                             <i class="fa fa-trash"></i>
                         </a>
                         </div>
@@ -738,7 +762,7 @@
                                 <strong>{{ $errors->first('medicacionEnTratamiento') }}</strong>
                             </span>
                             @endif
-                            <label for="checkDerivacion">El tratamiento incluye medicación</label>
+                            <label for="medicacionEnTratamiento">El tratamiento incluye medicación</label>
                         </div>
                         <div class="mostrarMedicacion">
                         
@@ -870,7 +894,7 @@
             </div>
             </div>  
 
-            <div class="modal modal-danger fade" id="delete4" style="display: none;">
+            <div class="modal modal-danger fade" id="delete5" style="display: none;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -914,7 +938,7 @@
                   @if (isset($fichaMedica->checkMedicacion))
                   @foreach($medicaciones as $medicacion)
                       <div class="box-tools pull-right">
-                          <a href=""  data-target="#delete5" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
+                          <a href=""  data-target="#delete6" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
                                 <i class="fa fa-trash"></i></a>
                       </div>
                       <dl class="dl-horizontal preventoverflow" >
@@ -976,7 +1000,7 @@
                       <form id="medicaciones-form" method="POST" action="{{ route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id]) }}" >
                           {{ csrf_field() }}
                           <div class="box-body col-md-12">
-                              <span>Solo complete esta Sección si el paciente no posee ninguna patología diagnosticada, caso contrario complete la Sección “Medicación” del Menú: “Tratamiento”
+                              <span>Solo complete esta Sección si el paciente no posee ninguna patología diagnosticada, caso contrario complete la Sección “Medicación” del Menú: “Tratamientos”
                                 </span>
                                 <div class="form-group" >
                                     {!! Form::Label('tipo', 'Tipo') !!}
@@ -1074,7 +1098,7 @@
               </div>
           </div>
 
-          <div class="modal modal-danger fade" id="delete5" style="display: none;">
+          <div class="modal modal-danger fade" id="delete6" style="display: none;">
               <div class="modal-dialog">
                   <div class="modal-content">
                   <div class="modal-header">
@@ -1117,7 +1141,7 @@
                         @if (isset($fichaMedica->checkIntervencion))
                         @foreach($intervenciones as $intervencion)
                             <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete6" class="descartarBtn" data-id="{{$intervencion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Intervención">
+                            <a href="#"  data-target="#delete7" class="descartarBtn" data-id="{{$intervencion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Intervención">
                                 <i class="fa fa-trash"></i>
                             </a>
                             </div>
@@ -1199,7 +1223,7 @@
                                 </div>
                                 <div class="form-group {{ $errors->has('institucion') ? ' has-error' : '' }}">
                                     <label for="institucion">Institución</label>
-                                    <input type="text" class="form-control" id="institucion" placeholder="Institución de salud donde se realizó la intervención" name="institucion" maxlength="250" required>
+                                    <input type="text" class="form-control" id="institucion" placeholder="Institución de salud donde se realizó la intervención" name="institucion" maxlength="250" >
                                     @if ($errors->has('institucion'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('institucion') }}</strong>
@@ -1208,7 +1232,7 @@
                                 </div>
                                 <div class="form-group {{ $errors->has('medico') ? ' has-error' : '' }}">
                                     <label for="medico">Médico</label>
-                                    <input type="text" class="form-control" id="medico" placeholder="Médico responsable de la intervención" name="medico" maxlength="250" required>
+                                    <input type="text" class="form-control" id="medico" placeholder="Médico responsable de la intervención" name="medico" maxlength="250" >
                                     @if ($errors->has('medico'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('medico') }}</strong>
@@ -1254,7 +1278,7 @@
                     </div>
                 </div>
     
-                <div class="modal modal-danger fade" id="delete6" style="display: none;">
+                <div class="modal modal-danger fade" id="delete7" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -1293,13 +1317,14 @@
 <script type="text/javascript">
 
     window.onload=function(){
-        //$('#recetada').val('Indicada bajo receta')
+        $('#recetada').val('Indicada bajo receta')
         //document.getElementById("nombre").required = true
-        // $('.automedicacion').show()
-        // $('.institucionEnTratamiento').show()
-        // $('.mostrarInstitucion').hide()
-        // $('.mostrarMedicacion').hide()
-        // $('.mostrarProfesional').hide()
+        $('.automedicacion').show()
+        $('.institucionEnTratamiento').show()
+        $('.mostrarInstitucion').hide()
+        $('.mostrarMedicacion').hide()
+        $('.mostrarProfesional').hide()
+
    
 
         var esAlergico=document.getElementById("checkAlergico")
@@ -1324,9 +1349,11 @@
 
         if (chkAlergia.checked == true){
             $('.checkAlergico').show()
+            document.getElementById("alergicoA").required = true
             
         }else{
             $('.checkAlergico').hide()   
+            document.getElementById("alergicoA").required = false
         }
     }
 
@@ -1335,13 +1362,26 @@
 
         if (chkObraSocial.checked == true){
             $('.checkObraSocial').show()
+            document.getElementById("obraSocial").required = true
             
         }else{
-            $('.checkObraSocial').hide()   
+            $('.checkObraSocial').hide()  
+            document.getElementById("obraSocial").required = false 
         }
     }
     
-   
+    function checkMedicacionEnTratamiento(){
+        var chkMed = document.getElementById("medicacionEnTratamientoid")
+
+        if (chkMed.checked == true){
+            document.getElementById("droga1").required = true
+            $('.mostrarMedicacion').show()
+        }else{
+            $('.mostrarMedicacion').hide()   
+            document.getElementById("droga1").required = false
+        }
+    }
+
     function checkInstitucionEnTratamiento(){
         var chkInst = document.getElementById("institucionEnTratamientoid")
 
@@ -1431,6 +1471,32 @@
     })
 
     $('#delete4').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+
+    $('#delete5').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+
+    $('#delete6').on('show.bs.modal',function(event){
+        var a = $(event.relatedTarget)
+        var id= a.data('id')
+        var asistidoid= a.data('asistidoid')
+        var modal=$(this)
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #asistidoid').val(asistidoid)
+    })
+    $('#delete7').on('show.bs.modal',function(event){
         var a = $(event.relatedTarget)
         var id= a.data('id')
         var asistidoid= a.data('asistidoid')
