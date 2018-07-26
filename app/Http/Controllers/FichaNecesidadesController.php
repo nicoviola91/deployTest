@@ -32,6 +32,32 @@ class FichaNecesidadesController extends Controller
         return view('altaFichas.fichaNecesidades')->with('asistido',$asistido)->with('tiposNecesidades',$tiposNecesidades);
     }
 
+
+    public function get ($asistido_id){
+        
+        $asistido=Asistido::find($asistido_id);
+        $tiposNecesidades=TipoNecesidad::all(['id','descripcion']);
+        $fichaNecesidad=$this->findFichaNecesidadByAsistidoId($asistido_id);
+        
+        if(isset($fichaNecesidad)){
+
+            $necesidades=Necesidad::where('fichaNecesidad_id',$fichaNecesidad->id)->get();
+            $view = view('altaFichas.fichaNecesidades2')
+                ->with('asistido',$asistido)
+                ->with('tiposNecesidades',$tiposNecesidades)
+                ->with('necesidades',$necesidades)
+                ->render();
+        } else {
+            
+            $view = view('altaFichas.fichaNecesidades2')->with('asistido',$asistido)->with('tiposNecesidades',$tiposNecesidades);
+        }
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
     public function storeNecesidad(Request $request, $asistido_id){
 
         $necesidad=new Necesidad($request->all());
@@ -59,12 +85,16 @@ class FichaNecesidadesController extends Controller
 
 
     public function findFichaNecesidadByAsistidoId($asistido_id){
+        
         $fichaNecesidad=FichaNecesidad::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
+        
         if(!isset($fichaNecesidad)){
             $fichaNecesidad=new FichaNecesidad();
             $asistido->ficha()->save($fichaNecesidad);
+            $asistido->update(['checkFichaNecesidad' =>1]);
         }
+        
         return $fichaNecesidad;
     }
 }

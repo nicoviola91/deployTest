@@ -293,6 +293,10 @@ Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
         'uses'=>'FichaNecesidadesController@create',
         'as'=>'fichaNecesidades.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaNecesidadesController@get',
+        'as'=>'fichaNecesidades.get',
+    ]);
     Route::post('/storeNecesidad/{id}',[
         'uses'=>'FichaNecesidadesController@storeNecesidad',
         'as'=>'fichaNecesidades.storeNecesidad',
