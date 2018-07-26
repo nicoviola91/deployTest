@@ -152,7 +152,7 @@
             </a>
           </li>
 
-          <li class="liTab necesidades" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaNecesidades ? '' : 'style="display:none;"' ?>>
+          <li class="liTab necesidades" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaNecesidad ? '' : 'style="display:none;"' ?>>
             <a href="#tab_necesidades" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Necesidades">
               <i class="icon fa fa-hotel fa-fw"></i> 
               <span style="display: none;"> Necesidades</span>
@@ -229,7 +229,7 @@
                     </a>  
                   <?php endif ?>
                   
-                  <?php if (!$asistido->checkFichaDatosLegales): ?>
+                  <?php if (!$asistido->checkFichaLegal): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="datosLegales" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Legal">
                       <i align="left" class="fa fa-legal"></i> <span class="hidden-xs">Añadir</span> Ficha de Datos Legales
                     </a>  
@@ -253,14 +253,14 @@
                     </a>
                   <?php endif ?>
 
-                  <?php if (!$asistido->checkFichaNecesidades): ?>
-                    <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="fichaNecesidades" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Necesidades">
+                  <?php if (!$asistido->checkFichaNecesidad): ?>
+                    <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="necesidades" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Necesidades">
                       <i align="left" class="fa fa-hotel"></i> <span class="hidden-xs">Añadir</span> Ficha Necesidades
                     </a>  
                   <?php endif ?>
 
                   <?php if (!$asistido->checkFichaMedica): ?>
-                    <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="fichaMedica" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Médica">
+                    <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="medica" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Médica">
                       <i align="left" class="fa fa-heartbeat"></i> <span class="hidden-xs">Añadir</span> Ficha Medica
                     </a>  
                   <?php endif ?>
@@ -520,6 +520,20 @@
  
   });
 
+  $('.liTab.asistencia').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaAsistenciaSocial(id);
+ 
+  });
+
+  $('.liTab.necesidades').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaNecesidades(id);
+ 
+  });
+
 
 </script>
 
@@ -685,26 +699,79 @@
       });
 
       //OBTENER DATOS DE LA FICHA
-      var ficha = $.get("{{route('fichaEmpleo.get',['asistido_id'=>$asistido->id])}}", function(data){
-
-        if (data.status) {
-
-          $('#datosEmpleo').html(data.view);
-        } 
-
-      });
+      var ficha = $.get("{{route('fichaEmpleo.get',['asistido_id'=>$asistido->id])}}");
 
       //OBTENER CONSULTAS DE LA FICHA
-      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasEmpleos'])}}", function(data){
-
-        if (data.status) {
-
-          $('#consultasEmpleo').html(data.view);
-        }
-
-      });
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasEmpleos'])}}");
 
       $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosEmpleo').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasEmpleo').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+  }
+
+  function obtenerFichaAsistenciaSocial (id) {
+
+    if ($('#datosAsistencia').html() == '' || $('#consultasAsistencia').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaAsistenciaSocial.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasAsistenciasSociales'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosAsistencia').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasAsistencia').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+  }
+
+  function obtenerFichaNecesidades (id) {
+
+    if ($('#datosNecesidades').html() == '' || $('#consultasNecesidades').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaNecesidades.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasNecesidades'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosNecesidades').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasNecesidades').html(consultas.responseJSON.view);
+        }
 
         loading.modal('hide');
       });

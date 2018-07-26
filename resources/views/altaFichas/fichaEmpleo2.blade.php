@@ -344,6 +344,8 @@
     </div>
 </div>
 
+@include('scripts.googleMaps')
+
 <script type="text/javascript">
 
     $('#delete').on('show.bs.modal',function(event){

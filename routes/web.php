@@ -296,6 +296,10 @@ Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
         'uses'=>'FichaNecesidadesController@create',
         'as'=>'fichaNecesidades.create',
     ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaNecesidadesController@get',
+        'as'=>'fichaNecesidades.get',
+    ]);
     Route::post('/storeNecesidad/{id}',[
         'uses'=>'FichaNecesidadesController@storeNecesidad',
         'as'=>'fichaNecesidades.storeNecesidad',
@@ -311,6 +315,10 @@ Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(
     Route::get('/create/{id}',[
         'uses'=>'FichaAsistenciaSocialController@create',
         'as'=>'fichaAsistenciaSocial.create',
+    ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaAsistenciaSocialController@get',
+        'as'=>'fichaAsistenciaSocial.get',
     ]);
     Route::post('/storeServicio/{id}',[
         'uses'=>'FichaAsistenciaSocialController@storeServicio',

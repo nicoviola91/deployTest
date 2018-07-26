@@ -137,7 +137,7 @@
 
 
 
-              <form id="nuevoContacto-form" method="POST" action="{{ route('fichaEducacion.storeEducacion',['asistido_id'=>$asistido->id]) }}">
+              <form id="nuevoContacto-form" method="POST" action="{{ route('fichaEducacion.storeEducacion',['asistido_id'=>$asistido->id]) }}" autocomplete="off">
                 {{ csrf_field() }}
                 
 
@@ -313,9 +313,11 @@
       </div>
     </div>
 </div>
+  
+  @include('scripts.googleMaps')
 
   <script type="text/javascript">
-    
+
     $('#tipoEducacion').change(function () {
 
       if ($(this).val() == 'Secundario') {
