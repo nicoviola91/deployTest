@@ -85,7 +85,7 @@ class AlertaController extends Controller
      */
     public function showMap()
     {
-        $data['alertas'] = Alerta::all()->where('estado','=',0);
+        $data['alertas'] = Alerta::all();
         return view('alertas.map', $data);
     }
 

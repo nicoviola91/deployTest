@@ -1,7 +1,7 @@
 <tr>
     <td class="header">
         <a href="{{ $url }}">
-            {{ $slot }}
+            Lumen Cor. Red del Posadero
         </a>
     </td>
 </tr>

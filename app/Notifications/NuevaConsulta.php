@@ -50,7 +50,7 @@ class NuevaConsulta extends Notification
         $nombre_ficha = $this->consulta->consultable_type;
         return (new MailMessage)
                     ->line($persona->name.' ha hecho una nueva consulta en la ficha '.$nombre_ficha.' de tu asistido')
-                    ->line('Consulta:'.$this->consulta->mensaje)
+                    ->line('Consulta: '.strip_tags($this->consulta->mensaje))
                     ->action('Ir al asistido', url('/asistido/show2/'.$asistido_id))
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
