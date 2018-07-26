@@ -85,7 +85,9 @@
                 <!-- The user image in the navbar-->
                 <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                @if(null !==(Auth::user()))
                 <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
+                @endif
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
@@ -93,8 +95,10 @@
                   <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
 
                   <p>
+                    @if(null !==(Auth::user()))
                     {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}
                     <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
+                    @endif
                   </p>
                 </li>
                 <!-- Menu Body -->
