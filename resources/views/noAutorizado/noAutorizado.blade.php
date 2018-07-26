@@ -21,10 +21,7 @@
 	<i class="icon fa fa-exclamation-triangle "></i>
 	<small></small>
 </h1>
-<ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-bullhorn"></i> Atención </a></li>
-	<li class="active"></li>
-</ol>
+
 @endsection
 
 @section('content')

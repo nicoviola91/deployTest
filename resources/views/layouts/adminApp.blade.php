@@ -52,28 +52,35 @@
       <span class="logo-lg"><img src="{{ asset('/img/lumencor-white.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
+    
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
+      @if(null !==(Auth::user()))
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+      @endif
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
           <!-- User Account: style can be found in dropdown.less -->
+          @if(null !==(Auth::user()))
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
+            
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
                 <p>
+                  
                   {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
                   <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
+                  
                 </p>
               </li>
               <!-- Menu Body -->
@@ -90,23 +97,29 @@
                     </form>
                 </div>
               </li>
+              
             </ul>
           </li>
+          @endif
         </ul>
       </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
+  @if(null !==(Auth::user()))
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
+      
       <div class="user-panel">
         <div class="pull-left image">
           <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
+            @if(null !==(Auth::user()))
           <p>{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</p>
+          @endif
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -215,19 +228,12 @@
             <li><a href="{{url('/user/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
-
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-
-        <li class="header">DOCUMENTACION</li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+  @endif
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
