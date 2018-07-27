@@ -25,6 +25,7 @@ class FichaDatosPersonales extends Ficha
         'sexo_id',
         'estadoDocumento_id',
         'estadoCivil_id',
+        'created_by',
     ];
 
     public function asistido(){
@@ -42,5 +43,5 @@ class FichaDatosPersonales extends Ficha
     public function tipoDocumento(){
         return $this->belongsTo('App\TipoDocumento');
     }
-
+    
 }

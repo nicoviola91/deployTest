@@ -9,7 +9,8 @@ class FichaNecesidad extends Ficha
     protected $table="fichasNecesidades";
     protected $fillable =[
         'checklistNecesidades',
-        'asistido_id'
+        'asistido_id',
+        'created_by',
     ];
 
     //falta representar el tema de la coleccion:: update: con el hasMany es suficiente

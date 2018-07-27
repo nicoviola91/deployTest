@@ -20,6 +20,9 @@ class Ficha extends Model
     public function usuariosCompartidos(){
     	return $this->hasMany('App\UsuarioCompartido');
     }
-
+    
+    public function createdBy(){
+        return $this->belongTo('App\User','created_by');
+    }
 }
 

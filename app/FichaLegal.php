@@ -9,7 +9,8 @@ class FichaLegal extends Model
     protected $table="fichasLegales";
     protected $fillable = [
         'chk_antecedentesPenales',
-        'asistido_id'
+        'asistido_id',
+        'created_by',
     ];
 
     public function asistido(){

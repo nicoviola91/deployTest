@@ -42,4 +42,9 @@ class User extends Authenticatable
     public function tipoUsuario(){
         return $this->belongsTo('App\TipoUsuario','tipoUsuario_id');
     }
+
+    public function fichas(){
+        return $this->hasMany('App\Ficha');
+    }
+    
 }

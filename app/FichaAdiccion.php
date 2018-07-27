@@ -17,6 +17,7 @@ class FichaAdiccion extends Ficha
         'checklistRequiereInternacion',
         'checklistEmbarazo',
         'observaciones',
+        'created_by',
     ];
 
     public function adicciones(){

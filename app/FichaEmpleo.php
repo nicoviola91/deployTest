@@ -9,7 +9,7 @@ class FichaEmpleo extends Ficha
     //
     protected $table="fichasEmpleos";
     protected $fillable = [
-        'asistido_id'
+        'asistido_id','created_by',
     ];
 
     public function empleos(){

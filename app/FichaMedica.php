@@ -25,7 +25,7 @@ class FichaMedica extends Model
         'profesional_id',
         'fichaMedica_id',
         'sintoma_id',
-        ''
+        'created_by',
     ];
 
     public function asistido(){

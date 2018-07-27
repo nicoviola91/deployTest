@@ -10,6 +10,7 @@ class FichaAsistenciaSocial extends Ficha
     protected $fillable = [
         'checkAsistenciaSocial',
         'asistido_id',
+        'created_by',
     ];
 
     public function serviciosSociales(){

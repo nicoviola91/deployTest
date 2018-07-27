@@ -14,7 +14,7 @@ class FichaDiagnosticoIntegral extends Ficha
      */
     protected $table="fichasDiagnosticosIntegrales";
     protected $fillable = [
-        'diagnostico','trabajoInterdisciplinario','asistido_id'
+        'diagnostico','trabajoInterdisciplinario','asistido_id','created_by',
     ];
 
    	public function cursosDeAccion(){

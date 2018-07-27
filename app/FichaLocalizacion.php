@@ -12,6 +12,7 @@ class FichaLocalizacion extends Ficha
         'situacionCalle',
         'zonaPermanencia',
         'asistido_id',
+        'created_by',
         //'direccion_id'
     ];
 

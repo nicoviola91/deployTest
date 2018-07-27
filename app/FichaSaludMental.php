@@ -22,6 +22,7 @@ class FichaSaludMental extends Ficha
         'checkDerivacion',
         'checkInternacion',
         'asistido_id',
+        'created_by',
 
     ];
     
