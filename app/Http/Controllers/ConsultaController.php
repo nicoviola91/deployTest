@@ -113,7 +113,7 @@ class ConsultaController extends Controller
                 $ficha = FichaSaludMental::where('asistido_id',$asistido_id)->first();
                 break;
 
-            case 'fichasNecesidaddes':
+            case 'fichasNecesidades':
                 $ficha = FichaNecesidad::where('asistido_id',$asistido_id)->first();
                 break;
         }
@@ -211,7 +211,7 @@ class ConsultaController extends Controller
                 $ficha = FichaSaludMental::where('asistido_id',$asistido_id)->first();
                 break;
 
-            case 'fichasNecesidaddes':
+            case 'fichasNecesidades':
                 $ficha = FichaNecesidad::where('asistido_id',$asistido_id)->first();
                 break;
             

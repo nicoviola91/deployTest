@@ -17,10 +17,11 @@ class VerificarUsuarioAutenticado
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()){
+        if(auth()->check())
+        {
             return $next($request);
         }else{
-            return new Response(view('noAutorizado.noAutenticado'));
+            return new Response(view('auth.login'));
         }
     }
 }

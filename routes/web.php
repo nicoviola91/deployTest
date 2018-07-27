@@ -28,14 +28,17 @@ Route::get('/download/{path}/{file}', 'DownloadsController@download');
 //TODO COMO FILTRAMOS CON MIDDLEWARE ESTAS RUTAS?
 
 Route::get('/user/create','UserController@create');
-Route::get('/user/list','UserController@showAll');
-Route::get('/user/profile','UserController@profile');
+Route::get('/user/list','UserController@showAll');//solo admin y posaderos
+Route::get('/user/profile','UserController@profile');//los autenticados
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
 //TODO esto deberia poder verse siendo usuario Samaritano, pero no se ve. Ver si
 //TODO el orden esta afectando
-Route::group(['prefix'=>'alert','middleware'=>['generarAlertas','admin']],function(){
+//TODO Nuevo Usuario solo puede generar alertas y ver las alertas que genera el
+//TODO Samaritano puede generar alertas y ver las suyas y ver los asistidos que tienen owner= su id
+
+Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
     Route::get('/new',function(){
         return view('alertas.nueva');
     });
@@ -63,7 +66,7 @@ Route::group(['prefix'=>'alert','middleware'=>['generarAlertas','admin']],functi
 });
 
 //INSTITUCIONES
-Route::group(['prefix'=>'institucion'],function(){
+Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
     Route::post('/store',[
         'uses'=>'InstitucionController@store',
         'as'=>'institucion.store'
@@ -79,7 +82,7 @@ Route::group(['prefix'=>'institucion'],function(){
 });
 
 //COMUNIDADES
-Route::group(['prefix'=>'comunidad'],function(){
+Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
     Route::post('/store',[
         'uses'=>'ComunidadController@store',
         'as'=>'comunidad.store'
@@ -292,6 +295,10 @@ Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaNecesidadesController@create',
         'as'=>'fichaNecesidades.create',
+    ]);
+    Route::get('/get/{id}',[
+        'uses'=>'FichaNecesidadesController@get',
+        'as'=>'fichaNecesidades.get',
     ]);
     Route::post('/storeNecesidad/{id}',[
         'uses'=>'FichaNecesidadesController@storeNecesidad',
