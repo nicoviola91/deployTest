@@ -71,34 +71,42 @@ class ConsultaController extends Controller
 
             case 'fichasDatosPersonales':
                 $ficha = FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Datos Personales';
                 break;
 
             case 'fichasAdicciones':
                 $ficha = FichaAdiccion::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Adicciones';
                 break;
 
             case 'fichasAsistenciasSociales':
                 $ficha = FichaAsistenciaSocial::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Asistencia Social';
                 break;
 
             case 'fichasDiagnosticosIngegrales':
                 $ficha = FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Diagnostico Integral';
                 break;
 
             case 'fichasEducaciones':
                 $ficha = FichaEducacion::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Educación';
                 break;
 
             case 'fichasEmpleos':
                 $ficha = FichaEmpleo::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Empleo';
                 break;
 
             case 'fichasFamiliaAmigos':
                 $ficha = FichaFamiliaAmigos::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Familia y Amigos';
                 break;
 
             case 'fichasLegales':
                 $ficha = FichaLegal::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Legales';
                 break;
 
             case 'fichasLocalizacion':
@@ -107,14 +115,17 @@ class ConsultaController extends Controller
 
             case 'fichasMedicas':
                 $ficha = FichaMedica::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Médica';
                 break;
 
             case 'fichasSaludMental':
                 $ficha = FichaSaludMental::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Salud Mental';
                 break;
 
             case 'fichasNecesidades':
                 $ficha = FichaNecesidad::where('asistido_id',$asistido_id)->first();
+                $tipo_notif = 'Ficha Necesidades';
                 break;
         }
 
@@ -127,9 +138,14 @@ class ConsultaController extends Controller
             $path = $request->file('adjunto')->store('consultas');
             $consulta->adjunto = $path;
         }
-        $asistido_notif = Asistido::where('id',$asistido_id)->get()->first();
-        $usuarioNotif = User::where('id',$asistido_notif->owner)->get()->first();
-        $usuarioNotif->notify(new NuevaConsulta($consulta, $asistido_notif));
+        //Aca tengo que validar que el owner de  la ficha no sea el mismo que genero la consulta
+        //var_dump($ficha->created_by,$consulta->user_id);
+        if ($ficha->created_by != $consulta->user_id){
+            $asistido_notif = Asistido::where('id',$asistido_id)->get()->first();
+            $usuarioNotif = User::where('id',$asistido_notif->owner)->get()->first();
+            $usuarioNotif->notify(new NuevaConsulta($consulta, $asistido_notif));//, $tipo_notif));
+        }
+        //
         $ficha->consultas()->save($consulta);
         //return redirect()->route('consulta.list');
         return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);

@@ -6,11 +6,13 @@ use App\Ficha;
 use App\FichaDatosPersonales;
 use App\Asistido;
 use App\Sexo;
+use App\User;
 use App\EstadoCivil;
 use App\EstadoDocumento;
 use Illuminate\Http\Request;
 use App\Http\Requests\FichaDatosPersonalesRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class FichaDatosPersonalesController extends Controller
@@ -105,8 +107,6 @@ class FichaDatosPersonalesController extends Controller
         ]);
         $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($asistido_id);
         $asistido=Asistido::find($asistido_id);
-        $asistido->checkFichaDatosPersonales=1;
-        $asistido->save();
         $asistido->ficha()->save($fichaDatosPersonales);
         return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
@@ -117,7 +117,10 @@ class FichaDatosPersonalesController extends Controller
         if(!isset($fichaDatosPersonales)){
             $fichaDatosPersonales = new FichaDatosPersonales();
             $fichaDatosPersonales->nombre=$asistido->nombre;
+            $fichaDatosPersonales->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaDatosPersonales);
+            $asistido->checkFichaDatosPersonales=1;
+            $asistido->save();
         }
         return $fichaDatosPersonales;
     }

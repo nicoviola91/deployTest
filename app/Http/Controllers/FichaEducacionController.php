@@ -7,8 +7,10 @@ use App\Asistido;
 use App\FichaEducacion;
 use App\Educacion;
 use App\Direccion;
+use App\User;
 use App\TipoEducacion;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -105,8 +107,8 @@ class FichaEducacionController extends Controller
         }
 
         $tipoEducacion=TipoEducacion::find($tipoEducacion_id);
-        
         $fichaEducacion->educaciones()->save($educacion);
+
         $educacion->tipo()->associate($tipoEducacion);
         $educacion->save();
      
@@ -122,6 +124,7 @@ class FichaEducacionController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(empty($fichaEducacion)){
             $fichaEducacion=new FichaEducacion();
+            $fichaEducacion->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaEducacion);
         }
         return $fichaEducacion;

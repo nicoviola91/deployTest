@@ -15,15 +15,17 @@ class NuevaConsulta extends Notification
     use Queueable;
     private $consulta;
     private $asistido;
+    //private $ficha;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Consulta $consulta, Asistido $asistido)
+    public function __construct(Consulta $consulta, Asistido $asistido)//, String $ficha)
     {
         $this->consulta=$consulta;
         $this->asistido=$asistido;
+        //$this->ficha=$ficha;
     }
 
     /**
@@ -47,7 +49,7 @@ class NuevaConsulta extends Notification
     {
         $asistido_id = $this->asistido->id;
         $persona = User::where('id',$this->consulta->user_id)->get()->first();
-        $nombre_ficha = $this->consulta->consultable_type;
+        $nombre_ficha = 'NOMBRE FICHA';//$this->ficha;
         return (new MailMessage)
                     ->line($persona->name.' ha hecho una nueva consulta en la ficha '.$nombre_ficha.' de tu asistido')
                     ->line('Consulta: '.strip_tags($this->consulta->mensaje))
