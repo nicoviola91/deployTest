@@ -16,6 +16,8 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Auth::routes();
+
 //Prueba para ver vista ficha
 Route::get('/ficha', function () {
     return view('ficha');
@@ -476,7 +478,7 @@ Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
 });
 
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/home', function () {

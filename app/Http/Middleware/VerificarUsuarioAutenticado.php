@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class VerificarUsuarioAutenticado
 {
@@ -17,7 +18,7 @@ class VerificarUsuarioAutenticado
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check())
+        if(Auth::check())
         {
             return $next($request);
         }else{

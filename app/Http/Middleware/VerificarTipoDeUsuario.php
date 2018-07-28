@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class VerificarTipoDeUsuario
 {
@@ -16,11 +17,12 @@ class VerificarTipoDeUsuario
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && (auth()->user()->tipoUsuario->descripcion=="Administrador" || auth()->user()->tipoUsuario->descripcion=="Posadero" )){
+        if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")){
+        
             return $next($request);
+            
         }else{
             return new Response(view('noAutorizado.noAutorizado'));
         }
-        
     }
 }

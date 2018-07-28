@@ -27,7 +27,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //TODO ACA SE DEFINE LA RUTA A DONDE SON REDIRIGIDOS DESPUES DE REGISTRARSE
+    protected $redirectTo = '/alert/new';
 
     /**
      * Create a new controller instance.
