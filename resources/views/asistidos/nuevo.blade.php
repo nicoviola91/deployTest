@@ -1,4 +1,4 @@
-@extends('layouts.userApp')
+@extends('layouts.adminApp')
 
 
 @section('title')
@@ -8,9 +8,11 @@
 
 @section('pageHeader')
 <h1>
-	Alertas
+	Asistido
 	<small>Nuevo Asistido</small>
 </h1>
+<br>
+<p>Atención! Si el asistido tiene alertas generadas, es conveniente dar de alta el asistido partiendo de su alerta, para un mejor seguimiento del caso </p>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-bell"></i> Asistidos</a></li>
 	<li class="active">Nuevo</li>

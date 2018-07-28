@@ -1,6 +1,5 @@
-
-@extends(true ? 'layouts.adminApp' : 'layouts.adminApp')
-
+<!--@extends(true ? 'layouts.adminApp' : 'layouts.adminApp')-->
+@extends('layouts.adminApp')
 @section('title')
 	Alerta
 @endsection

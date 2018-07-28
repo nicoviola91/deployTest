@@ -149,6 +149,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+              <li><a href="{{url('/alert/new')}}"><i class="fa fa-plus-square"></i> Generar Alerta</a></li>
             <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
             @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
             <li><a href="{{url('/alert/map')}}"><i class="fa fa-map"></i> Ver Mapa</a></li>
@@ -165,6 +166,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            
+            @if(Auth::user()->tipoUsuario->descripcion!=='Samaritano')
+            <li><a href="{{url('/asistido/new')}}"><i class="fa fa-user-plus"></i> Dar de alta Asistido</a></li>
+            @endif
             <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
