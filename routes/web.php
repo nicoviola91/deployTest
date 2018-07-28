@@ -41,6 +41,7 @@ Route::post('/user/store','UserController@store');
 //TODO Samaritano puede generar alertas y ver las suyas y ver los asistidos que tienen owner= su id
 
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
+
     Route::get('/new',function(){
         return view('alertas.nueva');
     });
@@ -60,7 +61,7 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
     Route::get('/map',[
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'
-    ]);
+    ])->middleware('admin');
     Route::get('/destroy/{id}',[
         'uses'=>'AlertaController@destroy',
         'as'=>'alerta.destroy'

@@ -164,7 +164,7 @@
             <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
-
+        <!--
         <li class="treeview">
             <a href="#">
               <i class="fa fa-address-card-o"></i>
@@ -201,7 +201,7 @@
           <ul class="treeview-menu">
             <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
-        </li>
+        </li>-->
 
         <li class="treeview">
           <a href="#">
