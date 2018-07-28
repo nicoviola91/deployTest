@@ -83,7 +83,7 @@ class FichaMedicaController extends Controller
             $afeccionesGenericas=Afeccion::all();
             
             
-            return view('altaFichas.fichaMedica')
+            $view = view('altaFichas.fichaMedica2')
                 ->with('asistido',$asistido)
                 ->with('sintomasGenericos',$sintomasGenericos)
                 ->with('sintomasDelAsistido',$sintomasDelAsistido)
@@ -98,7 +98,8 @@ class FichaMedicaController extends Controller
                 ->with('afecciones',$afecciones)
                 ->render();
         } else {
-            $view = view('altaFichas.fichaMedica')->with('asistido',$asistido)->render();
+
+            $view = view('altaFichas.fichaMedica2')->with('asistido',$asistido)->render();
         }
         
         return response()->json([

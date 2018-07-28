@@ -442,7 +442,7 @@
             $(".liTab.necesidades a[href='#tab_necesidades']").trigger("click");
             break;
 
-        case 'fichaMedica':
+        case 'medica':
             $(".liTab.medica").show();
             $(".liTab.medica a[href='#tab_medica']").trigger("click");
             break;
@@ -531,6 +531,13 @@
 
     var id = $(this).data('id');
     obtenerFichaNecesidades(id);
+ 
+  });
+
+  $('.liTab.medica').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaMedica(id);
  
   });
 
@@ -771,6 +778,36 @@
         }
         if (consultas.responseJSON.status) {
           $('#consultasNecesidades').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+  }
+
+  function obtenerFichaMedica (id) {
+
+    if ($('#datosMedica').html() == '' || $('#consultasMedica').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaMedica.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasMedicas'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosMedica').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasMedica').html(consultas.responseJSON.view);
         }
 
         loading.modal('hide');

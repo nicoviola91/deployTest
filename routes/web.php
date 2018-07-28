@@ -485,4 +485,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 //     echo "SE LOGEO CORRECTAMENTE";
 // });
 
-
+//Dashboard
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');

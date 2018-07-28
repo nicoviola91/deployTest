@@ -82,8 +82,8 @@
                   <a href="/download/{{$consulta->adjunto}}" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
                   <ul class="mailbox-attachments">
                     <li style="border: none; width: 90px;"> 
-                      <span class="mailbox-attachment-icon" style="padding: 0px;">
-                        <i class="fa <?php echo $icono ?>"></i>
+                      <span class="mailbox-attachment-icon" style="padding: 0px; font-size: 13px; white-space: nowrap;">
+                        <i class="fa <?php echo $icono ?>"></i> Archivo Adjunto
                       </span>
                     </li>
                   </ul>
