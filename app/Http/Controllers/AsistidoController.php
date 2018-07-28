@@ -103,7 +103,12 @@ class AsistidoController extends Controller
 
 
     public function showAll(){
-        $data['asistidos']=Asistido::all();
+        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+            $data['asistidos']=Asistido::all();
+        }else{
+            $data['asistidos']=Asistido::all()->where('owner',Auth::user()->id);
+        }
+        
         return view('asistidos.listado',$data);
     }
     /**

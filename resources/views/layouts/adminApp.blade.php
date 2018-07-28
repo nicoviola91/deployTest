@@ -91,7 +91,7 @@
                   <a href="{{url('/user/profile')}}" class="btn btn-default btn-flat">Mi Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Sign out</a>
+                  <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Cerrar Sesión</a>
                     <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                     </form>
@@ -124,6 +124,7 @@
         </div>
       </div>
       <!-- search form -->
+      @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Buscar Asistido...">
@@ -133,6 +134,7 @@
               </span>
         </div>
       </form>
+      @endif
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -148,10 +150,12 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+            @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
             <li><a href="{{url('/alert/map')}}"><i class="fa fa-map"></i> Ver Mapa</a></li>
+            @endif
           </ul>
         </li>
-
+      @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
         <li class="treeview">
           <a href="#">
             <i class="fa fa-user"></i>
@@ -164,6 +168,7 @@
             <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
+        @endif
         <!--
         <li class="treeview">
             <a href="#">
@@ -188,8 +193,8 @@
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-hotel"></i>Necesidades</a></li>
               <li><a href="{{url('/asistido/list')}}"><i class="fa fa-user-md"></i>Salud Mental</a></li>
             </ul>
-          </li>
-
+          </li>-->
+        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
         <li class="treeview">
           <a href="#">
             <i class="fa fa-bank"></i>
@@ -201,8 +206,9 @@
           <ul class="treeview-menu">
             <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
-        </li>-->
-
+        </li>
+        @endif
+        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
         <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i>
@@ -215,7 +221,9 @@
             <li><a href="{{url('/comunidad/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
+        @endif
 
+        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
         <li class="treeview">
           <a href="#">
             <i class="fa fa-user-circle"></i>
@@ -228,6 +236,7 @@
             <li><a href="{{url('/user/list')}}"><i class="fa fa-list"></i> Listado</a></li>
           </ul>
         </li>
+        @endif
         
       </ul>
     </section>

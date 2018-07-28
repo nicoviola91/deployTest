@@ -21,25 +21,20 @@ Auth::routes();
 //Prueba para ver vista ficha
 Route::get('/ficha', function () {
     return view('ficha');
-});
+})->middleware('admin');
 
 //Downloads
-Route::get('/download/{path}/{file}', 'DownloadsController@download');
+Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('autenticado');
 
 //USERS
 //TODO COMO FILTRAMOS CON MIDDLEWARE ESTAS RUTAS?
 
 Route::get('/user/create','UserController@create');
-Route::get('/user/list','UserController@showAll');//solo admin y posaderos
-Route::get('/user/profile','UserController@profile');//los autenticados
+Route::get('/user/list','UserController@showAll')->middleware('admin');//solo admin y posaderos
+Route::get('/user/profile','UserController@profile')->middleware('autenticado');//los autenticados
 Route::post('/user/store','UserController@store');
 
 //ALERTAS
-//TODO esto deberia poder verse siendo usuario Samaritano, pero no se ve. Ver si
-//TODO el orden esta afectando
-//TODO Nuevo Usuario solo puede generar alertas y ver las alertas que genera el
-//TODO Samaritano puede generar alertas y ver las suyas y ver los asistidos que tienen owner= su id
-
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
 
     Route::get('/new',function(){
@@ -65,7 +60,7 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
     Route::get('/destroy/{id}',[
         'uses'=>'AlertaController@destroy',
         'as'=>'alerta.destroy'
-    ]);
+    ])->middleware('admin');
 });
 
 //INSTITUCIONES
@@ -101,31 +96,31 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
 });
 
 //ASISTIDOS
-Route::group(['prefix'=>'asistido','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[
         'uses'=>'AsistidoController@createFromAlert',
         'as'=>'asistido.newFromAlert'
-    ]);
+    ])->middleware('admin');
     Route::get('/new',[
         'uses'=>'AsistidoController@create',
         'as'=>'asistidos.nuevo'
-    ]);
+    ])->middleware('admin');
     Route::post('/store/{alerta_id}',[
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
-    ]);
+    ])->middleware('admin');
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
-    ]);
+    ])->middleware('autenticado');
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
-    ]);
+    ])->middleware('admin');
     Route::get('/show2/{id}',[
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
-    ]);
+    ])->middleware('admin');
 });
 
 //CONSULTAS/INTERACCIONES
