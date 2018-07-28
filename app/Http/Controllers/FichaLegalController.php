@@ -90,7 +90,8 @@ class FichaLegalController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaLegal)){
             $fichaLegal=new FichaLegal();
-            $fichaLegal->createdBy=Auth::user()->id;
+            //$fichaLegal->createdBy=Auth::user()->id;
+            $fichaLegal->created_by=Auth::user()->id;
             $asistido->ficha()->save($fichaLegal);
             $asistido->checkFichaLegal=1;
             $asistido->save();

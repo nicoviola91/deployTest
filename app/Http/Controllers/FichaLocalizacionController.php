@@ -9,6 +9,7 @@ use App\LocalizacionHabitual;
 use App\ZonaDePermanencia;
 use App\Direccion;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class FichaLocalizacionController extends Controller
@@ -68,7 +69,9 @@ class FichaLocalizacionController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(empty($fichaLocalizacion)){
             $fichaLocalizacion=new FichaLocalizacion();
+            $fichaLocalizacion->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaLocalizacion);
+            $asistido->update(['checkFichaLocalizacion' =>1]);
         }
         return $fichaLocalizacion;
     }

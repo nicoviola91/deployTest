@@ -7,7 +7,7 @@ use App\TipoNecesidad;
 use App\FichaNecesidad;
 use App\Necesidad;
 use App\Asistido;
-
+use Illuminate\Support\Facades\Auth;
 
 class FichaNecesidadesController extends Controller
 {
@@ -91,6 +91,7 @@ class FichaNecesidadesController extends Controller
         
         if(!isset($fichaNecesidad)){
             $fichaNecesidad=new FichaNecesidad();
+            $fichaNecesidad->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaNecesidad);
             $asistido->update(['checkFichaNecesidad' =>1]);
         }

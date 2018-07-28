@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CursoDeAccion;
 use App\Asistido;
 use App\FichaDiagnosticoIntegral;
+use Illuminate\Support\Facades\Auth;
 
 class FichaDiagnosticoIntegralController extends Controller
 {
@@ -99,7 +100,9 @@ class FichaDiagnosticoIntegralController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaDiagnosticoIntegral)){
             $fichaDiagnosticoIntegral=new FichaDiagnosticoIntegral();
+            $fichaDiagnosticoIntegral->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaDiagnosticoIntegral);
+            $asistido->update(['checkFichaDiagnosticoIntegral' =>1]);
         }
         return $fichaDiagnosticoIntegral;
     }

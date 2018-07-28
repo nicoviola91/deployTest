@@ -7,6 +7,7 @@ use App\Asistido;
 use App\Contacto;
 use App\FichaFamiliaAmigos;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FichaFamiliaAmigosController extends Controller
 {
@@ -58,7 +59,9 @@ class FichaFamiliaAmigosController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(empty($fichaFamiliaAmigos)){
             $fichaFamiliaAmigos=new FichaFamiliaAmigos();
+            $fichaFamiliaAmigos->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaFamiliaAmigos);
+            $asistido->update(['checkFichaFamiliaAmigos' =>1]);
         }
         return $fichaFamiliaAmigos;
 

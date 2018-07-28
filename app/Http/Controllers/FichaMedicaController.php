@@ -15,6 +15,7 @@ use App\Intervencion;
 use App\Enfermedad;
 use App\Afeccion;
 use App\Sintoma;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -409,7 +410,9 @@ class FichaMedicaController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaMedica)){
             $fichaMedica=new FichaMedica();
+            $fichaMedica->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaMedica);
+            $asistido->update(['checkFichaMedica' =>1]);
         }
         return $fichaMedica;
     }

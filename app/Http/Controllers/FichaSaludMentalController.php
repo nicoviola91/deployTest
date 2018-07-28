@@ -11,6 +11,7 @@ use App\EpisodioAgresivo;
 use App\Medicacion;
 use App\Asistido;
 use App\Profesional;
+use Illuminate\Support\Facades\Auth;
 
 class FichaSaludMentalController extends Controller
 {
@@ -303,7 +304,9 @@ class FichaSaludMentalController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaSaludMental)){
             $fichaSaludMental=new FichaSaludMental();
+            $fichaSaludMental->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaSaludMental);
+            $asistido->update(['checkFichaSaludMental' =>1]);
         }
         return $fichaSaludMental;
     }

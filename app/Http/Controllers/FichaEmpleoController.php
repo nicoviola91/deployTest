@@ -8,6 +8,7 @@ use App\FichaEmpleo;
 use App\Direccion;
 use App\Asistido;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FichaEmpleoController extends Controller
 {
@@ -93,7 +94,9 @@ class FichaEmpleoController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(empty($fichaEmpleo)){
             $fichaEmpleo=new FichaEmpleo();
+            $fichaEmpleo->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaEmpleo);
+            $asistido->update(['checkFichaEmpleo' =>1]);
         }
         return $fichaEmpleo;
     }
