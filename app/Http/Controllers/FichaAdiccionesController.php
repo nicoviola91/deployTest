@@ -11,6 +11,7 @@ use App\Sustancia;
 use App\EpisodioAgresivo;
 use App\Tratamiento;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FichaAdiccionesController extends Controller
 {
@@ -182,7 +183,9 @@ class FichaAdiccionesController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaAdiccion)){
             $fichaAdiccion=new FichaAdiccion();
+            $fichaAdiccion->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaAdiccion);
+            $asistido->update(['checkFichaAsistenciaSocial' =>1]);
         }
         return $fichaAdiccion;
     }

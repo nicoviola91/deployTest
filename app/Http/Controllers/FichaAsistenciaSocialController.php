@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ServicioSocial;
 use App\Asistido;
 use App\FichaAsistenciaSocial;
+use Illuminate\Support\Facades\Auth;
 
 class FichaAsistenciaSocialController extends Controller
 {
@@ -83,9 +84,9 @@ class FichaAsistenciaSocialController extends Controller
         $asistido=Asistido::find($asistido_id);
         if(!isset($fichaAsistenciaSocial)){
             $fichaAsistenciaSocial=new FichaAsistenciaSocial();
+            $fichaEducacion->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaAsistenciaSocial);
             $asistido->update(['checkFichaAsistenciaSocial' =>1]);
-
         }
         return $fichaAsistenciaSocial;
     }

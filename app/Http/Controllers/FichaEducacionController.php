@@ -127,6 +127,7 @@ class FichaEducacionController extends Controller
             $fichaEducacion->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaEducacion);
         }
+
         return $fichaEducacion;
 
     }
@@ -139,6 +140,10 @@ class FichaEducacionController extends Controller
         $direccion=Direccion::where('educacion_id',$educacion_id)->first();
         if(isset($direccion)){
             $direccion->delete();
+        }
+        if($asistido->checkFichaAdicciones = 0){
+            $asistido->checkFichaAdicciones = 1;
+            $asistido->save();
         }
         $educacion->delete();
         return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
