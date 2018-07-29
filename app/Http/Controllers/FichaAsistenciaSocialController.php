@@ -62,8 +62,8 @@ class FichaAsistenciaSocialController extends Controller
         ->update(['checklistAsistenciaSocial'=>1]);
         $fichaAsistenciaSocial->serviciosSociales()->save($servicio);
         $servicio->save();
-
-        return redirect()->route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido_id]); 
+        //return redirect()->route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido_id]); 
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -74,7 +74,8 @@ class FichaAsistenciaSocialController extends Controller
         $asistido_id=$request->input('asistidoid');
         $servicio=ServicioSocial::find($servicio_id);
         $servicio->delete();
-        return redirect()->route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaAsistenciaSocial.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 

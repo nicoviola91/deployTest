@@ -119,8 +119,8 @@ class FichaMedicaController extends Controller
 
         $sintoma=Sintoma::find($request->sintoma); //contiene el id del sintoma, que viene del value del select de la vista
         $fichaMedica->sintomas()->attach($sintoma);
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);     
-
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);     
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroySintoma(Request $request){
@@ -150,8 +150,8 @@ class FichaMedicaController extends Controller
         $fichaMedica->consultasMedicas()->save($consulta);
         $institucion->consultasMedicas()->save($consulta);
         $profesional->consultasMedicas()->save($consulta);
-        
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyConsulta(Request $request){
@@ -172,9 +172,8 @@ class FichaMedicaController extends Controller
         if(isset($institucion)){
             $institucion->delete();
         }
-        
-
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);      
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);      
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     
     }
 
@@ -187,8 +186,8 @@ class FichaMedicaController extends Controller
         $profesional=Profesional::create(['nombre'=>$request->nombre,'apellido'=>$request->apellido,
         'especialidad'=>$request->especialidad]);
         $profesional->fichaMedica()->save($fichaMedica);
-        
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);    
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyProfesional(Request $request){
@@ -200,8 +199,8 @@ class FichaMedicaController extends Controller
         $fichaMedica->checkMedicoDeCabecera=0;
         $fichaMedica->save();
         $profesional->delete();
-
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeEstadoGeneral(Request $request,$asistido_id){
@@ -221,8 +220,8 @@ class FichaMedicaController extends Controller
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['altura'=>$request->altura,'peso'=>$request->peso,'checkAlergico'=>$alergicoValue,
         'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes]);
-
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeEnfermedad(Request $request, $asistido_id){
@@ -235,7 +234,8 @@ class FichaMedicaController extends Controller
         $enfermedad=Enfermedad::find($request->enfermedad);
         //fichaMedica_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
         $fichaMedica->enfermedades()->attach($enfermedad);
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);       
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);       
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyEnfermedad(Request $request){
@@ -245,8 +245,8 @@ class FichaMedicaController extends Controller
         $enfermedad=Enfermedad::find($enfermedad_id);
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
         $fichaMedica->enfermedades()->detach($enfermedad);
-
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -288,8 +288,8 @@ class FichaMedicaController extends Controller
             $profesional=$medicacion->profesional;
             $profesional->delete();
         }
-        
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeTratamiento(Request $request,$asistido_id){
@@ -330,7 +330,8 @@ class FichaMedicaController extends Controller
         $fichaMedica->tratamientos()->save($tratamiento);
         $tratamiento->save();
 
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyTratamiento(Request $request){
@@ -353,10 +354,8 @@ class FichaMedicaController extends Controller
             $profesional=$tratamiento->profesional;
             $profesional->delete();
         }
-        
-
-
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 
@@ -383,7 +382,8 @@ class FichaMedicaController extends Controller
         }
         Asistido::where('id',$asistido_id)->update(['checkFichaMedica' =>1]);
         
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyIntervencion(Request $request){
@@ -402,8 +402,8 @@ class FichaMedicaController extends Controller
         if(isset($profesional)){
             $profesional->delete();
         }
-        
-        return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function findFichaMedicaByAsistidoId($asistido_id){

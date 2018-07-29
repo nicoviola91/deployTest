@@ -90,7 +90,8 @@ class FichaSaludMentalController extends Controller
         //fichaSaludMental_id en la clase adiccion tiene que ser fillable para que funcione con Eloquent
         $fichaSaludMental->patologias()->save($patologia);
         $patologia->save();
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);       
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);       
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyPatologia(Request $request){
@@ -99,7 +100,8 @@ class FichaSaludMentalController extends Controller
         $asistido_id=$request->input('asistidoid');
         $patologia=Patologia::find($patologia_id);
         $patologia->delete();
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -126,8 +128,8 @@ class FichaSaludMentalController extends Controller
         FichaSaludMental::where('asistido_id',$asistido_id)
         ->update(['checkMedicacion'=>1]);
         $fichaSaludMental->medicaciones()->save($medicacion);
-
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyMedicacion(Request $request){
@@ -140,8 +142,8 @@ class FichaSaludMentalController extends Controller
             $profesional=$medicacion->profesional;
             $profesional->delete();
         }
-        
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeTratamiento(Request $request,$asistido_id){
@@ -181,8 +183,8 @@ class FichaSaludMentalController extends Controller
         ->update(['checkTratamiento'=>1]);
         $fichaSaludMental->tratamientos()->save($tratamiento);
         $tratamiento->save();
-
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyTratamiento(Request $request){
@@ -205,10 +207,8 @@ class FichaSaludMentalController extends Controller
             $profesional=$tratamiento->profesional;
             $profesional->delete();
         }
-        
-
-
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 
@@ -220,8 +220,8 @@ class FichaSaludMentalController extends Controller
         ->update(['checkAgresiones'=>1]);
         $fichaSaludMental->episodiosAgresivos()->save($episodioAgresivo);
         $episodioAgresivo->save();
-
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);     
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);     
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     } 
 
     public function destroyEpisodioAgresivo(Request $request){
@@ -230,7 +230,8 @@ class FichaSaludMentalController extends Controller
         $asistido_id=$request->input('asistidoid');
         $episodioAgresivo=EpisodioAgresivo::find($episodioAgresivo_id);
         $episodioAgresivo->delete();
-        return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaSaludMental.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     
@@ -295,7 +296,8 @@ class FichaSaludMentalController extends Controller
         'trastornoCognitivo'=>$trastornoCognitivoValue,
         'checkDerivacion'=>$requiereDerivacionValue,
         'checkInternacion'=>$requiereInternacionValue]);
-        return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 

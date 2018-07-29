@@ -94,7 +94,8 @@ class FichaAdiccionesController extends Controller
         //$adiccion->fichaAdiccion()->save($fichaAdiccion);
         $adiccion->save();
 
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);       
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);       
     }
 
     public function destroyAdiccion(Request $request){
@@ -103,7 +104,8 @@ class FichaAdiccionesController extends Controller
         $asistido_id=$request->input('asistidoid');
         $adiccion=Adiccion::find($adiccion_id);
         $adiccion->delete();
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
 }
 
@@ -115,8 +117,8 @@ class FichaAdiccionesController extends Controller
         ->update(['checklistEpisodiosAgresivos'=>1]);
         $fichaAdiccion->episodiosAgresivos()->save($episodioAgresivo);
         $episodioAgresivo->save();
-
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);     
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);     
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     } 
 
     public function destroyEpisodioAgresivo(Request $request){
@@ -125,7 +127,8 @@ class FichaAdiccionesController extends Controller
         $asistido_id=$request->input('asistidoid');
         $episodioAgresivo=EpisodioAgresivo::find($episodioAgresivo_id);
         $episodioAgresivo->delete();
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeTratamiento(Request $request,$asistido_id){
@@ -136,8 +139,8 @@ class FichaAdiccionesController extends Controller
         ->update(['checklistTratamiento'=>1]);
         $fichaAdiccion->tratamientos()->save($tratamiento);
         $tratamiento->save();
-
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyTratamiento(Request $request){
@@ -146,7 +149,8 @@ class FichaAdiccionesController extends Controller
         $asistido_id=$request->input('asistidoid');
         $tratamiento=Tratamiento::find($tratamiento_id);
         $tratamiento->delete();
-        return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaAdicciones.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function storeConsideraciones(Request $request,$asistido_id){
@@ -174,7 +178,8 @@ class FichaAdiccionesController extends Controller
         FichaAdiccion::where('asistido_id',$asistido_id)
         ->update(['checklistRequiereInternacion'=>$requiereInternacionValue, 'checklistRequiereDerivacion'=>$requiereDerivacionValue,'checklistEmbarazo'=>$checklistEmbarazoValue,
         'observaciones' =>$request->observaciones]);
-        return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 

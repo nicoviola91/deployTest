@@ -70,7 +70,8 @@ class FichaLegalController extends Controller
         $fichaLegal->antecedentes()->save($antecedente);
         $antecedente->save();
 
-        return redirect()->route('fichaLegal.create',['asistido_id'=>$asistido_id]); 
+        //return redirect()->route('fichaLegal.create',['asistido_id'=>$asistido_id]); 
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -80,7 +81,8 @@ class FichaLegalController extends Controller
         $asistido_id=$request->input('asistidoid');
         $antecedente=Antecedente::find($antecedente_id);
         $antecedente->delete();
-        return redirect()->route('fichaLegal.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaLegal.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 

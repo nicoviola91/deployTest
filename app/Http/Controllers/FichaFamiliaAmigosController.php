@@ -42,7 +42,8 @@ class FichaFamiliaAmigosController extends Controller
         $contacto->save();
         $asistido->save();
 
-        return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
     public function destroyContacto(Request $request){
@@ -50,7 +51,8 @@ class FichaFamiliaAmigosController extends Controller
         $asistido_id=$request->input('asistidoid');
         $contacto=Contacto::find($contacto_id);
         $contacto->delete();
-        return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaFamiliaAmigos.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 

@@ -115,7 +115,8 @@ class FichaEducacionController extends Controller
         $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $direccion= new Direccion($direccionInput);
         $educacion->direccion()->save($direccion);
-        return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
      
     }
 
@@ -146,7 +147,8 @@ class FichaEducacionController extends Controller
             $asistido->save();
         }
         $educacion->delete();
-        return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaEducacion.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 

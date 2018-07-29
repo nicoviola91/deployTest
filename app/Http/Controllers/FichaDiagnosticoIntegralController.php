@@ -64,8 +64,8 @@ class FichaDiagnosticoIntegralController extends Controller
         ->update(['checklistCursoDeAccion'=>1]);
         $fichaDiagnosticoIntegral->cursosDeAccion()->save($curso);
         $curso->save();
-
-        return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]); 
+        //return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]); 
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -79,7 +79,8 @@ class FichaDiagnosticoIntegralController extends Controller
         $asistido=Asistido::find($asistido_id);
         $asistido->checkFichaDiagnosticoIntegral=1;
         $asistido->ficha()->save($fichaDiagnosticoIntegral);
-        return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]); 
+        //return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]); 
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -90,7 +91,8 @@ class FichaDiagnosticoIntegralController extends Controller
         $asistido_id=$request->input('asistidoid');
         $curso=CursoDeAccion::find($curso_id);
         $curso->delete();
-        return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 

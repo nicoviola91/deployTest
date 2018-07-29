@@ -70,7 +70,8 @@ class FichaEmpleoController extends Controller
         $fichaEmpleo->empleos()->save($empleo);
         $empleo->save();
         $empleo->direccion()->save($direccion);
-        return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     
     }
 
@@ -85,7 +86,8 @@ class FichaEmpleoController extends Controller
         Asistido::where('id',$asistido_id)->update(['checkFichaEmpleo' =>1]);
         FichaEmpleo::where('asistido_id',$asistido_id)
         ->update(['checklistTieneEmpleo'=>$value]);
-        return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 
@@ -111,8 +113,8 @@ class FichaEmpleoController extends Controller
             $direccion->delete();
         }
         $empleo->delete();
-        
-        return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 }

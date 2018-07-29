@@ -58,8 +58,8 @@ class FichaLocalizacionController extends Controller
             $zona->save();
             $zona->direccion()->save($direccion);
         }
-
-        return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     
     }
 
@@ -97,8 +97,8 @@ class FichaLocalizacionController extends Controller
             $zona->delete();
 
         }
-        
-        return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('FichaLocalizacion.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 }

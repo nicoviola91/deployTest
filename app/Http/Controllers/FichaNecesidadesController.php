@@ -68,7 +68,8 @@ class FichaNecesidadesController extends Controller
         $fichaNecesidad->necesidades()->save($necesidad);
         $necesidad->save();
 
-        return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]); 
+        //return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]); 
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 
     }
 
@@ -79,7 +80,8 @@ class FichaNecesidadesController extends Controller
         $asistido_id=$request->input('asistidoid');
         $necesidad=Necesidad::find($necesidad_id);
         $necesidad->delete();
-        return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]);
+        //return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]);
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     }
 
 
