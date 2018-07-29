@@ -41,16 +41,16 @@ class HomeController extends Controller
 
         //Datos renglon superior
         $data['asistidos'] = Asistido::count();
-        $data['asistidosNuevos'] = Asistido::where('created_at', '>', $one_week_ago)->count();
+        $data['asistidosNuevos'] = Asistido::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
         $data['consultas'] = Consulta::count();
-        $data['consultasNuevas'] = Asistido::where('created_at', '>', $one_week_ago)->count();
+        $data['consultasNuevas'] = Consulta::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
         $data['instituciones'] = Institucion::count();
-        $data['institucionesNuevas'] = Institucion::where('created_at', '>', $one_week_ago)->count();
+        $data['institucionesNuevas'] = Institucion::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
         $data['usuarios'] = User::count();
-        $data['usuariosNuevos'] = User::where('created_at', '>', $one_week_ago)->count();
+        $data['usuariosNuevos'] = User::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
         //Alertas para el mapa
         $data['alertas'] = Alerta::all();

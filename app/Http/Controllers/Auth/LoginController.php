@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user){
         if($user->tipoUsuario->descripcion=="Administrador" || $user->tipoUsuario->descripcion=="Posadero"){
-            return redirect('/asistido/list');
+            return redirect('/dashboard');
         }else{
             return redirect('/alert/new');
         }
