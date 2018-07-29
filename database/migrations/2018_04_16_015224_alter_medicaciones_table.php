@@ -15,6 +15,7 @@ class AlterMedicacionesTable extends Migration
     {
         Schema::table('medicaciones', function (Blueprint $table) {
             $table->integer('profesional_id')->nullable()->unsigned()->change();
+            $table->integer('tratamiento_id')->nullable()->unsigned()->change();
             $table->integer('fichaSaludMental_id')->unsigned()->nullable();
             $table->foreign('fichaSaludMental_id')->references('id')->on('fichasSaludMental');
         });
