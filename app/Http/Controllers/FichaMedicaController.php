@@ -274,7 +274,7 @@ class FichaMedicaController extends Controller
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['checkMedicacion'=>1]);
         $fichaMedica->medicaciones()->save($medicacion);
-
+        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
         //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
     }
 
