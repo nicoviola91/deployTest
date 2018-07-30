@@ -67,8 +67,10 @@ class FichaMedicaController extends Controller
     public function get($asistido_id){
 
         $asistido=Asistido::find($asistido_id);
-
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
+        $sintomasGenericos=Sintoma::all();
+        $enfermedadesGenericas=Enfermedad::all();
+        $afecciones=Afeccion::all();
         
         //En este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
         if(isset($fichaMedica)){
