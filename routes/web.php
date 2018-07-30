@@ -13,10 +13,15 @@
 
 //Default Route a raiz
 Route::get('/', function () {
-    if(Auth::check()){
-        return redirect()->route('alerta.list');
+
+    if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero" )){
+        return redirect()->route('dashboard');
     }else{
-        return redirect()->route('login');
+        if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Nuevo Usuario" || Auth::user()->tipoUsuario->descripcion=="Samaritano" )){
+            return redirect()->route('alerta.list');
+        }else{
+            return redirect()->route('login');
+        }
     }
 });
 
@@ -33,10 +38,44 @@ Route::get('/download/{path}/{file}', 'DownloadsController@download')->middlewar
 //USERS
 //TODO COMO FILTRAMOS CON MIDDLEWARE ESTAS RUTAS?
 
-Route::get('/user/create','UserController@create');
-Route::get('/user/list','UserController@showAll')->middleware('admin');//solo admin y posaderos
-Route::get('/user/profile','UserController@profile')->middleware('autenticado');//los autenticados
-Route::post('/user/store','UserController@store');
+Route::group(['prefix'=>'user'], function(){
+
+    Route::get('/create',[
+        'uses'=>'UserController@create',
+        'as'=>'user.create'
+    ]);
+    Route::get('/list',[
+        'uses'=>'UserController@showAll',
+        'as'=>'user.list'
+        
+    ])->middleware('admin');
+    
+    Route::get('/profile',[
+        'uses'=>'UserController@profile',
+        'as'=>'user.profile'
+    ])->middleware('autenticado');
+
+    Route::get('/profile2/{id}',[
+        'uses'=>'UserController@profile2',
+        'as'=>'user.profile2'
+    ])->middleware('admin');
+    
+    Route::get('/store',[
+        'uses'=>'UserController@store',
+        'as'=>'user.store'
+    ]);
+
+
+});
+
+
+
+
+// Route::get('/user/create','UserController@create');
+// Route::get('/user/list','UserController@showAll')->middleware('admin');//solo admin y posaderos
+// Route::get('/user/profile','UserController@profile')->middleware('autenticado');//los autenticados
+// Route::get('/user/profile2/{id}','UserController@profile2')->middleware('admin');
+// Route::post('/user/store','UserController@store');
 
 //ALERTAS
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
@@ -486,4 +525,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 // });
 
 //Dashboard
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');

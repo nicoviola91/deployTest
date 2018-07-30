@@ -18,8 +18,8 @@
 	<small>Perfil</small>
 </h1>
 <ol class="breadcrumb">
-	<li><a href="#"><i class="fa fa-user-circle"></i> Usuarios</a></li>
-	<li class="active">Perfil 1</li>
+<li><a href="{{route('user.list')}}"><i class="fa fa-user-circle"></i> Usuarios</a></li>
+	<li class="active">Perfil </li>
 </ol>
 @endsection
 
@@ -31,10 +31,10 @@
           <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-blue-active">
-                @if(null !==(Auth::user()))
-	            <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords(Auth::user()->descripcion)}}</h5>	
-              	<h3 class="widget-user-username">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} <small style="color: white;">(DNI {{ucwords(Auth::user()->dni)}})</small></h3>
-                <h5 class="widget-user-desc hidden-xs">{{Auth::user()->email}}</h5>
+                @if(null !==$user)
+	            <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords($user->descripcion)}}</h5>	
+              	<h3 class="widget-user-username">{{ucwords($user->name)}} {{ucwords($user->apellido)}} <small style="color: white;">(DNI {{ucwords($user->dni)}})</small></h3>
+                <h5 class="widget-user-desc hidden-xs">{{$user->email}}</h5>
                 @endif
             </div>
             <div class="widget-user-image">
@@ -80,14 +80,18 @@
               <div class="row">
                   <div class="col-sm-6">
                     <div class="description-block">
-                    <h5 class="description-header">{{(Auth::user()->firmoAcuerdo==1) ? 'Sí':'No'}}</h5>
+                        @if($user!=null)
+                    <h5 class="description-header">{{($user->firmoAcuerdo==1) ? 'Sí':'No'}}</h5>
                       <span class="description-text">FIRMO ACUERDO DE CONFIDENCIALIDAD</span>
+                      @endif
                     </div>
                     <!-- /.description-block -->
                   </div>
                   <div class="col-sm-6">
                     <div class="description-block">
-                    <h5 class="description-header">{{Auth::user()->tipoUsuario->descripcion}}</h5>
+                      @if($user!=null)
+                    <h5 class="description-header">{{$user->tipoUsuario->descripcion}}</h5>
+                    @endif
                       <span class="description-text">TIPO DE USUARIO</span>
                     </div>
                     <!-- /.description-block -->

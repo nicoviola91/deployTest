@@ -68,7 +68,7 @@ class AsistidoController extends Controller
         $alerta->asistido()->associate($asistido);
         $alerta->estado = 1;
         $alerta->save();
-        return redirect()->route('alerta.list');
+        return redirect()->route('asistido.list');
     }
 
     //para guardar asistido cuando no es creado desde una alerta
@@ -78,7 +78,7 @@ class AsistidoController extends Controller
         $asistido->createdBy=Auth::user()->email;
         $asistido->save();
         
-        return redirect()->route('alerta.list');
+        return redirect()->route('asistido.list');
     }
 
     /**

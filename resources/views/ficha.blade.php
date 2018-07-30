@@ -237,7 +237,7 @@
 
                   <?php if (!$asistido->checkFichaEducacion): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="educacion" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Educación">
-                      <i align="left" class="fa fa-mortar-board"></i> <span class="hidden-xs">Añadir</span> Ficha de Eduacaion
+                      <i align="left" class="fa fa-mortar-board"></i> <span class="hidden-xs">Añadir</span> Ficha de Eduacación
                     </a>  
                   <?php endif ?>
 
@@ -261,7 +261,7 @@
 
                   <?php if (!$asistido->checkFichaMedica): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="medica" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Médica">
-                      <i align="left" class="fa fa-heartbeat"></i> <span class="hidden-xs">Añadir</span> Ficha Medica
+                      <i align="left" class="fa fa-heartbeat"></i> <span class="hidden-xs">Añadir</span> Ficha Médica
                     </a>  
                   <?php endif ?>
 
@@ -291,7 +291,7 @@
 
                   <?php if (!$asistido->checkFichaLocalizacion): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="localizacion" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Localización">
-                      <i align="left" class="fa fa-location-arrow"></i> <span class="hidden-xs">Añadir</span> Ficha de Localizacion
+                      <i align="left" class="fa fa-location-arrow"></i> <span class="hidden-xs">Añadir</span> Ficha de Localización
                     </a>  
                   <?php endif ?>
                 </div>

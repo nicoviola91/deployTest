@@ -51,7 +51,8 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center" >E-mail</th>
 					<th class="text-center">Fecha Registro</th>
-					<th class="text-center">Tipo</th>
+					<th class="text-center">Firmó acuerdo de confidencialidad</th>
+					<th class="text-center">Tipo de usuario</th>
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -70,9 +71,10 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->tipoUsuario_id }}</td>
+						<td class="text-center" style="vertical-align: middle;">{{($usuario->firmoAcuerdo==1 ? 'Sí':'No')}}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $usuario->tipoUsuario->descripcion }}</td>
 							<td class="text-center" style="vertical-align: middle;">
-								<a href="#" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
+							<a href="{{ route('user.profile2',['id'=>$usuario->id]) }}" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 							</td>	
 
 						</tr>

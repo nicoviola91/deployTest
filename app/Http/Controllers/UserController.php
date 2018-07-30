@@ -46,9 +46,9 @@ class UserController extends Controller
     
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
-        $tipoUsuario=TipoUsuario::find(2);//trae el tipo de usuario con id 2 en la tabla de tipos de usuuarios
-
-        $user->tipoUsuario()->associate($tipoUsuario); 
+        $tipoUsuario=TipoUsuario::all()->where('descripcion','Nuevo Usuario')->first();//Por defecto cada usuario recien registrado sera del tipo Nuevo Usuario
+        $tipoUsuario_id=$tipoUsuario->id;
+        $user->tipoUsuario()->associate($tipoUsuario_id); 
         $user->save();
         
         $user->notify(new AltaUsuario($user));
@@ -80,6 +80,13 @@ class UserController extends Controller
         $data['user'] = User::find($id);
 
         return view('users.profile', $data);
+    }
+
+    public function profile2(Request $request, $id)
+    {   
+        $data['user'] = User::find($id);
+
+        return view('users.profile2', $data);
     }
 
 
