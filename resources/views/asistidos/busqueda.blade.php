@@ -21,11 +21,11 @@
 @section('pageHeader')
 <h1>
 	Asistidos
-	<small>Listado</small>
+	<small>RESULTADOS DE BÚSQUEDA</small>
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-user"></i> Asistidos</a></li>
-	<li class="active">Listado</li>
+	<li class="active">Buscar</li>
 </ol>
 @endsection
 

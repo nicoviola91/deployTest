@@ -168,6 +168,12 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
     ])->middleware('autenticado');
+
+    Route::post('/busqueda',[
+        'uses'=>'AsistidoController@busqueda',
+        'as'=>'asistido.busqueda'
+    ])->middleware('autenticado');
+
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'

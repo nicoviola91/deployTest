@@ -149,6 +149,33 @@ class AsistidoController extends Controller
         
         return view('asistidos.listado',$data);
     }
+
+    public function busqueda(Request $request) {
+
+        //echo "gola";
+        //var_dump($request->q);
+        $validatedData = $request->validate([
+            'q' => 'required|string',
+        ]);
+
+        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+            $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
+                                    ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                                    ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
+        }else{
+            $data['asistidos'] = Asistido::where(function ($query) {
+                $query->where('owner', '=', Auth::user()->id);
+            })->where(function ($query) use ($c,$d) {
+                $query->where('nombre', 'like', '%' . $request->q . '%')
+                      ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                      ->orWhere('dni', 'like', '%' . $request->q . '%');
+            });
+
+        }
+        
+        return view('asistidos.busqueda',$data);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
