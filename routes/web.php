@@ -152,6 +152,12 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
     ])->middleware('admin');
+
+    Route::post('/updateImage',[
+        'uses'=>'AsistidoController@updateImage',
+        'as'=>'asistido.updateImage',
+    ])->middleware('admin');
+
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'

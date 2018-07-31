@@ -81,6 +81,41 @@ class AsistidoController extends Controller
         return redirect()->route('asistido.list');
     }
 
+    public function updateImage (Request $request) {
+
+        $validation = $request->validate([
+            'foto' => 'required|file|mimes:jpeg,png,gif|max:20480'
+        ]);
+
+        $id = $request->id;
+        $asistido = Asistido::where('id', $id);
+
+
+        if (null != $request->file('foto')) {
+            
+            dd($request->file('foto'));
+
+            $path = $request->file('foto')->store('public');
+            $path = basename($path);
+        }
+
+        if ($asistido->update(['foto' => $path])) {
+            
+                return response()->json([
+                    'status' => true,
+                    'msg' => 'Actualizada correctamente',
+                    'foto' => $path, 
+                    'texto' => $request->mensaje,
+                ]);     
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Ocurrio un error al actualizar la imagen. Por favor vuelva a intentarlo.',
+            ]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
