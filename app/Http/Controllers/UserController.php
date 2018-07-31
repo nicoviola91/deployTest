@@ -12,6 +12,8 @@ use Illuminate\Routing\Redirector;
 use App\Http\Requests\UserRequest;
 use App\TipoUsuario;
 
+use Image;
+
 class UserController extends Controller
 {
     /**
@@ -135,5 +137,44 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateImage (Request $request) {
+
+        $validation = $request->validate([
+            'foto' => 'required|file|mimes:jpeg,png,gif|max:20480'
+        ]);
+
+        $id = $request->id;
+        $usuario = User::where('id', $id)->first();
+
+        if($request->hasFile('foto')) {
+
+            //Si existe una imagen anterior, la elimino
+            if (isset($usuario->imagen) && $usuario->imagen != '' && $usuario->imagen != 'default.jpg'){
+                
+                if (file_exists(storage_path('app/public').'/'.$usuario->imagen))
+                    unlink(storage_path('app/public').'/'.$usuario->imagen);
+            }
+
+            $image = $request->file('foto');
+            $imageName = $image->getClientOriginalName();
+            $fileName =  "user_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->fit(200, 200)->save($imageUrl);
+
+            $usuario->update(['imagen' => $fileName]);
+
+            if ($usuario->update(['imagen' => $fileName]))
+                return redirect()->back()->with('success','Actualizada correctamente.');
+            else
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
+        } else {
+
+            redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
+        }
+
     }
 }

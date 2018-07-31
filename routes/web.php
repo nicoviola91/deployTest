@@ -44,6 +44,12 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@create',
         'as'=>'user.create'
     ]);
+
+    Route::post('/updateImage',[
+        'uses'=>'UserController@updateImage',
+        'as'=>'user.updateImage',
+    ])->middleware('admin');
+
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'
@@ -152,14 +158,29 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
     ])->middleware('admin');
+<<<<<<< HEAD
     Route::post('/storeNew',[
         'uses'=>'AsistidoController@storeNew',
         'as'=>'asistido.storeNew',
     ])->middleware('admin');
+=======
+
+    Route::post('/updateImage',[
+        'uses'=>'AsistidoController@updateImage',
+        'as'=>'asistido.updateImage',
+    ])->middleware('admin');
+
+>>>>>>> 402c0b37cfc12a0fbeded74bfaa4498541c287c3
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
     ])->middleware('autenticado');
+
+    Route::post('/busqueda',[
+        'uses'=>'AsistidoController@busqueda',
+        'as'=>'asistido.busqueda'
+    ])->middleware('autenticado');
+
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'

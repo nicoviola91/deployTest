@@ -38,6 +38,55 @@
   
   @yield('head')
 
+  <style type="text/css">
+
+    .divAlertas {
+      position: fixed;
+      z-index: 1030;
+      /*bottom: 50px;*/
+      top: 25px;
+    }
+
+    .alert-advertencia {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+    }
+
+      .alert-exito {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-peligro {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .alert-informacion {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .alert2 {
+      position: relative;
+      z-index: 999999;
+      width: 100%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 8px 35px 8px 14px;
+      margin-bottom:10px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -68,14 +117,24 @@
           @if(null !==(Auth::user()))
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+
+              @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="user-image" alt="User Image">
+              @else
+                <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+              @endif
+
               <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
             
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                  <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+                @else
+                  <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                @endif
                 <p>
                   
                   {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
@@ -114,7 +173,11 @@
       
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+          @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+            <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+          @else
+            <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+          @endif
         </div>
         <div class="pull-left info">
             @if(null !==(Auth::user()))
@@ -125,13 +188,13 @@
       </div>
       <!-- search form -->
       @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
-      <form action="#" method="get" class="sidebar-form">
+      <form class="sidebar-form" autocomplete="off" method="post" action="{{ route('asistido.busqueda') }}" >
+        {{ csrf_field() }}
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Buscar Asistido...">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+            <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+          </span>
         </div>
       </form>
       @endif
@@ -140,9 +203,11 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
+
         @else
-        <li><a href="{{url('/alert/list')}}"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="{{url('/alert/list')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
+
         @endif
         <li class="treeview">
           <a href="#">
@@ -253,6 +318,10 @@
   </aside>
   @endif
 
+
+  <div class="col-md-6 col-md-offset-3 divAlertas" id="notificaciones">    </div>
+
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -295,6 +364,49 @@
 
 
 @yield('scripts')
+
+<script type="text/javascript">
+  function lanzarAlerta (tipo, mensaje) {
+
+        switch (tipo) {
+
+          case 'exito':
+            var icono = 'fa-check';
+            var titulo = 'Información';
+            break;
+
+          case 'advertencia': 
+            var icono = 'fa-warning';
+            var titulo = 'Atención';
+            break;
+
+          case 'peligro':
+            var icono = 'fa-ban';
+            var titulo = 'Error';
+            break;
+
+          case 'informacion':
+          default:
+            var icono = 'fa-info-circle';
+            var titulo = 'Información';
+            var tipo = 'informacion';
+            break;
+
+        }
+
+        var text = '<div class="alert alert2 alert-' + tipo + ' alert-dismissible alertaBorrable" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa ' + icono + '"></i> ' + titulo + ' </h4>' + mensaje + '</div>';
+
+        var elem = $(document.createElement('div'));
+
+        elem.append(text);
+        $('#notificaciones').append(elem);
+
+        elem.fadeTo(14000, 100).slideUp(500, function(){
+          elem.remove();
+        });
+
+      }
+</script>
 
 </body>
 </html>

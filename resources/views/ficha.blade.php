@@ -64,6 +64,13 @@
       text-overflow: ellipsis
     }
 
+    img.perfil:hover {
+
+      background-color:#000;
+      opacity:0.6;
+      cursor: pointer;
+    }
+
 </style>
 
 <div class="row">
@@ -87,16 +94,23 @@
           <div class="widget-user-header bg-primary">
             <div class="widget-user-image">
 
+              
+
+
+
+
               @if(isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg')
 
-                <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="Default">
+                <img class="img-circle perfil" src="<?php echo asset("storage/$asistido->foto")?>" alt="User Image" data-toggle="tooltip" title="Editar Imagen de Perfil">
 
               @else
 
-                <img class="img-circle" src="{{asset('img/user160x160.png')}}" alt="User Image">
+                <img class="img-circle perfil" src="{{asset('img/user160x160.png')}}" alt="Default">
 
               @endif
-              
+        
+
+
             </div>
             <!-- /.widget-user-image -->
             <h3 class="widget-user-username">{{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} <span class="pull-right"><small style="color: white !important;"> Creado {{ $asistido->created_at->format('M y') }}</small></span></h3>
@@ -370,6 +384,56 @@
 
 </div>
 </div>
+
+
+<div class="modal fade in" id="modal-imagen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title"><i class="fa icon fa-edit"></i> Actualizar Imagen</h4>
+      </div>
+      
+      <form class="form-horizontal" method="POST" action="{{ route('asistido.updateImage') }}" id="formNuevoAsistido" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="modal-body">
+          
+          <p class="text-center">
+          @if(isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg')
+
+            <img class="img-thumbnail" id="nueva-imagen" src="<?php echo asset("storage/$asistido->foto")?>" alt="User Image" data-toggle="tooltip" title="Editar Imagen de Perfil" style="max-height: 150px; max-width: 150px;">
+
+          @else
+
+            <img class="img-thumbnail" id="nueva-imagen" src="{{asset('img/user160x160.png')}}" alt="Default" style="max-height: 150px; max-width: 150px;">
+
+          @endif
+          </p>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="foto"></label>
+            <input type="hidden" name="id" value="{{$asistido->id}}">
+            <div class="col-sm-10">
+              <input type="file" accept="image/*" id="foto" name="foto" required>
+              <p class="help-block">Seleccione un archivo para reemplazar la foto.<br> <small>Admite jpg, jpeg, png, gif (Max 1000px)</small></p>
+            </div>
+          </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit">Actualizar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
 
 	
 @endsection
@@ -815,6 +879,33 @@
 
     }
   }
+
+</script>
+
+<script type="text/javascript">
+  
+  $('.perfil').click(function () {
+
+    $('#modal-imagen').modal('show');
+  });
+
+  function readURL(input) {
+
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        $('#nueva-imagen').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#foto").change(function() {
+    readURL(this);
+  });
 
 </script>
 

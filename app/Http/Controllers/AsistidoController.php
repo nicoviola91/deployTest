@@ -9,6 +9,7 @@ use App\Notifications\AltaAlerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class AsistidoController extends Controller
 {   
@@ -83,6 +84,43 @@ class AsistidoController extends Controller
         return redirect()->route('asistido.list');
     }
 
+    public function updateImage (Request $request) {
+
+        $validation = $request->validate([
+            'foto' => 'required|file|mimes:jpeg,png,gif|max:20480'
+        ]);
+
+        $id = $request->id;
+        $asistido = Asistido::where('id', $id)->first();
+
+        if($request->hasFile('foto')) {
+
+            //Si existe una imagen anterior, la elimino
+            if (isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg'){
+                
+                if (file_exists(storage_path('app/public').'/'.$asistido->foto))
+                    unlink(storage_path('app/public').'/'.$asistido->foto);
+            }
+
+            $image = $request->file('foto');
+            $imageName = $image->getClientOriginalName();
+            $fileName =  "asistido_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->fit(200, 200)->save($imageUrl);
+
+            if ($asistido->update(['foto' => $fileName]))
+                return redirect()->back()->with('success','Actualizada correctamente.');
+            else
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
+        } else {
+
+            redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
+        }
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -113,6 +151,33 @@ class AsistidoController extends Controller
         
         return view('asistidos.listado',$data);
     }
+
+    public function busqueda(Request $request) {
+
+        //echo "gola";
+        //var_dump($request->q);
+        $validatedData = $request->validate([
+            'q' => 'required|string',
+        ]);
+
+        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+            $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
+                                    ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                                    ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
+        }else{
+            $data['asistidos'] = Asistido::where(function ($query) {
+                $query->where('owner', '=', Auth::user()->id);
+            })->where(function ($query) use ($c,$d) {
+                $query->where('nombre', 'like', '%' . $request->q . '%')
+                      ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                      ->orWhere('dni', 'like', '%' . $request->q . '%');
+            });
+
+        }
+        
+        return view('asistidos.busqueda',$data);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

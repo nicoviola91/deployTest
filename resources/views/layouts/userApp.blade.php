@@ -38,6 +38,56 @@
 
   @yield('head')
 
+  <style type="text/css">
+
+    .divAlertas {
+      position: fixed;
+      z-index: 1030;
+      /*bottom: 50px;*/
+      top: 25px;
+    }
+
+    .alert-advertencia {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+    }
+
+      .alert-exito {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-peligro {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .alert-informacion {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .alert2 {
+      position: relative;
+      z-index: 999999;
+      width: 100%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 8px 35px 8px 14px;
+      margin-bottom:10px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+  </style>
+
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-red layout-top-nav">
@@ -87,7 +137,12 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+                @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                  <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="user-image" alt="User Image">
+                @else
+                  <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+                @endif
+
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 @if(null !==(Auth::user()))
                 <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
@@ -96,7 +151,11 @@
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                  @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                    <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+                  @else
+                    <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                  @endif
 
                   <p>
                     @if(null !==(Auth::user()))
@@ -128,7 +187,9 @@
       <!-- /.container-fluid -->
     </nav>
   </header>
-  <!-- Full Width Column -->
+
+  <div class="col-md-6 col-md-offset-3 divAlertas" id="notificaciones">    </div>
+
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
@@ -179,6 +240,49 @@
 <!-- ./wrapper -->
 
 @yield('scripts')
+
+<script type="text/javascript">
+  function lanzarAlerta (tipo, mensaje) {
+
+        switch (tipo) {
+
+          case 'exito':
+            var icono = 'fa-check';
+            var titulo = 'Información';
+            break;
+
+          case 'advertencia': 
+            var icono = 'fa-warning';
+            var titulo = 'Atención';
+            break;
+
+          case 'peligro':
+            var icono = 'fa-ban';
+            var titulo = 'Error';
+            break;
+
+          case 'informacion':
+          default:
+            var icono = 'fa-info-circle';
+            var titulo = 'Información';
+            var tipo = 'informacion';
+            break;
+
+        }
+
+        var text = '<div class="alert alert2 alert-' + tipo + ' alert-dismissible alertaBorrable" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa ' + icono + '"></i> ' + titulo + ' </h4>' + mensaje + '</div>';
+
+        var elem = $(document.createElement('div'));
+
+        elem.append(text);
+        $('#notificaciones').append(elem);
+
+        elem.fadeTo(14000, 100).slideUp(500, function(){
+          elem.remove();
+        });
+
+      }
+</script>
 
 </body>
 </html>

@@ -176,7 +176,7 @@
                     <br>
                     <div class="description-block">
                       <div><i class="fa icon fa-check-circle"></i></div>
-                      <h5 class="description-header"><?php echo $alertasPendientes != 0 ? ($alertasPresentados/$alertasTotal)*100 : 'N/D' ?>%</h5>
+                      <h5 class="description-header"><?php echo $alertasPendientes != 0 ? round(($alertasPresentados/$alertasTotal)*100) : 'N/D' ?>%</h5>
                       <span class="description-text">PRESENTISMO</span>
                     </div>
                     <br>
