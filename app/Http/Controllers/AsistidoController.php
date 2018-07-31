@@ -77,6 +77,8 @@ class AsistidoController extends Controller
         $asistido=new Asistido($request->all());
         $asistido->createdBy=Auth::user()->email;
         $asistido->save();
+        $usuarioNotif = User::find($usuario);
+        $usuarioNotif->notify(new AltaAlerta($alerta));
         
         return redirect()->route('asistido.list');
     }

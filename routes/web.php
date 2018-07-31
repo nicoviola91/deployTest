@@ -59,7 +59,7 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@profile2',
         'as'=>'user.profile2'
     ])->middleware('admin');
-    
+
     Route::get('/store',[
         'uses'=>'UserController@store',
         'as'=>'user.store'
@@ -151,6 +151,10 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::post('/store/{alerta_id}',[
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
+    ])->middleware('admin');
+    Route::post('/storeNew',[
+        'uses'=>'AsistidoController@storeNew',
+        'as'=>'asistido.storeNew',
     ])->middleware('admin');
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
