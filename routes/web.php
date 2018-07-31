@@ -44,6 +44,12 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@create',
         'as'=>'user.create'
     ]);
+
+    Route::post('/updateImage',[
+        'uses'=>'UserController@updateImage',
+        'as'=>'user.updateImage',
+    ])->middleware('admin');
+
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'

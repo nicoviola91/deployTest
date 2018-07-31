@@ -12,6 +12,8 @@ use Illuminate\Routing\Redirector;
 use App\Http\Requests\UserRequest;
 use App\TipoUsuario;
 
+use Image;
+
 class UserController extends Controller
 {
     /**
@@ -144,15 +146,15 @@ class UserController extends Controller
         ]);
 
         $id = $request->id;
-        $asistido = Asistido::where('id', $id)->first();
+        $usuario = User::where('id', $id)->first();
 
         if($request->hasFile('foto')) {
 
             //Si existe una imagen anterior, la elimino
-            if (isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg'){
+            if (isset($usuario->imagen) && $usuario->imagen != '' && $usuario->imagen != 'default.jpg'){
                 
-                if (file_exists(storage_path('app/public').'/'.$asistido->foto))
-                    unlink(storage_path('app/public').'/'.$asistido->foto);
+                if (file_exists(storage_path('app/public').'/'.$usuario->imagen))
+                    unlink(storage_path('app/public').'/'.$usuario->imagen);
             }
 
             $image = $request->file('foto');
@@ -163,7 +165,9 @@ class UserController extends Controller
             $imageUrl = $directory.'/'.$fileName;
             Image::make($image)->fit(200, 200)->save($imageUrl);
 
-            if ($asistido->update(['foto' => $fileName]))
+            $usuario->update(['imagen' => $fileName]);
+
+            if ($usuario->update(['imagen' => $fileName]))
                 return redirect()->back()->with('success','Actualizada correctamente.');
             else
                 return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
