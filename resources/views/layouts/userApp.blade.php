@@ -137,7 +137,12 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+                @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                  <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="user-image" alt="User Image">
+                @else
+                  <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+                @endif
+
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 @if(null !==(Auth::user()))
                 <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
@@ -146,7 +151,11 @@
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                  @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                    <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+                  @else
+                    <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                  @endif
 
                   <p>
                     @if(null !==(Auth::user()))

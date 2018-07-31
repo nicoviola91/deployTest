@@ -117,14 +117,24 @@
           @if(null !==(Auth::user()))
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+
+              @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="user-image" alt="User Image">
+              @else
+                <img src="{{ asset('/img/user160x160.png') }}" class="user-image" alt="User Image">
+              @endif
+
               <span class="hidden-xs">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</span>
             
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+                  <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+                @else
+                  <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+                @endif
                 <p>
                   
                   {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
@@ -163,7 +173,11 @@
       
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+          @if(isset(Auth::user()->imagen) && Auth::user()->imagen != '' && Auth::user()->imagen != 'default.jpg')
+            <img src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" class="img-circle" alt="User Image">
+          @else
+            <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image">
+          @endif
         </div>
         <div class="pull-left info">
             @if(null !==(Auth::user()))
