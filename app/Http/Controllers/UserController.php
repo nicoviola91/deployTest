@@ -136,4 +136,41 @@ class UserController extends Controller
     {
         //
     }
+
+    public function updateImage (Request $request) {
+
+        $validation = $request->validate([
+            'foto' => 'required|file|mimes:jpeg,png,gif|max:20480'
+        ]);
+
+        $id = $request->id;
+        $asistido = Asistido::where('id', $id)->first();
+
+        if($request->hasFile('foto')) {
+
+            //Si existe una imagen anterior, la elimino
+            if (isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg'){
+                
+                if (file_exists(storage_path('app/public').'/'.$asistido->foto))
+                    unlink(storage_path('app/public').'/'.$asistido->foto);
+            }
+
+            $image = $request->file('foto');
+            $imageName = $image->getClientOriginalName();
+            $fileName =  "user_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->fit(200, 200)->save($imageUrl);
+
+            if ($asistido->update(['foto' => $fileName]))
+                return redirect()->back()->with('success','Actualizada correctamente.');
+            else
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
+        } else {
+
+            redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
+        }
+
+    }
 }

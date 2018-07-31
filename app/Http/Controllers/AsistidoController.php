@@ -102,7 +102,7 @@ class AsistidoController extends Controller
 
             $image = $request->file('foto');
             $imageName = $image->getClientOriginalName();
-            $fileName =  "profile_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+            $fileName =  "asistido_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
 
             $directory = storage_path('app/public');
             $imageUrl = $directory.'/'.$fileName;

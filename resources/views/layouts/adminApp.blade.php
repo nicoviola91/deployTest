@@ -189,9 +189,11 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
+
         @else
-        <li><a href="{{url('/alert/list')}}"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="{{url('/alert/list')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
+
         @endif
         <li class="treeview">
           <a href="#">

@@ -2,7 +2,7 @@
 
 
 @section('title')
-	Usuarios
+	Usuarios2
 @endsection
 
 
@@ -80,7 +80,14 @@
               <div class="row">
                   <div class="col-sm-6">
                     <div class="description-block">
-                    <h5 class="description-header">{{(Auth::user()->firmoAcuerdo==1) ? 'Sí':'No'}}</h5>
+                    <h5 class="description-header">
+                      <?php if ((Auth::user()->firmoAcuerdo==1)) { ?>
+                        Sí <i class="icon fa fa-check-circle text-green"></i>
+                      <?php } else { ?>
+                        No <i class="icon fa fa-times-circle text-red"></i>
+                      <?php } ?>
+                      
+                    </h5>
                       <span class="description-text">FIRMO ACUERDO DE CONFIDENCIALIDAD</span>
                     </div>
                     <!-- /.description-block -->
