@@ -14,7 +14,7 @@
 
     <div class="col-md-10 col-md-offset-1">
       
-      <div class="box box-widget">
+      <div class="box box-widget" id="listadoConsultas">
 
         <?php if (isset($consultas)): ?>
 
@@ -23,7 +23,7 @@
             <div class="box-header with-border" style="background-color: #e5e5e5">
               <div class="user-block">
                 <?php if (isset($consulta->user->imagen)) { ?>
-                  <img class="img-circle" src="{{ asset('/img/Perez.jpg') }}" alt="User Image">  
+                  <img class="img-circle" src="{{ asset('/img/'. $consulta->user->imagen) }}" alt="User Image">  
                 <?php } else { ?>
                   <canvas class="user-icon" data-name="<?php echo $consulta->user->name ?> <?php echo $consulta->user->apellido ?>" width="40" height="40" style="border-radius: 50%; float: left;" data-chars="2"></canvas>
                   <!-- <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image"> -->
@@ -127,6 +127,89 @@
 </div>
 
 <script>
+
+	$('#submitConsultaBtn').click(function(e) {
+
+		e.preventDefault();
+
+    	formData = new FormData($('#formNuevaConsulta')[0]);
+
+    	bootbox.dialog({
+	        message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+	        closeButton: false
+	    });
+
+    	$.ajax({
+            url: "{{url('/consultas/store')}}",
+            type: "POST",
+            enctype: 'multipart/form-data',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(datos)
+            {	
+            	$('.modal').modal('hide');
+            	$('#formNuevaConsulta')[0].reset();
+
+            	if (datos.status) {
+            		lanzarAlerta('exito', datos.msg);
+
+		            txt = '<div class="box-header with-border" style="background-color: #e5e5e5">';
+		            txt+= '<div class="user-block">';
+		            txt+= '<img class="img-circle" src="{{ asset("/img/user160x160.png") }}" alt="User Image">'
+		                txt+= '<small class="text-muted pull-right"> ahora </small>'
+		                txt+= '<span class="username"><a href="#">Tú</a></span>'
+		                txt+= '<span class="description">email </span>';
+		              txt+= '</div>';
+		            txt+= '</div>';
+		            txt+= '<div class="box-body">';
+
+		              txt+= ('<p>' + datos.texto + '</p>');
+		              	
+		              	if (datos.adjunto) {
+		                txt+= '<div class="attachment-block clearfix">';
+		                  txt+= ('<a href="/download/'+datos.adjunto+'" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>');
+		                  txt+= '<ul class="mailbox-attachments">';
+		                    txt+= '<li style="border: none; width: 90px;">'; 
+		                      txt+= '<span class="mailbox-attachment-icon" style="padding: 0px; font-size: 13px; white-space: nowrap;">';
+		                        txt+= '<i class="fa fa-file-text-o text-black"></i> Archivo Adjunto';
+		                      txt+= '</span>';
+		                    txt+= '</li>';
+		                  txt+= '</ul>';
+		                txt+= '</div>';
+		                }            
+
+		            txt+= '</div>';
+
+		            txt+= '<hr style="margin: 5px;">';
+
+            		console.log(txt);
+
+
+            		$('#listadoConsultas').append(txt);
+
+
+
+
+
+
+            	}
+            	else {
+            		lanzarAlerta('peligro', datos.msg);
+            	}
+
+            },
+            error: function(data) {					
+				$('.modal').modal('hide');
+				lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+			}
+
+    	});
+
+
+	})
+
   $(function () {
 
     $('.textareaEditor').wysihtml5({
