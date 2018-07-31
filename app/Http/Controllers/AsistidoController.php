@@ -89,34 +89,34 @@ class AsistidoController extends Controller
         ]);
 
         $id = $request->id;
-        $asistido = Asistido::where('id', $id);
+        $asistido = Asistido::where('id', $id)->first();
 
+        if($request->hasFile('foto')) {
 
-        if (null != $request->file('foto')) {
-            
-            $imagen = $request->file('foto');
+            //Si existe una imagen anterior, la elimino
+            if (isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg'){
+                
+                if (file_exists(storage_path('app/public').'/'.$asistido->foto))
+                    unlink(storage_path('app/public').'/'.$asistido->foto);
+            }
 
-            $path = $imagen->store('public');
+            $image = $request->file('foto');
+            $imageName = $image->getClientOriginalName();
+            $fileName =  "profile_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
 
-            $path = basename($path);
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->fit(200, 200)->save($imageUrl);
 
-        }
-
-        if ($asistido->update(['foto' => $path])) {
-            
-                return response()->json([
-                    'status' => true,
-                    'msg' => 'Actualizada correctamente',
-                    'foto' => $path, 
-                    'texto' => $request->mensaje,
-                ]);     
-
+            if ($asistido->update(['foto' => $fileName]))
+                return redirect()->back()->with('success','Actualizada correctamente.');
+            else
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
         } else {
-            return response()->json([
-                'status' => false,
-                'msg' => 'Ocurrio un error al actualizar la imagen. Por favor vuelva a intentarlo.',
-            ]);
+
+            redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
         }
+
     }
 
     /**
