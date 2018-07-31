@@ -9,6 +9,7 @@ use App\Notifications\AltaAlerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class AsistidoController extends Controller
 {   
@@ -93,10 +94,12 @@ class AsistidoController extends Controller
 
         if (null != $request->file('foto')) {
             
-            dd($request->file('foto'));
+            $imagen = $request->file('foto');
 
-            $path = $request->file('foto')->store('public');
+            $path = $imagen->store('public');
+
             $path = basename($path);
+
         }
 
         if ($asistido->update(['foto' => $path])) {
