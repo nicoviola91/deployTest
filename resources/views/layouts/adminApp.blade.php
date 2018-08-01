@@ -299,6 +299,10 @@
         @endif
 
         @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
+        @else
+        @endif
+
+        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
         <li class="treeview">
           <a href="#">
             <i class="fa fa-user-circle"></i>
