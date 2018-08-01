@@ -158,19 +158,16 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
     ])->middleware('admin');
-<<<<<<< HEAD
     Route::post('/storeNew',[
         'uses'=>'AsistidoController@storeNew',
         'as'=>'asistido.storeNew',
     ])->middleware('admin');
-=======
 
     Route::post('/updateImage',[
         'uses'=>'AsistidoController@updateImage',
         'as'=>'asistido.updateImage',
     ])->middleware('admin');
 
->>>>>>> 402c0b37cfc12a0fbeded74bfaa4498541c287c3
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
