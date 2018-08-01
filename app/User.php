@@ -16,7 +16,9 @@ class User extends Authenticatable
      */
     protected $table="users";
     protected $fillable = [
-        'name','apellido','email', 'password','dni', 'tipoUsuario_id','chkFirmoAcuerdo','imagen'
+        'name','apellido','email', 'password','dni', 'tipoUsuario_id','chkFirmoAcuerdo','imagen',
+        'institucion_id','comunidad_id',
+
     ];
 
     /**
@@ -45,6 +47,14 @@ class User extends Authenticatable
 
     public function fichas(){
         return $this->hasMany('App\Ficha');
+    }
+
+    public function institucion(){
+        return $this->belongsTo('App\Institucion','institucion_id');
+    }
+
+    public function comunidad(){
+        return $this->belongsTo('App\Comunidad','comunidad_id');
     }
     
 }

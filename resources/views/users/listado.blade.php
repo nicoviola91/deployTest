@@ -53,6 +53,8 @@
 					<th class="text-center">Fecha Registro</th>
 					<th class="text-center">Acuerdo de Confidencialidad</th>
 					<th class="text-center">Tipo Usuario</th>
+					<th class="text-center">Institución</th>
+					<th class="text-center">Comunidad</th>
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -86,6 +88,9 @@
 					            </div>
 										
 							</td>
+							
+							<td class="text-center" style="vertical-align: middle;">{{ $usuario->institucion }}</td>
+							<td class="text-center" style="vertical-align: middle;">{{ $usuario->comunidad }}</td>
 							<td class="text-center" style="vertical-align: middle;">
 							<a href="{{ route('user.profile2',['id'=>$usuario->id]) }}" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 							</td>	

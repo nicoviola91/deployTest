@@ -23,7 +23,7 @@ class Institucion extends Model
     ];
 
     public function comunidades(){
-        return $this->hasMany('App\Comunidad');
+        return $this->hasMany('App\Comunidad','institucion_id');
     }
 
     public function direccion(){
@@ -48,6 +48,10 @@ class Institucion extends Model
 
     public function tratamiento(){
         return $this->belongsTo('App\Tratamiento');
+    }
+
+    public function users(){
+        return $this->hasMany('App\User','institucion_id');
     }
 
 }
