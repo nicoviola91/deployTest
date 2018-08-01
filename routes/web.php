@@ -176,7 +176,7 @@ Route::group(['prefix'=>'asistido'],function(){
         'as'=>'asistido.list'
     ])->middleware('autenticado');
 
-    Route::post('/busqueda',[
+    Route::get('/busqueda',[
         'uses'=>'AsistidoController@busqueda',
         'as'=>'asistido.busqueda'
     ])->middleware('autenticado');

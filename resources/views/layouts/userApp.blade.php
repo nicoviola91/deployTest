@@ -120,12 +120,15 @@
             <!--<li><a href="#"> <i class="fa fa-pencil-square-o fa-fw"></i> Consultas</a></li>-->
             <li><a href="{{url('/alerta/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
           </ul>
-          <form class="navbar-form navbar-left" role="search">
-            <!--
+
+          <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
+            {{ csrf_field() }}
             <div class="form-group">
-              <input type="text" class="form-control" id="navbar-search-input" placeholder="Buscar Asistido...">
-            </div>-->
+              <input type="text" name="q" class="form-control" placeholder="Buscar Asistido...">
+              <input type="hidden" name="tipo" class="form-control" value="asistido">
+            </div>
           </form>
+
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->
@@ -165,6 +168,7 @@
                   </p>
                 </li>
                 <!-- Menu Body -->
+
                 
                 <!-- Menu Footer-->
                 <li class="user-footer">
@@ -181,6 +185,17 @@
               </ul>
             </li>
           </ul>
+
+
+
+
+
+
+
+
+
+
+
         </div>
         <!-- /.navbar-custom-menu -->
       </div>

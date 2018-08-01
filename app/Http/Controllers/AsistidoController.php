@@ -160,20 +160,37 @@ class AsistidoController extends Controller
             'q' => 'required|string',
         ]);
 
-        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
-            $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
-                                    ->orWhere('apellido', 'like', '%' . $request->q . '%')
-                                    ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
-        }else{
-            $data['asistidos'] = Asistido::where(function ($query) {
-                $query->where('owner', '=', Auth::user()->id);
-            })->where(function ($query) use ($c,$d) {
-                $query->where('nombre', 'like', '%' . $request->q . '%')
-                      ->orWhere('apellido', 'like', '%' . $request->q . '%')
-                      ->orWhere('dni', 'like', '%' . $request->q . '%');
-            });
+        $data['q'] = $request->q;
 
+
+        switch ($request->tipo) {
+            case 'asistido':
+                if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+                    $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
+                                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                                            //->orWhere('getFullName', 'like', '%' . $request->q . '%')
+                                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
+                                            ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
+
+                    // dd($data['asistidos']);
+                }else{
+                    $data['asistidos'] = Asistido::where(function ($query) {
+                        $query->where('owner', '=', Auth::user()->id);
+                    })->where(function ($query) use ($c,$d) {
+                        $query->where('nombre', 'like', '%' . $request->q . '%')
+                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
+                            ->orWhere('dni', 'like', '%' . $request->q . '%');
+                    });
+                }
+                break;
+            
+            default:
+                # code...
+                break;
         }
+
+                
         
         return view('asistidos.busqueda',$data);
     }

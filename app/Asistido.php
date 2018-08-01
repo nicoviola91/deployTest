@@ -56,6 +56,12 @@ class Asistido extends Model
     public function alertas(){
         return $this->hasMany('App\Alerta');
     }
+
+    public function getFullName()
+    {
+        return "{$this->nombre} {$this->apellido}";
+    }
+
     /*public function usuariosCompartidos(){
         return $this->hasMany('App\UsuarioCompartido');
     }*/

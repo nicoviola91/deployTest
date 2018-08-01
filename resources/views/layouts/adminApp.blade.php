@@ -188,10 +188,11 @@
       </div>
       <!-- search form -->
       @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
-      <form class="sidebar-form" autocomplete="off" method="post" action="{{ route('asistido.busqueda') }}" >
+      <form class="sidebar-form" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
         {{ csrf_field() }}
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Buscar Asistido...">
+          <input type="hidden" name="tipo" class="form-control" value="asistido">
           <span class="input-group-btn">
             <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
           </span>
