@@ -16,7 +16,7 @@ class Institucion extends Model
         'fichaSaludMental_id',
         'tratamiento_id',
         'tipo',
-        'direccion',
+        'direccion_id',
         'descripcion',
         'imagen',
         
@@ -27,7 +27,7 @@ class Institucion extends Model
     }
 
     public function direccion(){
-        return $this->hasOne('App\Direccion', 'institucion_id');
+        return $this->belongsTo('App\Direccion', 'direccion_id');
     }
 
     public function serviciosSociales(){

@@ -17,7 +17,7 @@ class Direccion extends Model
         'codigoPostal',
         'pais',
         'localidad',
-        'institucion_id',
+        //'institucion_id',
         'educacion_id',
         'localizacionHabitual_id',
         'zonaDePermanencia_id',
@@ -32,9 +32,8 @@ class Direccion extends Model
     }*/
 
     public function institucion(){
-        return $this->belongsTo('App\Institucion', 'institucion_id');
+        return $this->hasOne('App\Institucion', 'institucion_id');
     }
-
 
     public function educacion(){
         return $this->belongsTo('App\Educacion','educacion_id');
