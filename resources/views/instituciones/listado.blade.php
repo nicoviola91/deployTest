@@ -152,6 +152,29 @@
  	              @endif
  	            </div>
 
+ 	            <div class="form-group col-md-6 {{ $errors->has('tipo') ? ' has-error' : '' }}">
+ 	              <label for="tipo">Tipo</label>
+ 	              <select class="form-control" id="tipo" name="tipo">
+ 	              	<option value="posadero">Posadero</option>
+ 	              	<option value="externa">Institución Externa</option>
+ 	              </select>
+ 	              @if ($errors->has('tipo'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('responsable') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+
+ 	            <div class="form-group col-md-6 {{ $errors->has('descripcion') ? ' has-error' : '' }}">
+ 	              <label for="descripcion">Descripción Adicional</label>
+ 	              <textarea class="form-control" rows="1" id="descripcion" name="descripcion" placeholder="OPCIONAL (ej. horarios de atención)"></textarea>
+ 	              @if ($errors->has('descripcion'))
+ 	                <span class="help-block">
+ 	                    <strong>{{ $errors->first('descripcion') }}</strong>
+ 	                </span>
+ 	              @endif
+ 	            </div>
+
  	            <label>Dirección</label>
  	            <div class="form-group col-md-12">
  	            	<input type="text" class="form-control col-md-6" id="autocomplete" placeholder="Comenzá a escribir una dirección para obtener sugerencias..." style="background-color: #eee;" autocomplete="false">
@@ -191,11 +214,6 @@
  	            <div class="form-group col-md-3">
  	            	<label>Pais</label>
  	            	<input class="form-control" id="country" name="pais"></input>
- 	            </div>
-
- 	            <div class="form-group col-md-12">
- 	            	<label>Mas detalles (entre calles)</label>
- 	            	<input class="form-control" name="entreCalles"></input>
  	            </div>
 
  	            <div class="form-group"> 	            	

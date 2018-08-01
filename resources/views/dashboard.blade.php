@@ -141,6 +141,10 @@
           <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title"><i class="icon fa fa-bullhorn"></i> Alertas <small class="text-muted">HEATMAP</small></h3>
+              <div class="box-tools pull-right">
+                <input type="checkbox" id="checkInstituciones"> 
+                <span class="text-muted"> Mostrar Instituciones</span>               
+              </div>
 
             </div>
             <!-- /.box-header -->

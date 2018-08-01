@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucion;
+use App\Direccion;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstitucionRequest;
 use Illuminate\Support\Facades\Storage;
@@ -41,10 +42,40 @@ class InstitucionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InstitucionRequest $request)
-    {           
-        $institucion = new Institucion($request->all());
+    public function store(Request $request)
+    {    
+        //validar datos del request      
+
+        //Direccion
+        $direccion = new Direccion();
+
+        $direccion->calle = $request->calle;
+        $direccion->numero = $request->numero;
+        $direccion->piso = $request->piso;
+        $direccion->departamento = $request->departamento;
+        $direccion->provincia = $request->provincia;
+        $direccion->codigoPostal = $request->codigoPostal;
+        $direccion->pais = $request->pais;
+        $direccion->localidad = $request->localidad;
+        $direccion->lat = $request->lat;
+        $direccion->long = $request->lng;
+
+        $direccion->save();
+
+        //Institucion
+        $institucion = new Institucion();
+        
+        $institucion->nombre = $request->nombre;
+        $institucion->cuit = $request->cuit;
+        $institucion->responsable = $request->responsable;
+        $institucion->telefono = $request->telefono;
+        $institucion->email = $request->email;
+        $institucion->tipo = $request->tipo;
+        $institucion->descripcion = $request->descripcion;
+        $institucion->direccion = $direccion->id;
+
         $institucion->save();
+        
         return redirect()->route('institucion.list');
     }
 

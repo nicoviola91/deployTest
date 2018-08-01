@@ -14,7 +14,10 @@ class Institucion extends Model
         'telefono',
         'mail',
         'fichaSaludMental_id',
-        'tratamiento_id'
+        'tratamiento_id',
+        'tipo',
+        'descripcion',
+        'imagen',
         
     ];
 

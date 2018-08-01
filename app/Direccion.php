@@ -21,7 +21,9 @@ class Direccion extends Model
         'educacion_id',
         'localizacionHabitual_id',
         'zonaDePermanencia_id',
-        'empleo_id'
+        'empleo_id',
+        'lat',
+        'long',
 
     ];
 
