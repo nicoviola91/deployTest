@@ -32,7 +32,7 @@ class FichaAsistenciaSocialController extends Controller
 
         $asistido=Asistido::find($asistido_id);
 
-        $fichaAsistenciaSocial=$this->findFichaAsistenciaSocialByAsistidoId($asistido_id);
+        $fichaAsistenciaSocial = $this->findFichaAsistenciaSocialByAsistidoId($asistido_id);
         
         if(isset($fichaAsistenciaSocial)){
         
@@ -81,13 +81,17 @@ class FichaAsistenciaSocialController extends Controller
 
 
     public function findFichaAsistenciaSocialByAsistidoId($asistido_id){
+        
         $fichaAsistenciaSocial=FichaAsistenciaSocial::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
+        
         if(!isset($fichaAsistenciaSocial)){
-            $fichaAsistenciaSocial=new FichaAsistenciaSocial();
-            $fichaEducacion->created_by = Auth::user()->id;
+
+            $fichaAsistenciaSocial = new FichaAsistenciaSocial();
+            $fichaAsistenciaSocial->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaAsistenciaSocial);
             $asistido->update(['checkFichaAsistenciaSocial' =>1]);
+            
         }
         return $fichaAsistenciaSocial;
     }
