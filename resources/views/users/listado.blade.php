@@ -73,7 +73,6 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
 							<td class="text-center no-print" style="vertical-align: middle;">
 								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="{{ $usuario->id }}" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
-								{{($usuario->chkFirmoAcuerdo==1 ? 'Sí':'No')}}
 							</td>
 							<td class="text-center" style="vertical-align: middle;">
 								<div class="form-group">
@@ -149,17 +148,16 @@
 			valor = 1;
 		else
 			valor = 0;
-		
+
 		var loading = bootbox.dialog({
 	        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
 	        closeButton: false
 	    });
 
 		$.post( "{{route('user.acuerdo')}}", { 'id': asistido, 'valor': valor, '_token': '{{csrf_token()}}' })    
-	    .done(function(data) {
+	    .done(function(datos) {
 
-	    	console.log('cja');
-	      if (data.status) {
+	      if (datos.status) {
 
 	        loading.modal('hide');
 	        lanzarAlerta('exito', datos.msg);
@@ -181,13 +179,10 @@
 		var asistido = $(this).find(':selected').data('id');
 		var tipo = $(this).find(':selected').data('tipo');
 
-		console.log(asistido);
-		console.log(tipo);
-
 		var loading = bootbox.dialog({
-        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
-        closeButton: false
-      });
+	        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+	        closeButton: false
+	    });
 
 	});
 
