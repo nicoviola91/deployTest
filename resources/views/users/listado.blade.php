@@ -166,7 +166,12 @@
 	      } else {
 
 	        loading.modal('hide');
-	        check.prop('checked', true);
+	        
+	        if (check.is(':checked'))
+	        	check.prop('checked', false);
+	       	else
+	       		check.prop('checked', true);
+	        
 	        lanzarAlerta('peligro', datos.msg);
 	      }
 
@@ -179,10 +184,28 @@
 
 		var asistido = $(this).find(':selected').data('id');
 		var tipo = $(this).find(':selected').data('tipo');
-
+		var select = $(this);
+		
 		var loading = bootbox.dialog({
 	        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
 	        closeButton: false
+	    });
+
+		$.post( "{{route('user.updateType')}}", { 'id': asistido, 'tipo': tipo, '_token': '{{csrf_token()}}' })    
+	    .done(function(datos) {
+
+	      if (datos.status) {
+
+	        loading.modal('hide');
+	        lanzarAlerta('exito', datos.msg);
+
+	      } else {
+
+	        loading.modal('hide');
+	        select.val(datos.id);
+	        lanzarAlerta('peligro', datos.msg);
+	      }
+
 	    });
 
 	});

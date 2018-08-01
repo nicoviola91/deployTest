@@ -55,6 +55,11 @@ Route::group(['prefix'=>'user'], function(){
         'as'=>'user.acuerdo',
     ])->middleware('admin');
 
+    Route::post('/updateType',[
+        'uses'=>'UserController@updateType',
+        'as'=>'user.updateType',
+    ])->middleware('admin');
+
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'

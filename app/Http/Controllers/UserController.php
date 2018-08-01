@@ -204,4 +204,34 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function updateType (Request $request) {
+
+        //Verificar que id es numeric, existe y sea un usuario valido
+        //Verificar que valor es boolean
+
+        $id = $request->id;
+        $tipo = $request->tipo;
+
+        $usuario = User::where('id', $id)->first();
+
+        if ($usuario->update(['tipoUsuario_id' => $tipo])) {
+            
+            return response()->json([
+                'status' => true,
+                'id' => $usuario->tipoUsuario_id,
+                'msg' => 'Actualizado correctamente',
+            ]);
+
+        } else {
+            
+            return response()->json([
+                'status' => false,
+                'id' => $usuario->tipoUsuario_id,
+                'msg' => 'Ocurrió un error al realizar la operación.',
+            ]);
+        }
+    }
+
+    
 }
