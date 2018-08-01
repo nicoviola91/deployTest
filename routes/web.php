@@ -50,6 +50,11 @@ Route::group(['prefix'=>'user'], function(){
         'as'=>'user.updateImage',
     ])->middleware('admin');
 
+    Route::post('/acuerdo',[
+        'uses'=>'UserController@acuerdo',
+        'as'=>'user.acuerdo',
+    ])->middleware('admin');
+
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'

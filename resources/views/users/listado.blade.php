@@ -51,8 +51,8 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center" >E-mail</th>
 					<th class="text-center">Fecha Registro</th>
-					<th class="text-center">Firmó acuerdo de confidencialidad</th>
-					<th class="text-center">Tipo de usuario</th>
+					<th class="text-center">Acuerdo de Confidencialidad</th>
+					<th class="text-center">Tipo Usuario</th>
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -71,8 +71,21 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
-						<td class="text-center" style="vertical-align: middle;">{{($usuario->firmoAcuerdo==1 ? 'Sí':'No')}}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->tipoUsuario->descripcion }}</td>
+							<td class="text-center no-print" style="vertical-align: middle;">
+								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="{{ $usuario->id }}" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
+								{{($usuario->chkFirmoAcuerdo==1 ? 'Sí':'No')}}
+							</td>
+							<td class="text-center" style="vertical-align: middle;">
+								<div class="form-group">
+					                <select class="form-control userType" style="width: 100%;">
+					                  
+					                	<?php foreach ($tipos as $tipo) { ?>
+					                		<option <?php echo ($usuario->tipoUsuario_id == $tipo->id) ? 'selected' : '' ?> value="{{$tipo->id}}" data-id="{{ $usuario->id }}" data-tipo="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+										<?php } ?>
+					                </select>
+					            </div>
+										
+							</td>
 							<td class="text-center" style="vertical-align: middle;">
 							<a href="{{ route('user.profile2',['id'=>$usuario->id]) }}" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 							</td>	
@@ -122,6 +135,61 @@
 			}
 	    });
   });
+
+</script>
+
+<script type="text/javascript">
+	
+	$('.acuerdo').change(function () {
+
+		var check = $(this);
+		var asistido = $(this).data('id');
+
+		if ($(this).is(':checked'))
+			valor = 1;
+		else
+			valor = 0;
+		
+		var loading = bootbox.dialog({
+	        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+	        closeButton: false
+	    });
+
+		$.post( "{{route('user.acuerdo')}}", { 'id': asistido, 'valor': valor, '_token': '{{csrf_token()}}' })    
+	    .done(function(data) {
+
+	    	console.log('cja');
+	      if (data.status) {
+
+	        loading.modal('hide');
+	        lanzarAlerta('exito', datos.msg);
+
+	      } else {
+
+	        loading.modal('hide');
+	        check.prop('checked', true);
+	        lanzarAlerta('peligro', datos.msg);
+	      }
+
+	    });
+
+
+	});
+
+	$('.userType').change(function () {
+
+		var asistido = $(this).find(':selected').data('id');
+		var tipo = $(this).find(':selected').data('tipo');
+
+		console.log(asistido);
+		console.log(tipo);
+
+		var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+	});
 
 </script>
 

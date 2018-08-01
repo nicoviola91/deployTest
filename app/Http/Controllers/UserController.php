@@ -101,6 +101,7 @@ class UserController extends Controller
     public function showAll()
     {
         $data['usuarios'] = User::all();
+        $data['tipos'] = TipoUsuario::all();
         return view('users.listado', $data);
     }
 
@@ -176,5 +177,31 @@ class UserController extends Controller
             redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
         }
 
+    }
+
+    public function acuerdo (Request $request) {
+
+        //Verificar que id es numeric, existe y sea un usuario valido
+        //Verificar que valor es boolean
+
+        $id = $request->id;
+        $valor = $request->valor;
+
+        $usuario = User::where('id', $id)->first();
+
+        if ($usuario->update(['chkFirmoAcuerdo' => $valor])) {
+            
+            return response()->json([
+                'status' => true,
+                'msg' => 'Actualizado correctamente',
+            ]);
+
+        } else {
+            
+            return response()->json([
+                'status' => false,
+                'msg' => 'Ocurrió un error al realizar la operación.',
+            ]);
+        }
     }
 }
