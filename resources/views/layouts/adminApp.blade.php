@@ -299,7 +299,9 @@
         @endif
 
         @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
+          <li><a href="{{url('/necesidad/list')}}"><i class="fa fa-hotel"></i><span>Necesidades (en proceso)</span></a></li>
         @else
+          <li><a href="{{url('/necesidad/public')}}"><i class="fa fa-hotel"></i><span>Necesidades (en proceso)</span></a></li>
         @endif
 
         @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
