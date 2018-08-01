@@ -75,6 +75,7 @@
 								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="{{ $usuario->id }}" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
 							</td>
 							<td class="text-center" style="vertical-align: middle;">
+								<span style="display: none;">{{$usuario->tipoUsuario->descripcion}}</span>
 								<div class="form-group">
 					                <select class="form-control userType" style="width: 100%;">
 					                  
