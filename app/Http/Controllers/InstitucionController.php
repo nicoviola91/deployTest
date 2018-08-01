@@ -72,7 +72,7 @@ class InstitucionController extends Controller
         $institucion->email = $request->email;
         $institucion->tipo = $request->tipo;
         $institucion->descripcion = $request->descripcion;
-        $institucion->direccion = $direccion->id;
+        $institucion->direccion_id = $direccion->id;
 
         $institucion->save();
         
