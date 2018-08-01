@@ -32,7 +32,7 @@ class Direccion extends Model
     }*/
 
     public function institucion(){
-        return $this->belongsTo('App\Institucion');
+        return $this->belongsTo('App\Institucion', 'institucion_id');
     }
 
 

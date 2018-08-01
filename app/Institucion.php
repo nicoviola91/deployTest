@@ -26,7 +26,7 @@ class Institucion extends Model
     }
 
     public function direccion(){
-        return $this->hasOne('App\Direccion');
+        return $this->hasOne('App\Direccion', 'institucion_id');
     }
 
     public function serviciosSociales(){
