@@ -23,7 +23,8 @@
             <div class="box-header with-border" style="background-color: #e5e5e5">
               <div class="user-block">
                 <?php if (isset($consulta->user->imagen)) { ?>
-                  <img class="img-circle" src="{{ asset('/img/'. $consulta->user->imagen) }}" alt="User Image">  
+                  <!-- <img class="img-circle" src="{{ asset('/img/'. $consulta->user->imagen) }}" alt="User Image">  -->
+                  <img src="<?php echo asset("storage") . '/' . $consulta->user->imagen ?>" class="img-circle" alt="User Image">
                 <?php } else { ?>
                   <canvas class="user-icon" data-name="<?php echo $consulta->user->name ?> <?php echo $consulta->user->apellido ?>" width="40" height="40" style="border-radius: 50%; float: left;" data-chars="2"></canvas>
                   <!-- <img src="{{ asset('/img/user160x160.png') }}" class="img-circle" alt="User Image"> -->
