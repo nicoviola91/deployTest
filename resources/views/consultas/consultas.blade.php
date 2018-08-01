@@ -158,10 +158,10 @@
 
 		            txt = '<div class="box-header with-border" style="background-color: #e5e5e5">';
 		            txt+= '<div class="user-block">';
-		            txt+= '<img class="img-circle" src="{{ asset("/img/user160x160.png") }}" alt="User Image">'
+		            txt+= '<img class="img-circle" src="<?php echo isset(Auth::user()->imagen) ? asset("storage") . '/' . Auth::user()->imagen : asset("/img/user160x160.png") ?>" alt="User Image">'
 		                txt+= '<small class="text-muted pull-right"> ahora </small>'
-		                txt+= '<span class="username"><a href="#">Tú</a></span>'
-		                txt+= '<span class="description">email </span>';
+		                txt+= '<span class="username"><a href="#">{{ Auth::user()->name }} {{ Auth::user()->apellido }}</a></span>'
+		                txt+= '<span class="description">{{ Auth::user()->email }} </span>';
 		              txt+= '</div>';
 		            txt+= '</div>';
 		            txt+= '<div class="box-body">';
