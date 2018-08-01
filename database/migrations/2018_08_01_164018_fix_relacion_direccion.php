@@ -17,7 +17,7 @@ class FixRelacionDireccion extends Migration
             //
             $table->dropColumn('direccion');
 
-            $table->integer('direccion_id')->unsigned();
+            $table->integer('direccion_id')->unsigned()->nullable();
             $table->foreign('direccion_id')->references('id')->on('direcciones');
         });
     }
