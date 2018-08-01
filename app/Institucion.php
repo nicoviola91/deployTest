@@ -16,6 +16,7 @@ class Institucion extends Model
         'fichaSaludMental_id',
         'tratamiento_id',
         'tipo',
+        'direccion',
         'descripcion',
         'imagen',
         
