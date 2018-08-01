@@ -605,6 +605,13 @@
  
   });
 
+  $('.liTab.mental').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaSaludMental(id);
+ 
+  });
+
 
 </script>
 
@@ -872,6 +879,36 @@
         }
         if (consultas.responseJSON.status) {
           $('#consultasMedica').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+  }
+
+  function obtenerFichaSaludMental (id) {
+
+    if ($('#datosMental').html() == '' || $('#consultasMental').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaSaludMental.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasSaludMental'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosMental').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasMental').html(consultas.responseJSON.view);
         }
 
         loading.modal('hide');
