@@ -23,19 +23,24 @@
 <div class="col-md-10 col-md-offset-1">
 	<div class="box box-solid">
 
-      @if(isset($comunidades))
-      <label for="comunidad">Comunidad al que pertenece como usuario</label>
-      <select class="form-control" name="comunidad" id="comunidad" >
-          @foreach($comunidades as $comunidad)
-            <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
-          @endforeach
-      </select>
-      @endif
+      
 		
 		<div class="box-body">
     <form id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/store',['alerta_id'=>$alerta->id]) }}">
       {{ csrf_field() }}
         <div class="box-body">  
+          <div class="form-group">
+            @if(isset($comunidades))
+            <label for="comunidad">Comunidad al que pertenece como usuario</label>
+            <select class="form-control" name="comunidad" id="comunidad" >
+                @foreach($comunidades as $comunidad)
+                  <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+                @endforeach
+            </select>
+            @endif
+          </div>
+
+
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre</label>
             <input type="text" class="form-control" id="name" value={{ $alerta->nombre }} name="nombre" maxlength="250" required >
