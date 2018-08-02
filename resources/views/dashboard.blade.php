@@ -34,6 +34,8 @@
 
         });
 
+        var infowindow = null;
+
         var heatmap = new google.maps.visualization.HeatmapLayer({
           data: locations,
           map: map
@@ -63,12 +65,23 @@
             title: instituciones[i].nombre
           });
 
+          google.maps.event.addListener(marker, "dblclick", function (e) { 
+	          	
+          	var myLatlng = marker.position;
+		    map.setCenter(myLatlng);
+
+	        });
+
 
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
 
-              var infowindow = new google.maps.InfoWindow({
-                content: '<div class="box-institucion"><div style="min-height:150px;"><br><br><img class="img-responsive" src="{{ asset("/img/loading200.gif") }}")"></div></div>'
+              	if (infowindow) {
+			        infowindow.close();
+			    }
+
+              infowindow = new google.maps.InfoWindow({
+                content: '<div class="box-institucion"><div style="min-height:250px;"><br><br><img class="img-responsive" src="{{ asset("/img/loading200.gif") }}")"></div></div>'
               });
 
               infowindow.open(map, marker);
@@ -76,9 +89,7 @@
               $.get("{{url('institucion/box')}}/"+instituciones[i].id, function(data){
 
                 if (data.status) {
-                  
-                  console.log(data.view);
-                  
+                                    
                   infowindow.setContent(data.view);
                   
                 }
@@ -254,37 +265,6 @@
 
 <script type="text/javascript">
 	
-  function obtenerInfoInstitucion (id) {
-
-    console.log('holaaaaaaaaaaaaaaaaaaaaaaaaa' + id);
-
-    $.get("{{url('institucion/box')}}/"+id, function(data){
-
-      if (data.status) {
-        
-        console.log(data.view);
-        return data.view
-        //infoWindow.setContent(data.view);
-        
-      }
-      else {
-        return false,
-        lanzarAlerta('peligro', "Ocurrió un error al obtener los datos.")
-      }
-    
-    })
-  }
-
-  function zoomIn (lat, lng) {
-
-    console.log('lat ' + lat);
-    console.log('lng ' + lng);
-
-    var myLatlng = new google.maps.LatLng(lat, lng);
-    map.setCenter(myLatlng);
-    map.setZoom(17);
-
-  }
 
 </script>
 
