@@ -77,7 +77,7 @@
                 <div class="col-sm-3 border-right">
                   <div class="description-block">
                     <h5 class="description-header">35</h5>
-                    <span class="description-text">INTERACCIONES</span>
+                    <span class="description-text">CONSULTAS</span>
                   </div>
                   <!-- /.description-block -->
                 </div>

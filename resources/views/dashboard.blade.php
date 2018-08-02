@@ -91,7 +91,7 @@
 			<span class="info-box-icon"><i class="icon fa fa-comments-o"></i></span>
 
 			<div class="info-box-content">
-			<span class="info-box-text">Interacciones</span>
+			<span class="info-box-text">Consultas</span>
 			<span class="info-box-number"><?php echo $consultas ?></span>
 
 			<span class="progress-description">
