@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Institucion;
 use App\Direccion;
+use App\Comunidad;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstitucionRequest;
 use Illuminate\Support\Facades\Storage;
@@ -90,6 +91,30 @@ class InstitucionController extends Controller
     {
         $data['instituciones'] = Institucion::all();
         return view('instituciones.listado', $data);
+    }
+
+    public function getBox ($id) {
+
+        $data['institucion'] = Institucion::where('id', $id)->first();
+
+        $comunidades = $data['institucion']->comunidades();
+        $data['comunidades'] = $comunidades->count();
+
+        $asistidos = 0;
+        
+        foreach ($comunidades as $comunidad) {
+            $asistidos+= ($comunidad->asistidos()->count());
+        }
+
+        $data['asistidos'] = $asistidos;
+
+        $view = view('instituciones.boxInstitucion', $data)->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+
     }
 
 }

@@ -10,6 +10,7 @@ use App\Asistido;
 use App\User;
 use App\Institucion;
 use App\Consulta;
+use App\Comunidad;
 
 use Carbon\Carbon;
 
@@ -49,11 +50,15 @@ class HomeController extends Controller
         $data['instituciones'] = Institucion::count();
         $data['institucionesNuevas'] = Institucion::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
+        $data['comunidades'] = Institucion::count();
+        $data['comunidadesNuevas'] = Institucion::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
+
         $data['usuarios'] = User::count();
         $data['usuariosNuevos'] = User::where('created_at', '>', $one_week_ago->format('Y-m-d H:i:s'))->count();
 
         //Alertas para el mapa
         $data['alertas'] = Alerta::all();
+        $data['institucionesMapa'] = Institucion::where('direccion_id', '!=', NULL)->get();
 
         $data['alertasTotal'] = Alerta::count();
         $data['alertasPendientes'] = Alerta::where('asistido_id', '=', NULL)->count();

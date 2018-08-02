@@ -599,3 +599,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Dashboard
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
+
+Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');
