@@ -36,10 +36,15 @@ class AlertaController extends Controller
     {   
         $user=Auth::user();
         $comunidades=$user->comunidad()->get();
+        
         if(isset($comunidades)){
+
             $data['comunidades'] = $comunidades;
+
             return view('alertas.nueva', $data);
-        }else{
+        
+        } else {
+
             return view('alertas.nueva');
         }
     

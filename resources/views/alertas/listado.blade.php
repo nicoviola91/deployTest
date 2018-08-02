@@ -76,7 +76,7 @@
 									</span>
 									@endif
 								</td>
-								<td class="text-center" style="vertical-align: middle;">{{ $alerta->comunidad->nombre }}</td>
+								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad->nombre) ? $alerta->comunidad->nombre : '' }}</td>
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 								@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
 
@@ -105,7 +105,7 @@
 										</span>
 										@endif
 									</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $alerta->comunidad->nombre }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad->nombre) ? $alerta->comunidad->nombre : '' }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 									@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
 		
