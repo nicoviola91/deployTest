@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Institucion;
+use App\Alerta;
+use App\Consulta;
+use App\Asistido;
 use App\Comunidad;
 use App\Notifications\AltaUsuario;
 use Illuminate\Support\Facades\Auth;
@@ -80,10 +83,16 @@ class UserController extends Controller
     {   
         if (!$id) 
             $id = Auth::id();
-
-        $data['user'] = User::find($id);
-
-        return view('users.profile', $data);
+        $user = User::find($id);
+        $alertas=Alerta::where('user_id',$id)->count();
+        $consultas = Consulta::where('user_id',$id)->count();
+        $asistidos= Asistido::where('owner','=',$id)->count();
+        $comunidades = $user->comunidad()->count();
+        return view('users.profile')->with('user',$user)
+                                    ->with('consultas',$consultas)
+                                    ->with('asistidos',$asistidos)
+                                    ->with('alertas',$alertas)
+                                    ->with('comunidades', $comunidades);
     }
 
     public function profile2(Request $request, $id)
