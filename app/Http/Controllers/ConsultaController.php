@@ -84,7 +84,7 @@ class ConsultaController extends Controller
                 $tipo_notif = 'Ficha Asistencia Social';
                 break;
 
-            case 'fichasDiagnosticosIngegrales':
+            case 'fichasDiagnosticosIntegrales':
                 $ficha = FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
                 $tipo_notif = 'Ficha Diagnostico Integral';
                 break;
@@ -217,7 +217,7 @@ class ConsultaController extends Controller
                 $ficha = FichaAsistenciaSocial::where('asistido_id',$asistido_id)->first();
                 break;
 
-            case 'fichasDiagnosticosIngegrales':
+            case 'fichasDiagnosticosIntegrales':
                 $ficha = FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
                 break;
 

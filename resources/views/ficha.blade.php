@@ -612,6 +612,12 @@
  
   });
 
+  $('.liTab.integral').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFIchaDiagnosticoIntegral(id);
+ 
+  });
 
 </script>
 
@@ -915,6 +921,38 @@
       });
 
     }
+
+  }
+
+  function obtenerFIchaDiagnosticoIntegral (id) {
+
+    if ($('#datosIntegral').html() == '' || $('#consultasIntegral').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaDiagnosticoIntegral.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasDiagnosticosIntegrales'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosIntegral').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasIntegral').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+
   }
 
 </script>
