@@ -27,37 +27,37 @@
 		
 		<div class="box-body">
 			
-			<form role="form" id="nuevoAsistido-form">
-              
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Nombre</label>
-                  <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre"  maxlength="250" required >
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Apellido</label>
-                  <input type="text" class="form-control" id="apellido"  placeholder='Apellido' name="apellido"  maxlength="250" required>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Documento</label>
-                  <input type="text" class="form-control" id="dni"  placeholder='DNI' name="dni"  maxlength="10" required>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Fecha Nacimiento</label>
-                  <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" >
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Observaciones</label>
-                  <textarea class="form-control" id="observaciones" name="observaciones"  maxlength="250" rows="3"></textarea>
-                </div>
+			<form role="form" id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/storeNew') }}">
+        {{ csrf_field() }}
+        <div class="box-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nombre</label>
+            <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre"  maxlength="250" required >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Apellido</label>
+            <input type="text" class="form-control" id="apellido"  placeholder='Apellido' name="apellido"  maxlength="250" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Documento</label>
+            <input type="text" class="form-control" id="dni"  placeholder='DNI' name="dni"  maxlength="10" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Fecha Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Observaciones</label>
+            <textarea class="form-control" id="observaciones" name="observaciones"  maxlength="250" rows="3"></textarea>
+          </div>
 
-              </div>
+        </div>
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary submitBtn">Enviar</button>
-                <button type="reset" class="btn btn-default">Cancelar</button>
-              </div>
-            </form>
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary submitBtn">Enviar</button>
+          <button type="reset" class="btn btn-default">Cancelar</button>
+        </div>
+      </form>
 
 		</div>
 
@@ -70,12 +70,5 @@
 
 @section('scripts')
 
-<script type="text/javascript">
-
-	$('#submitBtn').click(function() {
-
-	});
-
-</script>
 
 @endsection
