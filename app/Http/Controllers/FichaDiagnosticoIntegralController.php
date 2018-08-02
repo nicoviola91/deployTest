@@ -40,14 +40,17 @@ class FichaDiagnosticoIntegralController extends Controller
         
             $cursos=CursoDeAccion::where('fichaDiagnosticoIntegral_id',$fichaDiagnosticoIntegral->id)->get();
         
-            $view = view('altaFichas.fichaDiagnosticoIntegral')
+            $view = view('altaFichas.fichaDiagnosticoIntegral2')
                 ->with('asistido',$asistido)
                 ->with('cursos',$cursos)
                 ->with('fichaDiagnosticoIntegral',$fichaDiagnosticoIntegral)
                 ->render();
-        }
 
-        $view = view('altaFichas.fichaDiagnosticoIntegral')->with('asistido',$asistido)->render();
+        } else {
+            
+            $view = view('altaFichas.fichaDiagnosticoIntegral2')->with('asistido',$asistido)->render();
+
+        }
 
         return response()->json([
             'status' => true,
@@ -98,14 +101,18 @@ class FichaDiagnosticoIntegralController extends Controller
 
 
     public function findfichaDiagnosticoIntegralByAsistidoId($asistido_id){
+        
         $fichaDiagnosticoIntegral=FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
+        
         if(!isset($fichaDiagnosticoIntegral)){
+            
             $fichaDiagnosticoIntegral=new FichaDiagnosticoIntegral();
             $fichaDiagnosticoIntegral->created_by = Auth::user()->id;
             $asistido->ficha()->save($fichaDiagnosticoIntegral);
             $asistido->update(['checkFichaDiagnosticoIntegral' =>1]);
         }
+
         return $fichaDiagnosticoIntegral;
     }
 }

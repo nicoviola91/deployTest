@@ -35,6 +35,35 @@ class FichaLocalizacionController extends Controller
         return view('altaFichas.fichaLocalizacion')->with('asistido',$asistido);
     }
 
+    public function get($asistido_id){
+        
+        $asistido=Asistido::find($asistido_id);
+        $fichaLocalizacion=FichaLocalizacion::where('asistido_id',$asistido_id)->first();
+        
+        if(!empty($fichaLocalizacion)){
+        
+            $localizaciones=LocalizacionHabitual::where('fichaLocalizacion_id',$fichaLocalizacion->id)->get();
+            $zonasDePermanencia=ZonaDePermanencia::where('fichaLocalizacion_id',$fichaLocalizacion->id)->get();
+        
+            $view = view('altaFichas.fichaLocalizacion2')->with('localizaciones',$localizaciones)
+                ->with('asistido',$asistido)
+                ->with('zonas',$zonasDePermanencia)
+                ->with('fichaLocalizacion',$fichaLocalizacion)
+                ->render();
+        
+        } else {
+
+            $view = view('altaFichas.fichaLocalizacion2')->with('asistido',$asistido)->render();
+        }
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+        
+        
+    }
+
     
     public function storeLocalizacion(Request $request, $asistido_id){
 

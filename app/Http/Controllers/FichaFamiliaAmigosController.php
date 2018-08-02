@@ -32,6 +32,33 @@ class FichaFamiliaAmigosController extends Controller
         return view('altaFichas.fichaFamiliaAmigos')->with('asistido',$asistido)->with('relaciones',$relaciones);
     }
 
+    public function get ($asistido_id) {
+        
+        $asistido=Asistido::find($asistido_id);
+        $fichaFamiliaAmigos=FichaFamiliaAmigos::where('asistido_id',$asistido_id)->first();
+        $relaciones=array('Madre','Padre','Hijo/a','Cónyugue','Amigo');
+        
+        if(!empty($fichaFamiliaAmigos)){
+            
+            $contactos=Contacto::where('fichaFamiliaAmigos_id',$fichaFamiliaAmigos->id)->get();
+            
+            $view = view('altaFichas.fichaFamiliaAmigos2')->with('asistido',$asistido)
+                ->with('contactos',$contactos)
+                ->with('relaciones',$relaciones)
+                ->with('fichaFamiliaAmigos',$fichaFamiliaAmigos)
+                ->render();
+
+        } else {
+
+            $view = view('altaFichas.fichaFamiliaAmigos2')->with('asistido',$asistido)->with('relaciones',$relaciones)->render();    
+        }
+        
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
     public function storeContacto(Request $request, $asistido_id){
         $asistido=Asistido::find($asistido_id);
         $asistido->checkFichaFamiliaAmigos=1;

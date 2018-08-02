@@ -612,6 +612,26 @@
  
   });
 
+  $('.liTab.integral').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFIchaDiagnosticoIntegral(id);
+ 
+  });
+
+  $('.liTab.localizacion').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaLocalizacion(id);
+ 
+  });
+
+  $('.liTab.familia').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaFamilia(id);
+ 
+  });
 
 </script>
 
@@ -915,6 +935,100 @@
       });
 
     }
+
+  }
+
+  function obtenerFIchaDiagnosticoIntegral (id) {
+
+    if ($('#datosIntegral').html() == '' || $('#consultasIntegral').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaDiagnosticoIntegral.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasDiagnosticosIntegrales'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosIntegral').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasIntegral').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+
+  }
+
+  function obtenerFichaLocalizacion (id) {
+
+    if ($('#datosLocalizacion').html() == '' || $('#consultasLocalizacion').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaLocalizacion.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasLocalizacion'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosLocalizacion').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasLocalizacion').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+
+  }
+
+  function obtenerFichaFamilia (id) {
+
+    if ($('#datosFamilia').html() == '' || $('#consultasFamilia').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaFamiliaAmigos.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasFamiliaAmigos'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosFamilia').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasFamilia').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+
   }
 
 </script>

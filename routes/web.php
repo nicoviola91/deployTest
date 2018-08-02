@@ -296,6 +296,12 @@ Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
         'uses'=>'FichaFamiliaAmigosController@create',
         'as'=>'fichaFamiliaAmigos.create',
     ]);
+
+    Route::get('/get/{id}',[
+        'uses'=>'FichaFamiliaAmigosController@get',
+        'as'=>'fichaFamiliaAmigos.get',
+    ]);
+
     Route::post('/storeContacto/{id}',[
         'uses'=>'FichaFamiliaAmigosController@storeContacto',
         'as'=>'fichaFamiliaAmigos.storeContacto',
@@ -332,6 +338,12 @@ Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
         'uses'=>'FichaLocalizacionController@create',
         'as'=>'FichaLocalizacion.create',
     ]);
+
+    Route::get('/get/{id}',[
+        'uses'=>'FichaLocalizacionController@get',
+        'as'=>'fichaLocalizacion.get',
+    ]);
+
     Route::post('/storeLocalizacion/{id}',[
         'uses'=>'FichaLocalizacionController@storeLocalizacion',
         'as'=>'FichaLocalizacion.storeLocalizacion',
@@ -434,6 +446,12 @@ Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],functi
         'uses'=>'FichaDiagnosticoIntegralController@create',
         'as'=>'fichaDiagnosticoIntegral.create',
     ]);
+
+    Route::get('/get/{id}',[
+        'uses'=>'fichaDiagnosticoIntegralController@get',
+        'as'=>'fichaDiagnosticoIntegral.get',
+    ]);
+
     Route::post('/storeCurso/{id}',[
         'uses'=>'FichaDiagnosticoIntegralController@storeCurso',
         'as'=>'fichaDiagnosticoIntegral.storeCurso',
