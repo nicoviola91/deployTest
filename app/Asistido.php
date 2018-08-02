@@ -28,6 +28,7 @@ class Asistido extends Model
         'checkFichaNecesidad',
         'checkFichaSaludMental',
         'owner',
+        'comunidad_id'
     ];
 
     /**
@@ -35,11 +36,11 @@ class Asistido extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
+    // protected $hidden = [
+    //     'password', 'remember_token',
         
         
-    ];
+    // ];
 
     public function comunidades(){
         return $this->belongsToMany('App\Comunidad');
@@ -66,4 +67,7 @@ class Asistido extends Model
         return $this->hasMany('App\UsuarioCompartido');
     }*/
 
+    public function comunidad(){
+        return $this->belongsTo('App\Comunidad','comunidad_id');
+    }
 }

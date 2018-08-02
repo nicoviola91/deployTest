@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FichaMedica extends Model
+class FichaMedica extends Ficha
 {
     protected $table="fichasMedicas";
     protected $fillable = [

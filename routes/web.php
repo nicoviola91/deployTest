@@ -154,6 +154,21 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
     ]);
 });
 
+//NECESIDADES
+Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
+    
+    Route::get('/list',[
+        'uses'=>'NecesidadesController@list',
+        'as'=>'necesidad.list'
+    ]);
+
+    Route::get('/public',[
+        'uses'=>'NecesidadesController@public_list',
+        'as'=>'necesidad.public'
+    ]);
+
+});
+
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FichaLegal extends Model
+class FichaLegal extends Ficha
 {
     protected $table="fichasLegales";
     protected $fillable = [

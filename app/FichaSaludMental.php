@@ -26,8 +26,6 @@ class FichaSaludMental extends Ficha
 
     ];
     
-    
-
     public function patologias(){
         return $this->hasMany('App\Patologia','fichaSaludMental_id');
     }

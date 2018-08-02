@@ -24,6 +24,7 @@ class FichaLegalController extends Controller
         $ramasDerecho=RamaDerecho::all(['id','descripcion']);
 
         $fichaLegal=$this->findFichaLegalByAsistidoId($asistido_id);
+
         if(isset($fichaLegal)){
             $antecedentes=Antecedente::where('fichaLegal_id',$fichaLegal->id)->get();
             return view('altaFichas.fichaLegal')
@@ -50,10 +51,10 @@ class FichaLegalController extends Controller
                 ->with('ramasDerecho',$ramasDerecho)
                 ->with('antecedentes',$antecedentes)
                 ->render();
+        } else {
+
+            $view = view('altaFichas.fichaLegal2')->with('asistido',$asistido)->with('ramasDerecho',$ramasDerecho)->render();
         }
-
-        $view = view('altaFichas.fichaLegal2')->with('asistido',$asistido)->with('ramasDerecho',$ramasDerecho)->render();
-
         return response()->json([
             'status' => true,
             'view' => $view,
@@ -88,16 +89,19 @@ class FichaLegalController extends Controller
 
 
     public function findFichaLegalByAsistidoId($asistido_id){
+        
         $fichaLegal=FichaLegal::where('asistido_id',$asistido_id)->first();
         $asistido=Asistido::find($asistido_id);
+        
         if(!isset($fichaLegal)){
+
             $fichaLegal=new FichaLegal();
-            //$fichaLegal->createdBy=Auth::user()->id;
             $fichaLegal->created_by=Auth::user()->id;
             $asistido->ficha()->save($fichaLegal);
             $asistido->checkFichaLegal=1;
             $asistido->save();
         }
+
         return $fichaLegal;
     }
 

@@ -47,28 +47,28 @@ class FichaSaludMentalController extends Controller
     public function get($asistido_id){
 
         $asistido=Asistido::find($asistido_id);
-
         $fichaSaludMental=$this->findFichaSaludMentalByAsistidoId($asistido_id);
-        
+        $descripciones=array('Esquizofrenia','Paranoia','Bipolaridad','Retraso mental','Autismo','Adicción','Depresión','Otros con causa orgánica');
+
         //En este metodo, traer las colecciones de tratamientos, episodios y adicciones, si existe la ficha
         if(isset($fichaSaludMental)){
             
-            $adicciones=Adiccion::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
+            $patologias=Patologia::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
             $episodiosAgresivos=EpisodioAgresivo::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
             $tratamientos=Tratamiento::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
-            $patologias=Patologia::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
             $medicaciones=Medicacion::where('fichaSaludMental_id',$fichaSaludMental->id)->get();
 
-            $view = view('altaFichas.fichaSaludMental')
-            ->with('asistido',$asistido)
+            $view = view('altaFichas.fichaSaludMental2')
+                ->with('asistido',$asistido)
                 ->with('patologias',$patologias)
                 ->with('episodiosAgresivos',$episodiosAgresivos)
                 ->with('fichaSaludMental',$fichaSaludMental)
                 ->with('medicaciones',$medicaciones)
                 ->with('tratamientos',$tratamientos)
-            ->render();
+                ->with('descripciones',$descripciones)
+                ->render();
         } else {
-            $view = view('altaFichas.fichaSaludMental')->with('asistido',$asistido)->render();
+            $view = view('altaFichas.fichaSaludMental2')->with('asistido',$asistido)->with('descripciones',$descripciones)->render();
         }
         
         return response()->json([
