@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Asistido;
 use App\Alerta;
 use App\User;
+use App\Comunidad;
 use App\Notifications\AltaAlerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
@@ -39,12 +40,14 @@ class AsistidoController extends Controller
         $alerta=Alerta::find($id);
         $alerta->estado=1;
         $alerta->save();
-        return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta);
+        $comunidades=Comunidad::all();
+        return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta)->with('comunidades',$comunidades);
     }
 
     //para ir a la vista de creacion de un asistido cuando no se va desde una alerta
     public function create(){
-        return view('asistidos.nuevo');
+        $comunidades=Comunidad::all();
+        return view('asistidos.nuevo')->with('comunidades',$comunidades);
     }
 
     /**
@@ -58,9 +61,11 @@ class AsistidoController extends Controller
     {
 
         $asistido=new Asistido($request->all());
+        $comunidad=Comunidad::find($request->comunidad);
         $alerta=Alerta::find($alerta_id);
         $asistido->createdBy=Auth::user()->email;
         $asistido->owner = $alerta->user_id;
+        $comunidad->asistidos()->save($asistido);
         $asistido->save(); 
         $usuario = $alerta->user_id;
         $usuarioNotif = User::find($usuario);
@@ -76,9 +81,12 @@ class AsistidoController extends Controller
     public function storeNew(Request $request)
     {
         $asistido=new Asistido($request->all());
+        $comunidad=Comunidad::find($request->comunidad);
         $asistido->createdBy=Auth::user()->email;
         $asistido->owner = Auth::user()->id;
+        $comunidad->asistidos()->save($asistido);
         $asistido->save();
+
         //$usuarioNotif = User::find($usuario);
         //$usuarioNotif->notify(new AltaAlerta($alerta));
         return redirect()->route('asistido.list');

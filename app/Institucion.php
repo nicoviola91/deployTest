@@ -19,6 +19,7 @@ class Institucion extends Model
         'direccion_id',
         'descripcion',
         'imagen',
+        'user_id',
         
     ];
 

@@ -28,6 +28,15 @@
 			  {{ csrf_field() }}
               
               <div class="box-body">
+
+                @if(isset($comunidades))
+                <label for="comunidad">Comunidad al que pertenece como usuario</label>
+                <select class="form-control" name="comunidad" id="comunidad" >
+                    @foreach($comunidades as $comunidad)
+                      <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+                    @endforeach
+                </select>
+                @endif
                 
                 <div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
                   <label for="exampleInputEmail1">Nombre</label>

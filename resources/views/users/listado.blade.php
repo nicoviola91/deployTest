@@ -45,7 +45,7 @@
 			<thead>
 				
 				<tr style="background-color: #f4f4f4;">
-					<th class="text-center">#</th>
+					
 					<th class="text-center">Nombre</th>
 					<th class="text-center">Apellido</th>
 					<th class="text-center">Documento</th>
@@ -53,8 +53,10 @@
 					<th class="text-center">Fecha Registro</th>
 					<th class="text-center">Acuerdo de Confidencialidad</th>
 					<th class="text-center">Tipo Usuario</th>
+					@if(Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")
 					<th class="text-center">Institución</th>
 					<th class="text-center">Comunidad</th>
+					@endif
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -67,7 +69,7 @@
 					@foreach ($usuarios as $usuario)
 					    
 					    <tr>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->id }}</td>
+							
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->name }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->apellido }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
@@ -88,9 +90,47 @@
 					            </div>
 										
 							</td>
+							@if(isset($usuario->institucion->nombre))
+								@if(Auth::user()->tipoUsuario->descripcion=="Administrador")
+									<td class="text-center" style="vertical-align: middle;">
+										<span style="display: none;">{{$usuario->institucion->nombre}}</span>
+										<div class="form-group">
+											<select class="form-control institucionNombre" style="width: 100%;">
+											
+												<?php foreach ($instituciones as $institucion) { ?>
+													<option <?php echo ($usuario->institucion_id == $institucion->id) ? 'selected' : '' ?> value="{{$institucion->id}}" data-id="{{ $usuario->id }}" data-institucion="{{$institucion->id}}">{{$institucion->nombre}}</option>
+												<?php } ?>
+											</select>
+										</div>	
+									</td>
+								@endif
+								@if(Auth::user()->tipoUsuario->descripcion=="Posadero")
+									<td class="text-center" style="vertical-align: middle;">{{ $usuario->institucion->nombre }}</td>
+								@endif
+							@else
+								<td class="text-center" style="vertical-align: middle;">No posee</td>
+							@endif
+
+							@if(isset($usuario->comunidad->nombre))
+								@if(Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")	
+								<td class="text-center" style="vertical-align: middle;">
+									<span style="display: none;">{{$usuario->comunidad->nombre}}</span>
+									<div class="form-group">
+										<select class="form-control comunidadNombre" style="width: 100%;">
+										
+											<?php foreach ($comunidades as $comunidad) { ?>
+												<option <?php echo ($usuario->comunidad_id == $comunidad->id) ? 'selected' : '' ?> value="{{$comunidad->id}}" data-id="{{ $usuario->id }}" data-comunidad="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+											<?php } ?>
+										</select>
+									</div>	
+								</td>
+								@endif
+							@else
+								<td class="text-center" style="vertical-align: middle;">No posee</td>
+							@endif
 							
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->institucion }}</td>
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->comunidad }}</td>
+
+
 							<td class="text-center" style="vertical-align: middle;">
 							<a href="{{ route('user.profile2',['id'=>$usuario->id]) }}" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 							</td>	
@@ -214,6 +254,66 @@
 	    });
 
 	});
+
+	$('.institucionNombre').change(function () {
+
+		var asistido = $(this).find(':selected').data('id');
+		var institucion = $(this).find(':selected').data('institucion');
+		var select = $(this);
+
+		var loading = bootbox.dialog({
+			message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+			closeButton: false
+		});
+
+		$.post( "{{route('user.updateInstitucion')}}", { 'id': asistido, 'institucion': institucion, '_token': '{{csrf_token()}}' })    
+		.done(function(datos) {
+
+		if (datos.status) {
+
+			loading.modal('hide');
+			lanzarAlerta('exito', datos.msg);
+
+		} else {
+
+			loading.modal('hide');
+			select.val(datos.id);
+			lanzarAlerta('peligro', datos.msg);
+		}
+
+		});
+
+	});
+
+	$('.comunidadNombre').change(function () {
+
+		var asistido = $(this).find(':selected').data('id');
+		var comunidad = $(this).find(':selected').data('comunidad');
+		var select = $(this);
+
+		var loading = bootbox.dialog({
+			message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+			closeButton: false
+		});
+
+		$.post( "{{route('user.updateComunidad')}}", { 'id': asistido, 'comunidad': comunidad, '_token': '{{csrf_token()}}' })    
+		.done(function(datos) {
+
+		if (datos.status) {
+
+			loading.modal('hide');
+			lanzarAlerta('exito', datos.msg);
+
+		} else {
+
+			loading.modal('hide');
+			select.val(datos.id);
+			lanzarAlerta('peligro', datos.msg);
+		}
+
+		});
+
+		});
 
 </script>
 

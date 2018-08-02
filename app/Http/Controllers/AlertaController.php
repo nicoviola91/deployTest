@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alerta;
+use App\Comunidad;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\AlertaRequest;
@@ -32,8 +33,18 @@ class AlertaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $user=Auth::user();
+        $comunidades=$user->comunidad()->get();
+        if(isset($comunidades)){
+            $data['comunidades'] = $comunidades;
+            return view('alertas.nueva', $data);
+        }else{
+            return view('alertas.nueva');
+        }
+    
+        
+        
     }
 
     /**
@@ -45,6 +56,8 @@ class AlertaController extends Controller
     public function store(AlertaRequest $request)
     {           
         $alerta = new Alerta($request->all());
+        $comunidad=Comunidad::find($request->comunidad);
+        $alerta->comunidad()->associate($comunidad);
         $user_id=Auth::user()->id;
         $alerta->user_id = Auth::user()->id; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
         $alerta->estado = 0;
@@ -74,6 +87,7 @@ class AlertaController extends Controller
         echo "<br>";
        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion == 'Posadero'){
             $data['alertas'] = Alerta::all()->where('estado','=',0);
+            
        }else{
         $data['alertas'] = Alerta::all()->where('estado',0)->where('user_id',Auth::user()->id);
        }

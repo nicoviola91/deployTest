@@ -30,6 +30,16 @@
 			<form role="form" id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/storeNew') }}">
         {{ csrf_field() }}
         <div class="box-body">
+            <div class="form-group">
+              @if(isset($comunidades))
+              <label for="comunidad">Comunidad al que pertenece como usuario</label>
+              <select class="form-control" name="comunidad" id="comunidad" >
+                  @foreach($comunidades as $comunidad)
+                    <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+                  @endforeach
+              </select>
+          </div>
+            @endif
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre</label>
             <input type="text" class="form-control" id="name" placeholder='Nombre' name="nombre"  maxlength="250" required >

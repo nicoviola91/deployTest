@@ -49,6 +49,7 @@
 					<th class="text-center">Apellido</th>
 					<th class="text-center">Documento</th>
 					<th class="text-center" >Usuario</th>
+					<th class="text-center" >Comunidad</th>
 					<th class="text-center">Fecha</th>
 				</tr>
 			</thead>
@@ -62,6 +63,7 @@
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->apellido}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->dni}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->createdBy}}</td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->comunidad->nombre}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at}}</td>
 						<td class="text-center" style="vertical-align: middle;"> 
 						<a href="{{route('asistido.show2',['id'=>$asistido->id])}}" class="altaBtn" data-id="100" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 

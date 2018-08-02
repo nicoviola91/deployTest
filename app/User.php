@@ -34,9 +34,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Alerta');
     }
 
-    public function comunidades(){
-        return $this->belongsToMany('App\Comunidad');
-    }
     
     public function consultas(){
         return $this->hasMany('App\Consulta');

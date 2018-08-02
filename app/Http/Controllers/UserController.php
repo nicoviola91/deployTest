@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Institucion;
+use App\Comunidad;
 use App\Notifications\AltaUsuario;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
@@ -102,6 +104,8 @@ class UserController extends Controller
     {
         $data['usuarios'] = User::all();
         $data['tipos'] = TipoUsuario::all();
+        $data['comunidades'] = Comunidad::all();
+        $data['instituciones'] = Institucion::all();
         return view('users.listado', $data);
     }
 
@@ -228,6 +232,62 @@ class UserController extends Controller
             return response()->json([
                 'status' => false,
                 'id' => $usuario->tipoUsuario_id,
+                'msg' => 'Ocurrió un error al realizar la operación.',
+            ]);
+        }
+    }
+
+    public function updateInstitucion (Request $request) {
+
+        //Verificar que id es numeric, existe y sea un usuario valido
+        //Verificar que valor es boolean
+
+        $id = $request->id;
+        $institucion = $request->institucion;
+
+        $usuario = User::where('id', $id)->first();
+
+        if ($usuario->update(['institucion_id' => $institucion])) {
+            
+            return response()->json([
+                'status' => true,
+                'id' => $usuario->institucion_id,
+                'msg' => 'Actualizado correctamente',
+            ]);
+
+        } else {
+            
+            return response()->json([
+                'status' => false,
+                'id' => $usuario->institucion_id,
+                'msg' => 'Ocurrió un error al realizar la operación.',
+            ]);
+        }
+    }
+
+    public function updateComunidad (Request $request) {
+
+        //Verificar que id es numeric, existe y sea un usuario valido
+        //Verificar que valor es boolean
+
+        $id = $request->id;
+        $comunidad = $request->comunidad;
+
+        $usuario = User::where('id', $id)->first();
+
+        if ($usuario->update(['comunidad_id' => $comunidad])) {
+            
+            return response()->json([
+                'status' => true,
+                'id' => $usuario->comunidad_id,
+                'msg' => 'Actualizado correctamente',
+            ]);
+
+        } else {
+            
+            return response()->json([
+                'status' => false,
+                'id' => $usuario->comunidad_id,
                 'msg' => 'Ocurrió un error al realizar la operación.',
             ]);
         }

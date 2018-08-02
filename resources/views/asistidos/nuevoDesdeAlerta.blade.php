@@ -22,6 +22,15 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="box box-solid">
+
+      @if(isset($comunidades))
+      <label for="comunidad">Comunidad al que pertenece como usuario</label>
+      <select class="form-control" name="comunidad" id="comunidad" >
+          @foreach($comunidades as $comunidad)
+            <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+          @endforeach
+      </select>
+      @endif
 		
 		<div class="box-body">
     <form id="nuevoAsistido-form" method="POST" action="{{ url('/asistido/store',['alerta_id'=>$alerta->id]) }}">

@@ -48,7 +48,7 @@ Route::group(['prefix'=>'user'], function(){
     Route::post('/updateImage',[
         'uses'=>'UserController@updateImage',
         'as'=>'user.updateImage',
-    ])->middleware('admin');
+    ])->middleware('autenticado');
 
     Route::post('/acuerdo',[
         'uses'=>'UserController@acuerdo',
@@ -59,7 +59,14 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@updateType',
         'as'=>'user.updateType',
     ])->middleware('admin');
-
+    Route::post('/updateInstitucion',[
+        'uses'=>'UserController@updateInstitucion',
+        'as'=>'user.updateInstitucion',
+    ])->middleware('admin');
+    Route::post('/updateComunidad',[
+        'uses'=>'UserController@updateComunidad',
+        'as'=>'user.updateComunidad',
+    ])->middleware('admin');
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'
@@ -79,7 +86,7 @@ Route::group(['prefix'=>'user'], function(){
     Route::get('/store',[
         'uses'=>'UserController@store',
         'as'=>'user.store'
-    ]);
+    ])->middleware('autenticado');;
 
 
 });
@@ -96,9 +103,10 @@ Route::group(['prefix'=>'user'], function(){
 //ALERTAS
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
 
-    Route::get('/new',function(){
-        return view('alertas.nueva');
-    });
+    Route::get('/new',[
+        'uses'=>'AlertaController@create',
+        'as'=>'alerta.create'
+    ]);
 
     Route::post('/store',[
         'uses'=>'AlertaController@store',

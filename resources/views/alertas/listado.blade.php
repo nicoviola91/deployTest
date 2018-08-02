@@ -50,7 +50,9 @@
 					<th class="text-center">Apellido</th>
 					<th class="text-center">Documento</th>
 					<th class="text-center" >Usuario</th>
+					<th class="text-center" >Comunidad</th>
 					<th class="text-center">Fecha</th>
+					
 				</tr>
 
 			</thead>
@@ -74,6 +76,7 @@
 									</span>
 									@endif
 								</td>
+								<td class="text-center" style="vertical-align: middle;">{{ $alerta->comunidad->nombre }}</td>
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 								@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
 
@@ -102,6 +105,7 @@
 										</span>
 										@endif
 									</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $alerta->comunidad->nombre }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
 									@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
 		
