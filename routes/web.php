@@ -83,10 +83,10 @@ Route::group(['prefix'=>'user'], function(){
         'as'=>'user.profile2'
     ])->middleware('admin');
 
-    Route::get('/store',[
+    Route::post('/store',[
         'uses'=>'UserController@store',
         'as'=>'user.store'
-    ])->middleware('autenticado');;
+    ]);
 
 
 });
