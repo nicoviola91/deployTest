@@ -332,6 +332,12 @@ Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
         'uses'=>'FichaLocalizacionController@create',
         'as'=>'FichaLocalizacion.create',
     ]);
+
+    Route::get('/get/{id}',[
+        'uses'=>'FichaLocalizacionController@get',
+        'as'=>'fichaLocalizacion.get',
+    ]);
+
     Route::post('/storeLocalizacion/{id}',[
         'uses'=>'FichaLocalizacionController@storeLocalizacion',
         'as'=>'FichaLocalizacion.storeLocalizacion',
