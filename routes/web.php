@@ -296,6 +296,12 @@ Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
         'uses'=>'FichaFamiliaAmigosController@create',
         'as'=>'fichaFamiliaAmigos.create',
     ]);
+
+    Route::get('/get/{id}',[
+        'uses'=>'FichaFamiliaAmigosController@get',
+        'as'=>'fichaFamiliaAmigos.get',
+    ]);
+
     Route::post('/storeContacto/{id}',[
         'uses'=>'FichaFamiliaAmigosController@storeContacto',
         'as'=>'fichaFamiliaAmigos.storeContacto',

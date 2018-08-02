@@ -626,6 +626,13 @@
  
   });
 
+  $('.liTab.familia').click(function () {
+
+    var id = $(this).data('id');
+    obtenerFichaFamilia(id);
+ 
+  });
+
 </script>
 
 
@@ -984,6 +991,37 @@
         }
         if (consultas.responseJSON.status) {
           $('#consultasLocalizacion').html(consultas.responseJSON.view);
+        }
+
+        loading.modal('hide');
+      });
+
+    }
+
+  }
+
+  function obtenerFichaFamilia (id) {
+
+    if ($('#datosFamilia').html() == '' || $('#consultasFamilia').html() == '') {
+
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      //OBTENER DATOS DE LA FICHA
+      var ficha = $.get("{{route('fichaFamiliaAmigos.get',['asistido_id'=>$asistido->id])}}");
+
+      //OBTENER CONSULTAS DE LA FICHA
+      var consultas = $.get("{{route('consultas.getView',['id'=>$asistido->id, 'type'=>'fichasFamiliaAmigos'])}}");
+
+      $.when(ficha, consultas).done(function () {
+
+        if (ficha.responseJSON.status) {
+          $('#datosFamilia').html(ficha.responseJSON.view);
+        }
+        if (consultas.responseJSON.status) {
+          $('#consultasFamilia').html(consultas.responseJSON.view);
         }
 
         loading.modal('hide');
