@@ -37,7 +37,7 @@
 		<table class="table table-bordered table-hover" id="tabla-alertas">
 			
 			<thead>
-				<tr style="background-color: #f4f4f4;">
+				<!-- <tr style="background-color: #f4f4f4;">
 					<th rowspan="2" class="text-center" style="vertical-align: middle;">#</th>
 					<th class="text-center" colspan="3">Asistido</th>
 					<th class="text-center" colspan="2">Creada</th>
@@ -53,6 +53,23 @@
 					<th class="text-center" >Comunidad</th>
 					<th class="text-center">Fecha</th>
 					
+				</tr> -->
+
+				<tr style="background-color: #f4f4f4;">
+					<th class="text-center" colspan="4">Asistido</th>
+					<th class="text-center" colspan="3">Creado</th>
+				</tr>
+
+
+				<tr style="background-color: #f4f4f4;">
+					<th class="text-center">#</th>
+					<th class="text-center">Nombre</th>
+					<th class="text-center">Apellido</th>
+					<th class="text-center">Documento</th>
+					<th class="text-center">Usuario</th>
+					<th class="text-center">Comunidad</th>
+					<th class="text-center">Fecha</th>
+					<th class="text-center">Acciones</th>
 				</tr>
 
 			</thead>

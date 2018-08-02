@@ -67,6 +67,7 @@ class AlertaController extends Controller
         $alerta->user_id = Auth::user()->id; //ACA HAY QUE PONER EL UID DEL USUARIO LOGEADO
         $alerta->estado = 0;
         $alerta->save();
+        
         return redirect()->route('alerta.list');
     }
 
@@ -89,7 +90,6 @@ class AlertaController extends Controller
      */
     public function showAll()
     {
-        echo "<br>";
        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion == 'Posadero'){
             $data['alertas'] = Alerta::all()->where('estado','=',0);
             
