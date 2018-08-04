@@ -243,7 +243,7 @@
             <i class="icon fa fa-fw"></i> <input type="checkbox" name="checkComunidad" value="1" id="checkComunidad">
 
             <span id="selectComunidad" style="display: none;">
-            <select class="form-control select2" style="width: 100%;" name="comunidad" id="comunidad" >
+            <select class="form-control select2" style="width: 100%;" name="comunidad" id="comunidad">
                 @foreach($comunidades as $comunidad)
                   <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
                 @endforeach
@@ -824,6 +824,12 @@
       lat = $('#lat').val();
       lng = $('#lng').val();
       comunidad_id = $('#selectComunidad').find(":selected").val();
+
+      if ($('#checkComunidad').is(':checked')) {
+        comunidad_id = $('#selectComunidad').find(":selected").val();
+      } else {
+        comunidad_id = '';
+      }
 
       $.post( "{{url('/alert/store2')}}", {_token: '{{csrf_token()}}', lat: lat, lng: lng, institucion_id: institucion_id, comunidad_id: comunidad_id, nombre: nombre, apellido: apellido, dni: documento, fechaNacimiento: fechaNacimiento, observaciones: observaciones})
       
