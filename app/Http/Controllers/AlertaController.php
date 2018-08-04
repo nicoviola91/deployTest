@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alerta;
+use App\Institucion;
 use App\Comunidad;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -35,11 +36,13 @@ class AlertaController extends Controller
     public function create()
     {   
         $user=Auth::user();
+        $instituciones = Institucion::where('tipo', '=', 'posadero')->get();
         $comunidades=$user->comunidad()->get();
         
         if(isset($comunidades)){
 
             $data['comunidades'] = $comunidades;
+            $data['instituciones'] = $instituciones;
 
             return view('alertas.nueva', $data);
         
@@ -69,6 +72,55 @@ class AlertaController extends Controller
         $alerta->save();
         
         return redirect()->route('alerta.list');
+    }
+
+    public function store2(Request $request)
+    {   
+
+        $validation = $request->validate([
+            
+            'nombre' => 'required|string',
+            'apellido' => 'required|string',
+            'dni' => 'string|required',
+
+            'lat' => 'numeric|nullable',
+            'lng' => 'numeric|nullable',
+
+            'fechaNacimiento' => 'date|nullable',
+
+            'institucion_id' => 'integer|nullable',
+        ]);
+
+
+        $alerta = new Alerta($request->all());
+
+        // Si se derivo a un posadero en particular:
+        // $institucion = Institucion::find($request->institucion_id);
+        // $alerta->institucion()->associate($institucion);
+
+        // Si se asocia a una determinada comunidad:
+        // $comunidad = Comunidad::find($request->comunidad_id);
+        // $alerta->comunidad()->associate($comunidad);
+
+        $alerta->user_id = Auth::user()->id;
+        $alerta->estado = 0;
+
+        if ($alerta->save()) {
+            
+            return response()->json([
+                'status' => true,
+                //'msg' => '999',
+                'msg' => $alerta->id,
+            ]);
+
+        } else {
+
+            return response()->json([
+                'status' => true,
+                'msg' => 'Error al guardar los datos.',
+            ]);
+        }
+        
     }
 
     /**

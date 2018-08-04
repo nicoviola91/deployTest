@@ -124,7 +124,7 @@
           <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
             {{ csrf_field() }}
             <div class="form-group">
-              <input type="text" name="q" class="form-control" placeholder="Buscar Asistido...">
+              <input type="text" name="q" class="form-control" placeholder="Buscar Alertas...">
               <input type="hidden" name="tipo" class="form-control" value="asistido">
             </div>
           </form>

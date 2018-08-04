@@ -25,9 +25,7 @@ class AlertaRequest extends FormRequest
     {
         return [
             'nombre' => 'min:1|max:100|required',
-            'apellido' => 'min:1|max:100|required',
-            'dni' => 'min:7|max:100|required',
-           
+            'apellido' => 'min:1|max:100|required',           
         ];
     }
 }

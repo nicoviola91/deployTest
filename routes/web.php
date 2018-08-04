@@ -112,6 +112,12 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
         'uses'=>'AlertaController@store',
         'as'=>'alerta.store'
     ]);
+
+    Route::post('/store2',[
+        'uses'=>'AlertaController@store2',
+        'as'=>'alerta.store2'
+    ]);
+
     Route::post('/storeNew',[
         'uses'=>'AlertaController@storeNew',
         'as'=>'alerta.storeNew'
