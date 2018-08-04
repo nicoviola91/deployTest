@@ -89,18 +89,11 @@ class AlertaController extends Controller
             'fechaNacimiento' => 'date|nullable',
 
             'institucion_id' => 'integer|nullable',
+            'comunidad_id' => 'integer|nullable',
         ]);
 
 
         $alerta = new Alerta($request->all());
-
-        // Si se derivo a un posadero en particular:
-        // $institucion = Institucion::find($request->institucion_id);
-        // $alerta->institucion()->associate($institucion);
-
-        // Si se asocia a una determinada comunidad:
-        // $comunidad = Comunidad::find($request->comunidad_id);
-        // $alerta->comunidad()->associate($comunidad);
 
         $alerta->user_id = Auth::user()->id;
         $alerta->estado = 0;

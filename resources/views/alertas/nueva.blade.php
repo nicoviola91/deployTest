@@ -242,7 +242,7 @@
             <label> <i class="icon fa fa-users"></i> COMPARTÍLO CON TU COMUNIDAD! (opcional)</label>
             <i class="icon fa fa-fw"></i> <input type="checkbox" name="checkComunidad" value="1" id="checkComunidad">
 
-            <span idf="selectComunidad" style="display: none;">
+            <span id="selectComunidad" style="display: none;">
             <select class="form-control select2" style="width: 100%;" name="comunidad" id="comunidad" >
                 @foreach($comunidades as $comunidad)
                   <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
@@ -753,21 +753,21 @@
   $('.paso1').click(function (e) {
 
     $('.rowPaso').hide();
-    $('.rowPaso1').show();
+    $('.rowPaso1').fadeIn();
 
   });
 
   $('.paso2').click(function (e) {
     
     $('.rowPaso').hide();
-    $('.rowPaso2').show();
+    $('.rowPaso2').fadeIn();
 
   });
 
   $('.paso3').click(function (e) {
 
     $('.rowPaso').hide();
-    $('.rowPaso3').show();
+    $('.rowPaso3').fadeIn();
 
   });
 
@@ -784,7 +784,7 @@
       $('.confirmObservaciones').html($('#observaciones').val());
 
       $('.rowPaso').hide();
-      $('.rowPaso2').show();  
+      $('.rowPaso2').fadeIn();  
     
     } else {
 
@@ -800,7 +800,7 @@
     if ($('#institucion_id').val() != '') {
 
       $('.rowPaso').hide();
-      $('.rowPaso3').show();
+      $('.rowPaso3').fadeIn();
     
     } else {
 
@@ -823,22 +823,23 @@
       documento = $('#documento').val();
       lat = $('#lat').val();
       lng = $('#lng').val();
+      comunidad_id = $('#selectComunidad').find(":selected").val();
 
-      $.post( "{{url('/alert/store2')}}", {_token: '{{csrf_token()}}', lat: lat, lng: lng, institucion_id: institucion_id, nombre: nombre, apellido: apellido, dni: documento, fechaNacimiento: fechaNacimiento, observaciones: observaciones})
+      $.post( "{{url('/alert/store2')}}", {_token: '{{csrf_token()}}', lat: lat, lng: lng, institucion_id: institucion_id, comunidad_id: comunidad_id, nombre: nombre, apellido: apellido, dni: documento, fechaNacimiento: fechaNacimiento, observaciones: observaciones})
       
       .done(function(datos) {
 
           if (datos.status) {
           
             $('.rowPaso').hide();
-            $('.rowPaso4Ok').show();
+            $('.rowPaso4Ok').fadeIn();
 
             $('#alerta_id').html(datos.msg);
           
           } else {
 
             $('.rowPaso').hide();
-            $('.rowPaso4Error').show();
+            $('.rowPaso4Error').fadeIn();
           }
 
       });
@@ -904,7 +905,7 @@
   $('.mostrarLista').click(function () {
 
     $('.buscaCercano').hide();
-    $('.buscaLista').show();
+    $('.buscaLista').fadeIn();
 
     $('#institucion_id').val('');
     $('#posaderoSeleccionadoTxt').html('');
@@ -916,7 +917,7 @@
 
   $('.mostrarCercano').click(function () {
 
-    $('.buscaCercano').show();
+    $('.buscaCercano').fadeIn();
     $('.buscaLista').hide();
 
     $('#institucion_id').val('');
@@ -930,9 +931,9 @@
   $('#checkComunidad').change(function () {
 
     if ($(this).is(':checked'))
-      $('#selectComunidad').fadeIn();
+      $('#selectComunidad').show();
     else 
-      $('#selectComunidad').fadeOut();
+      $('#selectComunidad').fadeIn();
   })
 
   $('.select2').select2({
@@ -971,7 +972,7 @@
 			
 			if ($('#lat').val() == "" && $('#lng').val() == "") {
 
-				$('#locLoad').show();
+				$('#locLoad').fadeIn();
 				$('#locErr').hide();
 				$('#locOk').hide();
 				navigator.geolocation.getCurrentPosition(position, error);
@@ -979,7 +980,7 @@
 			}
 			else {
 
-				$('#locOk').show();
+				$('#locOk').fadeIn();
 				$('#locErr').hide();
 				$('#locLoad').hide();
 				$('#checkCoordenadas').prop('disabled', false);
@@ -1010,7 +1011,7 @@
 
         $('#locLoad').hide();
         $('#locErr').hide();
-        $('#locOk').show();
+        $('#locOk').fadeIn();
         $('#checkCoordenadas').prop('disabled', false);
 
     }
@@ -1033,7 +1034,7 @@
       	}
 
       $('#locLoad').hide();
-	    $('#locErr').show();
+	    $('#locErr').fadeIn();
 	    $('#locOk').hide();
 	    $('#msgErr').html(x);
 	    $('#checkCoordenadas').prop('disabled', false);
