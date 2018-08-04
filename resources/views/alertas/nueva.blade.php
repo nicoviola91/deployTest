@@ -82,7 +82,7 @@
 
           <div class="form-group">
             <label>NOMBRE *</label>
-            <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" maxlength="250" required>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre (obligatorio)" name="nombre" maxlength="250" required>
             <input type="hidden" class="form-control" id="institucion_id" name="institucion_id" value="">
             <input type="hidden" class="form-control" id="lat" name="lng" value="">
             <input type="hidden" class="form-control" id="lat" name="lng" value="">
@@ -90,12 +90,12 @@
 
           <div class="form-group">
             <label>APELLIDO *</label>
-            <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" maxlength="250" required>
+            <input type="text" class="form-control" id="apellido" placeholder="Apellido (obligatorio)" name="apellido" maxlength="250" required>
           </div>
 
           <div class="form-group">
-            <label>DNI</label>
-            <input type="text" class="form-control" id="documento" placeholder="Documento" name="dni"  maxlength="10" required>
+            <label>DNI *</label>
+            <input type="text" class="form-control" id="documento" placeholder="Documento (obligatorio)" name="dni"  maxlength="10" required>
           </div>
 
           <div class="form-group">
@@ -235,6 +235,25 @@
 
         </div>
 
+        <?php if (isset($comunidades) && count($comunidades)): ?>
+        <div class="col-md-8 col-md-offset-2" id="comunidades">
+          <br>
+          <div class="form-group">
+            <label> <i class="icon fa fa-users"></i> COMPARTÍLO CON TU COMUNIDAD! (opcional)</label>
+            <i class="icon fa fa-fw"></i> <input type="checkbox" name="checkComunidad" value="1" id="checkComunidad">
+
+            <span idf="selectComunidad" style="display: none;">
+            <select class="form-control select2" style="width: 100%;" name="comunidad" id="comunidad" >
+                @foreach($comunidades as $comunidad)
+                  <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
+                @endforeach
+            </select>
+            </span>
+          </div>
+          <br>
+        </div>
+        <?php endif ?>
+
         <div class="col-md-8 col-md-offset-1">
           <a href="javascript:void(0)" class="paso1"> <i class="icon fa fa-chevron-left"></i>VOLVER</a>
 
@@ -242,6 +261,7 @@
           
           <span class="pull-right" style="margin-right: 15px;"><span id="posaderoSeleccionadoTxt" class="text-muted"></span></span>
         </div>
+
 
       </div> 
     </div>
@@ -784,7 +804,7 @@
     
     } else {
 
-      lanzarAlerta('info', 'Selecciona un posadero antes de continuar.');
+      lanzarAlerta('info', 'Seleccioná un posadero antes de continuar.');
     }
 
   })
@@ -907,6 +927,14 @@
     $('li.cercano').removeClass('seleccionado');
   })
 
+  $('#checkComunidad').change(function () {
+
+    if ($(this).is(':checked'))
+      $('#selectComunidad').fadeIn();
+    else 
+      $('#selectComunidad').fadeOut();
+  })
+
   $('.select2').select2({
     placeholder: 'Seleccioná...'
   });
@@ -915,7 +943,8 @@
     html: true,
     content: function () {
         return $("#posaderoPopoverContent").html();
-    }
+  }
+
 });
 
 

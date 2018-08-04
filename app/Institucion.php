@@ -55,4 +55,7 @@ class Institucion extends Model
         return $this->hasMany('App\User','institucion_id');
     }
 
+    public function alertas(){
+        return $this->hasMany('App\Alerta','institucion_id');
+    }
 }

@@ -14,8 +14,16 @@ class Alerta extends Model
      */
     protected $table="alertas";
     protected $fillable = [
-        'nombre','apellido','fechaNacimiento','dni', 'user_id','lat','lng','observaciones',
-        'comunidad_id'
+        'nombre',
+        'apellido',
+        'fechaNacimiento',
+        'dni', 
+        'user_id',
+        'lat',
+        'lng',
+        'observaciones',
+        'comunidad_id',
+        'institucion_id'
     ];
 
    	public function user(){
@@ -28,5 +36,9 @@ class Alerta extends Model
 
     public function comunidad(){
         return $this->belongsTo('App\Comunidad','comunidad_id');
+    }
+
+    public function institucion(){
+        return $this->belongsTo('App\Institucion', 'institucion_id');
     }
 }
