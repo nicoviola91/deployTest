@@ -106,7 +106,8 @@
         </p>
       </div>
       <div class="col-md-4">
-        <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p>
+        <!-- <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p> -->
+        <p class="text-right" style="margin-bottom: 0px;"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></p>
       </div>
 
     </div>

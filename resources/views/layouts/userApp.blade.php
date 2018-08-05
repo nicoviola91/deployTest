@@ -237,7 +237,8 @@
     <div class="container-fluid">
 
       <div class="col-md-4">
-        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
+        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a> 
+        <!-- <br><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados -->
       </div>
       <div class="col-md-4">
         <p class="text-center"> 
@@ -247,7 +248,8 @@
         </p>
       </div>
       <div class="col-md-4">
-        <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p>
+        <!-- <p class="text-right" style="margin-bottom: 0px;"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p> -->
+        <p class="text-right" style="margin-bottom: 0px;"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></p>
       </div>
 
     </div>
