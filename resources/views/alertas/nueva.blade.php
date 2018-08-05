@@ -831,6 +831,11 @@
         comunidad_id = '';
       }
 
+      var loading = bootbox.dialog({
+          message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Aguardá mientras procesamos los datos ...</p>',
+          closeButton: false
+      });
+
       $.post( "{{url('/alert/store2')}}", {_token: '{{csrf_token()}}', lat: lat, lng: lng, institucion_id: institucion_id, comunidad_id: comunidad_id, nombre: nombre, apellido: apellido, dni: documento, fechaNacimiento: fechaNacimiento, observaciones: observaciones})
       
       .done(function(datos) {
@@ -847,6 +852,8 @@
             $('.rowPaso').hide();
             $('.rowPaso4Error').fadeIn();
           }
+
+          loading.modal('hide');
 
       });
 

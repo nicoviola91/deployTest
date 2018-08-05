@@ -126,6 +126,12 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
         'uses'=>'AlertaController@showAll',
         'as'=>'alerta.list'
     ]);
+
+    Route::get('/my_list',[
+        'uses'=>'AlertaController@misAlertas',
+        'as'=>'alerta.list'
+    ]);
+
     Route::get('/map',[
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'

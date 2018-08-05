@@ -9,13 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\AlertaRequest;
 
+use Carbon\Carbon;
+
 class AlertaController extends Controller
 {
 
     public function __construct () {
 
         $this->middleware('auth');
-
     }
 
     /**
@@ -102,7 +103,6 @@ class AlertaController extends Controller
             
             return response()->json([
                 'status' => true,
-                //'msg' => '999',
                 'msg' => $alerta->id,
             ]);
 
@@ -114,6 +114,22 @@ class AlertaController extends Controller
             ]);
         }
         
+    }
+
+    public function misAlertas () {
+
+        //Obtengo todas las alertas, propias y de comunidad, que fueron actualizadas en los ultimos 15 dias
+        $periodo = Carbon::now()->subWeeks(2);
+        $data['recientes'] = Alerta::where('updated_at', '>=', $periodo)->orderBy('updated_at', 'ASC')->get();
+
+        //Obtengo todas las alertas propias y las muestro tipo tabla
+        $data['personales'] = Alerta::where('user_id', '=', Auth::user()->id)->get();
+
+        //Obtengo todas las alertas de la comunidad y las muestro tipo fbsql_tablename()
+        $data['comunidad'] = Alerta::where('user_id', '!=', Auth::user()->id)->get();
+        $data['misComunidades'] = Auth::user()->comunidad()->get();
+
+        return view('alertas.misAlertas', $data);
     }
 
     /**
