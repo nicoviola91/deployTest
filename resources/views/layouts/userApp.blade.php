@@ -135,6 +135,9 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             
+            <li>
+              <a href="#" title="Ir a menu de Administrador"><i class="fa fa-gears"></i></a>
+            </li>
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
@@ -163,6 +166,7 @@
                   <p>
                     @if(null !==(Auth::user()))
                     {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}
+                    <small>{{ucwords(Auth::user()->tipoUsuario->descripcion)}}</small>
                     <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                     @endif
                   </p>
