@@ -1,8 +1,8 @@
-@extends('layouts.adminApp')
+@extends('layouts.userApp')
 
 
 @section('title')
-  Usuarios
+  Mi Perfil
 @endsection
 
 
@@ -84,7 +84,7 @@
 
                 <div class="col-sm-3">
                   <div class="description-block">
-                    <h5 class="description-header">{{$comunidades}}</h5>
+                    <h5 class="description-header">{{$comunidades->count()}}</h5>
                     <span class="description-text">COMUNIDADES</span>
                   </div>
                   <!-- /.description-block -->
@@ -118,6 +118,17 @@
             </div>
           </div>
           <!-- /.widget-user -->
+
+          <div class="box box-solid">
+            <div class="box-body col-md-6">
+              <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="#"> UNITE!</a></small></span></h4>
+              <h5>
+                <?php foreach ($comunidades as $comunidad): ?>
+                  <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>
+                <?php endforeach ?>
+              </h5>
+            </div>
+          </div>
         </div>
 </div>
 
