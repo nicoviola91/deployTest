@@ -47,7 +47,7 @@
         <div class="navbar-header">
 
           <!-- <a href="index2.html" class="navbar-brand"><b>POSADEROS</b></a> -->
-          <a href="http://www.posaderos.org" class="logo">
+          <a href="http://www.lumencor.com.ar" target="_blank" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image"></span>
             <!-- logo for regular state and mobile devices -->

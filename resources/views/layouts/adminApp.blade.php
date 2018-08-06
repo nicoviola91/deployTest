@@ -138,6 +138,7 @@
                 <p>
                   
                   {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
+                  <small>{{Auth::user()->tipoUsuario->descripcion}}</small>
                   <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                   
                 </p>
@@ -183,7 +184,7 @@
             @if(null !==(Auth::user()))
           <p>{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</p>
           @endif
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{Auth::user()->tipoUsuario->descripcion}}</a>
         </div>
       </div>
       <!-- search form -->
