@@ -32,6 +32,8 @@ class Comunidad extends Model
     public function alertas(){
         return $this->hasMany('App\Alerta','comunidad_id');
     }
-
+    public function solicitudes(){
+        return $this->hasMany('App\Solicitud');
+    }
 
 }
