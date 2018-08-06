@@ -71,7 +71,7 @@
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->asistidos->count() }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->created_at->diffForHumans() }}</td>
 									<td class="text-center" style="vertical-align: middle;">
-										<a href="#" class="detalleBtn" data-id="{{ $comunidad->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
+										<a href="{{route('comunidad.ficha',['id'=>$comunidad->id])}}" class="detalleBtn" data-id="{{ $comunidad->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 									</td> 
 										
 									</tr>
@@ -141,27 +141,7 @@
 	                </span>
 	              @endif
 	            </div>
-	            
-	            <div class="col-md-6 form-group {{ $errors->has('cuit') ? ' has-error' : '' }}">
-	              <label for="cuit">CUIT</label>
-	              <input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
-	              @if ($errors->has('cuit'))
-	                <span class="help-block">
-	                    <strong>{{ $errors->first('cuit') }}</strong>
-	                </span>
-	              @endif
-	            </div>
-
-	            <div class="col-md-6 form-group {{ $errors->has('telefono') ? ' has-error' : '' }}">
-	              <label for="telefono">Telefono</label>
-	              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
-	              @if ($errors->has('telefono'))
-	                <span class="help-block">
-	                    <strong>{{ $errors->first('telefono') }}</strong>
-	                </span>
-	              @endif
-	            </div>
-
+	          
 	            <div class="col-md-12 form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
 	              <label for="observaciones">Observaciones</label>
 	              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">

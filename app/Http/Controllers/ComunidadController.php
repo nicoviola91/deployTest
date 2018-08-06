@@ -62,4 +62,28 @@ class ComunidadController extends Controller
         return view('comunidades.listado', $data);
     }
 
+    public function show($id)
+    {   
+        $data['instituciones'] = Institucion::all();
+        $data['comunidad'] = Comunidad::find($id);
+        return view('comunidades.ficha', $data);
+    }
+
+    public function update (Request $request) {
+
+        $comunidad = Comunidad::where('id',$request->id)->first();
+        
+        $comunidad->nombre = $request->nombre;
+        $comunidad->cuit = $request->cuit;
+        $comunidad->responsable = $request->responsable;
+        $comunidad->telefono = $request->telefono;
+        $comunidad->email = $request->email;
+        $comunidad->tipo = $request->tipo;
+        $comunidad->descripcion = $request->descripcion;
+
+        $comunidad->save();
+        
+        return redirect()->back();
+    }
+
 }

@@ -192,6 +192,16 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
         'uses'=>'ComunidadController@destroy',
         'as'=>'comunidad.destroy'
     ]);
+
+    Route::post('/update',[
+        'uses'=>'ComunidadController@update',
+        'as'=>'comunidad.update',
+    ])->middleware('admin');
+
+    Route::get('/ficha/{id}',[
+        'uses'=>'ComunidadController@show',
+        'as'=>'comunidad.ficha'
+    ]);
 });
 
 //NECESIDADES
