@@ -60,7 +60,8 @@
 							<th class="text-center">Telefono</th>
 							<th class="text-center">CUIT</th>
 							<th class="text-center" >Responsable</th>
-							<th class="text-center">Fecha Alta</th>
+							<th class="text-center" >Comunidades</th>
+							<th class="text-center">Alta</th>
 							<th class="text-center">Acciones</th>
 						</tr>
 
@@ -77,10 +78,11 @@
 									<td class="text-center" style="vertical-align: middle;">{{ $institucion->nombre }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $institucion->telefono }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $institucion->cuit }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->responsable }}</td>								
-									<td class="text-center" style="vertical-align: middle;">{{ $institucion->created_at }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $institucion->responsable }}</td>	
+									<td class="text-center" style="vertical-align: middle;">{{ $institucion->comunidades->count() }}</td>								
+									<td class="text-center" style="vertical-align: middle;">{{ $institucion->created_at->diffForHumans() }}</td>
 									<td class="text-center" style="vertical-align: middle;">
-										<a href="#" class="detalleBtn" data-id="{{ $institucion->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
+										<a href="{{route('institucion.ficha',['id'=>$institucion->id])}}" class="detalleBtn" data-id="{{ $institucion->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 									</td> 
 										
 									</tr>
@@ -166,8 +168,8 @@
  	            </div>
 
  	            <div class="form-group col-md-6 {{ $errors->has('descripcion') ? ' has-error' : '' }}">
- 	              <label for="descripcion">Descripción Adicional</label>
- 	              <textarea class="form-control" rows="1" id="descripcion" name="descripcion" placeholder="OPCIONAL (ej. horarios de atención)"></textarea>
+ 	              <label for="descripcion">Horarios de Atención</label>
+ 	              <textarea class="form-control" rows="1" id="descripcion" name="descripcion" placeholder="OPCIONAL (EJ. Lu-Vi 08 a 18)"></textarea>
  	              @if ($errors->has('descripcion'))
  	                <span class="help-block">
  	                    <strong>{{ $errors->first('descripcion') }}</strong>

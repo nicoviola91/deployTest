@@ -152,6 +152,26 @@ Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
         'uses'=>'InstitucionController@showAll',
         'as'=>'institucion.list'
     ]);
+
+    Route::post('/updateImage',[
+        'uses'=>'InstitucionController@updateImage',
+        'as'=>'institucion.updateImage',
+    ])->middleware('admin');
+
+     Route::post('/update',[
+        'uses'=>'InstitucionController@update',
+        'as'=>'institucion.update',
+    ])->middleware('admin');
+
+      Route::post('/updateDireccion',[
+        'uses'=>'InstitucionController@updateDireccion',
+        'as'=>'institucion.updateDireccion',
+    ])->middleware('admin');
+
+    Route::get('/ficha/{id}',[
+        'uses'=>'InstitucionController@show',
+        'as'=>'institucion.ficha'
+    ]);
     Route::get('/destroy/{id}',[
         'uses'=>'InstitucionController@destroy',
         'as'=>'institucion.destroy'

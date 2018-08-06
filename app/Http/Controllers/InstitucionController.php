@@ -8,6 +8,7 @@ use App\Comunidad;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstitucionRequest;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 class InstitucionController extends Controller
 {
@@ -93,6 +94,12 @@ class InstitucionController extends Controller
         return view('instituciones.listado', $data);
     }
 
+    public function show($id)
+    {
+        $data['institucion'] = Institucion::find($id);
+        return view('instituciones.ficha', $data);
+    }
+
     public function getBox ($id) {
 
         $data['institucion'] = Institucion::where('id', $id)->first();
@@ -114,6 +121,105 @@ class InstitucionController extends Controller
             'status' => true,
             'view' => $view,
         ]);
+
+    }
+
+    public function update (Request $request) {
+
+        $institucion = Institucion::where('id',$request->id)->first();
+        
+        $institucion->nombre = $request->nombre;
+        $institucion->cuit = $request->cuit;
+        $institucion->responsable = $request->responsable;
+        $institucion->telefono = $request->telefono;
+        $institucion->email = $request->email;
+        $institucion->tipo = $request->tipo;
+        $institucion->descripcion = $request->descripcion;
+
+        $institucion->save();
+        
+        return redirect()->back();
+    }
+
+    public function updateDireccion (Request $request) {
+
+        $institucion = Institucion::where('id',$request->id)->first();
+        
+        if (isset($institucion->direccion_id)) {
+            
+            $direccion = Direccion::where('id',$institucion->id)->first();
+        
+            $direccion->calle = $request->calle;
+            $direccion->numero = $request->numero;
+            $direccion->piso = $request->piso;
+            $direccion->departamento = $request->departamento;
+            $direccion->provincia = $request->provincia;
+            $direccion->codigoPostal = $request->codigoPostal;
+            $direccion->pais = $request->pais;
+            $direccion->localidad = $request->localidad;
+            $direccion->lat = $request->lat;
+            $direccion->long = $request->lng;
+
+            $direccion->save();
+
+
+        } else {
+
+            //Direccion
+            $direccion = new Direccion();
+
+            $direccion->calle = $request->calle;
+            $direccion->numero = $request->numero;
+            $direccion->piso = $request->piso;
+            $direccion->departamento = $request->departamento;
+            $direccion->provincia = $request->provincia;
+            $direccion->codigoPostal = $request->codigoPostal;
+            $direccion->pais = $request->pais;
+            $direccion->localidad = $request->localidad;
+            $direccion->lat = $request->lat;
+            $direccion->long = $request->lng;
+
+            $direccion->save();
+            $institucion->update(['direccion_id' => $direccion->id]);
+        }
+        
+        return redirect()->back();
+    }
+
+    public function updateImage (Request $request) {
+
+        $validation = $request->validate([
+            'foto' => 'required|file|mimes:jpeg,png,gif|max:20480'
+        ]);
+
+        $id = $request->id;
+        $institucion = Institucion::where('id', $id)->first();
+
+        if($request->hasFile('foto')) {
+
+            //Si existe una imagen anterior, la elimino
+            if (isset($institucion->imagen) && $institucion->imagen != '' && $institucion->imagen != 'default.jpg'){
+                
+                if (file_exists(storage_path('app/public').'/'.$institucion->imagen))
+                    unlink(storage_path('app/public').'/'.$institucion->imagen);
+            }
+
+            $image = $request->file('foto');
+            $imageName = $image->getClientOriginalName();
+            $fileName =  "institucion_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->fit(200, 200)->save($imageUrl);
+
+            if ($institucion->update(['imagen' => $fileName]))
+                return redirect()->back()->with('success','Actualizada correctamente.');
+            else
+                return redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Por favor vuelva a intentarlo.');
+        } else {
+
+            redirect()->back()->with('error', 'Ocurrió un error al actualizar la imagen. Debe seleccionar una imagen.');
+        }
 
     }
 
