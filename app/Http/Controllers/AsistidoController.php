@@ -145,8 +145,25 @@ class AsistidoController extends Controller
     public function show2 ($asistido_id) 
     {
         $asistido = Asistido::find($asistido_id);
+        $comunidades = Comunidad::all();
 
-        return view('ficha')->with('asistido', $asistido);
+        return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades);
+    }
+
+    public function agregarComunidad (Request $request) 
+    {   
+        $asistido_id = $request->asistido_id;
+        $comunidad_id = $request->comunidad_id;
+
+        $asistido = Asistido::find($asistido_id);
+        
+        if (!$asistido->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
+            
+            $asistido->comunidades()->attach($comunidad_id);
+
+        }
+
+        return redirect()->back();
     }
 
 

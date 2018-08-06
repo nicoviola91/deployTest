@@ -88,7 +88,7 @@ class UserController extends Controller
         $consultas = Consulta::where('user_id',$id)->count();
         $asistidos= Asistido::where('owner','=',$id)->count();
         //$comunidades = $user->comunidad();
-        $comunidades = $user->comunidad()->get();
+        $comunidades = $user->comunidades()->get();
         return view('users.profile')->with('user',$user)
                                     ->with('consultas',$consultas)
                                     ->with('asistidos',$asistidos)
@@ -98,11 +98,29 @@ class UserController extends Controller
 
     public function profile2(Request $request, $id)
     {   
-        $data['user'] = User::find($id);
+        $user = User::find($id);
+        $comunidades = Comunidad::all();
 
+        $data['user'] = $user;
+        $data['comunidades'] = $comunidades;
         return view('users.profile2', $data);
     }
 
+    public function agregarComunidad (Request $request) 
+    {   
+        $user_id = $request->user_id;
+        $comunidad_id = $request->comunidad_id;
+
+        $user = User::find($user_id);
+        
+        if (!$user->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
+            
+            $user->comunidades()->attach($comunidad_id);
+
+        }
+
+        return redirect()->back();
+    }
 
     /**
      * Display the specified resource list.

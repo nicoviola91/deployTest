@@ -53,10 +53,7 @@
 					<th class="text-center">Fecha Registro</th>
 					<th class="text-center">Acuerdo de Confidencialidad</th>
 					<th class="text-center">Tipo Usuario</th>
-					@if(Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")
-					<th class="text-center">Institución</th>
 					<th class="text-center">Comunidad</th>
-					@endif
 					<th class="text-center">Acciones</th>
 				</tr>
 
@@ -90,46 +87,12 @@
 					            </div>
 										
 							</td>
-							@if(isset($usuario->institucion->nombre))
-								@if(Auth::user()->tipoUsuario->descripcion=="Administrador")
-									<td class="text-center" style="vertical-align: middle;">
-										<span style="display: none;">{{$usuario->institucion->nombre}}</span>
-										<div class="form-group">
-											<select class="form-control institucionNombre" style="width: 100%;">
-											
-												<?php foreach ($instituciones as $institucion) { ?>
-													<option <?php echo ($usuario->institucion_id == $institucion->id) ? 'selected' : '' ?> value="{{$institucion->id}}" data-id="{{ $usuario->id }}" data-institucion="{{$institucion->id}}">{{$institucion->nombre}}</option>
-												<?php } ?>
-											</select>
-										</div>	
-									</td>
-								@endif
-								@if(Auth::user()->tipoUsuario->descripcion=="Posadero")
-									<td class="text-center" style="vertical-align: middle;">{{ $usuario->institucion->nombre }}</td>
-								@endif
-							@else
-								<td class="text-center" style="vertical-align: middle;">No posee</td>
-							@endif
-
-							@if(isset($usuario->comunidad->nombre))
-								@if(Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")	
-								<td class="text-center" style="vertical-align: middle;">
-									<span style="display: none;">{{$usuario->comunidad->nombre}}</span>
-									<div class="form-group">
-										<select class="form-control comunidadNombre" style="width: 100%;">
-										
-											<?php foreach ($comunidades as $comunidad) { ?>
-												<option <?php echo ($usuario->comunidad_id == $comunidad->id) ? 'selected' : '' ?> value="{{$comunidad->id}}" data-id="{{ $usuario->id }}" data-comunidad="{{$comunidad->id}}">{{$comunidad->nombre}}</option>
-											<?php } ?>
-										</select>
-									</div>	
-								</td>
-								@endif
-							@else
-								<td class="text-center" style="vertical-align: middle;">No posee</td>
-							@endif
-							
-
+						
+							<td class="text-center" style="vertical-align: middle;">
+								<?php foreach ($usuario->comunidades as $comunidad): ?>
+									<span class="label label-default"><?php echo $comunidad->nombre ?></span>
+								<?php endforeach ?>
+							</td>
 
 							<td class="text-center" style="vertical-align: middle;">
 							<a href="{{ route('user.profile2',['id'=>$usuario->id]) }}" class="detalleBtn" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>

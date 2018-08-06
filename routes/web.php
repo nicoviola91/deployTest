@@ -50,6 +50,11 @@ Route::group(['prefix'=>'user'], function(){
         'as'=>'user.updateImage',
     ])->middleware('autenticado');
 
+    Route::post('/agregarComunidad',[
+        'uses'=>'UserController@agregarComunidad',
+        'as'=>'user.agregarComunidad',
+    ])->middleware('admin');
+
     Route::post('/acuerdo',[
         'uses'=>'UserController@acuerdo',
         'as'=>'user.acuerdo',
@@ -241,6 +246,11 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::post('/updateImage',[
         'uses'=>'AsistidoController@updateImage',
         'as'=>'asistido.updateImage',
+    ])->middleware('admin');
+
+    Route::post('/agregarComunidad',[
+        'uses'=>'AsistidoController@agregarComunidad',
+        'as'=>'asistido.agregarComunidad',
     ])->middleware('admin');
 
     Route::get('/list',[

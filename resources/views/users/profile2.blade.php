@@ -2,7 +2,7 @@
 
 
 @section('title')
-	Usuarios
+	Perfil
 @endsection
 
 
@@ -38,44 +38,16 @@
                 @endif
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="{{ asset('/img/user160x160.png') }}" alt="User Avatar">
+
+              <?php if (isset($user->imagen)) { ?>
+                <img class="img-circle perfil" src="<?php echo asset("storage") . '/' . $user->imagen ?>" alt="User Avatar" data-toggle="tooltip" title="" style="max-height: 150px; max-width: 150px;">
+              <?php } else { ?>
+                <img class="img-circle perfil" src="{{ asset('/img/user160x160.png') }}" alt="User Avatar" data-toggle="tooltip" title="">
+              <?php } ?>
             </div>
             
             <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-3 border-right">
-                  <div class="description-block">
-                    <h5 class="description-header">200</h5>
-                    <span class="description-text">ALERTAS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-
-                <div class="col-sm-3 border-right">
-                  <div class="description-block">
-                    <h5 class="description-header">110</h5>
-                    <span class="description-text">ASISTIDOS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-
-                <div class="col-sm-3 border-right">
-                  <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">CONSULTAS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-
-                <div class="col-sm-3">
-                  <div class="description-block">
-                    <h5 class="description-header">3</h5>
-                    <span class="description-text">COMUNIDADES</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-
-              </div>
+              
               <!-- /.row -->
               <div class="row">
                   <div class="col-sm-6">
@@ -100,8 +72,73 @@
             </div>
           </div>
           <!-- /.widget-user -->
+
+          <div class="box box-solid">
+            <div class="box-body col-md-6">
+              <h4><i class="fa icon fa-users"></i> 
+                Comunidades 
+                <span class="badge bg-teal btnAgregarComunidad" style="cursor: pointer;"> <i class="icon fa fa-plus"></i> Agregar</span> 
+              </h4>
+              <h5>
+                <?php foreach ($user->comunidades as $comunidad): ?>
+                  <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>
+                <?php endforeach ?>
+              </h5>
+            </div>
+          </div>
+
+
+
         </div>
 </div>
+
+<div class="modal fade in" id="modal-comunidad">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title"><i class="fa icon fa-users"></i> Agregar a Comunidad</h4>
+      </div>
+      
+      <form class="form-horizontal" method="POST" action="{{ route('user.agregarComunidad') }}" id="formNuevoAsistido" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="modal-body">
+    
+          <div class="form-group">
+            <input type="hidden" name="user_id" value="{{$user->id}}">
+            <div class="col-sm-12">
+              <select class="form-control" name="comunidad_id" id="comunidad_id" required placeholder="Seleccionar ...">
+
+                <?php $institucion = 0 ?>
+                <option disabled selected value> Seleccionar ... </option>
+
+                <?php foreach ($comunidades as $comunidad): ?>  
+
+                  <?php if ($institucion != $comunidad->institucion_id): ?>
+                    <optgroup label=" - {{$comunidad->institucion->nombre}}"></optgroup>
+                    <?php $institucion = $comunidad->institucion_id ?>
+                  <?php endif ?>
+
+                  <option value="{{$comunidad->id}}"> <?php echo $comunidad->nombre ?></option>
+                
+                <?php endforeach ?>
+              </select>
+              <p class="help-block">Seleccioná una comunidad</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit">Agregar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 	
 @endsection
 
@@ -110,6 +147,12 @@
 
 <script type="text/javascript">
 	
+  $(".btnAgregarComunidad").click(function () {
+
+      console.log('agregarComunidad');
+      $('#modal-comunidad').modal('show');
+
+    });
 	
 </script>
 

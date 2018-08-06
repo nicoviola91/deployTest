@@ -118,14 +118,29 @@
           </div>
           <div class="box-footer no-padding">
             <ul class="nav nav-stacked">
-              <li><a href="javascript:void(0)"><strong>Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
-              <li><a href="javascript:void(0)"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li>
+              <li><a href="javascript:void(0)"><strong><i class="icon fa fa-calendar"></i> Fecha de Nacimiento: </strong> {{ (new DateTime($asistido->fechaNacimiento))->format('d/m/Y') }} ({{ ((new DateTime($asistido->fechaNacimiento))->diff((new DateTime())))->format('%Y años') }})</a></li>
+              <!-- <li><a href="javascript:void(0)"><strong>Dirección: </strong> {{ $asistido->direccion }} </a></li> -->
+              
               <li>
                 @if(isset($asistido->sexo->descripcion))
-                <a href="javascript:void(0)"><strong>Sexo: </strong> {{ $asistido->sexo->descripcion }} </a>
+                <a href="javascript:void(0)"><strong><i class="icon fa fa-venus-mars"></i> Sexo: </strong> {{ $asistido->sexo->descripcion }} </a>
                 @endif
               </li>
-              <li><a href="javascript:void(0)"><strong>Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
+
+              <li>
+                <a href="javascript:void(0)">
+                  <strong><i class="icon fa fa-users"></i> Comunidades </strong><br>
+                  <span class="pull-right badge bg-teal btnAgregarComunidad"> <i class="icon fa fa-plus"></i> Agregar</span> 
+                  <p style="margin-top: 5px;">
+                  <?php foreach ($asistido->comunidades as $comunidad): ?>
+                    <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>  
+                  <?php endforeach ?>
+                  </p>
+                </a>
+              </li>
+
+              
+              <li><a href="javascript:void(0)"><strong><i class="icon fa fa-file-text-o"></i> Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
             </ul>
           </div>
         </div>
@@ -434,6 +449,54 @@
 </div>
 
 
+<div class="modal fade in" id="modal-comunidad">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title"><i class="fa icon fa-users"></i> Agregar a Comunidad</h4>
+      </div>
+      
+      <form class="form-horizontal" method="POST" action="{{ route('asistido.agregarComunidad') }}" id="formNuevoAsistido" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="modal-body">
+    
+          <div class="form-group">
+            <input type="hidden" name="asistido_id" value="{{$asistido->id}}">
+            <div class="col-sm-12">
+              <select class="form-control" name="comunidad_id" id="comunidad_id" required placeholder="Seleccionar ...">
+
+                <?php $institucion = 0 ?>
+                <option disabled selected value> Seleccionar ... </option>
+
+                <?php foreach ($comunidades as $comunidad): ?>  
+
+                  <?php if ($institucion != $comunidad->institucion_id): ?>
+                    <optgroup label=" - {{$comunidad->institucion->nombre}}"></optgroup>
+                    <?php $institucion = $comunidad->institucion_id ?>
+                  <?php endif ?>
+
+                  <option value="{{$comunidad->id}}"> <?php echo $comunidad->nombre ?></option>
+                
+                <?php endforeach ?>
+              </select>
+              <p class="help-block">Seleccioná una comunidad</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit">Agregar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
 
 	
 @endsection
@@ -449,6 +512,13 @@
       $(this).siblings().find('span').hide();
       $('.divDatos').html('');  
       $('.divConsultas').html('');
+
+    });
+
+    $(".btnAgregarComunidad").click(function () {
+
+      console.log('agregarComunidad');
+      $('#modal-comunidad').modal('show');
 
     });
 

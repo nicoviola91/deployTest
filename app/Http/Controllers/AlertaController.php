@@ -38,7 +38,7 @@ class AlertaController extends Controller
     {   
         $user=Auth::user();
         $instituciones = Institucion::where('tipo', '=', 'posadero')->get();
-        $comunidades=$user->comunidad()->get();
+        $comunidades=$user->comunidades()->get();
         
         if(isset($comunidades)){
 
@@ -127,7 +127,7 @@ class AlertaController extends Controller
 
         //Obtengo todas las alertas de la comunidad y las muestro tipo fbsql_tablename()
         $data['comunidad'] = Alerta::where('user_id', '!=', Auth::user()->id)->get();
-        $data['misComunidades'] = Auth::user()->comunidad()->get();
+        $data['misComunidades'] = Auth::user()->comunidades()->get();
 
         return view('alertas.misAlertas', $data);
     }
