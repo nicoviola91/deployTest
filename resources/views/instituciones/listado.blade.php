@@ -59,8 +59,8 @@
 							<th class="text-center">Nombre</th>
 							<th class="text-center">Telefono</th>
 							<th class="text-center">CUIT</th>
-							<th class="text-center" >Responsable</th>
-							<th class="text-center" >Comunidades</th>
+							<th class="text-center">Responsable</th>
+							<th class="text-center"><i class="icon fa fa-users"></i> Comunidades</th>
 							<th class="text-center">Alta</th>
 							<th class="text-center">Acciones</th>
 						</tr>

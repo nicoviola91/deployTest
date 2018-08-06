@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comunidad;
+use App\Institucion;
 use Illuminate\Http\Request;
 use App\Http\Requests\ComunidadRequest;
 
@@ -39,11 +40,12 @@ class ComunidadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ComunidadRequest $request)
-    {           
+    public function store(Request $request)
+    {      
         $comunidad = new Comunidad($request->all());
         $comunidad->save();
-        return redirect()->route('comunidad.list');
+        
+        return redirect()->back();
     }
 
    
@@ -55,6 +57,7 @@ class ComunidadController extends Controller
      */
     public function showAll()
     {
+        $data['instituciones'] = Institucion::all();
         $data['comunidades'] = Comunidad::all();
         return view('comunidades.listado', $data);
     }

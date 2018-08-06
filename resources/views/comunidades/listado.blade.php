@@ -50,7 +50,8 @@
 							<th class="text-center">Nombre</th>
 							<th class="text-center">Tipo</th>
 							<th class="text-center">Institución</th>
-							<th class="text-center">Fecha Alta</th>
+							<th class="text-center"><i class="icon fa fa-user-circle"></i> Miembros</th>
+							<th class="text-center">Alta</th>
 							<th class="text-center">Acciones</th>
 						</tr>
 
@@ -65,9 +66,10 @@
 							    <tr>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->id }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->nombre }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->tipo }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->institucion_id }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->created_at }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ strtoupper($comunidad->tipo) }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->institucion->nombre }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->asistidos->count() }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->created_at->diffForHumans() }}</td>
 									<td class="text-center" style="vertical-align: middle;">
 										<a href="#" class="detalleBtn" data-id="{{ $comunidad->id }}" data-toggle="tooltip" data-title="Ver Detalle"> <i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 									</td> 
@@ -100,45 +102,76 @@
 			
 			{{ csrf_field() }}
 	     	
-	     	<div class="box-body"><div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
-	     	              <label for="nombre">Nombre</label>
-	     	              <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
-	     	              @if ($errors->has('nombre'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('nombre') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	            
-	     	            <div class="form-group {{ $errors->has('cuit') ? ' has-error' : '' }}">
-	     	              <label for="cuit">CUIT</label>
-	     	              <input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
-	     	              @if ($errors->has('cuit'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('cuit') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	
-	     	            <div class="form-group {{ $errors->has('telefono') ? ' has-error' : '' }}">
-	     	              <label for="telefono">Telefono</label>
-	     	              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
-	     	              @if ($errors->has('telefono'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('telefono') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div>
-	     	
-	     	            <div class="form-group {{ $errors->has('responsable') ? ' has-error' : '' }}">
-	     	              <label for="responsable">Responsable</label>
-	     	              <input type="text" class="form-control" id="responsable" placeholder="Responsable" name="responsable">
-	     	              @if ($errors->has('responsable'))
-	     	                <span class="help-block">
-	     	                    <strong>{{ $errors->first('responsable') }}</strong>
-	     	                </span>
-	     	              @endif
-	     	            </div></div>
+	     	<div class="box-body">
+
+	     		<div class="col-md-6 form-group {{ $errors->has('institucion_id') ? ' has-error' : '' }}">
+	              <label for="nombre">Institución</label>
+	              <select class="form-control" name="institucion_id" id="institucion_id">
+	              	
+	              	<?php foreach ($instituciones as $i): ?>
+	              		<option value="{{$i->id}}"> {{strtoupper($i->tipo)}} - {{$i->nombre}}</option>
+	              	<?php endforeach ?>
+	              </select>
+	              @if ($errors->has('institucion_id'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('institucion_id') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+
+	            <div class="col-md-6 form-group {{ $errors->has('tipo') ? ' has-error' : '' }}">
+	              <label for="nombre">Tipo</label>
+	              <select class="form-control" name="tipo" id="tipo">
+	              	<option value="nocheDeCaridad">Noche De Caridad</option>
+	              	<option value="externa">Comunidad Externa</option>
+	              </select>
+	              @if ($errors->has('tipo'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('tipo') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+
+		     	<div class="col-md-12 form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
+	              <label for="nombre">Nombre</label>
+	              <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+	              @if ($errors->has('nombre'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('nombre') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+	            
+	            <div class="col-md-6 form-group {{ $errors->has('cuit') ? ' has-error' : '' }}">
+	              <label for="cuit">CUIT</label>
+	              <input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
+	              @if ($errors->has('cuit'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('cuit') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+
+	            <div class="col-md-6 form-group {{ $errors->has('telefono') ? ' has-error' : '' }}">
+	              <label for="telefono">Telefono</label>
+	              <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+	              @if ($errors->has('telefono'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('telefono') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+
+	            <div class="col-md-12 form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
+	              <label for="observaciones">Observaciones</label>
+	              <input type="text" class="form-control" id="observaciones" placeholder="Responsable" name="observaciones">
+	              @if ($errors->has('observaciones'))
+	                <span class="help-block">
+	                    <strong>{{ $errors->first('observaciones') }}</strong>
+	                </span>
+	              @endif
+	            </div>
+	     	</div>
 
 	      
 	      	<div class="modal-footer">
