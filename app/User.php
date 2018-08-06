@@ -33,7 +33,6 @@ class User extends Authenticatable
     public function alertas(){
         return $this->hasMany('App\Alerta');
     }
-
     
     public function consultas(){
         return $this->hasMany('App\Consulta');
@@ -52,6 +51,10 @@ class User extends Authenticatable
 
     public function comunidad(){
         return $this->belongsTo('App\Comunidad','comunidad_id');
+    }
+
+    public function comunidades(){
+        return $this->belongsToMany('App\Comunidad')->withTimestamps();;
     }
     
 }

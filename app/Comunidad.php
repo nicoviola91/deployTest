@@ -16,11 +16,13 @@ class Comunidad extends Model
     ];
 
     public function users(){
-    	return $this->hasMany('App\User','comunidad_id');
+    	//return $this->hasMany('App\User','comunidad_id');
+        return $this->belongsToMany('App\User')->withTimestamps();;
     }
 
     public function asistidos(){
-    	return $this->hasMany('App\Asistido','comunidad_id');
+    	//return $this->hasMany('App\Asistido','comunidad_id');
+        return $this->belongsToMany('App\Asistido')->withTimestamps();;
     }
 
     public function institucion(){

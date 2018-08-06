@@ -42,9 +42,6 @@ class Asistido extends Model
         
     // ];
 
-    public function comunidades(){
-        return $this->belongsToMany('App\Comunidad');
-    }
     //Un asistido deberia tener una ficha
     //Las fichas heredan el hasone
     //cada ficha concreta tendra la fk a asistido
@@ -66,6 +63,10 @@ class Asistido extends Model
     /*public function usuariosCompartidos(){
         return $this->hasMany('App\UsuarioCompartido');
     }*/
+
+    public function comunidades(){
+        return $this->belongsToMany('App\Comunidad')->withTimestamps();;
+    }
 
     public function comunidad(){
         return $this->belongsTo('App\Comunidad','comunidad_id');
