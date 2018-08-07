@@ -67,10 +67,12 @@ class AsistidoController extends Controller
         $asistido->owner = $alerta->user_id;
         $comunidad->asistidos()->save($asistido);
         $asistido->save(); 
-        $usuario = $alerta->user_id;
-        $usuarioNotif = User::find($usuario);
-        #$usuarioNotif->notify(new AltaAlerta($alerta));
-        $usuarioNotif->notify(new AltaAlerta($alerta));
+        /* Alerto a la comunidad del alta de un nuevo asistido
+        $usuariosNotif = User::where('comunidad_id',$request->comunidad);
+        foreach ($usuarioNotif as $usuario) {
+            $usuario->notify(new AltaAlerta($asistido));    
+        }
+        */ 
         $alerta->asistido()->associate($asistido);
         $alerta->estado = 1;
         $alerta->save();

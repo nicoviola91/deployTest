@@ -7,21 +7,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-//use App\User;
-
-
-class AltaUsuario extends Notification
+use App\User;
+class AltaUsuarioComunidad extends Notification
 {
     use Queueable;
-    //protected $user;
+    private $nuevoUsuario;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $nuevoUsuario)
     {
-        //$this->user = $user;        
+        $this->nuevoUsuario= $nuevoUsuario;
     }
 
     /**
@@ -43,10 +42,13 @@ class AltaUsuario extends Notification
      */
     public function toMail($notifiable)
     {
+        //$url = url('/asistido/list');
         return (new MailMessage)
-                    ->line('Bienvenido a la Red del Posadero!')
-                    ->action('Comenzá a usar la aplicación', url('/login'))
-                    ->line('Gracias por sumarte!')
+                    ->subject('Posaderos - Alta de Usuario')
+                    ->line('Se ha dado de alta un asistido en tu comunidad.')
+                    ->line('Dale la bienvenida a '.$nuevoUsuario->name.' '.$nuevoUsuario->apellido.'!')
+                    //->action('Ver asistidos', $url)
+                    ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }
 

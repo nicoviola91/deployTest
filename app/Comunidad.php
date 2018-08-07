@@ -12,7 +12,8 @@ class Comunidad extends Model
         'tipo',
         //'parroquia_id',
         'observaciones',
-        'institucion_id'
+        'institucion_id',
+        'coordinador_id'
     ];
 
     public function users(){
@@ -34,6 +35,9 @@ class Comunidad extends Model
     }
     public function solicitudes(){
         return $this->hasMany('App\Solicitud');
+    }
+    public function coordinador(){
+        return $this->belongsTo('App\User','coordinador_id');
     }
 
 }

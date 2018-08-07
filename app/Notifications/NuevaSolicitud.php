@@ -7,21 +7,21 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-//use App\User;
+use App\Solicitud;
 
-
-class AltaUsuario extends Notification
+class NuevaSolicitud extends Notification
 {
     use Queueable;
-    //protected $user;
+    protected $solicitud;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Solicitud $solicitud)
     {
-        //$this->user = $user;        
+        $this->solicitud = $solicitud;
     }
 
     /**
@@ -43,10 +43,18 @@ class AltaUsuario extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url('/solicitudes/list');
+        if ($this->solicitud->tipoSolicitud_id = 1){
+            //queda disponible para la tabla de referencia de tipos de solicitudes en caso que aparezcan nuevas. No va
+            //a hacer falta el if y se va a poder traer directamente solicitud->tipoSolicitud()->descripcion
+            $tipo = 'de Adherirse a una comunidad';
+        }
+
         return (new MailMessage)
-                    ->line('Bienvenido a la Red del Posadero!')
-                    ->action('Comenzá a usar la aplicación', url('/login'))
-                    ->line('Gracias por sumarte!')
+                    ->subject('Posaderos - Nueva Solicitud')
+                    ->line('Se ha generado una solicitud '.$tipo)
+                    ->action('Ir a Mis Solicitudes', $url)
+                    ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }
 

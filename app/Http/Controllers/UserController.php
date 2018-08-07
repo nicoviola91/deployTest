@@ -114,11 +114,14 @@ class UserController extends Controller
         $user = User::find($user_id);
         
         if (!$user->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
-            
             $user->comunidades()->attach($comunidad_id);
-
         }
-
+        /* Notifiacion de Nuevo usuario agregado a la comunidad
+        $comunitarios = User::where('comunidad_id',$comunidad_id)->get();
+        foreach ($comunitarios as $comunitario) {
+            $comunitario->notify(new AltaUsuarioComunidad($user))    
+        }
+        */
         return redirect()->back();
     }
 

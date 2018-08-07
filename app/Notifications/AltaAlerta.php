@@ -7,21 +7,21 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-use App\Alerta;
-
+use App\Asistido;
+use App\User;
 
 class AltaAlerta extends Notification
 {
     use Queueable;
-    protected $alerta;
+    protected $asistido;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Alerta $alerta)
+    public function __construct(Asistido $asistido)
     {
-        $this->alerta = $alerta;
+        $this->asistido = $asistido;
     }
 
     /**
@@ -43,11 +43,14 @@ class AltaAlerta extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/asistido/show/'.$this->alerta->asistido_id);
+        //$url = url('/asistido/list');
+        $derivadoPor= User::where('id',$asistido->owner);
         return (new MailMessage)
-                    ->subject('Posaderos - Alta de Alerta')
-                    ->line('Se ha dado de alta el asistido que derivaste.')
-                    ->action('Ver asistido', $url)
+                    ->subject('Posaderos - Alta de Asistido')
+                    ->line('Se ha dado de alta un asistido en la comunidad.')
+                    ->line($asistido->nombre.' '.$asistido->apellido)
+                    ->line('Derivado por '.$derivadoPor->name.' '.$derivadoPor->apellido)
+                    //->action('Ver asistidos', $url)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }
