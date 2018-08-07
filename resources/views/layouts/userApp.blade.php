@@ -90,7 +90,7 @@
 
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-red layout-top-nav">
+<body class="hold-transition skin-red layout-top-nav" id="page-top">
 <div class="wrapper">
 
   <header class="main-header">
@@ -210,6 +210,7 @@
   <div class="col-md-6 col-md-offset-3 divAlertas" id="notificaciones">    </div>
 
   <div class="content-wrapper">
+    @yield('contentFullScreen')
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
       <section class="content-header">
@@ -219,7 +220,7 @@
       </section>
 
       <!-- Main content -->
-      <section class="content">
+      <section class="content" id="contenido">
 
           <div class="col-md-10 col-md-offset-1">
             @yield('content')

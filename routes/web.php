@@ -644,12 +644,14 @@ Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/home', function () {
 //     echo "SE LOGEO CORRECTAMENTE";
 // });
 
 //Dashboard
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
+//Bienvenido
+Route::get('/home', 'HomeController@home')->name('home')->middleware('admin');
 
 Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');

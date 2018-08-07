@@ -66,4 +66,11 @@ class HomeController extends Controller
 
         return view('dashboard', $data);
     }
+
+    public function home () {
+
+        $data['misComunidades'] = Auth::user()->comunidades()->get();
+
+        return view('bienvenido', $data);
+    }
 }
