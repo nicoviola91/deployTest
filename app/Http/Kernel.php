@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\VerificarTipoDeUsuario::class,
         'autenticado'=>\App\Http\Middleware\VerificarUsuarioAutenticado::class,
+        'userType'=>\App\Http\Middleware\VerificarTipo::class,
     ];
 }
