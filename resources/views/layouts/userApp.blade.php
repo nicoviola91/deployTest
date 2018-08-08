@@ -177,7 +177,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="{{url('/user/profile')}}" class="btn btn-default btn-flat">Mi Perfil</a>
+                    <a href="{{url('/user/my_profile')}}" class="btn btn-default btn-flat">Mi Perfil</a>
                   </div>
                   <div class="pull-right">
                     <a href="{{route('logout')}}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Sign out</a>

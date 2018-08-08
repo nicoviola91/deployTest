@@ -15,10 +15,10 @@
 Route::get('/', function () {
 
     if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero" )){
-        return redirect()->route('dashboard');
+        return redirect()->route('home');
     }else{
         if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Nuevo Usuario" || Auth::user()->tipoUsuario->descripcion=="Samaritano" )){
-            return redirect()->route('alerta.list');
+            return redirect()->route('home');
         }else{
             return redirect()->route('login');
         }
@@ -27,24 +27,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Prueba para ver vista ficha
-Route::get('/ficha', function () {
-    return view('ficha');
-})->middleware('admin');
-
-//Downloads
+//Dashboard
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
+//Bienvenido
+Route::get('/home', 'HomeController@home')->name('home')->middleware('admin');
+//Downloads (para archivos de consultas)
 Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('autenticado');
 
 //USERS
-//TODO COMO FILTRAMOS CON MIDDLEWARE ESTAS RUTAS?
-
 Route::group(['prefix'=>'user'], function(){
-
     Route::get('/create',[
         'uses'=>'UserController@create',
         'as'=>'user.create'
     ]);
-
     Route::post('/updateImage',[
         'uses'=>'UserController@updateImage',
         'as'=>'user.updateImage',
@@ -54,12 +49,10 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@agregarComunidad',
         'as'=>'user.agregarComunidad',
     ])->middleware('admin');
-
     Route::post('/acuerdo',[
         'uses'=>'UserController@acuerdo',
         'as'=>'user.acuerdo',
     ])->middleware('admin');
-
     Route::post('/updateType',[
         'uses'=>'UserController@updateType',
         'as'=>'user.updateType',
@@ -74,55 +67,36 @@ Route::group(['prefix'=>'user'], function(){
     ])->middleware('admin');
     Route::get('/list',[
         'uses'=>'UserController@showAll',
-        'as'=>'user.list'
-        
+        'as'=>'user.list'  
     ])->middleware('admin');
-    
-    Route::get('/profile',[
+    Route::get('/my_profile',[
+        'uses'=>'UserController@my_profile',
+        'as'=>'user.my_profile'
+    ])->middleware('autenticado');
+    Route::get('/profile/{id}',[
         'uses'=>'UserController@profile',
         'as'=>'user.profile'
-    ])->middleware('autenticado');
-
-    Route::get('/profile2/{id}',[
-        'uses'=>'UserController@profile2',
-        'as'=>'user.profile2'
     ])->middleware('admin');
-
     Route::post('/store',[
         'uses'=>'UserController@store',
         'as'=>'user.store'
     ]);
-
-
 });
-
-
-
-
-// Route::get('/user/create','UserController@create');
-// Route::get('/user/list','UserController@showAll')->middleware('admin');//solo admin y posaderos
-// Route::get('/user/profile','UserController@profile')->middleware('autenticado');//los autenticados
-// Route::get('/user/profile2/{id}','UserController@profile2')->middleware('admin');
-// Route::post('/user/store','UserController@store');
 
 //ALERTAS
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
-
     Route::get('/new',[
         'uses'=>'AlertaController@create',
         'as'=>'alerta.create'
     ]);
-
     Route::post('/store',[
         'uses'=>'AlertaController@store',
         'as'=>'alerta.store'
     ]);
-
     Route::post('/store2',[
         'uses'=>'AlertaController@store2',
         'as'=>'alerta.store2'
     ]);
-
     Route::post('/storeNew',[
         'uses'=>'AlertaController@storeNew',
         'as'=>'alerta.storeNew'
@@ -131,12 +105,10 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
         'uses'=>'AlertaController@showAll',
         'as'=>'alerta.list'
     ]);
-
     Route::get('/my_list',[
         'uses'=>'AlertaController@misAlertas',
-        'as'=>'alerta.list'
+        'as'=>'alerta.my_list'
     ]);
-
     Route::get('/map',[
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'
@@ -147,7 +119,10 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
     ])->middleware('admin');
 });
 
+
 //INSTITUCIONES
+Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');
+
 Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
     Route::post('/store',[
         'uses'=>'InstitucionController@store',
@@ -197,12 +172,10 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
         'uses'=>'ComunidadController@destroy',
         'as'=>'comunidad.destroy'
     ]);
-
     Route::post('/update',[
         'uses'=>'ComunidadController@update',
         'as'=>'comunidad.update',
     ])->middleware('admin');
-
     Route::get('/ficha/{id}',[
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
@@ -211,17 +184,14 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
 
 //NECESIDADES
 Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
-    
     Route::get('/list',[
         'uses'=>'NecesidadesController@list',
         'as'=>'necesidad.list'
     ]);
-
     Route::get('/public',[
         'uses'=>'NecesidadesController@public_list',
         'as'=>'necesidad.public'
     ]);
-
 });
 
 //ASISTIDOS
@@ -242,27 +212,22 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@storeNew',
         'as'=>'asistido.storeNew',
     ])->middleware('admin');
-
     Route::post('/updateImage',[
         'uses'=>'AsistidoController@updateImage',
         'as'=>'asistido.updateImage',
     ])->middleware('admin');
-
     Route::post('/agregarComunidad',[
         'uses'=>'AsistidoController@agregarComunidad',
         'as'=>'asistido.agregarComunidad',
     ])->middleware('admin');
-
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
     ])->middleware('autenticado');
-
     Route::get('/busqueda',[
         'uses'=>'AsistidoController@busqueda',
         'as'=>'asistido.busqueda'
     ])->middleware('autenticado');
-
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
@@ -348,12 +313,10 @@ Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
         'uses'=>'FichaFamiliaAmigosController@create',
         'as'=>'fichaFamiliaAmigos.create',
     ]);
-
     Route::get('/get/{id}',[
         'uses'=>'FichaFamiliaAmigosController@get',
         'as'=>'fichaFamiliaAmigos.get',
     ]);
-
     Route::post('/storeContacto/{id}',[
         'uses'=>'FichaFamiliaAmigosController@storeContacto',
         'as'=>'fichaFamiliaAmigos.storeContacto',
@@ -390,12 +353,10 @@ Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
         'uses'=>'FichaLocalizacionController@create',
         'as'=>'FichaLocalizacion.create',
     ]);
-
     Route::get('/get/{id}',[
         'uses'=>'FichaLocalizacionController@get',
         'as'=>'fichaLocalizacion.get',
     ]);
-
     Route::post('/storeLocalizacion/{id}',[
         'uses'=>'FichaLocalizacionController@storeLocalizacion',
         'as'=>'FichaLocalizacion.storeLocalizacion',
@@ -490,20 +451,16 @@ Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(
     ]);
 });
 
-
-
 //FICHA DIAGNOSTICO INTEGRAL
 Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaDiagnosticoIntegralController@create',
         'as'=>'fichaDiagnosticoIntegral.create',
     ]);
-
     Route::get('/get/{id}',[
         'uses'=>'fichaDiagnosticoIntegralController@get',
         'as'=>'fichaDiagnosticoIntegral.get',
     ]);
-
     Route::post('/storeCurso/{id}',[
         'uses'=>'FichaDiagnosticoIntegralController@storeCurso',
         'as'=>'fichaDiagnosticoIntegral.storeCurso',
@@ -602,7 +559,6 @@ Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
         'uses'=>'FichaMedicaController@storeEnfermedad',
         'as'=>'fichaMedica.storeEnfermedad',
     ]);
-    
     Route::post('/storeEstadoGeneral/{id}',[
         'uses'=>'FichaMedicaController@storeEstadoGeneral',
         'as'=>'fichaMedica.storeEstadoGeneral',
@@ -640,18 +596,3 @@ Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
         'as'=>'fichaMedica.destroyIntervencion'
     ]);
 });
-
-
-
-
-//Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/home', function () {
-//     echo "SE LOGEO CORRECTAMENTE";
-// });
-
-//Dashboard
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
-//Bienvenido
-Route::get('/home', 'HomeController@home')->name('home')->middleware('admin');
-
-Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');

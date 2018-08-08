@@ -79,31 +79,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function profile($id = false)
+    public function my_profile()
     {   
-        if (!$id) 
-            $id = Auth::id();
+        $id = Auth::id();
         $user = User::find($id);
+
         $alertas=Alerta::where('user_id',$id)->count();
         $consultas = Consulta::where('user_id',$id)->count();
         $asistidos= Asistido::where('owner','=',$id)->count();
-        //$comunidades = $user->comunidad();
         $comunidades = $user->comunidades()->get();
-        return view('users.profile')->with('user',$user)
+        
+        return view('users.my_profile')->with('user',$user)
                                     ->with('consultas',$consultas)
                                     ->with('asistidos',$asistidos)
                                     ->with('alertas',$alertas)
                                     ->with('comunidades', $comunidades);
     }
 
-    public function profile2(Request $request, $id)
+    public function profile(Request $request, $id)
     {   
         $user = User::find($id);
         $comunidades = Comunidad::all();
 
         $data['user'] = $user;
         $data['comunidades'] = $comunidades;
-        return view('users.profile2', $data);
+        
+        return view('users.profile', $data);
     }
 
     public function agregarComunidad (Request $request) 
