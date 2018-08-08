@@ -397,7 +397,7 @@
 
 
         <div class="col-md-8 col-md-offset-1">
-          <a href="{{url('/alert/list')}}" class="btn btn-primary pull-right">Ver Mis Alertas</a>
+          <a href="{{url('/alert/my_list')}}" class="btn btn-primary pull-right">Ver Mis Alertas</a>
         </div>
 
       </div> 
@@ -466,7 +466,7 @@
 
 
         <div class="col-md-8 col-md-offset-1">
-          <a href="{{url('/alert/list')}}" class="btn btn-primary pull-right">Ver Mis Alertas</a>
+          <a href="{{url('/alert/my_list')}}" class="btn btn-primary pull-right">Ver Mis Alertas</a>
         </div>
 
       </div> 
