@@ -1,4 +1,4 @@
-@extends('layouts.adminApp')
+@extends('layouts.welcomeApp')
 
 
 @section('title')
@@ -32,6 +32,7 @@
 
 		<div class="box-body" align="center">
 			<p>Usted no está autorizado a visualizar la información a la que desea acceder.</p>
+			<p>Verificá tus permisos para acceder a la información.</p>
 		</div>
 
 	</div>

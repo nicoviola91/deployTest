@@ -32,6 +32,7 @@
 
 		<div class="box-body" align="center">
 			<p>Usted no está autorizado a visualizar la información a la que desea acceder.</p>
+			<p>Iniciá sesión para acceder a la informacion.</p>
 		</div>
 
 	</div>

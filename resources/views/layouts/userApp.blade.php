@@ -113,12 +113,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            @if(Auth::user()->tipoUsuario->descripcion=='Samaritano')
-          <li><a href="{{route('asistido.list')}}"> <i class="fa fa-user fa-fw"></i> Mis Asistidos</a></li>
-            @endif
-            <li><a href="{{route('alerta.list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
-            <!--<li><a href="#"> <i class="fa fa-pencil-square-o fa-fw"></i> Consultas</a></li>-->
-            <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
+              <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
+              <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
           </ul>
 
           <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
