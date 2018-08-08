@@ -203,123 +203,29 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MENU ADMINISTACIÓN</li>
-        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
 
-        @else
-        <li><a href="{{url('/alert/list')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
+        @switch(Auth::user()->tipoUsuario->descripcion)
+         
+          @case('Administrador')
+              @include('menu.administrador');
+              @break
 
-        @endif
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bullhorn"></i>
-            <span>Alertas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-              <li><a href="{{url('/alert/new')}}"><i class="fa fa-plus-square"></i> Generar Alerta</a></li>
-            <li><a href="{{url('/alert/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-            @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
-            <li><a href="{{url('/alert/map')}}"><i class="fa fa-map"></i> Ver Mapa</a></li>
-            @endif
-          </ul>
-        </li>
-      @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i>
-            <span>Asistidos</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            
-            @if(Auth::user()->tipoUsuario->descripcion!=='Samaritano')
-            <li><a href="{{url('/asistido/new')}}"><i class="fa fa-user-plus"></i> Dar de alta Asistido</a></li>
-            @endif
-            <li><a href="{{url('/asistido/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-          </ul>
-        </li>
-        @endif
-        <!--
-        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-address-card-o"></i>
-              <span>Fichas</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-legal "></i>Legal</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-exclamation-triangle"></i>Adicciones</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-life-bouy"></i>Asistencia Social</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-id-badge"></i>Datos Personales</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-stethoscope"></i>Diagnostico Integral</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-mortar-board"></i>Educacion</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-cogs"></i>Empleo</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-users"></i>Familia y amigos</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa  fa-location-arrow"></i>Localizacion</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-heartbeat"></i>Médica</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-hotel"></i>Necesidades</a></li>
-              <li><a href="{{url('/asistido/list')}}"><i class="fa fa-user-md"></i>Salud Mental</a></li>
-            </ul>
-          </li>-->
-        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bank"></i>
-            <span>Instituciones</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-          </ul>
-        </li>
-        @endif
-        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-users"></i>
-            <span>Comunidades</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/comunidad/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-          </ul>
-        </li>
-        @endif
+          @case('Posadero')
+              @include('menu.posadero');
+              @break
 
-        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-          <li><a href="{{url('/necesidad/list')}}"><i class="fa fa-hotel"></i><span>Necesidades (en proceso)</span></a></li>
-        @else
-          <li><a href="{{url('/necesidad/public')}}"><i class="fa fa-hotel"></i><span>Necesidades (en proceso)</span></a></li>
-        @endif
+          @case('Coordinador')
+              @include('menu.coordinador');
+              @break
 
-        @if(Auth::user()->tipoUsuario->descripcion=='Administrador' || (Auth::user()->tipoUsuario->descripcion=='Posadero'))
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user-circle"></i>
-            <span>Usuarios</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/user/list')}}"><i class="fa fa-list"></i> Listado</a></li>
-          </ul>
-        </li>
-        @endif
-        
+          @case('Profesional')
+              @include('menu.profesional');
+              @break
+
+          @default
+
+        @endswitch
+      
       </ul>
     </section>
     <!-- /.sidebar -->

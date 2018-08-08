@@ -135,9 +135,12 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             
-            <li>
-              <a href="#" title="Ir a menu de Administrador"><i class="fa fa-gears"></i></a>
-            </li>
+            <?php if (Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion == 'Posadero') : ?>
+              <li>
+                <a href="{{url('/dashboard')}}" title="Ir a menu de Administrador" data-toggle="tooltip"><i class="fa fa-gears"></i></a>
+              </li>
+            <?php endif ?>
+              
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
