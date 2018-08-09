@@ -139,7 +139,7 @@
                         @endif
                     </div>
                     <div align="center">
-                        <button  type="submit" class="btn btn-danger">Guardar Ficha de Empleo</button>
+                        <button  type="submit" class="btn btn-danger guardarBtn">Guardar Ficha de Empleo</button>
                     </div>  
 
                 </form>  
@@ -356,4 +356,57 @@
         modal.find('.modal-body #id').val(id)
         modal.find('.modal-body #asistidoid').val(asistidoid)
     })
+</script>
+
+<script type="text/javascript">
+    
+    $('.guardarBtn').click(function (e) {
+
+        e.preventDefault();
+
+        if ($('#consideracionesGenerales-form')[0].checkValidity()) {
+
+            formData = new FormData($('#consideracionesGenerales-form')[0]);
+
+            bootbox.dialog({
+                message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+                closeButton: false
+            });
+
+            $.ajax({
+                url: "{{ url('/fichaEmpleo/storeConsideraciones',['asistido_id'=>$asistido->id]) }}",
+                type: "POST",
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {   
+                    $('.bootbox.modal').modal('hide');
+
+                    if (datos.status) {
+
+                        lanzarAlerta('exito', 'Ficha actualizada correctamente.');
+                    }
+                    else {
+                        lanzarAlerta('peligro', 'Ocurrió un error al actualizar los datos. Verificá la información y volvé a intentar.');
+                    }
+
+                },
+                error: function(data) {                 
+                    $('.bootbox..modal').modal('hide');
+                    lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+                }
+
+            });
+
+        } else {
+            lanzarAlerta('peligro', 'Errores de Validacion');
+        }
+
+
+    });
+
+
 </script>

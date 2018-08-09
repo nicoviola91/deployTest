@@ -82,12 +82,26 @@ class FichaEmpleoController extends Controller
         }else{
             $value=0;
         }
+        
         $fichaEmpleo=$this->findFichaEmpleoByAsistidoId($asistido_id);
+        
         Asistido::where('id',$asistido_id)->update(['checkFichaEmpleo' =>1]);
-        FichaEmpleo::where('asistido_id',$asistido_id)
-        ->update(['checklistTieneEmpleo'=>$value]);
-        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        
+        $ficha = FichaEmpleo::where('asistido_id',$asistido_id);
+
+        if ($ficha->update(['checklistTieneEmpleo'=>$value])) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+
+        } else {
+            
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+        
     }
 
 
