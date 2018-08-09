@@ -23,7 +23,7 @@ class VerificarTipo
 
         foreach ($tipos as $tipo) {
             
-            if ($request->user()->tipoUsuario->descripcion == $tipo) {
+            if ($request->user()->tipoUsuario->slug == $tipo) {
                return $next($request); 
             }
 

@@ -138,7 +138,7 @@
                 <p>
                   
                   {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} 
-                  <small>{{Auth::user()->tipoUsuario->descripcion}}</small>
+                  <small>{{Auth::user()->tipoUsuario->nombre}}</small>
                   <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                   
                 </p>
@@ -184,11 +184,11 @@
             @if(null !==(Auth::user()))
           <p>{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}</p>
           @endif
-          <a href="#"><i class="fa fa-circle text-success"></i> {{Auth::user()->tipoUsuario->descripcion}}</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{Auth::user()->tipoUsuario->nombre}}</a>
         </div>
       </div>
       <!-- search form -->
-      @if(Auth::user()->tipoUsuario->descripcion!=='Nuevo Usuario')
+      @if(Auth::user()->tipoUsuario->slug!=='buenVecino')
       <form class="sidebar-form" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
         {{ csrf_field() }}
         <div class="input-group">
@@ -204,21 +204,21 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
 
-        @switch(Auth::user()->tipoUsuario->descripcion)
+        @switch(Auth::user()->tipoUsuario->slug)
          
-          @case('Administrador')
+          @case('administrador')
               @include('menu.administrador');
               @break
 
-          @case('Posadero')
+          @case('posadero')
               @include('menu.posadero');
               @break
 
-          @case('Coordinador')
+          @case('coordinador')
               @include('menu.coordinador');
               @break
 
-          @case('Profesional')
+          @case('profesional')
               @include('menu.profesional');
               @break
 

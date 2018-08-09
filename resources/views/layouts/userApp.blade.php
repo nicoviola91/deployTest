@@ -131,7 +131,7 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             
-            <?php if (Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion == 'Posadero') : ?>
+            <?php if (Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug == 'posadero') || Auth::user()->tipoUsuario->slug == 'coordinador') || Auth::user()->tipoUsuario->slug == 'profesional') : ?>
               <li>
                 <a href="{{url('/dashboard')}}" title="Ir a menu de Administrador" data-toggle="tooltip"><i class="fa fa-gears"></i></a>
               </li>
@@ -165,7 +165,7 @@
                   <p>
                     @if(null !==(Auth::user()))
                     {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}}
-                    <small>{{ucwords(Auth::user()->tipoUsuario->descripcion)}}</small>
+                    <small>{{ucwords(Auth::user()->tipoUsuario->nombre)}}</small>
                     <small>Miembro desde {{Auth::user()->created_at->format('M. y')}}</small>
                     @endif
                   </p>

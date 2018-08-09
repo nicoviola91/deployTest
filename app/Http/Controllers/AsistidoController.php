@@ -170,7 +170,7 @@ class AsistidoController extends Controller
 
 
     public function showAll(){
-        if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+        if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
             $data['asistidos']=Asistido::all();
         }else{
             $data['asistidos']=Asistido::all()->where('owner',Auth::user()->id);
@@ -192,14 +192,12 @@ class AsistidoController extends Controller
 
         switch ($request->tipo) {
             case 'asistido':
-                if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion =='Posadero'){
+                if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
                     $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
                                             ->orWhere('apellido', 'like', '%' . $request->q . '%')
-                                            //->orWhere('getFullName', 'like', '%' . $request->q . '%')
                                             ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
                                             ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
 
-                    // dd($data['asistidos']);
                 }else{
                     $data['asistidos'] = Asistido::where(function ($query) {
                         $query->where('owner', '=', Auth::user()->id);

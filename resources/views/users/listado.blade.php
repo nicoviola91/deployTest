@@ -76,12 +76,12 @@
 								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="{{ $usuario->id }}" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
 							</td>
 							<td class="text-center" style="vertical-align: middle;">
-								<span style="display: none;">{{$usuario->tipoUsuario->descripcion}}</span>
+								<span style="display: none;">{{$usuario->tipoUsuario->nombre}}</span>
 								<div class="form-group">
 					                <select class="form-control userType" style="width: 100%;">
 					                  
 					                	<?php foreach ($tipos as $tipo) { ?>
-					                		<option <?php echo ($usuario->tipoUsuario_id == $tipo->id) ? 'selected' : '' ?> value="{{$tipo->id}}" data-id="{{ $usuario->id }}" data-tipo="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+					                		<option <?php echo ($usuario->tipoUsuario_id == $tipo->id) ? 'selected' : '' ?> value="{{$tipo->id}}" data-id="{{ $usuario->id }}" data-tipo="{{$tipo->id}}">{{$tipo->nombre}}</option>
 										<?php } ?>
 					                </select>
 					            </div>

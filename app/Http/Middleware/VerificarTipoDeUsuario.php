@@ -17,7 +17,7 @@ class VerificarTipoDeUsuario
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero")){
+        if(Auth::check() && (Auth::user()->tipoUsuario->slug=="administrador" || Auth::user()->tipoUsuario->descripcion=="posadero")){
         
             return $next($request);
             

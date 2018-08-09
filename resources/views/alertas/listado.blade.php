@@ -37,27 +37,10 @@
 		<table class="table table-bordered table-hover" id="tabla-alertas">
 			
 			<thead>
-				<!-- <tr style="background-color: #f4f4f4;">
-					<th rowspan="2" class="text-center" style="vertical-align: middle;">#</th>
-					<th class="text-center" colspan="3">Asistido</th>
-					<th class="text-center" colspan="2">Creada</th>
-					@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
-					<th rowspan="2" class="text-center" style="vertical-align: middle;"> Acciones</th>
-					@endif
-				</tr>
+				
 				<tr style="background-color: #f4f4f4;">
-					<th class="text-center">Nombre</th>
-					<th class="text-center">Apellido</th>
-					<th class="text-center">Documento</th>
-					<th class="text-center" >Usuario</th>
-					<th class="text-center" >Comunidad</th>
-					<th class="text-center">Fecha</th>
-					
-				</tr> -->
-
-				<tr style="background-color: #f4f4f4;">
-					<th class="text-center" colspan="4">Asistido</th>
-					<th class="text-center" colspan="3">Creado</th>
+					<th class="text-center" colspan="4">Datos del Asistido</th>
+					<th class="text-center" colspan="4">Datos de la Alerta</th>
 				</tr>
 
 
@@ -68,6 +51,7 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center">Usuario</th>
 					<th class="text-center">Comunidad</th>
+					<th class="text-center">Posadero</th>
 					<th class="text-center">Fecha</th>
 					<th class="text-center">Acciones</th>
 				</tr>
@@ -79,7 +63,7 @@
 				@if (isset($alertas) && count($alertas))
 
 					@foreach ($alertas as $alerta)
-					    @if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Nuevo Usuario') || (Auth::user()->tipoUsuario->descripcion=='Samaritano') ))
+					    @if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='buenVecino') || (Auth::user()->tipoUsuario->slug=='samaritano') ))
 							@if(Auth::user()->id == $alerta->user_id)
 							<tr>
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->id }}</td>
@@ -93,9 +77,12 @@
 									</span>
 									@endif
 								</td>
-								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad->nombre) ? $alerta->comunidad->nombre : '' }}</td>
+								
+								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad) ? $alerta->comunidad->nombre : '' }}</td>
+								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->institucion) ? $alerta->institucion->nombre : '' }}</td>
+
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
-								@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
+								@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='administrador') || (Auth::user()->tipoUsuario->slug=='posadero') ))
 
 								<td class="text-center" style="vertical-align: middle;"> 
 																	@if(empty($alerta->asistido_id))
@@ -109,13 +96,16 @@
 							</tr>
 							@endif
 						@else 
-							@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
+							@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='administrador') || (Auth::user()->tipoUsuario->slug=='posadero') ))
 							<tr>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->id }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->nombre }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->apellido }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->dni }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $alerta->user->name }} 
+									<td class="" style="vertical-align: middle;">
+										{{$alerta->user->name}} {{$alerta->user->apellido}}
+										<br><span class="text-muted"><small>{{strtoupper($alerta->user->tipoUsuario->nombre)}}</small></span> 
+										
 										@if (isset($alerta->lat) && isset($alerta->lng))
 										<span class="pull-right"> 
 											<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
@@ -124,7 +114,7 @@
 									</td>
 									<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad->nombre) ? $alerta->comunidad->nombre : '' }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
-									@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->descripcion=='Administrador') || (Auth::user()->tipoUsuario->descripcion=='Posadero') ))
+									@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='administrador') || (Auth::user()->tipoUsuario->slug=='posadero') ))
 		
 									<td class="text-center" style="vertical-align: middle;"> 
 																		@if(empty($alerta->asistido_id))

@@ -32,7 +32,7 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-blue-active">
                 @if(null !==$user)
-	            <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords($user->descripcion)}}</h5>	
+	            <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords($user->nombre)}}</h5>	
               	<h3 class="widget-user-username">{{ucwords($user->name)}} {{ucwords($user->apellido)}} <small style="color: white;">(DNI {{ucwords($user->dni)}})</small></h3>
                 <h5 class="widget-user-desc hidden-xs">{{$user->email}}</h5>
                 @endif
@@ -62,7 +62,7 @@
                   <div class="col-sm-6">
                     <div class="description-block">
                       @if($user!=null)
-                    <h5 class="description-header">{{$user->tipoUsuario->descripcion}}</h5>
+                    <h5 class="description-header">{{$user->tipoUsuario->nombre}}</h5>
                     @endif
                       <span class="description-text">TIPO DE USUARIO</span>
                     </div>

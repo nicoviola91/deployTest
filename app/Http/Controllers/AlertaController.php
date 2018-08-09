@@ -151,7 +151,7 @@ class AlertaController extends Controller
      */
     public function showAll()
     {
-       if(Auth::user()->tipoUsuario->descripcion == 'Administrador' || Auth::user()->tipoUsuario->descripcion == 'Posadero'){
+       if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug == 'posadero'){
             $data['alertas'] = Alerta::all()->where('estado','=',0);
             
        }else{

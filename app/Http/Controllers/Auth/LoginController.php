@@ -42,10 +42,7 @@ class LoginController extends Controller
     }
 
     protected function authenticated(Request $request, $user){
-        if($user->tipoUsuario->descripcion=="Administrador" || $user->tipoUsuario->descripcion=="Posadero"){
-            return redirect('/home');
-        }else{
-            return redirect('/home');
-        }
+        
+        return redirect('/home');
     }
 }

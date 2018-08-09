@@ -14,14 +14,10 @@
 //Default Route a raiz
 Route::get('/', function () {
 
-    if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Administrador" || Auth::user()->tipoUsuario->descripcion=="Posadero" )){
+    if(Auth::check()) {
         return redirect()->route('home');
-    }else{
-        if(Auth::check() && (Auth::user()->tipoUsuario->descripcion=="Nuevo Usuario" || Auth::user()->tipoUsuario->descripcion=="Samaritano" )){
-            return redirect()->route('home');
-        }else{
-            return redirect()->route('login');
-        }
+    }else {
+        return redirect()->route('login');
     }
 });
 
