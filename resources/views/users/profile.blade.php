@@ -176,10 +176,12 @@
           	</tr>
 
           	<tr>
+          		<td>- Solicitudes</td>
           		<td><input type="checkbox" name=""></td>
           	</tr>
 
           	<tr>
+          		<td>- Donaciones</td>
           		<td><input type="checkbox" name=""></td>
           	</tr>
           </table>
