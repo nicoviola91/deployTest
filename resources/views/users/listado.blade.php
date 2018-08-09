@@ -51,7 +51,7 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center" >E-mail</th>
 					<th class="text-center">Fecha Registro</th>
-					<th class="text-center">Acuerdo de Confidencialidad</th>
+					<th class="text-center">Acuerdo</th>
 					<th class="text-center">Tipo Usuario</th>
 					<th class="text-center">Comunidad</th>
 					<th class="text-center">Acciones</th>
@@ -90,7 +90,7 @@
 						
 							<td class="text-center" style="vertical-align: middle;">
 								<?php foreach ($usuario->comunidades as $comunidad): ?>
-									<span class="label label-default"><?php echo $comunidad->nombre ?></span>
+									<br><span class="label label-default"><?php echo $comunidad->nombre ?></span>
 								<?php endforeach ?>
 							</td>
 
