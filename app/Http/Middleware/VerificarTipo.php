@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class VerificarTipo
 {
@@ -14,16 +16,6 @@ class VerificarTipo
      * @return mixed
      */
 
-    // public function handle($request, Closure $next, $tipo)
-    // {
-    //     if (!$request->user()->tipoUsuario->descripcion != $tipo) {
-
-    //         return new Response(view('noAutorizado.noAutorizado'));
-    //     }
-
-    //     return $next($request);
-    // }
-
     //Recibe una lista de tipos de usuarios (separados por coma) y verifica si el usuario autenticado coincide con alguno
     public function handle($request, Closure $next)
     {
@@ -31,7 +23,7 @@ class VerificarTipo
 
         foreach ($tipos as $tipo) {
             
-            if (Auth::->user()->tipoUsuario->descripcion == $tipo) {
+            if ($request->user()->tipoUsuario->descripcion == $tipo) {
                return $next($request); 
             }
 
