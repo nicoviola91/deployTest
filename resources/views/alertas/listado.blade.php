@@ -95,7 +95,7 @@
 									@if(empty($alerta->asistido_id))
 										<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-dni="{{$alerta->dni}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
 									@else
-										<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
+										<a class="" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
 									@endif
 									<a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a>
 								</td>
@@ -130,7 +130,7 @@
 		
 										<td class="text-center" style="vertical-align: middle;"> 
 											@if(empty($alerta->asistido_id))
-												<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+												<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-dni="{{$alerta->dni}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
 											@else
 												<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
 											@endif
@@ -162,6 +162,46 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+	$('.altaBtn').click(function (e) {
+
+		e.preventDefault();
+
+		alerta_id = $(this).data('id');
+		dni = $(this).data('dni');
+
+		$.post("{{route('asistido.verificarDocumentoExistente')}}", { '_token' : '{{csrf_token()}}', 'dni' : dni}, function(data) {
+
+			if (data.status) {
+
+				//Ya existe
+
+				bootbox.confirm({
+				    title: "Atención!",
+				    message: "Ya existe un Asistido con el DNI especificado. <br><br><strong><i class='icon fa fa-user'></i> Asistido:</strong> " + data.asistido_nombre + " <br><strong><i class='icon fa fa-bank'></i> Institución:</strong> " + data.posadero + " <br><br> Estás seguro que querés continuar? Hace <a href='{{url('/asistido/list')}}'>click acá</a> para ir al listado de Asistidos existentes." ,
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancelar'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Continuar'
+				        }
+				    },
+				    callback: function (result) {
+				        
+				        if (result) {
+				        	window.location.href = "{{url('/asistido/newFromAlert')}}/"+alerta_id;
+				        }
+				    }
+				});
+
+			} else {
+				window.location.href = "{{url('/asistido/newFromAlert')}}/"+alerta_id;
+			}
+
+		})
+
+	});
 	
 	$(function () {
 

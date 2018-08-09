@@ -51,14 +51,38 @@ class AsistidoController extends Controller
         return view('asistidos.nuevo')->with('comunidades',$comunidades);
     }
 
-    public function checkDocumentoExistente ($documento) {
+    public function verificarDocumentoExistente (Request $request) {
 
-        $asistido = Asistido::where('documento', '=', $dni)->first();
+        $dni = $request->dni;
+
+        // echo "DNI es " . $dni;
+        $asistido = Asistido::where('dni', '=', $dni)->first();
+
+        // echo "<br>";
+        // echo var_dump($asistido);
 
         if (isset($asistido)) {
-            //Ya existe
+
+            if (isset($asistido->institucion)) {
+                return response()->json([
+                    'status' => true,
+                    'asistido_id' => $asistido->id,
+                    'asistido_nombre' => $asistido->nombre . ' ' . $asistido->apellido,
+                    'posadero' => $asistido->institucion->nombre,
+                ]);
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'asistido_id' => $asistido->id,
+                    'asistido_nombre' => $asistido->nombre . ' ' . $asistido->apellido,
+                    'posadero' => 'No Especifica'
+                ]);
+            }
+                
         } else {
-            //No existe
+            return response()->json([
+                'status' => false,
+            ]);
         }
     }
 

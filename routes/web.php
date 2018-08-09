@@ -218,6 +218,10 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@agregarComunidad',
         'as'=>'asistido.agregarComunidad',
     ])->middleware('admin');
+    Route::post('/verificarDocumentoExistente',[
+        'uses'=>'AsistidoController@verificarDocumentoExistente',
+        'as'=>'asistido.verificarDocumentoExistente',
+    ])->middleware('admin');
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
