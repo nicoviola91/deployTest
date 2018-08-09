@@ -128,6 +128,12 @@
               </li>
 
               <li>
+                @if(isset($asistido->institucion))
+                <a href="javascript:void(0)"><strong><img src="{{asset('/img/logoch.png')}}" height="15px;"> Posadero: </strong> <?php echo $asistido->institucion->nombre ?> </a>
+                @endif
+              </li>
+
+              <li>
                 <a href="javascript:void(0)">
                   <strong><i class="icon fa fa-users"></i> Comunidades </strong><br>
                   <span class="pull-right badge bg-teal btnAgregarComunidad"> <i class="icon fa fa-plus"></i> Agregar</span> 
@@ -139,8 +145,9 @@
                 </a>
               </li>
 
-              
-              <li><a href="javascript:void(0)"><strong><i class="icon fa fa-file-text-o"></i> Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
+              <?php if (isset($asistido->observaciones)): ?>              
+                <li><a href="javascript:void(0)"><strong><i class="icon fa fa-file-text-o"></i> Observaciones: </strong> <br> {{ $asistido->observaciones }} </a></li>
+              <?php endif ?>
             </ul>
           </div>
         </div>
