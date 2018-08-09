@@ -14,8 +14,12 @@ class MidificarTiposDeUsuarios extends Migration
     public function up()
     {
         Schema::table('tiposUsuarios', function (Blueprint $table) {
-            //
-        });
+            
+            //agregar columna slug -> usado como referencia para no manejarse por id
+            $table->string('slug')->nullable();
+            //agregar columna nombre -> human readable name
+            $table->string('nombre')->nullable();
+         });
     }
 
     /**
