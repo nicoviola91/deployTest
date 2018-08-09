@@ -39,8 +39,10 @@
 			<thead>
 				
 				<tr style="background-color: #f4f4f4;">
-					<th class="text-center" colspan="4">Datos del Asistido</th>
+					<th></th>
+					<th class="text-center" colspan="3">Datos del Asistido</th>
 					<th class="text-center" colspan="4">Datos de la Alerta</th>
+					<th></th>
 				</tr>
 
 
@@ -70,7 +72,10 @@
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->nombre }}</td>
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->apellido }}</td>
 								<td class="text-center" style="vertical-align: middle;">{{ $alerta->dni }}</td>
-								<td class="text-center" style="vertical-align: middle;">{{ $alerta->user->name }} 
+								<td class="text-center" style="vertical-align: middle;">
+									{{ $alerta->user->name }} 
+									<br><span class="text-muted"><small>{{strtoupper($alerta->user->tipoUsuario->nombre)}}</small></span> 
+
 									@if (isset($alerta->lat) && isset($alerta->lng))
 									<span class="pull-right"> 
 										<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
@@ -81,17 +86,20 @@
 								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad) ? $alerta->comunidad->nombre : '' }}</td>
 								<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->institucion) ? $alerta->institucion->nombre : '' }}</td>
 
-								<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
+								<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at->diffForHumans() }}</td>
+								
 								@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='administrador') || (Auth::user()->tipoUsuario->slug=='posadero') ))
 
 								<td class="text-center" style="vertical-align: middle;"> 
-																	@if(empty($alerta->asistido_id))
+									
+									@if(empty($alerta->asistido_id))
 										<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
 									@else
 										<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
 									@endif
 									<a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a>
 								</td>
+								
 								@endif	
 							</tr>
 							@endif
@@ -107,23 +115,28 @@
 										<br><span class="text-muted"><small>{{strtoupper($alerta->user->tipoUsuario->nombre)}}</small></span> 
 										
 										@if (isset($alerta->lat) && isset($alerta->lng))
-										<span class="pull-right"> 
-											<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
-										</span>
+											<span class="pull-right"> 
+												<a href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}" target="_blank"><i class="icon fa fa-map-pin fa-fw"></i></a>
+											</span>
 										@endif
 									</td>
-									<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad->nombre) ? $alerta->comunidad->nombre : '' }}</td>
-									<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->comunidad) ? $alerta->comunidad->nombre : '' }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ isset($alerta->institucion) ? $alerta->institucion->nombre : '' }}</td>
+
+									<td class="text-center" style="vertical-align: middle;">{{ $alerta->created_at->diffForHumans() }}</td>
+
+									
 									@if(null !==(Auth::user()) && ((Auth::user()->tipoUsuario->slug=='administrador') || (Auth::user()->tipoUsuario->slug=='posadero') ))
 		
-									<td class="text-center" style="vertical-align: middle;"> 
-																		@if(empty($alerta->asistido_id))
-											<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
-										@else
-											<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
-										@endif
-										<a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a>
-									</td>
+										<td class="text-center" style="vertical-align: middle;"> 
+											@if(empty($alerta->asistido_id))
+												<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+											@else
+												<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
+											@endif
+											<a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a>
+										</td>
+
 									@endif	
 								</tr>
 								@endif
