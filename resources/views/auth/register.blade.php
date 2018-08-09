@@ -7,6 +7,19 @@
 @section('content')
     <div class="row">
         <br>
+
+        <?php if (isset($message)): ?>
+            
+            <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-info-circle"></i> Información</h4>
+                <?php echo $message ?>
+            </div>
+            </div>
+
+        <?php endif ?>
+
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <!-- <div class="panel-heading">Register</div> -->

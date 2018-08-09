@@ -53,13 +53,19 @@ class UserController extends Controller
     
         $user = new User($request->all());
         $user->password = bcrypt($request->password);
-        $tipoUsuario=TipoUsuario::all()->where('descripcion','Nuevo Usuario')->first();//Por defecto cada usuario recien registrado sera del tipo Nuevo Usuario
+        $tipoUsuario=TipoUsuario::all()->where('slug','buenVecino')->first(); //Por defecto cada usuario recien registrado sera del tipo Nuevo Usuario
         $tipoUsuario_id=$tipoUsuario->id;
         $user->tipoUsuario()->associate($tipoUsuario_id); 
-        $user->save();
         
-        $user->notify(new AltaUsuario($user));
-        return view('auth.login');
+        if ($user->save()) {
+            
+            $user->notify(new AltaUsuario($user));
+            return view('auth.login')->with('message', 'Gracias por registrarte. Iniciá sesión para empezar a ayudar!');
+
+        } else {
+            
+            return view('auth.register')->with('message', 'Ocurrió un error al registrarte.');
+        } 
     }
 
     /**

@@ -72,25 +72,126 @@
             </div>
           </div>
           <!-- /.widget-user -->
+    </div>
 
-          <div class="box box-solid">
-            <div class="box-body col-md-6">
-              <h4><i class="fa icon fa-users"></i> 
-                Comunidades 
-                <span class="badge bg-teal btnAgregarComunidad" style="cursor: pointer;"> <i class="icon fa fa-plus"></i> Agregar</span> 
-              </h4>
-              <h5>
-                <?php foreach ($user->comunidades as $comunidad): ?>
-                  <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>
-                <?php endforeach ?>
-              </h5>
+    
+  	<div class="col-md-6">
+	<div class="box box-solid col-md-6">
+        <div class="box-body">
+          <h4><i class="fa icon fa-user-circle-o"></i> 
+            Cuenta
+          </h4>
+          
+          <div class="box-body">
+              
+              <strong class="col-md-12"><i class="fa fa-user-secret margin-r-5"></i> Permisos</strong>
+
+              <div class="form-group col-md-6">
+              	<select class="form-control">
+              		<option>Seleccionar...</option>
+              	</select>
+              	<p class="help-block">Tipo de Usuario</p>
+              </div>
+
+              <div class="form-group col-md-6">
+              	<input type="checkbox" class="checkbox" name="">
+              	<p class="help-block">Acuerdo de Confidencialidad</p>
+              </div>
+
+              <div class="col-md-12">
+              	<i class="fa icon fa-chevron-right fa-fw"></i> ajksdjkadjkajkdajksdjajksdakjdjkasdjkjkdsjk
+              	asdjdjkad
+              	asdajksdakjdasjkdjkasda askjdakjdajksdjk asjkdaksjdjka
+              	asdjkadkjajkd asjdkasjkdajkdjka
+              </div>
+
+              <hr class="col-md-12">
+
+              <strong class="col-md-12"><i class="fa fa-users margin-r-5"></i> Comunidad que Administra</strong>
+              <div class="col-md-12">
+              <p>
+                <div class="form-group">
+                	<select class="form-control">
+                		<option>Seleccionar ..</option>
+                	</select>
+                </div>
+              </p>
+              </div>
+
+              <hr class="col-md-12">
+
+              <strong class="col-md-12"><i class="fa fa-bank margin-r-5"></i> Institución que Administra</strong>
+              <div class="col-md-12">
+              <p>
+                <div class="form-group">
+                	<select class="form-control">
+                		<option>Seleccionar ..</option>
+                	</select>
+                </div>
+              </p>
+              </div>
+
             </div>
-          </div>
-
-
 
         </div>
+  	</div>
+  	</div>
+
+  	<div class=" col-md-6">
+  	<div class="box box-solid">
+        <div class="box-body">
+          <h4><i class="fa icon fa-users"></i> 
+            Comunidades 
+            <span class="badge bg-teal btnAgregarComunidad pull-right" style="cursor: pointer;"> <i class="icon fa fa-plus"></i> Agregar</span> 
+          </h4>
+          <h5>
+            <?php foreach ($user->comunidades as $comunidad): ?>
+              <a style="margin: 10px;"><span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span></a>
+            <?php endforeach ?>
+          </h5>
+        </div>
+  	</div>
+  	</div>
+
+  	<div class=" col-md-6">
+  	<div class="box box-solid">
+        <div class="box-body">
+          <h4><i class="fa icon fa-envelope-o"></i> 
+            Suscripciones 
+          </h4>
+          
+          <table class="table">
+          	<tr>
+          		<td>- Alertas</td>
+          		<td><input type="checkbox" name=""></td>
+          	</tr>
+          	<tr>
+          		<td>- Asistidos</td>
+          		<td><input type="checkbox" name=""></td>
+          	</tr>
+
+          	<tr>
+          		<td>- Comunidad</td>
+          		<td><input type="checkbox" name=""></td>
+          	</tr>
+
+          	<tr>
+          		<td><input type="checkbox" name=""></td>
+          	</tr>
+
+          	<tr>
+          		<td><input type="checkbox" name=""></td>
+          	</tr>
+          </table>
+
+        </div>
+  	</div>
+  	</div>
+        
 </div>
+
+
+
 
 <div class="modal fade in" id="modal-comunidad">
   <div class="modal-dialog modal-sm">

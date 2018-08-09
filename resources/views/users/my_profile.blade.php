@@ -121,6 +121,40 @@
 
           <div class="box box-solid">
             <div class="box-body col-md-6">
+              <h4><i class="fa icon fa-envelope-o"></i> Mis Suscrpciones</h4>
+              <p><small class="text-muted">Al suscribirte vas a recibir notificaciones por mail de los siguientes elementos:</small></p>
+              <table class="table">
+          		<tr>
+	          		<td>- Alertas</td>
+	          		<td><input type="checkbox" name=""></td>
+	          	</tr>
+	          	<tr>
+	          		<td>- Asistidos</td>
+	          		<td><input type="checkbox" name=""></td>
+	          	</tr>
+
+	          	<tr>
+	          		<td>- Comunidades</td>
+	          		<td><input type="checkbox" name=""></td>
+	          	</tr>
+
+	          	<tr>
+	          		<td>- Solicitudes</td>
+	          		<td><input type="checkbox" name=""></td>
+	          	</tr>
+
+	          	<tr>
+	          		<td>- Donaciones</td>
+	          		<td><input type="checkbox" name=""></td>
+	          	</tr>
+
+	          </table>
+            
+            </div>
+          </div>
+
+          <div class="box box-solid">
+            <div class="box-body col-md-6">
               <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="#"> UNITE!</a></small></span></h4>
               <h5>
                 <?php foreach ($comunidades as $comunidad): ?>
@@ -129,6 +163,8 @@
               </h5>
             </div>
           </div>
+
+
         </div>
 </div>
 
