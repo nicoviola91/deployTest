@@ -32,7 +32,9 @@ RUN apt-get update && apt install -y \
     gnupg  \
     git \
     zip \
-    && docker-php-ext-install -j$(nproc) gmp
+    zlib1g-dev \
+    && docker-php-ext-install -j$(nproc) gmp \
+    && docker-php-ext-install zip
 
 
 #####################################
@@ -61,6 +63,6 @@ RUN mkdir /var/www/storage/logs
 RUN chown -R www-data /var/www/storage
 RUN chmod -R 775 /var/www/storage
 RUN rm .env*
+RUN chmod +x /var/www/start.sh
 
-#CMD ["php-fpm"]
-CMD ["/var/www/start.sh"]
+CMD ["/bin/bash","/var/www/start.sh"]

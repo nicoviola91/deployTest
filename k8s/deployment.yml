@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: posadero
+  namespace: posadero-prod
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: posadero
+    spec:
+      containers:
+      - name: app
+        image: 456990568530.dkr.ecr.us-east-1.amazonaws.com/posadero-web:latest
+        ports:
+        - containerPort: 9000
+        env:
+        - name: "test_env"
+          value: k8s
+      - name: nginx
+        image: 456990568530.dkr.ecr.us-east-1.amazonaws.com/posadero-nginx:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "test_env"
+          value: k8s
