@@ -53,7 +53,7 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center">Usuario</th>
 					<th class="text-center">Comunidad</th>
-					<th class="text-center">Posadero</th>
+					<th class="text-center"><img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero</th>
 					<th class="text-center">Fecha</th>
 					<th class="text-center">Acciones</th>
 				</tr>
