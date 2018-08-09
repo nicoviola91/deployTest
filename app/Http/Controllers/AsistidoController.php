@@ -48,7 +48,9 @@ class AsistidoController extends Controller
     //para ir a la vista de creacion de un asistido cuando no se va desde una alerta
     public function create(){
         $comunidades=Comunidad::all();
-        return view('asistidos.nuevo')->with('comunidades',$comunidades);
+        $posaderos=Institucion::where('tipo', '=', 'posadero')->get();
+
+        return view('asistidos.nuevo')->with('comunidades',$comunidades)->with('posaderos',$posaderos);
     }
 
     public function verificarDocumentoExistente (Request $request) {
@@ -96,6 +98,15 @@ class AsistidoController extends Controller
     public function store(Request $request,$alerta_id) 
     {
 
+        $validation = $request->validate([
+            'nombre' => 'required|string|max:250',
+            'apellido' => 'required|string|max:250',
+            'dni' => 'required|numeric',
+
+            'fechaNacimiento' => 'nullable|date',
+            'observaciones' => 'nullable|string',
+        ]);
+
         $asistido=new Asistido($request->all());
         $alerta=Alerta::find($alerta_id);
         
@@ -103,16 +114,6 @@ class AsistidoController extends Controller
         $asistido->owner = $alerta->user_id; //Usuario que creo la alerta
 
         $asistido->save();
-        // if ($asistido->save()) {
-        //     $message = 'Asistido Creado Correctamente. ' . $asistido->nombre . ' ' . $asistido->apellido . ' #' . $asistido->id;
-            
-        //     if (isset($asistido->institucion))
-        //         $message .= '<br>Posadero ' . $asistido->institucion->nombre;
-
-        //     if (isset($asistido->comunidad))
-        //         $message .= '<br>Comunidad ' . $asistido->comunidad->nombre;
-
-        // }
         
         //Comunidad para alertar
         if (isset($alerta->comunidad_id)) {
@@ -137,12 +138,27 @@ class AsistidoController extends Controller
 
     //para guardar asistido cuando no es creado desde una alerta
     public function storeNew(Request $request)
-    {
+    {   
+        $validation = $request->validate([
+            'nombre' => 'required|string|max:250',
+            'apellido' => 'required|string|max:250',
+            'dni' => 'required|numeric',
+
+            'fechaNacimiento' => 'nullable|date',
+            'observaciones' => 'nullable|string',
+        ]);
+        
         $asistido=new Asistido($request->all());
-        $comunidad=Comunidad::find($request->comunidad);
+        
         $asistido->createdBy=Auth::user()->id;
         $asistido->owner = Auth::user()->id;
-        $comunidad->asistidos()->save($asistido);
+
+        if (isset($request->comunidad_id)) {
+            
+            $comunidad=Comunidad::find($request->comunidad_id);
+            $comunidad->asistidos()->save($asistido);
+        }
+    
         $asistido->save();
 
         //$usuarioNotif = User::find($usuario);

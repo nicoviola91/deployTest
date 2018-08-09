@@ -20,6 +20,20 @@
 @section('content')
 
 <div class="row">
+
+  <div class="col-md-12">
+    @if ($errors->any())
+        <div class="alert alert-danger col-md-8 col-md-offset-2">
+          Errores de Validación
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+  </div>
+
   <div class="col-md-10 col-md-offset-1">
 
     <h3><i class="icon fa fa-bullhorn"></i> Datos de la Alerta <small>Verificá que los datos sean correctos antes de continuar</small></h3>
@@ -44,19 +58,19 @@
           <div class="box-body">  
             <div class="form-group col-md-6">
               <label for="exampleInputEmail1">Nombre</label>
-              <input type="text" class="form-control" id="name" value={{ $alerta->nombre }} name="nombre" maxlength="250" required >
+              <input type="text" class="form-control" id="name" value="{{ $alerta->nombre }}" name="nombre" maxlength="250" required >
             </div>
             <div class="form-group col-md-6">
               <label for="exampleInputPassword1">Apellido</label>
-              <input type="text" class="form-control" id="apellido" value={{ $alerta->apellido }} name="apellido"  maxlength="250" required>
+              <input type="text" class="form-control" id="apellido" value="{{ $alerta->apellido }}" name="apellido"  maxlength="250" required>
             </div>
             <div class="form-group col-md-6">
               <label for="exampleInputPassword1">Documento</label>
-              <input type="text" class="form-control" id="dni" value={{ $alerta->dni }} name="dni"  maxlength="10" required>
+              <input type="text" class="form-control" id="dni" value="{{ $alerta->dni }}" name="dni" maxlength="10" required>
             </div>
             <div class="form-group col-md-6">
               <label for="exampleInputPassword1">Fecha Nacimiento</label>
-              <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value={{ $alerta->fechaNacimiento }}>
+              <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="{{ $alerta->fechaNacimiento }}">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleInputPassword1">Observaciones</label>
@@ -72,10 +86,10 @@
                 </strong>
             </span>
             Posadero <small>Posadero al que fue derivado. Si se presentó en otro Posadero actualizalo acá.</small>
-
+          </h4>
             <div class="form-group col-md-12">
               <br>
-              <select class="form-control select2 selectPosadero" name="institucion_id" style="width: 100%;">
+              <select class="form-control select2 selectPosadero" name="institucion_id" style="width: 100%;" required>
 
                 <option selected disabled>Seleccionar...</option>
               <?php foreach ($posaderos as $institucion): ?>
@@ -105,7 +119,6 @@
             
             </select>
             </div>
-          </h4>
 
 
 
