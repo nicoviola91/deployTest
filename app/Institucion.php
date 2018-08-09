@@ -58,4 +58,8 @@ class Institucion extends Model
     public function alertas(){
         return $this->hasMany('App\Alerta','institucion_id');
     }
+
+    public function asistidos(){
+        return $this->belongsToMany('App\Asistido');
+    }
 }

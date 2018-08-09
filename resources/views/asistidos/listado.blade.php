@@ -32,25 +32,38 @@
 @section('content')
 
 <div class="row">
+
+<br>
+
+<?php if (isset($message)): ?>
+            
+    <div class="col-md-6 col-md-offset-3">
+    <div class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-info-circle"></i> Información</h4>
+        <?php echo $message ?>
+    </div>
+    </div>
+
+<?php endif ?>
+
 <div class="col-md-12">
 	<div class="box box-solid">
 		
 		<div class="box-body">
 		<table class="table table-bordered table-hover" id="tabla-asistidos">
 			<thead>
+				
 				<tr style="background-color: #f4f4f4;">
-					<th rowspan="2" class="text-center" style="vertical-align: middle;">#</th>
-					<th class="text-center" colspan="3">Asistido</th>
-					<th class="text-center" colspan="2">Creada</th>
-					<th rowspan="2" class="text-center" style="vertical-align: middle;"> Acciones</th>
-				</tr>
-				<tr style="background-color: #f4f4f4;">
+					<th>#</th>
 					<th class="text-center">Nombre</th>
 					<th class="text-center">Apellido</th>
 					<th class="text-center">Documento</th>
 					<th class="text-center" >Usuario</th>
-					<th class="text-center" >Comunidad</th>
-					<th class="text-center">Fecha</th>
+					<th class="text-center" style="max-width: 150px;">Comunidad</th>
+					<th class="text-center">Posadero</th>
+					<th class="text-center">Alta</th>
+					<th class="text-center"> Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -68,7 +81,10 @@
 								<span class="label label-default"><?php echo $comunidad->nombre ?></span>
 							<?php endforeach ?>
 						</td>
-						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at}}</td>
+						<td class="text-center" style="vertical-align: middle;">
+							<?php echo isset($asistido->institucion) ? $asistido->institucion->nombre : '' ?>
+						</td>
+						<td class="text-center" style="vertical-align: middle;">{{$asistido->created_at->diffForHumans()}}</td>
 						<td class="text-center" style="vertical-align: middle;"> 
 						<a href="{{route('asistido.show2',['id'=>$asistido->id])}}" class="altaBtn" data-id="100" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a> 
 					</tr>
@@ -100,6 +116,7 @@
 	      'info'        : true,
 	      'autoWidth'   : false,
 	      'pageLength'	: 50,
+	      'responsive'	: true,
 
 	      	"oLanguage": {
 				"sEmptyTable": "No hay datos disponibles para la tabla.",

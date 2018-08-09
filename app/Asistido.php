@@ -28,7 +28,8 @@ class Asistido extends Model
         'checkFichaNecesidad',
         'checkFichaSaludMental',
         'owner',
-        'comunidad_id'
+        'comunidad_id',
+        'institucion_id',
     ];
 
     /**
@@ -70,5 +71,9 @@ class Asistido extends Model
 
     public function comunidad(){
         return $this->belongsTo('App\Comunidad','comunidad_id');
+    }
+
+    public function institucion(){
+        return $this->belongsTo('App\Institucion','institucion_id');
     }
 }

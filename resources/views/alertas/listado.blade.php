@@ -93,7 +93,7 @@
 								<td class="text-center" style="vertical-align: middle;"> 
 									
 									@if(empty($alerta->asistido_id))
-										<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+										<a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-id="{{$alerta->id}}" data-dni="{{$alerta->dni}}" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
 									@else
 										<a class="altaBtn" data-id="{{$alerta->id}}" data-toggle="tooltip" data-title="Alta Asistido"><i title="Esta alerta ya tiene un asistido vinculado." class="icon fa fa-check-circle fa-2x fa-fw text-gray"></i></a>
 									@endif

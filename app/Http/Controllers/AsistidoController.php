@@ -6,6 +6,7 @@ use App\Asistido;
 use App\Alerta;
 use App\User;
 use App\Comunidad;
+use App\Institucion;
 use App\Notifications\AltaAlerta;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
@@ -38,16 +39,27 @@ class AsistidoController extends Controller
     public function createFromAlert($id)
     {
         $alerta=Alerta::find($id);
-        $alerta->estado=1;
-        $alerta->save();
+
         $comunidades=Comunidad::all();
-        return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta)->with('comunidades',$comunidades);
+        $posaderos=Institucion::where('tipo', '=', 'posadero')->get();
+        return view('asistidos.nuevoDesdeAlerta')->with('alerta',$alerta)->with('comunidades',$comunidades)->with('posaderos',$posaderos);
     }
 
     //para ir a la vista de creacion de un asistido cuando no se va desde una alerta
     public function create(){
         $comunidades=Comunidad::all();
         return view('asistidos.nuevo')->with('comunidades',$comunidades);
+    }
+
+    public function checkDocumentoExistente ($documento) {
+
+        $asistido = Asistido::where('documento', '=', $dni)->first();
+
+        if (isset($asistido)) {
+            //Ya existe
+        } else {
+            //No existe
+        }
     }
 
     /**
@@ -61,21 +73,41 @@ class AsistidoController extends Controller
     {
 
         $asistido=new Asistido($request->all());
-        $comunidad=Comunidad::find($request->comunidad);
         $alerta=Alerta::find($alerta_id);
-        $asistido->createdBy=Auth::user()->email;
-        $asistido->owner = $alerta->user_id;
-        $comunidad->asistidos()->save($asistido);
-        $asistido->save(); 
-        /* Alerto a la comunidad del alta de un nuevo asistido
-        $usuariosNotif = User::where('comunidad_id',$request->comunidad);
-        foreach ($usuarioNotif as $usuario) {
-            $usuario->notify(new AltaAlerta($asistido));    
+        
+        $asistido->createdBy=Auth::user()->id; //Usuario que creo el asistido
+        $asistido->owner = $alerta->user_id; //Usuario que creo la alerta
+
+        $asistido->save();
+        // if ($asistido->save()) {
+        //     $message = 'Asistido Creado Correctamente. ' . $asistido->nombre . ' ' . $asistido->apellido . ' #' . $asistido->id;
+            
+        //     if (isset($asistido->institucion))
+        //         $message .= '<br>Posadero ' . $asistido->institucion->nombre;
+
+        //     if (isset($asistido->comunidad))
+        //         $message .= '<br>Comunidad ' . $asistido->comunidad->nombre;
+
+        // }
+        
+        //Comunidad para alertar
+        if (isset($alerta->comunidad_id)) {
+            
+            $comunidad=Comunidad::find($alerta->comunidad_id);
+            $comunidad->asistidos()->save($asistido);
+            /* Alerto a la comunidad del alta de un nuevo asistido
+            $usuariosNotif = User::where('comunidad_id',$request->comunidad);
+            foreach ($usuarioNotif as $usuario) {
+                $usuario->notify(new AltaAlerta($asistido));    
+            }
+            */ 
         }
-        */ 
+
         $alerta->asistido()->associate($asistido);
         $alerta->estado = 1;
+        $alerta->institucion_id = $request->institucion_id;
         $alerta->save();
+
         return redirect()->route('asistido.list');
     }
 
@@ -84,7 +116,7 @@ class AsistidoController extends Controller
     {
         $asistido=new Asistido($request->all());
         $comunidad=Comunidad::find($request->comunidad);
-        $asistido->createdBy=Auth::user()->email;
+        $asistido->createdBy=Auth::user()->id;
         $asistido->owner = Auth::user()->id;
         $comunidad->asistidos()->save($asistido);
         $asistido->save();
