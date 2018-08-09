@@ -130,7 +130,8 @@
         </div>
 
         <div class="box-footer">
-          <button type="submit" class="btn btn-primary submitBtn">Enviar</button>
+          <button type="submit" class="btn btn-primary submitBtn" style="display: none;">Enviar</button>
+          <button type="button" class="btn btn-primary altaBtn">Enviar</button>
           <button type="reset" class="btn btn-default">Cancelar</button>
         </div>
       </form>
@@ -147,6 +148,43 @@
 @section('scripts')
   
 <script type="text/javascript">
+
+  $('.altaBtn').click(function (e) {
+
+    e.preventDefault();
+
+    dni = $('#dni').val();
+
+    $.post("{{route('asistido.verificarDocumentoExistente')}}", { '_token' : '{{csrf_token()}}', 'dni' : dni}, function(data) {
+
+      if (data.status) {
+
+        bootbox.confirm({
+            title: "Atención!",
+            message: "Ya existe un Asistido con el DNI especificado. <br><br><strong><i class='icon fa fa-user'></i> Asistido:</strong> " + data.asistido_nombre + " <br><strong><i class='icon fa fa-bank'></i> Institución:</strong> " + data.posadero + " <br><br> Estás seguro que querés continuar? Hace <a href='{{url('/asistido/list')}}'>click acá</a> para ir al listado de Asistidos existentes." ,
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancelar'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Continuar'
+                }
+            },
+            callback: function (result) {
+                
+                if (result) {
+                  $('.submitBtn').trigger('click');
+                }
+            }
+        });
+
+      } else {
+        $('.submitBtn').trigger('click');
+      }
+
+    })
+
+  });
   
   $( document ).ready(function() {
       
