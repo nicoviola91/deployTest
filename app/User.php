@@ -56,5 +56,13 @@ class User extends Authenticatable
     public function comunidades(){
         return $this->belongsToMany('App\Comunidad')->withTimestamps();;
     }
+
+    public function owners(){
+        return $this->hasMany('App\Asistido', 'owner');
+    }
+
+    public function creators(){
+        return $this->hasMany('App\Asistido', 'createdBy');
+    }
     
 }

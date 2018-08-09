@@ -27,6 +27,7 @@ class Asistido extends Model
         'checkFichaMedica',
         'checkFichaNecesidad',
         'checkFichaSaludMental',
+        'createdBy',
         'owner',
         'comunidad_id',
         'institucion_id',
@@ -64,6 +65,16 @@ class Asistido extends Model
     /*public function usuariosCompartidos(){
         return $this->hasMany('App\UsuarioCompartido');
     }*/
+
+    public function owner ()
+    {
+        return $this->belogsTo('App\User');
+    }
+
+    public function createdBy ()
+    {
+        return $this->belogsTo('App\User');
+    }
 
     public function comunidades(){
         return $this->belongsToMany('App\Comunidad')->withTimestamps();;
