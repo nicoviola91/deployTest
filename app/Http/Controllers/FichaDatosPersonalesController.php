@@ -75,9 +75,7 @@ class FichaDatosPersonalesController extends Controller
     }
 
     public function store(Request $request, $asistido_id){
-        //udpateOrCreate actualiza el registro si este ya existe, si no lo crea.
-        //el primer parametro es el where, el segundo los datos que queremos actualizar en el registro
-        //en este caso, buscamos una fichaDatosPersonales donde el asistido_id sea el $asistido_id
+        
         $partida=$request->input('tienePartida');
         if($partida=='on'){
             $value=true;
@@ -105,11 +103,62 @@ class FichaDatosPersonalesController extends Controller
             'estadoDocumento_id' => $request->input('estadoDocumento_id'),
             'estadoCivil_id' => $request->input('estadoCivil_id'),
         ]);
+
         $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($asistido_id);
+        
         $asistido=Asistido::find($asistido_id);
-        $asistido->ficha()->save($fichaDatosPersonales);
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        
+        if ($asistido->ficha()->save($fichaDatosPersonales)) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+
+        } else {
+
+            return response()->json([
+                'status' => false,
+            ]);
+        }    
     }
+
+    // public function store(Request $request, $asistido_id){
+        
+    //     $partida=$request->input('tienePartida');
+    //     if($partida=='on'){
+    //         $value=true;
+    //     }else{
+    //         $value=false;
+    //     }
+
+    //     FichaDatosPersonales::where('asistido_id',$asistido_id)
+    //         ->update
+    //         (['nombre' => $request->input('nombre'),
+    //         'apellido' => $request->input('apellido'),
+    //         'numeroDocumento' => $request->input('numeroDocumento'),
+    //         'fechaNacimiento' => $request->input('fechaNacimiento'),
+    //         'tienePartida' => $value,
+    //         'nacionalidad' => $request->input('nacionalidad'),
+    //         'fechaIngresoAlPais' => $request->input('fechaIngresoAlPais'),
+    //         'fechaNacimiento' => $request->input('fechaNacimiento'),
+    //         'celular' => $request->input('celular'),
+    //         'telefono' => $request->input('telefono'),
+    //         'email' => $request->input('email'),
+    //         'nombreContacto' => $request->input('nombreContacto'),
+    //         'telefonoContacto' => $request->input('telefonoContacto'),
+    //         'mailContacto' => $request->input('mailContacto'),
+    //         'sexo_id' => $request->input('sexo_id'),
+    //         'estadoDocumento_id' => $request->input('estadoDocumento_id'),
+    //         'estadoCivil_id' => $request->input('estadoCivil_id'),
+    //     ]);
+
+    //     $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($asistido_id);
+        
+    //     $asistido=Asistido::find($asistido_id);
+    //     $asistido->ficha()->save($fichaDatosPersonales);
+        
+    //     return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+    // }
 
     public function findFichaDatosPersonalesByAsistidoId($asistido_id){
         $fichaDatosPersonales=FichaDatosPersonales::where('asistido_id',$asistido_id)->first();
