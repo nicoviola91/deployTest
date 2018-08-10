@@ -74,16 +74,25 @@ class FichaDiagnosticoIntegralController extends Controller
 
     public function storeDiagnostico(Request $request, $asistido_id){
 
+        FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)->update(['diagnostico'=>$request->input('diagnostico'),'trabajoInterdisciplinario'=>$request->input('trabajoInterdisciplinario')]);
         
-        FichaDiagnosticoIntegral::where('asistido_id',$asistido_id)
-        ->update(['diagnostico'=>$request->input('diagnostico'),
-        'trabajoInterdisciplinario'=>$request->input('trabajoInterdisciplinario')]);
         $fichaDiagnosticoIntegral=$this->findfichaDiagnosticoIntegralByAsistidoId($asistido_id);
+        
         $asistido=Asistido::find($asistido_id);
         $asistido->checkFichaDiagnosticoIntegral=1;
         $asistido->ficha()->save($fichaDiagnosticoIntegral);
-        //return redirect()->route('fichaDiagnosticoIntegral.create',['asistido_id'=>$asistido_id]); 
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+
+        if ($fichaDiagnosticoIntegral) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
 
     }
 

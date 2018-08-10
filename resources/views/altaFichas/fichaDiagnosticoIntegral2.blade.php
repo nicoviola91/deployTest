@@ -22,7 +22,7 @@
                             <form id="diagnostico-form" method="POST" action="{{ url('/fichaDiagnosticoIntegral/storeDiagnostico',['asistido_id'=>$asistido->id]) }}" >
                             {{ csrf_field() }}
                                 <div class="form-group {{ $errors->has('diagnostico') ? ' has-error' : '' }}">
-                                    <label for="diagnostico">Diagnóstico biopsicosocial</label>
+                                    <label for="diagnostico">Diagnóstico Biopsicosocial</label>
                                     <input type="text" class="form-control" id="diagnostico" placeholder="Diagnóstico" name="diagnostico" required maxlength="250" value="{{isset($fichaDiagnosticoIntegral->diagnostico) ? $fichaDiagnosticoIntegral->diagnostico : ''}}">
                                     @if ($errors->has('diagnostico'))
                                     <span class="help-block">
@@ -40,7 +40,7 @@
                                     @endif
                                 </div>
                             <div align="right">
-                                <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
+                                <button  type="submit" class="btn btn-danger guardarBtn">Guardar Cambios</button>
                             </div>  
                         </form> 
                     </div>
@@ -190,7 +190,6 @@
         </div>
     </div>
 
-@section('scripts')
 <script type="text/javascript">
 
     $('#delete').on('show.bs.modal',function(event){
@@ -203,4 +202,53 @@
     })
 </script>
 
-@endsection
+<script type="text/javascript">
+        
+    $('.guardarBtn').click(function (e) {
+
+        e.preventDefault();
+
+        if ($('#diagnostico-form')[0].checkValidity()) {
+
+            formData = new FormData($('#diagnostico-form')[0]);
+
+            bootbox.dialog({
+                message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+                closeButton: false
+            });
+
+            $.ajax({
+                url: "{{ url('/fichaDiagnosticoIntegral/storeDiagnostico',['asistido_id'=>$asistido->id]) }}",
+                type: "POST",
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {   
+                    $('.bootbox.modal').modal('hide');
+
+                    if (datos.status) {
+
+                        lanzarAlerta('exito', 'Ficha actualizada correctamente.');
+                    }
+                    else {
+                        lanzarAlerta('peligro', 'Ocurrió un error al actualizar los datos. Verificá la información y volvé a intentar.');
+                    }
+
+                },
+                error: function(data) {                 
+                    $('.bootbox..modal').modal('hide');
+                    lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+                }
+
+            });
+
+        } else {
+            lanzarAlerta('peligro', 'Errores de Validacion');
+        }
+
+    });
+
+</script>
