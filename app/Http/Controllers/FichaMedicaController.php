@@ -219,11 +219,24 @@ class FichaMedicaController extends Controller
         }else{
             $obraSocialValue=0;
         }
-        FichaMedica::where('asistido_id',$asistido_id)
-        ->update(['altura'=>$request->altura,'peso'=>$request->peso,'checkAlergico'=>$alergicoValue,
-        'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes]);
-        //return redirect()->route('fichaMedica.create',['asistido_id'=>$asistido_id]);
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        
+        
+        $ficha = FichaMedica::where('asistido_id',$asistido_id);
+        
+        if ($ficha->update(['altura'=>$request->altura,'peso'=>$request->peso,'checkAlergico'=>$alergicoValue,
+        'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes])) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+        
+
     }
 
     public function storeEnfermedad(Request $request, $asistido_id){

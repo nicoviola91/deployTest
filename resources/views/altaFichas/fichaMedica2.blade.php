@@ -358,11 +358,12 @@
                             </div>
                         </div>
                     
-
+                        <br>
                         <form id="estadoGeneral-form" method="POST" action="{{ route('fichaMedica.storeEstadoGeneral',['asistido_id'=>$asistido->id]) }}" >
-                                {{ csrf_field() }}
+                        {{ csrf_field() }}
 
-                        <div class="form-group  {{ $errors->has('altura') ? ' has-error' : '' }}">
+                        <br>
+                        <div class="col-md-6 form-group  {{ $errors->has('altura') ? ' has-error' : '' }}">
                             <label for="altura">Altura</label>
                         <input type="number" min=0 max=999 class="form-control" id="altura" placeholder="Ingrese altura en centímetros" name="altura" maxlength="250" value={{isset($fichaMedica->altura) ? ($fichaMedica->altura) : '' }}>
                             @if ($errors->has('altura'))
@@ -372,7 +373,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group  {{ $errors->has('peso') ? ' has-error' : '' }}">
+                        <div class="col-md-6 form-group  {{ $errors->has('peso') ? ' has-error' : '' }}">
                             <label for="peso">Peso</label>
                         <input type="number" min=0 step="0.01" max=999 class="form-control" id="peso" placeholder="Ingrese peso en kilogramos. Para especificar decimales utilice una coma" name="peso" maxlength="250" value={{isset($fichaMedica->peso) ? ($fichaMedica->peso) : '' }}>
                             @if ($errors->has('peso'))
@@ -383,7 +384,7 @@
                         </div>
     
 
-                        <div class="form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
+                        <div class="col-md-12 form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
                             <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->checkAlergico) && ($fichaMedica->checkAlergico==1) ? 'checked':''}}>
                             @if ($errors->has('checkAlergico'))
                             <span class="help-block">
@@ -393,7 +394,7 @@
                             <label for="checkAlergico">El asistido tiene alguna alergia</label>
                         </div>
 
-                        <div class="form-group checkAlergico {{ $errors->has('alergicoA') ? ' has-error' : '' }}">
+                        <div class="col-md-6 form-group checkAlergico {{ $errors->has('alergicoA') ? ' has-error' : '' }}">
                             <label for="alergicoA">Alergias</label>
                         <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value={{isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' }}>
                             @if ($errors->has('alergicoA'))
@@ -404,7 +405,7 @@
                         </div>
 
 
-                        <div class="form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
+                        <div class="col-md-12 form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
                             <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" {{isset($fichaMedica->checkObraSocial) && ($fichaMedica->checkObraSocial==1) ? 'checked':''}}>
                             @if ($errors->has('checkObraSocial'))
                             <span class="help-block">
@@ -414,7 +415,7 @@
                             <label for="checkObraSocial">El asistido tiene Obra Social</label>
                         </div>
 
-                        <div class="form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
+                        <div class="col-md-12 form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
                             <label for="obraSocial">Obra Social</label>
                         <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value={{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}>
                             @if ($errors->has('obraSocial'))
@@ -424,7 +425,7 @@
                             @endif
                         </div>
                         
-                        <div class="form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
+                        <div class="col-md-12 form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
                             <label for="antecedentes">Antecedentes</label>
                         <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}>
                             @if ($errors->has('antecedentes'))
@@ -434,8 +435,8 @@
                             @endif
                         </div>
 
-                    <div align="center">
-                        <button  type="submit" class="btn btn-danger">Guardar Cambios</button>
+                    <div align="center" class="col-md-12">
+                        <button  type="submit" class="btn btn-danger guardarBtn">Guardar Cambios</button>
                     </div>  
                     </form> 
 
@@ -1467,4 +1468,57 @@
         modal.find('.modal-body #id').val(id)
         modal.find('.modal-body #asistidoid').val(asistidoid)
     })
+</script>
+
+<script type="text/javascript">
+    
+    $('.guardarBtn').click(function (e) {
+
+        e.preventDefault();
+
+        if ($('#estadoGeneral-form')[0].checkValidity()) {
+
+            formData = new FormData($('#estadoGeneral-form')[0]);
+
+            bootbox.dialog({
+                message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+                closeButton: false
+            });
+
+            $.ajax({
+                url: "{{ route('fichaMedica.storeEstadoGeneral',['asistido_id'=>$asistido->id]) }}",
+                type: "POST",
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {   
+                    $('.bootbox.modal').modal('hide');
+
+                    if (datos.status) {
+
+                        lanzarAlerta('exito', 'Ficha actualizada correctamente.');
+                    }
+                    else {
+                        lanzarAlerta('peligro', 'Ocurrió un error al actualizar los datos. Verificá la información y volvé a intentar.');
+                    }
+
+                },
+                error: function(data) {                 
+                    $('.bootbox..modal').modal('hide');
+                    lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+                }
+
+            });
+
+        } else {
+            lanzarAlerta('peligro', 'Errores de Validacion');
+        }
+
+
+    });
+
+
 </script>
