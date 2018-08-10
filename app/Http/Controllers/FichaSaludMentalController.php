@@ -238,8 +238,11 @@ class FichaSaludMentalController extends Controller
     
 
     public function storeConsideraciones(Request $request,$asistido_id){
+        
         $fichaSaludMental=$this->findFichaSaludMentalByAsistidoId($asistido_id);
+        
         Asistido::where('id',$asistido_id)->update(['checkFichaSaludMental' =>1]);
+        
         $estadoMental=$request->input('estadoMental');
 
         $ansiedad=$request->input('ansiedad');
@@ -288,17 +291,21 @@ class FichaSaludMentalController extends Controller
             $fichaSaludMental->institucion()->save($institucion);
             
         }
-        FichaSaludMental::where('asistido_id',$asistido_id)
-        ->update(['estadoMental'=>$estadoMental,
-        'ansiedad'=>$ansiedadValue,
-        'depresivo'=>$depresivoValue,
-        'orientado'=>$deliriosValue,
-        'trastornoCognitivo'=>$trastornoCognitivoValue,
-        'checkDerivacion'=>$requiereDerivacionValue,
-        'checkInternacion'=>$requiereInternacionValue]);
-        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        
+        $ficha = FichaSaludMental::where('asistido_id',$asistido_id);
 
+        if ($ficha->update(['estadoMental'=>$estadoMental, 'ansiedad'=>$ansiedadValue, 'depresivo'=>$depresivoValue, 'orientado'=>$deliriosValue, 'trastornoCognitivo'=>$trastornoCognitivoValue, 'checkDerivacion'=>$requiereDerivacionValue, 'checkInternacion'=>$requiereInternacionValue])) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+
+        } else {
+
+            return response()->json([
+                'status' => false,
+            ]);
+        }
     }
 
     public function findFichaSaludMentalByAsistidoId($asistido_id){
