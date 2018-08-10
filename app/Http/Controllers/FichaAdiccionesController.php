@@ -154,32 +154,49 @@ class FichaAdiccionesController extends Controller
     }
 
     public function storeConsideraciones(Request $request,$asistido_id){
+        
         $fichaAdiccion=$this->findFichaAdiccionByAsistidoId($asistido_id);
         Asistido::where('id',$asistido_id)->update(['checkFichaAdicciones' =>1]);
 
         $requiereInternacion=$request->input('checklistRequiereInternacion');
+        
         if($requiereInternacion=='on'){
             $requiereInternacionValue=1;
         }else{
             $requiereInternacionValue=0;
         }
+        
         $requiereDerivacion=$request->input('checklistRequiereDerivacion');
+        
         if($requiereDerivacion=='on'){
             $requiereDerivacionValue=1;
         }else{
             $requiereDerivacionValue=0;
         }
+        
         $embarazo=$request->input('checklistEmbarazo');
+        
         if($embarazo=='on'){
             $checklistEmbarazoValue=1;
         }else{
             $checklistEmbarazoValue=0;
         }
-        FichaAdiccion::where('asistido_id',$asistido_id)
-        ->update(['checklistRequiereInternacion'=>$requiereInternacionValue, 'checklistRequiereDerivacion'=>$requiereDerivacionValue,'checklistEmbarazo'=>$checklistEmbarazoValue,
-        'observaciones' =>$request->observaciones]);
-        //return redirect()->route('asistido.show',['asistido_id'=>$asistido_id]);
-        return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
+        
+        $ficha = FichaAdiccion::where('asistido_id',$asistido_id);
+
+        if ($ficha->update(['checklistRequiereInternacion'=>$requiereInternacionValue, 'checklistRequiereDerivacion'=>$requiereDerivacionValue,'checklistEmbarazo'=>$checklistEmbarazoValue,'observaciones' =>$request->observaciones])) {
+            
+            return response()->json([
+                'status' => true,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+        
+
+
 
     }
 
