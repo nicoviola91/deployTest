@@ -281,16 +281,17 @@ class FichaSaludMentalController extends Controller
         }else{
             $requiereInternacionValue=0;
         }
-        if($request->has('nombreInstitucion2')){
-            $institucion=Institucion::updateOrCreate(
-                ['nombre'=>$request->nombreInstitucion2,
-                'direccion'=>$request->direccionInstitucion2,
-                'email'=>$request->emailInstitucion2,
-                'telefono'=>$request->telefonoInstitucion2]);
-            $institucion->save();
-            $fichaSaludMental->institucion()->save($institucion);
+        
+        // if($request->has('nombreInstitucion2')){
+        //     $institucion=Institucion::updateOrCreate(
+        //         ['nombre'=>$request->nombreInstitucion2,
+        //         'direccion'=>$request->direccionInstitucion2,
+        //         'email'=>$request->emailInstitucion2,
+        //         'telefono'=>$request->telefonoInstitucion2]);
+        //     $institucion->save();
+        //     $fichaSaludMental->institucion()->save($institucion);
             
-        }
+        // }
         
         $ficha = FichaSaludMental::where('asistido_id',$asistido_id);
 

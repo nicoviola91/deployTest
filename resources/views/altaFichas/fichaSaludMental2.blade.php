@@ -824,7 +824,7 @@
                         <div class="col-md-2">{!! Form::Label('estadoMental', 'Estado mental') !!}</div>
                         <div class="col-md-10">
                         <select class="form-control" name="estadoMental" id="estadoMental" >
-                            <option value="No presenta síntomas mentales" {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No presenta síntomas mentales') ? 'selected':''}}>No presenta síntomas mentales</option>
+                            <option value="No presenta síntomas mentales" {{ isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No presenta síntomas mentales') ? 'selected':''}}>No presenta síntomas mentales</option>
                             <option value="Presenta síntomas mentales"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='Presenta síntomas mentales') ? 'selected':''}}>Presenta síntomas mentales</option>
                             <option value="No se puede determinar"  {{isset($fichaSaludMental->estadoMental) && ($fichaSaludMental->estadoMental=='No se puede determinar') ? 'selected':''}}>No se puede determinar</option>
                         </select>
@@ -869,7 +869,7 @@
                         <label for="delirios">Delirios</label>
                     </div>
                     <div class="form-group {{ $errors->has('trastornoCognitivo') ? ' has-error' : '' }}">
-                        <input type="checkbox" id="trastornoCognitivo" name="trastornoCognitivo" {{isset($fichaSaludMental->trastornoCognitivo) && ($fichaSaludMental->trastornoCognitivo==1) ? 'checked':''}}>
+                        <input type="checkbox" id="trastornoCognitivo" name="trastornoCognitivo" "{{isset($fichaSaludMental->trastornoCognitivo) && ($fichaSaludMental->trastornoCognitivo==1) ? 'checked':''}}>
                         @if ($errors->has('trastornoCognitivo'))
                         <span class="help-block">
                             <strong>{{ $errors->first('trastornoCognitivo') }}</strong>
@@ -890,7 +890,7 @@
 
                     <div class="form-group {{ $errors->has('checkInternacion') ? ' has-error' : '' }}">
                         
-                        <input type="checkbox" id="checkInternacion2" name="checkInternacion" {{isset($fichaSaludMental->checkInternacion) && ($fichaSaludMental->checkInternacion==1) ? 'checked':''}} onclick="checkRequiereInternacion()">
+                        <input type="checkbox" id="checkInternacion2" name="checkInternacion" {{isset($fichaSaludMental->checkInternacion) && ($fichaSaludMental->checkInternacion==1) ? 'checked':''}} >
                         @if ($errors->has('checkInternacion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('checkInternacion') }}</strong>
@@ -898,59 +898,6 @@
                         @endif
                         <label for="checkInternacion">Requiere internación</label>
                     </div>
-                    </div>
-
-                    <div class="col-md-12 mostrarInstitucion2">
-                        
-                        <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('nombreInstitucion2') ? ' has-error' : '' }}">
-                            <label for="nombreInstitucion2">Nombre</label>
-                            <input type="text" class="form-control" id="nombreInstitucion2" placeholder="Nombre" name="nombreInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->nombre) ? $fichaSaludMental->institucion->nombre : ''}}" >
-                            @if ($errors->has('nombreInstitucion2'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('nombreInstitucion2') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('direccionInstitucion2') ? ' has-error' : '' }}">
-                            <label for="direccionInstitucion2">Dirección</label>
-                            <input type="text" class="form-control" id="direccionInstitucion2" placeholder="Dirección" name="direccionInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->direccion) ? $fichaSaludMental->institucion->direccion : ''}}">
-                            @if ($errors->has('direccionInstitucion2'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('direccionInstitucion2') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('telefonoInstitucion2') ? ' has-error' : '' }}">
-                            <label for="telefonoInstitucion2">Teléfono</label>
-                            <input type="text" class="form-control" id="telefonoInstitucion2" placeholder="Teléfono" name="telefonoInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->telefono) ? $fichaSaludMental->institucion->telefono : ''}}" >
-
-                            @if ($errors->has('telefonoInstitucion2'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('telefonoInstitucion2') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('referenteInstitucion2') ? ' has-error' : '' }}">
-                            <label for="referenteInstitucion2">E-mail</label>
-                            <input type="text" class="form-control" id="referenteInstitucion2" placeholder="E-mail " name="referenteInstitucion2" maxlength="250" value="{{isset($fichaSaludMental->institucion->email) ? $fichaSaludMental->institucion->email : ''}}">
-                            @if ($errors->has('referenteInstitucion2'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('referenteInstitucion2') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        </div>
-                        
                     </div>
 
                     <div class="col-md-12" align="right">
@@ -980,28 +927,28 @@
         $('.mostrarMedicacion').hide()
         $('.mostrarProfesional').hide()
 
-        var requiereInternacion=document.getElementById("checkInternacion2")
-        if (requiereInternacion.checked == true){
-            $('.mostrarInstitucion2').show() 
-        }else{
-            $('.mostrarInstitucion2').hide() 
-        }
+        // var requiereInternacion=document.getElementById("checkInternacion2")
+        // if (requiereInternacion.checked == true){
+        //     $('.mostrarInstitucion2').show() 
+        // }else{
+        //     $('.mostrarInstitucion2').hide() 
+        // }
         
 
     }
     
     
-    $('#checkInternacion').change(function(){
-        if ($(this).checked){
+    // $('#checkInternacion').change(function(){
+    //     if ($(this).checked){
 
-            $('.mostrarInstitucion2').show()
+    //         $('.mostrarInstitucion2').show()
 
-        }else{
+    //     }else{
 
-            $('.mostrarInstitucion2').hide()
+    //         $('.mostrarInstitucion2').hide()
 
-        }
-    })
+    //     }
+    // })
 
     function checkMedicacionEnTratamiento(){
         var chkMed = document.getElementById("medicacionEnTratamientoid")
@@ -1041,18 +988,18 @@
         }
     }
 
-    function checkRequiereInternacion(){
-        var chkInternacion = document.getElementById("checkInternacion2")
+    // function checkRequiereInternacion(){
+    //     var chkInternacion = document.getElementById("checkInternacion2")
 
-        if (chkInternacion.checked == true){
-            $('.mostrarInstitucion2').show()
-            document.getElementById("nombreInstitucion2").required = true
+    //     if (chkInternacion.checked == true){
+    //         $('.mostrarInstitucion2').show()
+    //         document.getElementById("nombreInstitucion2").required = true
             
-        }else{
-            $('.mostrarInstitucion2').hide()   
-            document.getElementById("nombreInstitucion2").required = false
-        }
-    }
+    //     }else{
+    //         $('.mostrarInstitucion2').hide()   
+    //         document.getElementById("nombreInstitucion2").required = false
+    //     }
+    // }
 
    
 
