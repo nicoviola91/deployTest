@@ -344,7 +344,7 @@ Route::group(['prefix'=>'fichaEducacion','middleware'=>'admin'],function(){
         'as'=>'fichaEducacion.storeEducacion',
     ]);
     Route::get('/destroyEducacion/{educacion_id}/{asistido_id}',[
-        'uses'=>'fichaEducacionController@destroyEducacion',
+        'uses'=>'FichaEducacionController@destroyEducacion',
         'as'=>'fichaEducacion.destroyEducacion',
     ]);
 });

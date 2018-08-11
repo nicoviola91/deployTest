@@ -268,7 +268,7 @@ class FichaMedicaController extends Controller
     
     public function storeMedicacion(Request $request,$asistido_id){
 
-        var_dump($request);
+     
         if($request->has('nombre') && $request->has('droga') && ($request->input('nombre')!== null) && ($request->input('droga')!== null)){
             $profesional_input=$request->only(['nombre','apellido']);
             $medicacion_input=$request->only(['recetada','droga','dosis','frecuencia','receta','inicio','fin']);
@@ -381,7 +381,7 @@ class FichaMedicaController extends Controller
         FichaMedica::where('asistido_id',$asistido_id)
         ->update(['checkIntervencion'=>1]);
         $fichaMedica=$this->findFichaMedicaByAsistidoId($asistido_id);
-        var_dump($fichaMedica);
+     
         $intervencion->fichaMedica()->associate($fichaMedica);
 
         if($request->has('institucion') && isset($request->institucion)){
