@@ -21,4 +21,7 @@ class Necesidad extends Model
     public function tipo(){
         return $this->belongsTo('App\TipoNecesidad','tipoNecesidad_id');
     }
+    public function donacion(){
+        return $this->belongsTo('App\Donacion');
+    }
 }

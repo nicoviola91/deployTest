@@ -57,4 +57,10 @@ class NecesidadesController extends Controller
         return view('necesidades.listado', $data);
     }
 
+    public function nueva_donacion()
+    {
+
+    }
+
+
 }
