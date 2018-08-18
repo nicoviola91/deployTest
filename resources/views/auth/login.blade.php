@@ -1,5 +1,5 @@
 @extends('layouts.welcomeApp')
-<meta name="google-site-verification" content="yvjTvD65Y8XgISz6loiaPYA7NIPZf_907sEpf1imrXg" />
+
 @section('title')
     Login
 
