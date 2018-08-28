@@ -150,7 +150,7 @@
 
 			              </div>
 			              <div class="timeline-footer">
-			                <a class="btn btn-default btn-xs"><i class="fa icon fa-location-arrow fa-fw"></i> Ver Ubicación</a>
+			                <a class="btn btn-default btn-xs" href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}"><i class="fa icon fa-location-arrow fa-fw"></i> Ver Ubicación</a>
 			              </div>
 			            </div>
 			          </li>
