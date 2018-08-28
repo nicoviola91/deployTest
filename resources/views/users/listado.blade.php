@@ -51,7 +51,7 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center" >E-mail</th>
 					<th class="text-center">Fecha Registro</th>
-					<th class="text-center">Acuerdo</th>
+					<!-- <th class="text-center">Acuerdo</th> -->
 					<th class="text-center">Tipo Usuario</th>
 					<th class="text-center">Comunidad</th>
 					<th class="text-center">Acciones</th>
@@ -71,10 +71,10 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->apellido }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
-							<td class="text-center" style="vertical-align: middle;">{{ $usuario->created_at }}</td>
-							<td class="text-center no-print" style="vertical-align: middle;">
-								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="{{ $usuario->id }}" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
-							</td>
+							<td class="text-center" style="vertical-align: middle;"><small>{{ $usuario->created_at }}</small></td>
+							<!-- <td class="text-center no-print" style="vertical-align: middle;">
+								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="<?php echo $usuario->id ?>" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
+							</td> -->
 							<td class="text-center" style="vertical-align: middle;">
 								<span style="display: none;">{{$usuario->tipoUsuario->nombre}}</span>
 								<div class="form-group">
