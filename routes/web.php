@@ -42,7 +42,10 @@ Route::group(['prefix'=>'user'], function(){
         'uses'=>'UserController@updateImage',
         'as'=>'user.updateImage',
     ])->middleware('autenticado');
-
+    Route::post('/update/{id}',[
+        'uses'=>'UserController@update',
+        'as'=>'user.update',
+    ])->middleware('autenticado');
     Route::post('/agregarComunidad',[
         'uses'=>'UserController@agregarComunidad',
         'as'=>'user.agregarComunidad',

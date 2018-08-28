@@ -16,6 +16,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Redirector;
 use App\Http\Requests\UserRequest;
 use App\TipoUsuario;
+use Illuminate\Support\Facades\Validator;
 
 use Image;
 
@@ -104,11 +105,12 @@ class UserController extends Controller
 
     public function profile(Request $request, $id)
     {   
-        $user = User::find($id);
-        $comunidades = Comunidad::all();
+        $user = User::find($id); 
 
         $data['user'] = $user;
-        $data['comunidades'] = $comunidades;
+        $data['comunidades'] = Comunidad::all();;
+        $data['instituciones'] = Institucion::all();;
+        $data['tiposUsuario'] = TipoUsuario::all();;
         
         return view('users.profile', $data);
     }
@@ -168,7 +170,58 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'required'    => 'El :attribute es obligatorio.',
+        ];  
+        
+        $v = Validator::make($request->all(), [
+            'tipoUsuario_id' => 'required|numeric',
+        ], $messages);
+
+        $v->sometimes('comunidad_id', 'required|numeric', function ($input) {
+            return $input->tipoUsuario_id == 30;
+        });
+
+        $v->sometimes('institucion_id', 'required|numeric', function ($input) {
+            return $input->tipoUsuario_id == 50;
+        });
+
+
+        $usuario = User::where('id', $id)->first();
+
+        $update = array(
+            'tipoUsuario_id' => $request->tipoUsuario_id,
+        );
+        
+        if (isset($request->firmoAcuerdo)) {
+            $update['chkFirmoAcuerdo'] = true;
+        } else {
+            $update['chkFirmoAcuerdo'] = false;
+        }
+
+        if (isset($request->comunidad_id)) {
+            $update['comunidad_id'] = $request->comunidad_id;
+        } else {
+            $update['comunidad_id'] = null;
+        }
+
+        if (isset($request->institucion_id)) {
+            $update['institucion_id'] = $request->institucion_id;
+        } else {
+            $update['institucion_id'] = null;
+        }
+
+        if ($usuario->update($update)) {
+            
+            $message = 'Actualizado correctamente.';
+
+        } else {
+            
+            $message = 'Ocurrió un error al realizar la operación.';
+
+        }
+
+        return redirect()->back()->with('message', $message);
     }
 
     /**
@@ -223,8 +276,13 @@ class UserController extends Controller
 
     public function acuerdo (Request $request) {
 
-        //Verificar que id es numeric, existe y sea un usuario valido
-        //Verificar que valor es boolean
+        if (!is_numeric($id)) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Operación no válida.',
+            ]);
+
+        }
 
         $id = $request->id;
         $valor = $request->valor;

@@ -8,6 +8,9 @@
 
 @section('head')
 
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('/select2/select2.min.css') }}">
+<script src="{{ asset('/select2/select2.full.min.js') }}"></script>
 
 @endsection
 
@@ -53,7 +56,7 @@
                   <div class="col-sm-6">
                     <div class="description-block">
                         @if($user!=null)
-                    <h5 class="description-header">{{($user->firmoAcuerdo==1) ? 'Sí':'No'}}</h5>
+                    <h5 class="description-header">{{($user->chkFirmoAcuerdo==1) ? 'Sí':'No'}}</h5>
                       <span class="description-text">FIRMO ACUERDO DE CONFIDENCIALIDAD</span>
                       @endif
                     </div>
@@ -75,66 +78,93 @@
     </div>
 
     
-  	<div class="col-md-6">
-	<div class="box box-solid col-md-6">
+  <div class="col-md-6">
+	  <div class="box box-solid col-md-6">
         <div class="box-body">
           <h4><i class="fa icon fa-user-circle-o"></i> 
-            Cuenta
+            Datos de la Cuenta
+            <span class="pull-right btn btn-default btn-sm btn-editar"><i class="icon fa fa-edit"></i> EDITAR</span>
           </h4>
           
+          <form class="form" method="POST" action="{{route('user.update', ['id' => $user->id])}}">
           <div class="box-body">
-              
+              {{ csrf_field() }}
+
               <strong class="col-md-12"><i class="fa fa-user-secret margin-r-5"></i> Permisos</strong>
 
               <div class="form-group col-md-6">
-              	<select class="form-control">
-              		<option>Seleccionar...</option>
-              	</select>
+              	<select class="form-control editable" required name="tipoUsuario_id" id="tipoUsuario_id" disabled readonly>
+              		  
+                    <?php foreach ($tiposUsuario as $tipo): ?>
+                      
+                      <option <?php echo ($user->tipoUsuario_id == $tipo->id) ? ' selected ' : '' ?> value="{{$tipo->id}}" data-descripcion="{{$tipo->descripcion}}" data-slug="{{$tipo->slug}}"> <?php echo $tipo->nombre ?></option>                          
+                    <?php endforeach ?>
+              	
+                </select>
               	<p class="help-block">Tipo de Usuario</p>
               </div>
 
-              <div class="form-group col-md-6">
-              	<input type="checkbox" class="checkbox" name="">
+              <div class="form-group col-md-6 text-center">
+              	<label class="inline-checkbox"><input type="checkbox" class="checkbox editable" name="firmoAcuerdo" value="1" <?php echo $user->chkFirmoAcuerdo ? 'checked' : '' ?> disabled readonly></label>
               	<p class="help-block">Acuerdo de Confidencialidad</p>
               </div>
 
               <div class="col-md-12">
-              	<i class="fa icon fa-chevron-right fa-fw"></i> ajksdjkadjkajkdajksdjajksdakjdjkasdjkjkdsjk
-              	asdjdjkad
-              	asdajksdakjdasjkdjkasda askjdakjdajksdjk asjkdaksjdjka
-              	asdjkadkjajkd asjdkasjkdajkdjka
+              	<!-- <i class="fa icon fa-chevron-right fa-fw"></i> --> <strong>Descripción:</strong><br>
+                <span id="descripcionTipo"><?php echo $user->tipoUsuario->descripcion ?></span>
               </div>
 
-              <hr class="col-md-12">
+              <hr class="col-md-12 administraComunidad" style="display: none;">
 
-              <strong class="col-md-12"><i class="fa fa-users margin-r-5"></i> Comunidad que Administra</strong>
-              <div class="col-md-12">
+              <strong class="col-md-12 administraComunidad" style="display: none;"><i class="fa fa-users margin-r-5"></i> Comunidad que Administra</strong>
+              <div class="col-md-12 administraComunidad" style="display: none;">
               <p>
                 <div class="form-group">
-                	<select class="form-control">
-                		<option>Seleccionar ..</option>
+                	<select class="form-control editable selectComunidad" name="comunidad_id" disabled readonly style="width: 100%;">
+                		
+                    <?php $institucion = 0; ?>
+                    <option disabled selected value> Seleccionar ... </option>
+                    <?php foreach ($comunidades as $comunidad): ?>  
+
+                      <?php if ($institucion != $comunidad->institucion_id): ?>
+                        <optgroup label=" - {{$comunidad->institucion->nombre}}"></optgroup>
+                        <?php $institucion = $comunidad->institucion_id ?>
+                      <?php endif ?>
+
+                      <option <?php echo ($user->comunidad_id == $comunidad->id) ? ' selected ' : '' ?> value="{{$comunidad->id}}"> <?php echo $comunidad->nombre ?></option>
+                    
+                    <?php endforeach ?>
                 	</select>
                 </div>
               </p>
               </div>
 
-              <hr class="col-md-12">
+              <hr class="col-md-12 administraInstitucion" style="display: none;">
 
-              <strong class="col-md-12"><i class="fa fa-bank margin-r-5"></i> Institución que Administra</strong>
-              <div class="col-md-12">
+              <strong class="col-md-12 administraInstitucion" style="display: none;"><i class="fa fa-bank margin-r-5"></i> Institución que Administra</strong>
+              <div class="col-md-12 administraInstitucion" style="display: none;">
               <p>
                 <div class="form-group">
-                	<select class="form-control">
-                		<option>Seleccionar ..</option>
+                	<select class="form-control editable selectInstitucion" name="institucion_id" disabled readonly style="width: 100%;">
+                		
+                    <option disabled selected value> Seleccionar ... </option>
+                    <?php foreach ($instituciones as $institucion): ?>  
+                      <option <?php echo ($user->institucion_id == $institucion->id) ? ' selected ' : '' ?> value="{{$institucion->id}}"> <?php echo $institucion->nombre ?></option>
+                    <?php endforeach ?>
+
                 	</select>
                 </div>
               </p>
               </div>
 
             </div>
+            <div class="box-footer divActualizar" style="display: none;">
+              <button type="submit" class="btn btn-primary pull-right actualizarBtn">Actualizar</button>
+            </div>
+            </form>
 
         </div>
-  	</div>
+  	  </div>
   	</div>
 
   	<div class=" col-md-6">
@@ -211,7 +241,7 @@
           <div class="form-group">
             <input type="hidden" name="user_id" value="{{$user->id}}">
             <div class="col-sm-12">
-              <select class="form-control" name="comunidad_id" id="comunidad_id" required placeholder="Seleccionar ...">
+              <select class="form-control" name="comunidad_id" required placeholder="Seleccionar ...">
 
                 <?php $institucion = 0 ?>
                 <option disabled selected value> Seleccionar ... </option>
@@ -250,12 +280,83 @@
 
 <script type="text/javascript">
 	
+  $('.select2').select2();
+
   $(".btnAgregarComunidad").click(function () {
 
-      console.log('agregarComunidad');
-      $('#modal-comunidad').modal('show');
+    $('#modal-comunidad').modal('show');
 
-    });
+  });
+
+  $("#tipoUsuario_id").change(function () {
+
+    descripcion = $(this).find(':selected').data('descripcion');
+    slugTipo = $(this).find(':selected').data('slug');
+    $('#descripcionTipo').html(descripcion);
+
+    if (slugTipo == 'coordinador') {
+
+      $('.administraComunidad').show();
+      $('.administraInstitucion').hide();
+
+      $('.selectComunidad').attr('disabled', false);
+      $('.selectInstitucion').attr('disabled', true);
+
+      $('.selectComunidad').attr('required', true);
+      $('.selectInstitucion').attr('required', false);
+
+    } else if (slugTipo == 'posadero') {
+
+      $('.administraInstitucion').show();
+      $('.administraComunidad').hide();
+
+      $('.selectComunidad').attr('disabled', true);
+      $('.selectInstitucion').attr('disabled', false);
+
+      $('.selectComunidad').attr('required', false);
+      $('.selectInstitucion').attr('required', true);
+
+    } else {
+
+      $('.administraInstitucion').hide();
+      $('.administraComunidad').hide();
+
+      $('.selectComunidad').attr('disabled', true);
+      $('.selectInstitucion').attr('disabled', true);
+
+      $('.selectComunidad').attr('required', false);
+      $('.selectInstitucion').attr('required', false);
+
+    }
+
+  });
+
+  $(".btn-editar").click(function () {
+
+    $('.editable').attr('readonly', false);
+    $('.editable').attr('disabled', false);
+
+    $(this).hide();
+    $('.divActualizar').show();
+
+  });
+
+  $(".actualizarBtn").click(function () {
+
+
+  });
+
+  $(function() {
+    
+    slugTipo = '<?php echo $user->tipoUsuario->slug ?>';
+    
+    if (slugTipo == 'coordinador')  {
+      $('.administraComunidad').show();
+    } else if (slugTipo == 'posadero') {
+      $('.administraInstitucion').show();
+    }
+
+  });
 	
 </script>
 
