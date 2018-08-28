@@ -106,7 +106,7 @@
 
 	     		<div class="col-md-6 form-group {{ $errors->has('institucion_id') ? ' has-error' : '' }}">
 	              <label for="nombre">Institución</label>
-	              <select class="form-control" name="institucion_id" id="institucion_id">
+	              <select class="form-control" name="institucion_id" id="institucion_id" required>
 	              	
 	              	<?php foreach ($instituciones as $i): ?>
 	              		<option value="{{$i->id}}"> {{strtoupper($i->tipo)}} - {{$i->nombre}}</option>
@@ -121,7 +121,7 @@
 
 	            <div class="col-md-6 form-group {{ $errors->has('tipo') ? ' has-error' : '' }}">
 	              <label for="nombre">Tipo</label>
-	              <select class="form-control" name="tipo" id="tipo">
+	              <select class="form-control" name="tipo" id="tipo" required>
 	              	<option value="nocheDeCaridad">Noche De Caridad</option>
 	              	<option value="externa">Comunidad Externa</option>
 	              </select>
@@ -144,7 +144,7 @@
 	          
 	            <div class="col-md-12 form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
 	              <label for="observaciones">Observaciones</label>
-	              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
+	              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" required>
 	              @if ($errors->has('observaciones'))
 	                <span class="help-block">
 	                    <strong>{{ $errors->first('observaciones') }}</strong>
