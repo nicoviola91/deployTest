@@ -133,81 +133,78 @@
 
 		e.preventDefault();
 
-    	formData = new FormData($('#formNuevaConsulta')[0]);
+		if ($('#mensaje').val() == '') {
 
-    	bootbox.dialog({
-	        message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
-	        closeButton: false
-	    });
+			lanzarAlerta('peligro', "Por favor, ingresá un mensaje en el campo de texto.");
 
-    	$.ajax({
-            url: "{{url('/consultas/store')}}",
-            type: "POST",
-            enctype: 'multipart/form-data',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(datos)
-            {	
-            	$('.modal').modal('hide');
-            	$('#formNuevaConsulta')[0].reset();
+		} else {
 
-            	if (datos.status) {
-            		lanzarAlerta('exito', datos.msg);
+	    	formData = new FormData($('#formNuevaConsulta')[0]);
 
-		            txt = '<div class="box-header with-border" style="background-color: #e5e5e5">';
-		            txt+= '<div class="user-block">';
-		            txt+= '<img class="img-circle" src="<?php echo isset(Auth::user()->imagen) ? asset("storage") . '/' . Auth::user()->imagen : asset("/img/user160x160.png") ?>" alt="User Image">'
-		                txt+= '<small class="text-muted pull-right"> ahora </small>'
-		                txt+= '<span class="username"><a href="#">{{ Auth::user()->name }} {{ Auth::user()->apellido }}</a></span>'
-		                txt+= '<span class="description">{{ Auth::user()->email }} </span>';
-		              txt+= '</div>';
-		            txt+= '</div>';
-		            txt+= '<div class="box-body">';
+	    	bootbox.dialog({
+		        message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+		        closeButton: false
+		    });
 
-		              txt+= ('<p>' + datos.texto + '</p>');
-		              	
-		              	if (datos.adjunto) {
-		                txt+= '<div class="attachment-block clearfix">';
-		                  txt+= ('<a href="/download/'+datos.adjunto+'" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>');
-		                  txt+= '<ul class="mailbox-attachments">';
-		                    txt+= '<li style="border: none; width: 90px;">'; 
-		                      txt+= '<span class="mailbox-attachment-icon" style="padding: 0px; font-size: 13px; white-space: nowrap;">';
-		                        txt+= '<i class="fa fa-file-text-o text-black"></i> Archivo Adjunto';
-		                      txt+= '</span>';
-		                    txt+= '</li>';
-		                  txt+= '</ul>';
-		                txt+= '</div>';
-		                }            
+	    	$.ajax({
+	            url: "{{url('/consultas/store')}}",
+	            type: "POST",
+	            enctype: 'multipart/form-data',
+	            data: formData,
+	            cache: false,
+	            contentType: false,
+	            processData: false,
+	            success: function(datos)
+	            {	
+	            	$('.modal').modal('hide');
+	            	$('#formNuevaConsulta')[0].reset();
 
-		            txt+= '</div>';
+	            	if (datos.status) {
+	            		lanzarAlerta('exito', datos.msg);
 
-		            txt+= '<hr style="margin: 5px;">';
+			            txt = '<div class="box-header with-border" style="background-color: #e5e5e5">';
+			            txt+= '<div class="user-block">';
+			            txt+= '<img class="img-circle" src="<?php echo isset(Auth::user()->imagen) ? asset("storage") . '/' . Auth::user()->imagen : asset("/img/user160x160.png") ?>" alt="User Image">'
+			                txt+= '<small class="text-muted pull-right"> ahora </small>'
+			                txt+= '<span class="username"><a href="#">{{ Auth::user()->name }} {{ Auth::user()->apellido }}</a></span>'
+			                txt+= '<span class="description">{{ Auth::user()->email }} </span>';
+			              txt+= '</div>';
+			            txt+= '</div>';
+			            txt+= '<div class="box-body">';
 
-            		console.log(txt);
+			              txt+= ('<p>' + datos.texto + '</p>');
+			              	
+			              	if (datos.adjunto) {
+			                txt+= '<div class="attachment-block clearfix">';
+			                  txt+= ('<a href="/download/'+datos.adjunto+'" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>');
+			                  txt+= '<ul class="mailbox-attachments">';
+			                    txt+= '<li style="border: none; width: 90px;">'; 
+			                      txt+= '<span class="mailbox-attachment-icon" style="padding: 0px; font-size: 13px; white-space: nowrap;">';
+			                        txt+= '<i class="fa fa-file-text-o text-black"></i> Archivo Adjunto';
+			                      txt+= '</span>';
+			                    txt+= '</li>';
+			                  txt+= '</ul>';
+			                txt+= '</div>';
+			                }            
 
+			            txt+= '</div>';
 
-            		$('#listadoConsultas').append(txt);
+			            txt+= '<hr style="margin: 5px;">';
 
+	            		$('#listadoConsultas').append(txt);
+	            	}
+	            	else {
+	            		lanzarAlerta('peligro', datos.msg);
+	            	}
 
+	            },
+	            error: function(data) {					
+					$('.modal').modal('hide');
+					lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+				}
 
-
-
-
-            	}
-            	else {
-            		lanzarAlerta('peligro', datos.msg);
-            	}
-
-            },
-            error: function(data) {					
-				$('.modal').modal('hide');
-				lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
-			}
-
-    	});
-
+	    	});
+	    }
 
 	})
 
