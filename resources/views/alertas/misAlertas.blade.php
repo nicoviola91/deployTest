@@ -126,7 +126,7 @@
 			              </h3>
 
 			              <div class="timeline-body">
-			              	<strong><i class="icon fa fa-user"></i> ASISTIDO</strong>
+			              	<strong><i class="icon fa fa-user"></i> DATOS DE LA PERSONA</strong>
 			              	<p>
 			              		Nombre: <?php echo $alerta->nombre ?> <?php echo $alerta->apellido ?>
 			              		<br>DNI: <?php echo $alerta->dni ?>
@@ -149,93 +149,21 @@
 			              	</p>
 
 			              </div>
-			              <div class="timeline-footer">
-			                <a class="btn btn-default btn-xs" href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}"><i class="fa icon fa-location-arrow fa-fw"></i> Ver Ubicación</a>
-			              </div>
+			          
 			            </div>
 			          </li>
 
 	      		<?php } ?>
 
-      		
-
       		<?php endforeach ?>
-	          
-
-<!-- 
-          <li>
-            <i class="fa fa-user-plus bg-blue"></i>
-
-            <div class="timeline-item">
-              <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-              <h3 class="timeline-header"><a href="#">Juan Carlos Vargas</a> generó una alerta (#455)</h3>
-
-              <div class="timeline-body">
-              	<strong><i class="icon fa fa-user"></i> ASISTIDO</strong>
-              	<p>
-              		Nombre: Juan Gallo
-              		<br>DNI: 238482
-              		<br>Fecha Nacimeinto: 93339
-
-              		<br><br><strong>Observaciones:</strong> 
-              		<br>Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                quora plaxo ideeli hulu weebly balihoo
-              	</p>
-              	<img src="{{asset('/img/logoch.png')}}" class="img-circle" style="max-height: 17px;"> <strong>POSADERO al que fue derivado:</strong>
-              	<p>
-              		Ntra. Senora de las Nieves	
-              	</p>
-
-              </div>
-              <div class="timeline-footer">
-                <a class="btn btn-default btn-xs"><i class="fa icon fa-location-arrow fa-fw"></i> Ver Ubicación</a>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <i class="fa fa-check bg-green"></i>
-
-            <div class="timeline-item">
-              <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-              <h3 class="timeline-header no-border"><a href="#">Felicitaciones!</a> se dió de alta uno de tus Asistidos en un Posadero</h3>
-              <h3 class="timeline-header no-border"><a href="#">Felicitaciones!</a> se dio de alta un Asistido de tu Comunidad en un Posadero</h3>
-
-              <div class="timeline-body">
-
-              	<i class="icon fa fa-user"></i> Juan Carlos se dió de alta en <img src="{{asset('/img/logoch.png')}}" class="img-circle" style="max-height: 17px;"> San Roque
-              	<p class="help-block"> Si queres involucrarte y hacer un seguimiento del caso, podes acercarte a un Posadero. Hace <a href="#">click aca</a> para obtener mas informacion sobre como ayudar.</p>	
-
-              </div>
-
-              <div class="timeline-footer">
-                <a class="btn btn-default btn-xs"><i class="fa icon fa-address-card fa-fw"></i> Ver Ficha</a>
-              </div>
-
-            </div>
-          </li>
-
- -->
-			          
-        
-
 
           <li>
             <i class="fa fa-clock-o bg-gray"></i>
           </li>
 
-
         </ul>
 
       </div>
-
-
-
-
 
 
 
@@ -275,9 +203,6 @@
 									<br><strong>Observaciones:</strong> 
 									<br> {{ $alerta->observaciones }}
 
-									@if (isset($alerta->lat) && isset($alerta->lng))
-									<br> <span class="pull-right"><a target="_blank" title="Ver Ubicación" href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}"><i class="icon fa fa-location-arrow"></i></a></span>
-									@endif
 								</td>
 								
 
@@ -357,10 +282,6 @@
 									<br><strong>Fecha Nacimiento:</strong> {{ $alerta->fechaNacimiento }}
 									<br><strong>Observaciones:</strong> 
 									<br> {{ $alerta->observaciones }}
-
-									@if (isset($alerta->lat) && isset($alerta->lng))
-									<br> <span class="pull-right"><a target="_blank" title="Ver Ubicación" href="https://www.google.com/maps/search/?api=1&query={{$alerta->lat}},{{$alerta->lng}}"><i class="icon fa fa-location-arrow"></i></a></span>
-									@endif
 								</td>
 								
 
