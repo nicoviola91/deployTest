@@ -25,6 +25,8 @@
 	<li><a href="#"><i class="fa fa-hotel"></i> Necesidades</a></li>
 	<li class="active">Listado</li>
 </ol>
+
+<li><a href="{{url('NecesidadesController/export')}}"><i class="fa fa-hotel"></i> Exportar Necesidades</a></li>
 @endsection
 
 @section('content')

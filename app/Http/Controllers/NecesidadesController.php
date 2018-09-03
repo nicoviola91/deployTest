@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+//Excel uses
+use App\Exports\NecesidadesExport;
+use Maatweebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 use App\Necesidad;
 use Illuminate\Http\Request;
@@ -10,7 +14,6 @@ class NecesidadesController extends Controller
     public function __construct () {
 
         $this->middleware('auth');
-
     }
     /**
      * Display a listing of the resource.
@@ -61,6 +64,9 @@ class NecesidadesController extends Controller
     {
 
     }
-
+    public function export()
+    {
+        return Excel::download(new NecesidadesExport, 'necesidades.xlsx');
+    }
 
 }
