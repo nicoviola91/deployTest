@@ -13,6 +13,14 @@
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
+	<!-- DATATABLES EXPORT -->
+  	<link href="{{ asset('/datatables/extensions/Export/buttons.dataTables.min.css') }}" rel="stylesheet"></link>
+
+	<script src="{{ asset('/datatables/extensions/Export/dataTables.buttons.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/jszip.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.flash.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.html5.min.js') }}"></script>
+
 @endsection
 
 
@@ -72,9 +80,8 @@
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->dni }}</td>
 							<td class="text-center" style="vertical-align: middle;">{{ $usuario->email }}</td>								
 							<td class="text-center" style="vertical-align: middle;"><small>{{ $usuario->created_at }}</small></td>
-							<!-- <td class="text-center no-print" style="vertical-align: middle;">
-								<input name="checkbox" type="checkbox" class="check acuerdo" value="1" data-id="<?php echo $usuario->id ?>" <?php echo $usuario->chkFirmoAcuerdo ? 'checked' : '' ?> >
-							</td> -->
+							
+
 							<td class="text-center" style="vertical-align: middle;">
 								<span>{{$usuario->tipoUsuario->nombre}}</span>
 								<?php if (isset($usuario->comunidad_id)): ?>
@@ -83,15 +90,7 @@
 								<?php if (isset($usuario->institucion_id)): ?>
 									<br><small class="text-muted">{{$usuario->institucion->nombre}}</small>
 								<?php endif ?>
-								<!-- <div class="form-group">
-					                <select class="form-control userType" style="width: 100%;">
-					                  
-					                	<?php foreach ($tipos as $tipo) { ?>
-					                		<option <?php echo ($usuario->tipoUsuario_id == $tipo->id) ? 'selected' : '' ?> value="{{$tipo->id}}" data-id="{{ $usuario->id }}" data-tipo="{{$tipo->id}}">{{$tipo->nombre}}</option>
-										<?php } ?>
-					                </select>
-					            </div> -->
-										
+		
 							</td>
 						
 							<td class="text-center" style="vertical-align: middle;">
@@ -146,7 +145,23 @@
 					"sPrevious": "Anterior",
 					"sNext": "Siguiente"
 				}
-			}
+			},
+
+			"dom": "<'row'<'col-md-6'l><'col-md-6'f>>" +
+					"<'row'<'col-md-6'><'col-md-6'>>" +
+					"<'row'<'col-md-12't>><'row'<'col-md-12 no-print'iBp>>",
+
+			buttons: [
+            	{ 
+            		extend: 'excel', 
+            		text: '<i class="icon fa fa-file-excel-o fa-fw"></i>Exportar a Excel',
+            		title: 'Listado de Usuarios',
+            		exportOptions: 
+            		{
+                    	columns: [ 0, 1, 2, 3, 4, 5, 6],
+                    }
+            	},
+            ],
 	    });
   });
 

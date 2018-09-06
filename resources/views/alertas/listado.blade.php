@@ -13,6 +13,14 @@
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
+	<!-- DATATABLES EXPORT -->
+  	<link href="{{ asset('/datatables/extensions/Export/buttons.dataTables.min.css') }}" rel="stylesheet"></link>
+
+	<script src="{{ asset('/datatables/extensions/Export/dataTables.buttons.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/jszip.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.flash.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.html5.min.js') }}"></script>
+
 @endsection
 
 
@@ -223,7 +231,23 @@
 					"sPrevious": "Anterior",
 					"sNext": "Siguiente"
 				}
-			}
+			},
+
+			"dom": "<'row'<'col-md-6'l><'col-md-6'f>>" +
+					"<'row'<'col-md-6'><'col-md-6'>>" +
+					"<'row'<'col-md-12't>><'row'<'col-md-12 no-print'iBp>>",
+
+			buttons: [
+            	{ 
+            		extend: 'excel', 
+            		text: '<i class="icon fa fa-file-excel-o fa-fw"></i>Exportar a Excel',
+            		title: 'Listado de Alertas',
+            		exportOptions: 
+            		{
+                    	columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+                    }
+            	},
+            ],
 	    });
   });
 

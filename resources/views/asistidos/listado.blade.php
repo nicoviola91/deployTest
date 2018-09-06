@@ -10,10 +10,17 @@
 
 	<!-- DATATABLES -->
 	<link rel="stylesheet" href="{{ asset('/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+	
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
-	<!-- <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script> -->
+	<!-- DATATABLES EXPORT -->
+  	<link href="{{ asset('/datatables/extensions/Export/buttons.dataTables.min.css') }}" rel="stylesheet"></link>
+
+	<script src="{{ asset('/datatables/extensions/Export/dataTables.buttons.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/jszip.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.flash.min.js') }}"></script>
+  	<script src="{{ asset('/datatables/extensions/Export/buttons.html5.min.js') }}"></script>
 
 @endsection
 
@@ -106,19 +113,35 @@
 
 <script type="text/javascript">
 	
+
 	$(function () {
+		$('#tabla-asistidos').DataTable({
+			"responsive": true,
+			"paging": true,
+			"lengthChange": true,
+			"pageLength": 25,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": false,
 
-	    $('#tabla-asistidos').DataTable({
-	      'paging'      : true,
-	      'lengthChange': true,
-	      'searching'   : true,
-	      'ordering'    : true,
-	      'info'        : true,
-	      'autoWidth'   : false,
-	      'pageLength'	: 50,
-	      'responsive'	: true,
+			"dom": "<'row'<'col-md-6'l><'col-md-6'f>>" +
+					"<'row'<'col-md-6'><'col-md-6'>>" +
+					"<'row'<'col-md-12't>><'row'<'col-md-12 no-print'iBp>>",
 
-	      	"oLanguage": {
+			buttons: [
+            	{ 
+            		extend: 'excel', 
+            		text: '<i class="icon fa fa-file-excel-o fa-fw"></i>Exportar a Excel',
+            		title: 'Listado de Asistidos',
+            		exportOptions: 
+            		{
+                    	columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+                    }
+            	},
+            ],
+
+			"oLanguage": {
 				"sEmptyTable": "No hay datos disponibles para la tabla.",
 				"sLengthMenu": "Mostrar _MENU_ filas",
 				"sSearch": "Buscar:",
@@ -128,8 +151,8 @@
 					"sNext": "Siguiente"
 				}
 			}
-	    });
-  });
+		});
+	});
 
 </script>
 
