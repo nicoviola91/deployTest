@@ -31,6 +31,7 @@ class Asistido extends Model
         'owner',
         'comunidad_id',
         'institucion_id',
+        'user_id',
     ];
 
     /**
@@ -71,7 +72,12 @@ class Asistido extends Model
         return $this->belogsTo('App\User');
     }
 
-    public function createdBy ()
+    // public function createdBy ()
+    // {
+    //     return $this->belogsTo('App\User');
+    // }
+
+    public function user ()
     {
         return $this->belogsTo('App\User');
     }

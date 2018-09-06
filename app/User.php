@@ -61,8 +61,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Asistido', 'owner');
     }
 
-    public function creators(){
-        return $this->hasMany('App\Asistido', 'createdBy');
+    public function asistidos(){
+        return $this->hasMany('App\Asistido');
     }
+
+    // public function creators(){
+    //     return $this->hasMany('App\Asistido', 'createdBy');
+    // }
     
 }
