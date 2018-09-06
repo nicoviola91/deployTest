@@ -92,8 +92,8 @@
     	<div class="callout callout-success" style="background-color: #9da6a2 !important; border-color: #7f7f7f !important; margin-bottom: 10px; padding: 5px 20px 5px 20px !important;">
             <h5>Si querés ayudar, podés acercar tus donaciones a alguno de los siguientes puntos:</h5>
 	            <ul>
-	            	<li>Avenida blalbla 13343</li>
-	            	<li>Avenida Del libertador ajkskja</li>
+	            	<li ><a href="http://www.lumencor.org/mapa.html">Posaderos Asociados</a></li>
+	            	<li ><a href="https://www.caritas.org.ar/sumate/">Caritas</li>
 	            </ul>
 	        <h5>O podés llenar el siguiente formulario para que nos pongamos en contacto con vos: </h5>  
         </div>
@@ -114,39 +114,39 @@
 					@endif
 				</div>
 
-				<div class="form-group {{ $errors->has('cuit') ? ' has-error' : '' }} col-md-6">
-					<label for="cuit">Apellido</label>
-					<input type="text" class="form-control" id="cuit" placeholder="CUIT" name="cuit">
-					@if ($errors->has('cuit'))
+				<div class="form-group {{ $errors->has('apellido') ? ' has-error' : '' }} col-md-6">
+					<label for="apellido">Apellido</label>
+					<input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido">
+					@if ($errors->has('apellido'))
 					<span class="help-block">
-					    <strong>{{ $errors->first('cuit') }}</strong>
+					    <strong>{{ $errors->first('apellido') }}</strong>
 					</span>
 					@endif
 				</div>
 
-				<div class="form-group {{ $errors->has('telefono') ? ' has-error' : '' }} col-md-12">
-					<label for="telefono">Telefono de Contacto</label>
-					<input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
-					@if ($errors->has('telefono'))
+				<div class="form-group {{ $errors->has('tel_contacto') ? ' has-error' : '' }} col-md-12">
+					<label for="tel_contacto">Telefono de Contacto</label>
+					<input type="text" class="form-control" id="tel_contacto" placeholder="Teléfono" name="tel_contacto">
+					@if ($errors->has('tel_contacto'))
 					<span class="help-block">
-					    <strong>{{ $errors->first('telefono') }}</strong>
+					    <strong>{{ $errors->first('tel_contacto') }}</strong>
 					</span>
 					@endif
 				</div>
 
-				<div class="form-group {{ $errors->has('responsable') ? ' has-error' : '' }} col-md-12">
+				<div class="form-group {{ $errors->has('mail_contacto') ? ' has-error' : '' }} col-md-12">
 					<label for="responsable">Email de Contacto</label>
-					<input type="text" class="form-control" id="responsable" placeholder="Responsable" name="responsable">
-					@if ($errors->has('responsable'))
+					<input type="text" class="form-control" id="mail_contacto" placeholder="Mail" name="mail_contacto">
+					@if ($errors->has('mail_contacto'))
 					<span class="help-block">
-					    <strong>{{ $errors->first('responsable') }}</strong>
+					    <strong>{{ $errors->first('mail_contacto') }}</strong>
 					</span>
 					@endif
 				</div>
 
-				<div class="form-group {{ $errors->has('responsable') ? ' has-error' : '' }} col-md-12">
-					<label for="responsable">Mensaje</label>
-					<textarea class="form-control" rows="4"> ¡Hola! Estoy dispuesto a ayudar con esta Necesidad. Por favor pónganse en contacto conmigo para coordinar.</textarea>
+				<div class="form-group {{ $errors->has('mensaje') ? ' has-error' : '' }} col-md-12">
+					<label for="mensaje">Mensaje</label>
+					<textarea class="form-control" rows="4" name="mensaje"> ¡Hola! Estoy dispuesto a ayudar con esta Necesidad. Por favor pónganse en contacto conmigo para coordinar.</textarea>
 				</div>
 			</div>
 	      
