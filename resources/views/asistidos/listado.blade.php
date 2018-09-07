@@ -80,7 +80,7 @@
 						
 					<td class="text-center" style="vertical-align: middle;">{{$asistido->id}}</td>
 						<!-- <td class="text-center" style="vertical-align: middle;">{{$asistido->nombre}}</td> -->
-						<td class="" style="vertical-align: middle;">{{$asistido->apellido}}, {{$asistido->nombre}}</td>
+						<td class="" style="vertical-align: middle;">{{ucwords($asistido->apellido)}}, {{ucwords($asistido->nombre)}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->dni}}</td>
 						<td class="" style="vertical-align: middle;">
 							<?php if (isset($asistido->user)): ?>
