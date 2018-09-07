@@ -112,7 +112,7 @@ class AsistidoController extends Controller
         
         $asistido->createdBy=Auth::user()->id; //Usuario que creo el asistido
         $asistido->owner = $alerta->user_id; //Usuario que creo la alerta
-        $asistido->user = Auth::user()->id;
+        $asistido->user_id = Auth::user()->id;
 
         $asistido->save();
         
@@ -153,7 +153,7 @@ class AsistidoController extends Controller
         
         $asistido->createdBy=Auth::user()->id;
         $asistido->owner = Auth::user()->id;
-        $asistido->user = Auth::user()->id;
+        $asistido->user_id = Auth::user()->id;
 
         if (isset($request->comunidad_id)) {
             
