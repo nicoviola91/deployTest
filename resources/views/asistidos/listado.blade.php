@@ -64,7 +64,7 @@
 				<tr style="background-color: #f4f4f4;">
 					<th>#</th>
 					<th class="text-center">Nombre</th>
-					<th class="text-center">Apellido</th>
+					<!-- <th class="text-center">Apellido</th> -->
 					<th class="text-center">Documento</th>
 					<th class="text-center" >Usuario</th>
 					<th class="text-center" style="max-width: 150px;">Comunidad</th>
@@ -79,14 +79,45 @@
 					<tr>
 						
 					<td class="text-center" style="vertical-align: middle;">{{$asistido->id}}</td>
-						<td class="text-center" style="vertical-align: middle;">{{$asistido->nombre}}</td>
-						<td class="text-center" style="vertical-align: middle;">{{$asistido->apellido}}</td>
+						<!-- <td class="text-center" style="vertical-align: middle;">{{$asistido->nombre}}</td> -->
+						<td class="" style="vertical-align: middle;">{{$asistido->apellido}}, {{$asistido->nombre}}</td>
 						<td class="text-center" style="vertical-align: middle;">{{$asistido->dni}}</td>
-						<td class="text-center" style="vertical-align: middle;">{{$asistido->createdBy}}</td>
+						<td class="" style="vertical-align: middle;">
+							<?php if (isset($asistido->user)): ?>
+								{{$asistido->user->name}} {{$asistido->user->apellido}}
+								<br><span class="text-muted"><small>{{strtoupper($asistido->user->tipoUsuario->nombre)}}</small></span> 
+							<?php endif ?>
+						</td>
 						<td class="text-center" style="vertical-align: middle;">
-							<?php foreach ($asistido->comunidades as $comunidad): ?>
-								<span class="label label-default"><?php echo $comunidad->nombre ?></span>
-							<?php endforeach ?>
+							<?php if (count($asistido->comunidades)): ?>
+
+								<?php if (count($asistido->comunidades) == 1) { ?>
+									<?php foreach ($asistido->comunidades as $comunidad): ?>
+										<span class="label label-default"><?php echo $comunidad->nombre ?></span>
+									<?php endforeach ?>	
+								<?php } else { ?>
+									<?php $i=0; ?>
+
+									<span class="label label-default"><?php echo $asistido->comunidades->first()->nombre ?></span>
+									<small><a tabindex="0" id="popover" class="popover-dismiss" data-toggle="popover" data-html="true" data-trigger="focus" title="Comunidades" data-content="<?php foreach ($asistido->comunidades as $comunidad): ?>
+											<?php if ($i!=0): ?>
+												<span class='label label-default'><?php echo $comunidad->nombre ?></span>									
+											<?php endif ?>
+											<?php $i++; ?>
+										<?php endforeach ?>">(ver +)</a></small>
+										
+										<?php foreach ($asistido->comunidades as $comunidad): ?>
+											<?php if ($i!=0): ?>
+												<span class="hidden"><?php echo $comunidad->nombre ?></span>									
+											<?php endif ?>
+											<?php $i++; ?>
+										<?php endforeach ?>
+									
+
+								<?php } ?>
+								
+							<?php endif ?>
+								
 						</td>
 						<td class="text-center" style="vertical-align: middle;">
 							<?php echo isset($asistido->institucion) ? $asistido->institucion->nombre : '' ?>
@@ -153,6 +184,8 @@
 			}
 		});
 	});
+
+	$('#popover').popover()
 
 </script>
 

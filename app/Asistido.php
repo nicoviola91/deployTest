@@ -69,7 +69,7 @@ class Asistido extends Model
 
     public function owner ()
     {
-        return $this->belogsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 
     // public function createdBy ()
@@ -79,7 +79,7 @@ class Asistido extends Model
 
     public function user ()
     {
-        return $this->belogsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function comunidades(){
