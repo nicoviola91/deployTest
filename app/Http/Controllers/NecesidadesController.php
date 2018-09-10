@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Necesidad;
+use App\Donacion;
 use Illuminate\Http\Request;
 
 class NecesidadesController extends Controller
@@ -57,9 +58,17 @@ class NecesidadesController extends Controller
         return view('necesidades.listado', $data);
     }
 
-    public function nueva_donacion()
+    public function nueva_donacion(Request $request)
     {
-
+        $donac = new Donacion();
+        $donac->nombre=$request->nombre;
+        $donac->apellido=$request->apellido;
+        $donac->tel_contacto=$request->tel_contacto;
+        $donac->mail_contacto=$request->mail_contacto;
+        $donac->mensaje=$request->mensaje;
+        $donac->save();
+        $data['necesidades'] = necesidad::all();
+        return view('necesidades.listado', $data);
     }
 
 

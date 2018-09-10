@@ -101,20 +101,20 @@
             <h5>Si querés ayudar, podés acercar tus donaciones a alguno de los siguientes puntos:</h5>
 	            <ul>
 	            	<li ><a href="http://www.lumencor.org/mapa.html">Posaderos Asociados</a></li>
-	            	<li ><a href="https://www.caritas.org.ar/sumate/">Caritas</li>
+	            	<li ><a href="https://www.caritas.org.ar/sumate/">Caritas</a></li>
 	            </ul>
 	        <h5>O podés llenar el siguiente formulario para que nos pongamos en contacto con vos: </h5>  
         </div>
         </div>
 
-      <form id="nuevaComunidad-form" method="POST" action="{{ url('/necesidades/donate') }}" autocomplete="off">
+      <form id="nueva_donacion" method="POST" action="{{ url('/necesidad/donate') }}" autocomplete="off">
 			
 			{{ csrf_field() }}
 	     	
 	     	<div class="box-body">
 	     		<div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }} col-md-6">
 					<label for="nombre">Nombre</label>
-					<input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required>
+					<input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
 					@if ($errors->has('nombre'))
 					<span class="help-block">
 					    <strong>{{ $errors->first('nombre') }}</strong>

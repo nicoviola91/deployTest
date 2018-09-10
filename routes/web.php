@@ -193,6 +193,10 @@ Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
         'uses'=>'NecesidadesController@public_list',
         'as'=>'necesidad.public'
     ]);
+    Route::post('/donate',[
+        'uses'=>'NecesidadesController@nueva_donacion',
+        'as'=>'necesidad.donate'
+    ]);
 });
 
 //ASISTIDOS

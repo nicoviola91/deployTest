@@ -123,7 +123,11 @@ class AsistidoController extends Controller
             /* Alerto a la comunidad del alta de un nuevo asistido
             $usuariosNotif = User::where('comunidad_id',$request->comunidad);
             foreach ($usuarioNotif as $usuario) {
-                $usuario->notify(new AltaAlerta($asistido));    
+                $usuario->notify(new AltaAlerta($asistido)); 
+                Mail::send('emails.welcome', ['key' => 'value'], function($message)
+                {
+                    $message->to('foo@example.com', 'John Smith')->subject('Welcome!');
+                });   
             }
             */ 
         }

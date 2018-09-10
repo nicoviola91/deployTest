@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donacion extends Model
 {
-    protected $table="direcciones";
+    protected $table="donaciones";
     protected $fillable = [
         'nombre',
         'apellido',
