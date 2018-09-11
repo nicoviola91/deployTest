@@ -3,6 +3,7 @@
 <li><a href="{{url('/home')}}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
 <li><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
 
+
 <li class="treeview">
   <a href="#">
     <i class="fa fa-bullhorn"></i>

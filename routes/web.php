@@ -199,6 +199,18 @@ Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
     ]);
 });
 
+//REPORTES-BUSQEUDA
+Route::group(['prefix'=>'report','middleware'=>['admin']],function(){
+    Route::get('/search',[
+        'uses'=>'ReportController@showSearch',
+        'as'=>'report.show'
+    ]);
+    Route::get('/public',[
+        'uses'=>'NecesidadesController@public_list',
+        'as'=>'necesidad.public'
+    ]);
+});
+
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[
