@@ -69,7 +69,7 @@
 									<td class="text-center" style="vertical-align: middle;"><span class="label label-danger">Insatisfecha</span></td>
 									<td class="text-center" style="vertical-align: middle;">{{ Carbon\Carbon::parse($necesidad->created_at)->format('d/m/Y') }}</td>
 									<td class="text-center" style="vertical-align: middle;">
-										<a href="#modal-donar" data-id="{{$necesidad->id}}" data-toggle="modal" data-title="Donar"> <i class="icon fa fa-handshake-o fa-2x fa-fw text-blue"></i></a>
+										<a href="javascript:void(0)" data-id="{{$necesidad->id}}" data-toggle="modal" data-title="Donar" class="botonDonar"> <i class="icon fa fa-handshake-o fa-2x fa-fw text-blue"></i></a>
 									</td> 
 										
 									</tr>
@@ -115,6 +115,7 @@
 	     		<div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }} col-md-6">
 					<label for="nombre">Nombre</label>
 					<input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
+					<input type="text" class="form-control" id="id_necesidad" name="id_necesidad" required>
 					@if ($errors->has('nombre'))
 					<span class="help-block">
 					    <strong>{{ $errors->first('nombre') }}</strong>
@@ -175,6 +176,17 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+	$('.botonDonar').click(function () {
+
+		id = $(this).data('id');
+
+		$('#id_necesidad').val(id);
+
+		$('#modal-donar').modal('show');
+
+
+	})
 	
 	$(function () {
 
