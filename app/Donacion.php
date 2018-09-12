@@ -13,9 +13,10 @@ class Donacion extends Model
         'tel_contacto',
         'mail_contacto',
         'mensaje',
+        'necesidad_id'
     ];
 
     public function necesidad(){
-    	return $this->hasOne('App\Necesidad');
+    	return $this->belongsTo('App\Necesidad');
     }
 }
