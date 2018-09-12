@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDonacionIdToNecesidadesTable extends Migration
+class AddFkDonacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddDonacionIdToNecesidadesTable extends Migration
      */
     public function up()
     {
-        Schema::table('necesidades', function (Blueprint $table) {
-            $table->integer('donacion_id')->unsigned()->nullable();
-            $table->foreign('donacion_id')->references('id')->on('donaciones');
+        Schema::table('donaciones', function (Blueprint $table) {
+            $table->integer('necesidad_id')->unsigned()->nullable();
+            $table->foreign('necesidad_id')->references('id')->on('necesidades');
         });
     }
 
@@ -27,8 +27,8 @@ class AddDonacionIdToNecesidadesTable extends Migration
     public function down()
     {
         Schema::table('donaciones', function (Blueprint $table) {
-            $table->dropColumn('donacion_id');
-            $table->dropForeign('donacion_id');
+            $table->dropColumn('necesidad_id');
+            $table->dropForeign('necesidad_id');
         });
     }
 }
