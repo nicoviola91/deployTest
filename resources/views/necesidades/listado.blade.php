@@ -115,7 +115,7 @@
 	     		<div class="form-group {{ $errors->has('nombre') ? ' has-error' : '' }} col-md-6">
 					<label for="nombre">Nombre</label>
 					<input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
-					<input type="text" class="form-control hidden" id="id_necesidad" name="id_necesidad" required readonly>
+					<input type="text" class="form-control hidden" id="necesidad_id" name="necesidad_id" required readonly>
 					@if ($errors->has('nombre'))
 					<span class="help-block">
 					    <strong>{{ $errors->first('nombre') }}</strong>
@@ -181,7 +181,7 @@
 
 		id = $(this).data('id');
 
-		$('#id_necesidad').val(id);
+		$('#necesidad_id').val(id);
 
 		$('#modal-donar').modal('show');
 

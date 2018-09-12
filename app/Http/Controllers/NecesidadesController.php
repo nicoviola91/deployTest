@@ -66,6 +66,7 @@ class NecesidadesController extends Controller
         $donac->tel_contacto=$request->tel_contacto;
         $donac->mail_contacto=$request->mail_contacto;
         $donac->mensaje=$request->mensaje;
+        $donac->necesidad_id = $request->necesidad_id;
         $donac->save();
         $data['necesidades'] = necesidad::all();
         return view('necesidades.listado', $data);
