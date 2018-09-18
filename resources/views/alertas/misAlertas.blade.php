@@ -293,13 +293,17 @@
 								<td class="vert-aligned text-center" style="vertical-align: middle;">{{ isset($alerta->institucion->nombre) ? $alerta->institucion->nombre : '' }}</td>
 								
 								<td class="vert-aligned text-center">
-									<?php if (isset($alerta->asistido_id)) { ?>
+									<?php if ($alerta->estado == 1) { ?>
 										
 										<span class="label label-success"><i class="fa icon fa-check-circle"></i> SE PRESENTÓ </span>
 
-									<?php } else { ?>
+									<?php } elseif ($alerta->estado == 0) { ?>
 
 										<span class="label label-default"><i class="fa icon fa-clock-o"></i> PENDIENTE </span>
+									
+									<?php } elseif ($alerta->estado == 2) { ?>
+
+										<span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
 
 									<?php } ?>
 								</td>	
