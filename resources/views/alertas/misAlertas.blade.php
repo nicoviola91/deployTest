@@ -220,7 +220,7 @@
 									
 									<?php } elseif ($alerta->estado == 2) { ?>
 
-										<span class="label label-danger"><i class="fa icon fa-clock-o"></i> DESCARTADA </span>
+										<span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
 
 									<?php } ?>
 								</td>	
