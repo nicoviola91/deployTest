@@ -32,7 +32,13 @@
 		    border-radius: 300px;
 		    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     	}
-
+      .boton-mapa{
+        cursor: pointer;
+      }
+      .boton-mapa:hover{
+        background: #f0c7c7;
+        border-radius: 8px;  
+      }
     </style>
 
 @endsection
@@ -180,7 +186,8 @@
 	    $('#contenido').remove();
 	});	
   $('.boton-mapa').click(function(){
-    window.location.href='http://www.lumencor.org/mapa.html';
+    // window.location.href='http://www.lumencor.org/mapa.html';
+    window.open('http://www.lumencor.org/mapa.html');
   });
 
 </script>
