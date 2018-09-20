@@ -160,9 +160,9 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Sumate </h4>
+            <h4 class="modal-title"><i class="icon fa fa-user-plus"></i> Sumate </h4>
           </div>
-          <div class="callout callout-success" style="background-color: #9da6a2 !important; border-color: #7f7f7f !important; margin-bottom: 10px; padding: 5px 20px 5px 20px !important;">
+          <div class="callout callout-success">
             <h5>Pedile al coordinador de tu Noche de Caridad que te agregue a la Comunidad</h5>
         </div>
         </div>
