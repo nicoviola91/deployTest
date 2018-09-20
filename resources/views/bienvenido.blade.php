@@ -72,7 +72,7 @@
       <div class="container">
         <div class="row">
         	
-        	<div class="col-lg-3 col-md-6 text-center">
+        	<div class="col-lg-3 col-md-6 text-center boton-mapa" >
 	            <div class="service-box mt-5 mx-auto">
 	              <i class="fa fa-4x fa-map-o text-primary mb-3 sr-icons"></i>
 	              <h3 class="mb-3">Posaderos</h3>
@@ -179,6 +179,9 @@
 	$( document ).ready(function() {
 	    $('#contenido').remove();
 	});	
+  $('.boton-mapa').click(function(){
+    window.location.href='http://www.lumencor.org/mapa.html';
+  });
 
 </script>
 
