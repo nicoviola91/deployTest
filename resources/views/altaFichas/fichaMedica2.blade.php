@@ -412,7 +412,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="alergicoA">Observacion Discapacidad</label>
-                        <input type="text" class="form-control" id="observacionDiscapacidad" placeholder="Detalle sobre discaacidad" name="observacionDiscapacidad" maxlength="250" value={{isset($fichaMedica->observacionDiscapacidad) ? ($fichaMedica->observacionDiscapacidad) : '' }}>
+                        <input type="text" class="form-control" id="observacionDiscapacidad" placeholder="Detalle sobre discapacidad" name="observacionDiscapacidad" maxlength="250" value={{isset($fichaMedica->observacionDiscapacidad) ? ($fichaMedica->observacionDiscapacidad) : '' }}>
                             @if ($errors->has('observacionDiscapacidad'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('observacionDiscapacidad') }}</strong>

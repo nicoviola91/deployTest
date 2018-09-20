@@ -219,12 +219,26 @@ class FichaMedicaController extends Controller
         }else{
             $obraSocialValue=0;
         }
-        
+        if($request->discapacidadVisual=='on'){
+            $discapacidadVisual=1;
+        }else{
+            $discapacidadVisual=0;
+        }
+        if($request->discapacidadAuditiva=='on'){
+            $discapacidadAuditiva=1;
+        }else{
+            $discapacidadAuditiva=0;
+        }
+        if($request->discapacidadMotriz=='on'){
+            $discapacidadMotriz=1;
+        }else{
+            $discapacidadMotriz=0;
+        }
         
         $ficha = FichaMedica::where('asistido_id',$asistido_id);
         
         if ($ficha->update(['altura'=>$request->altura,'peso'=>$request->peso,'checkAlergico'=>$alergicoValue,
-        'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes,'observacionDiscapacidad'=>$request->observacionDiscapacidad, 'discapacidadVisual'=>$request->discapacidadVisual,'discapacidadAuditiva'=>$request->discapacidadAuditiva,'discapacidadMotriz'=>$request->discapacidadMotriz])) {
+        'checkObraSocial'=>$obraSocialValue,'alergicoA'=>$request->alergicoA,'obraSocial'=>$request->obraSocial,'antecedentes'=>$request->antecedentes,'observacionDiscapacidad'=>$request->observacionDiscapacidad, 'discapacidadVisual'=>$discapacidadVisual,'discapacidadAuditiva'=>$discapacidadAuditiva,'discapacidadMotriz'=>$discapacidadMotriz])) {
             
             return response()->json([
                 'status' => true,
