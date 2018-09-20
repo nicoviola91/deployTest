@@ -111,7 +111,7 @@
     <section class="bg-dark text-white">
       <div class="container text-center">
         <h3 class="mb-4" style="color: white;">¿Querés obtener mas información?</h3>
-        <a class="btn btn-light btn-xl sr-button btnCreative" style="background-color: #fefefea6;" href="http://www.lumencor.com.ar">QUIENES SOMOS</a>
+        <a class="btn btn-light btn-xl sr-button btnCreative" style="background-color: #fefefea6;" href="http://www.lumencor.org">QUIENES SOMOS</a>
       </div>
     </section>
 
@@ -135,7 +135,7 @@
         <div class="row">
         	<br>
         	<div class="col-lg-12">
-        		<a href="javascript:void(0)" id="btnSumate">
+        		<a href="javascript:void(0)" id="btnSumate" data-toggle="modal" data-target="#modal-sumate">
         			<div class="col-lg-12 ml-auto text-center">
         				<i class="fa fa-3x mb-3 sr-contact icon fa-plus-square"></i>
         				<p>Sumate</p>
@@ -153,7 +153,21 @@
         <h4 class="mb-4" style="color: #eee;">Desarrollado por la Facultad de Ingeniería y Ciencias Agrarias de la UCA</h4>
       </div>
     </section>
-
+    {{-- Modal para sumarte --}}
+    <div class="modal fade" id="modal-sumate">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="icon fa fa-exclamation-triangle"></i> Sumate </h4>
+          </div>
+          <div class="callout callout-success" style="background-color: #9da6a2 !important; border-color: #7f7f7f !important; margin-bottom: 10px; padding: 5px 20px 5px 20px !important;">
+            <h5>Pedile al coordinador de tu Noche de Caridad que te agregue a la Comunidad</h5>
+        </div>
+        </div>
+      </div>
+    </div>
 	
 @endsection
 
