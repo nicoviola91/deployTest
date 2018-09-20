@@ -219,7 +219,21 @@ class FichaMedicaController extends Controller
         }else{
             $obraSocialValue=0;
         }
-        
+        if($request->discapacidadVisual=='on'){
+            $discapacidadVisual=1;
+        }else{
+            $discapacidadVisual=0;
+        }
+        if($request->discapacidadAuditiva=='on'){
+            $discapacidadAuditiva=1;
+        }else{
+            $discapacidadAuditiva=0;
+        }
+        if($request->discapacidadMotriz=='on'){
+            $discapacidadMotriz=1;
+        }else{
+            $discapacidadMotriz=0;
+        }
         
         $ficha = FichaMedica::where('asistido_id',$asistido_id);
         
