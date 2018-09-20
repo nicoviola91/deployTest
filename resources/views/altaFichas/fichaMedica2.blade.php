@@ -382,8 +382,44 @@
                             </span>
                             @endif
                         </div>
-    
-
+                        {{-- Discapacidades --}}
+                        <div class="col-md-12 form-group {{ $errors->has('discapacidadVisual') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="discapacidadVisual" name="discapacidadVisual" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadVisual) && ($fichaMedica->discapacidadVisual==1) ? 'checked':''}}>
+                            @if ($errors->has('discapacidadVisual'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('discapacidadVisual') }}</strong>
+                            </span>
+                            @endif
+                            <label for="discapacidadVisual">Discapacidad Visual</label>
+                        </div>
+                        <div class="col-md-12 form-group {{ $errors->has('discapacidadAuditiva') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="discapacidadAuditiva" name="discapacidadAuditiva" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadAuditiva) && ($fichaMedica->discapacidadAuditiva==1) ? 'checked':''}}>
+                            @if ($errors->has('discapacidadAuditiva'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('discapacidadAuditiva') }}</strong>
+                            </span>
+                            @endif
+                            <label for="discapacidadAuditiva">Discapacidad Auditiva</label>
+                        </div>
+                        <div class="col-md-12 form-group {{ $errors->has('discapacidadMotriz') ? ' has-error' : '' }}">
+                            <input type="checkbox" id="discapacidadMotriz" name="discapacidadMotriz" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadMotriz) && ($fichaMedica->discapacidadMotriz==1) ? 'checked':''}}>
+                            @if ($errors->has('discapacidadMotriz'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('discapacidadMotriz') }}</strong>
+                            </span>
+                            @endif
+                            <label for="discapacidadAuditiva">Discapacidad Motriz</label>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="alergicoA">Observacion Discapacidad</label>
+                        <input type="text" class="form-control" id="observacionDiscapacidad" placeholder="Detalle sobre discaacidad" name="observacionDiscapacidad" maxlength="250" value={{isset($fichaMedica->observacionDiscapacidad) ? ($fichaMedica->observacionDiscapacidad) : '' }}>
+                            @if ($errors->has('observacionDiscapacidad'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('observacionDiscapacidad') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        {{-- Fin Discapacidades --}}
                         <div class="col-md-12 form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
                             <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->checkAlergico) && ($fichaMedica->checkAlergico==1) ? 'checked':''}}>
                             @if ($errors->has('checkAlergico'))
@@ -1318,6 +1354,20 @@
         }else{
             $('.checkAlergico').hide()   
             document.getElementById("alergicoA").required = false
+        }
+    }
+
+    function discapacidadesFunction(){
+        var chkVisual = document.getElementById("discapacidadVisual")
+        var chkMotriz = document.getElementById("discapacidadMotriz")   
+        var chkAuditiva = document.getElementById("discapacidadAuditiva")
+        if (chkVisual.checked == true || chkAuditiva.checked == true || chkMotriz.checked == true){
+            $('.observacionDiscapacidad').show()
+            // document.getElementById("observacionDiscapacidad").required = true
+            
+        }else{
+            $('.observacionDiscapacidad').hide()   
+            // document.getElementById("observacionDiscapacidad").required = false
         }
     }
 
