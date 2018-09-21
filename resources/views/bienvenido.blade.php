@@ -32,12 +32,13 @@
 		    border-radius: 300px;
 		    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     	}
-      .boton-mapa{
+      .boton{
         cursor: pointer;
       }
-      .boton-mapa:hover{
-        background: #f0c7c7;
-        border-radius: 8px;  
+      .boton:hover{
+        /*background: #f0c7c7;*/
+        /*border-radius: 8px;  */
+        font-weight: bold;
       }
     </style>
 
@@ -78,7 +79,7 @@
       <div class="container">
         <div class="row">
         	
-        	<div class="col-lg-3 col-md-6 text-center boton-mapa" >
+        	<div class="col-lg-3 col-md-6 text-center boton mapa" >
 	            <div class="service-box mt-5 mx-auto">
 	              <i class="fa fa-4x fa-map-o text-primary mb-3 sr-icons"></i>
 	              <h3 class="mb-3">Posaderos</h3>
@@ -86,7 +87,7 @@
 	            </div>
 	        </div>
 	          
-	        <div class="col-lg-3 col-md-6 text-center">
+	        <div class="col-lg-3 col-md-6 text-center boton">
 	            <div class="service-box mt-5 mx-auto">
 	              <i class="fa fa-4x fa-users text-primary mb-3 sr-icons"></i>
 	              <h3 class="mb-3">Comunidades</h3>
@@ -94,7 +95,7 @@
 	            </div>
 	        </div>
 
-	        <div class="col-lg-3 col-md-6 text-center">
+	        <div class="col-lg-3 col-md-6 text-center boton alertas">
 	            <div class="service-box mt-5 mx-auto">
 	              <i class="fa fa-4x fa-exclamation-circle text-primary mb-3 sr-icons"></i>
 	              <h3 class="mb-3">Mis Alertas!</h3>
@@ -102,7 +103,7 @@
 	            </div>
 	        </div>
 	        
-	        <div class="col-lg-3 col-md-6 text-center">
+	        <div class="col-lg-3 col-md-6 text-center boton seguimiento">
 	            <div class="service-box mt-5 mx-auto">
 	              <i class="fa fa-4x fa-user text-primary mb-3 sr-icons"></i>
 	              <h3 class="mb-3">Asistidos</h3>
@@ -185,11 +186,18 @@
 	$( document ).ready(function() {
 	    $('#contenido').remove();
 	});	
-  $('.boton-mapa').click(function(){
+  $('.boton.mapa').click(function(){
     // window.location.href='http://www.lumencor.org/mapa.html';
     window.open('http://www.lumencor.org/mapa.html');
   });
-
+  $('.boton.alertas').click(function(){
+    // window.location.href='https://www.posaderos.xyz/alert/my_list';
+    window.open('https://www.posaderos.xyz/alert/my_list');
+  });
+  $('.boton.seguimiento').click(function(){
+    // window.location.href='https://www.posaderos.xyz/alert/my_list';
+    window.open('http://www.lumencor.org/#red');
+  });
 </script>
 
 @endsection
