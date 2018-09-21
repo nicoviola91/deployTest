@@ -4,7 +4,7 @@
       <h3 class="box-title"><i class="icon fa fa-id-badge fa-fw"></i> Ficha Datos Personales
       <span class="pull-right">
         <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button>
+        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
       </span>
       </h3>
     </div>
