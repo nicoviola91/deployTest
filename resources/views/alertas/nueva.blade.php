@@ -387,11 +387,11 @@
 
           <h4><i class="icon fa fa-envelope-o fa-fw"></i> Te vamos a informar por mail si la persona se presenta al Posadero! </h4>
 
-          <h4 style="margin-top: 15px;"><i class="icon fa fa-exclamation-circle fa-fw"></i> Para hacer un seguimiento de tus alertas hace <a href="">CLICK ACÁ</a></h4>
+          <h4 style="margin-top: 15px;"><i class="icon fa fa-exclamation-circle fa-fw"></i> Para hacer un seguimiento de tus alertas hace <a href="https://www.posaderos.xyz/alert/my_list">CLICK ACÁ</a></h4>
 
           <br>
 
-          <h4><i class="icon fa fa-info-circle fa-fw"></i> Si querés involucrarte mas en el seguimiento del caso o querés obtener mas información sobre como ayudar. ¡Sumáte! <a href="">CLICK ACÁ</a></h4>
+          <h4><i class="icon fa fa-info-circle fa-fw"></i> Si querés involucrarte mas en el seguimiento del caso o querés obtener mas información sobre como ayudar. ¡Sumáte! <a href="http://www.lumencor.org/#red">CLICK ACÁ</a></h4>
 
         </div>
 
