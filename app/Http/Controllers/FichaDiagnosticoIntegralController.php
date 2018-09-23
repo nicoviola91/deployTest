@@ -27,7 +27,7 @@ class FichaDiagnosticoIntegralController extends Controller
                 ->with('fichaDiagnosticoIntegral',$fichaDiagnosticoIntegral)
                 ->with('cursos',$cursos);
         }
-        return view('altaFichas.fichaDiagnosticoIntegral')->with('asistido',$asistido);
+        return view('altaFichas.fichaDiagnosticoIntegral2')->with('asistido',$asistido);
     }
 
     public function get ($asistido_id) {
