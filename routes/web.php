@@ -479,7 +479,7 @@ Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],functi
         'as'=>'fichaDiagnosticoIntegral.create',
     ]);
     Route::get('/get/{id}',[
-        'uses'=>'fichaDiagnosticoIntegralController@get',
+        'uses'=>'FichaDiagnosticoIntegralController@get',
         'as'=>'fichaDiagnosticoIntegral.get',
     ]);
     Route::post('/storeCurso/{id}',[
