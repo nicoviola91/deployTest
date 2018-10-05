@@ -130,7 +130,7 @@
             </h4>
             <p style="margin-top: 5px; margin-bottom: 30px;">
               <?php foreach ($institucion->comunidades as $comunidad): ?>
-                <span class="label label-default">{{$comunidad->nombre}}</span>  
+                <a href="{{route('comunidad.ficha',['id'=>$comunidad->id])}}" target="_blank"><span class="label label-default">{{$comunidad->nombre}}</span></a>  
               <?php endforeach ?>   
             </p>
             

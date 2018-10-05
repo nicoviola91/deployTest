@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\InstitucionRequest;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use Illuminate\Support\Facades\DB;
 
 class InstitucionController extends Controller
 {
@@ -107,13 +108,8 @@ class InstitucionController extends Controller
         $comunidades = $data['institucion']->comunidades();
         $data['comunidades'] = $comunidades->count();
 
-        $asistidos = 0;
-        
-        foreach ($comunidades as $comunidad) {
-            $asistidos+= ($comunidad->asistidos()->count());
-        }
-
-        $data['asistidos'] = $asistidos;
+        $data['asistidos'] = count(DB::select('SELECT DISTINCT asistido_comunidad.asistido_id FROM asistido_comunidad INNER JOIN comunidades ON comunidades.id = asistido_comunidad.comunidad_id WHERE comunidades.institucion_id = :id', ['id' => 1]));
+        $data['miembros'] = count(DB::select('SELECT DISTINCT user_id FROM comunidad_user INNER JOIN comunidades ON comunidades.id = comunidad_user.comunidad_id WHERE comunidades.institucion_id = :id', ['id' => 1]));
 
         $view = view('instituciones.boxInstitucion', $data)->render();
 

@@ -82,9 +82,10 @@
 
 				<li><a href="#"> <i class="fa icon fa-fw fa-users"></i> Comunidades <span class="pull-right badge bg-purple"><?php echo isset($comunidades) ? $comunidades : ' - ' ?></span></a></li>
 				<li><a href="#"> <i class="fa icon fa-fw fa-user"></i> Asistidos <span class="pull-right badge bg-teal"><?php echo isset($asistidos) ? $asistidos : ' - ' ?></span></a></li>
+				<li><a href="#"> <i class="fa icon fa-fw fa-user-circle"></i> Usuarios <span class="pull-right badge bg-red"><?php echo isset($miembros) ? $miembros : ' - ' ?></span></a></li>
 
 				<li>
-					<a href="#" class="btn btn-default loadingLink" target="_blank"> <i class="icon fa fa-plus fa-fw"></i> VER PERFIL	</a>
+					<a href="{{route('institucion.ficha',['id'=>$institucion->id])}}" class="btn btn-default" target="_blank"> <i class="icon fa fa-plus fa-fw"></i> VER PERFIL	</a>
 				</li>
 
 			</ul>
