@@ -187,6 +187,7 @@
                     <div class="form-group col-md-6 {{ $errors->has('tipo') ? ' has-error' : '' }}">
                       <label for="tipo">Tipo</label>
                       <select class="form-control" id="tipo" name="tipo">
+                        <option value="iglesia" <?php echo $institucion->tipo == "iglesia" ? ' selected ' : '' ?>>Iglesia</option>
                         <option value="posadero" <?php echo $institucion->tipo == "posadero" ? ' selected ' : '' ?>>Posadero</option>
                         <option value="externa" <?php echo $institucion->tipo == "externa" ? ' selected ' : '' ?>>Institución Externa</option>
                       </select>
