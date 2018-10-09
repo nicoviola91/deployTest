@@ -21,6 +21,10 @@
     <script src="{{ asset('/datatables/extensions/Export/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('/datatables/extensions/Export/buttons.html5.min.js') }}"></script>
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('/select2/select2.min.css') }}">
+    <script src="{{ asset('/select2/select2.full.min.js') }}"></script>
+
 @endsection
 
 
@@ -150,9 +154,9 @@
                         <label for="edadDesde" class="col-md-2 control-label">Edad</label> 
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input name="edadDesde" class="form-control" id="edadDesde" style="width: 100%;" type="text" placeholder="Desde" value="">
+                                <input name="edadDesde" class="form-control" id="edadDesde" style="width: 100%;" type="text" placeholder="Desde" value="" min="0">
                                 <span class="input-group-addon fa-fw">-</span>
-                                <input name="edadHasta" class="form-control" id="edadHasta" style="width: 100%;" type="text" placeholder="Hasta" value="">
+                                <input name="edadHasta" class="form-control" id="edadHasta" style="width: 100%;" type="text" placeholder="Hasta" value="" min="0">
                             </div>
                         </div>
                     </div>
@@ -171,9 +175,8 @@
                     <div class="form-group divComunidad" style="display: none;">
                         <label for="comunidad" class="col-md-2 control-label">Comunidad</label>
                         <div class="col-md-4">
-                            <select class="form-control select2" data-placeholder="Comunidades" name="comunidad" style="width: 100%;" id="comunidad">
+                            <select class="form-control select2" multiple="multiple" data-placeholder="Comunidades" name="comunidad[]" style="width: 100%;" id="comunidad">
                                 <?php $institucion = 0; ?>
-                                <option disabled selected value> Seleccionar ... </option>
                                 <?php foreach ($comunidades as $comunidad): ?>  
 
                                   <?php if ($institucion != $comunidad->institucion_id): ?>
@@ -400,15 +403,13 @@
 
         e.preventDefault();
 
+        formData = new FormData($('#formBusqueda')[0]);
 
-        if (false) {
+        if (!$('#formBusqueda')[0].checkValidity()) {
 
             //VALIDACION
-            lanzarAlerta('peligro', "Por favor, ingresá un mensaje en el campo de texto.");
-
+            lanzarAlerta('peligro', 'Error en el formulario. Completa todos los datos requeridos.');
         } else {
-
-            formData = new FormData($('#formBusqueda')[0]);
 
             bootbox.dialog({
                 message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se realiza la búsqueda.</p>',
@@ -448,10 +449,10 @@
                                     extend: 'excel', 
                                     text: '<i class="icon fa fa-file-excel-o fa-fw"></i>Exportar a Excel',
                                     title: 'Resultados',
-                                    exportOptions: 
-                                    {
-                                        //columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
-                                    }
+                                    // exportOptions: 
+                                    // {
+                                    //     columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+                                    // }
                                 },
                             ],
 
@@ -493,6 +494,8 @@
         
         window.open("{{url('asistido/show2/')}}/"+id);
     });
+
+    $('.select2').select2();
 
 </script>
 

@@ -86,6 +86,25 @@ class ReportController extends Controller
 				$sql.=(" AND asistidos.institucion_id = '".$request->posadero."'");
 			}
 
+			if ($request->checkComunidad) {
+				
+				$temp="(SELECT asistido_id FROM asistido_comunidad WHERE";
+
+				$comunidades = $request->input('comunidad');
+
+				foreach ($comunidades as $key => $comunidad) {
+					
+					if ($key == 0)
+						$temp.=(" asistido_comunidad.comunidad_id = '".$comunidad."'");
+					else
+						$temp.=(" OR asistido_comunidad.comunidad_id = '".$comunidad."'");
+				}
+
+				$temp.=")";
+
+				$sql.=(" AND asistidos.id IN " . $temp);
+			}
+
 			if ($request->checkFechaAlta) {
 				$sql.=(" AND asistidos.created_at BETWEEN '".$request->altaDesde."' AND '".$request->altaHasta."'");
 			}
