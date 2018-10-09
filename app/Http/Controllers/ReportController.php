@@ -75,7 +75,7 @@ class ReportController extends Controller
 			}
 
 			if ($request->checkEdad) {
-				$sql.=(" AND edad BETWEEN '".$request->edadDesde."' AND '".$request->edadHasta."'");
+				$sql.=(" AND TIMESTAMPDIFF(YEAR, asistidos.fechaNacimiento, CURDATE()) BETWEEN '".$request->edadDesde."' AND '".$request->edadHasta."'");
 			}
 
 			if ($request->checkNacionalidad) {
@@ -94,6 +94,7 @@ class ReportController extends Controller
 
 			$view = view('reportes.resultados')
             ->with('resultados',$resultados)
+            ->with('sql',$sql)
             ->render();
 
             return response()->json([
