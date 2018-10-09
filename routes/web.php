@@ -205,9 +205,9 @@ Route::group(['prefix'=>'report','middleware'=>['admin']],function(){
         'uses'=>'ReportController@showSearch',
         'as'=>'report.show'
     ]);
-    Route::get('/public',[
-        'uses'=>'NecesidadesController@public_list',
-        'as'=>'necesidad.public'
+    Route::post('/search',[
+        'uses'=>'ReportController@search',
+        'as'=>'report.search'
     ]);
 });
 

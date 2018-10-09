@@ -29,48 +29,6 @@
 
 @section('content')
 
-<!-- <div class="row">
-	<div class="col-md-12">
-		<div class="box box-solid">
-
-			<div class="box-header with-border">
-              <h3 class="box-title"><i class="icon fa fa-search"></i> Búsqueda Avanzada <small class="text-muted"> <?php echo isset($q) ? '"' . strtoupper($q) . '"' : '' ?></small></h3>
-            </div>
-
-			<div class="box-body">
-				<form class="form-horizontal" autocomplete="off" method="post" action="{{ route('asistido.busqueda') }}" >
-			        {{ csrf_field() }}
-
-
-			        <div class="panel-body">
-	                    <div class="input-group">
-	                        <div class="input-group-btn search-panel" role="search">
-	                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-	                                <span id="search_concept">Interacciones</span>
-	                                <span class="caret"></span>
-	                            </button>
-	                            <ul class="dropdown-menu" role="menu">
-	                                <li><a href="#person">Asistidos</a></li>
-	                                <li><a href="#interaction">Interacciones</a></li>
-	                            </ul>
-	                        </div>
-	                        <input type="hidden" name="search_param" id="search_param">
-	                        <input type="text" id="keyWord" class="form-control" name="q" placeholder="Buscar..." autofocus="true" onkeypress="enterPressAction(event, 'Asistidos')">
-	                        
-	                        <span class="input-group-btn">
-	                            <button id="search" class="btn btn-default" type="button" onclick="buscar('Asistidos')"><span class="icon fa fa-search"></span></button>
-	                        </span>
-	                    </div>
-	                </div>
-			    </form>
-			</div>
-
-
-
-		</div>
-	</div>
-</div> -->
-
 <?php if (isset($asistidos)): ?>
 
 <div class="row">
