@@ -7,6 +7,9 @@
                 <i class="icon fa fa-list"></i> Resultados de Búsqueda 
                 <span class="text-muted" id="cantidadResultados">(<?php echo count($resultados) ?>)</span>
               </h3>
+              <div class="box-tools">
+                <a href="#" class="btn btn-md btn-success btnExport"><i class="fa fa-file-excel-o"></i> <span class="hidden-sm hidden-xs">Exportar</span></a>
+              </div>
             </div>
             <div class="box-body" style="overflow-x: auto;">
                 

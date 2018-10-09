@@ -13,6 +13,14 @@
 	<script src="{{ asset('/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
+    <!-- DATATABLES EXPORT -->
+    <link href="{{ asset('/datatables/extensions/Export/buttons.dataTables.min.css') }}" rel="stylesheet"></link>
+
+    <script src="{{ asset('/datatables/extensions/Export/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('/datatables/extensions/Export/jszip.min.js') }}"></script>
+    <script src="{{ asset('/datatables/extensions/Export/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('/datatables/extensions/Export/buttons.html5.min.js') }}"></script>
+
 @endsection
 
 
@@ -422,6 +430,32 @@
                     if (datos.status) {
 
                         $('#divResultados').html(datos.view);
+                        $('#tableResultados').DataTable({
+                            "responsive": false,
+                            "paging": false,
+                            "lengthChange": false,
+                            "searching": true,
+                            "ordering": true,
+                            "info": false,
+                            "autoWidth": false,
+
+                            "dom": "<'row'<'col-md-6'l><'col-md-6'f>>" +
+                                    "<'row'<'col-md-6'><'col-md-6'>>" +
+                                    "<'row'<'col-md-12't>><'row'<'col-md-12 no-print'iBp>>",
+
+                            buttons: [
+                                { 
+                                    extend: 'excel', 
+                                    text: '<i class="icon fa fa-file-excel-o fa-fw"></i>Exportar a Excel',
+                                    title: 'Resultados',
+                                    exportOptions: 
+                                    {
+                                        //columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+                                    }
+                                },
+                            ],
+
+                        });
                     }
                     else {
                         lanzarAlerta('peligro', datos.msg);
@@ -437,6 +471,19 @@
         }
 
     })
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).on( "click", ".btnExport", function(e) {       
+        
+        e.preventDefault();
+        
+        console.log('Exportar');
+        $('.buttons-excel').trigger('click');
+    
+    });
 
 </script>
 
