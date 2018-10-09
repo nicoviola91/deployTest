@@ -485,6 +485,15 @@
     
     });
 
+    $(document).on( "click", ".rowAsistido", function(e) {       
+        
+        e.preventDefault();
+        
+        id = $(this).data('id');
+        
+        window.open("{{url('asistido/show2/')}}/"+id);
+    });
+
 </script>
 
 @endsection
