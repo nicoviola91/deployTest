@@ -99,7 +99,7 @@
 									<?php $i=0; ?>
 
 									<span class="label label-default"><?php echo $asistido->comunidades->first()->nombre ?></span>
-									<small><a tabindex="0" id="popover" class="popover-dismiss" data-toggle="popover" data-html="true" data-trigger="focus" title="Comunidades" data-content="<?php foreach ($asistido->comunidades as $comunidad): ?>
+									<small><a tabindex="0" class="popover popover-dismiss" data-toggle="popover" data-html="true" data-trigger="focus" title="Comunidades" data-content="<?php foreach ($asistido->comunidades as $comunidad): ?>
 											<?php if ($i!=0): ?>
 												<span class='label label-default'><?php echo $comunidad->nombre ?></span>									
 											<?php endif ?>
@@ -185,7 +185,7 @@
 		});
 	});
 
-	$('#popover').popover()
+	$('.popover').popover()
 
 </script>
 
