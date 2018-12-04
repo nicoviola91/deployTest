@@ -86,6 +86,15 @@
       -moz-border-radius: 4px;
       border-radius: 4px;
     }
+
+    @media (max-width: 992px) { 
+
+      .cajaCaja {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+    }
+
   </style>
 
 </head>
@@ -221,7 +230,7 @@
       <!-- Main content -->
       <section class="content" id="contenido">
 
-          <div class="col-md-10 col-md-offset-1">
+          <div class="col-md-10 col-md-offset-1 cajaCaja">
             @yield('content')
           </div>
 
