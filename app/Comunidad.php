@@ -10,7 +10,6 @@ class Comunidad extends Model
     protected $fillable = [
         'nombre', 
         'tipo',
-        //'parroquia_id',
         'observaciones',
         'institucion_id',
         'coordinador_id'

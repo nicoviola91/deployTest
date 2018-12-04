@@ -59,6 +59,7 @@
 							<th class="text-center">Tipo</th>
 							<th class="text-center">Institución</th>
 							<th class="text-center"><i class="icon fa fa-user-circle"></i> Miembros</th>
+							<th class="text-center"><i class="icon fa fa-user"></i> Asisidos</th>
 							<th class="text-center">Alta</th>
 							<th class="text-center">Acciones</th>
 						</tr>
@@ -76,6 +77,7 @@
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->nombre }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ strtoupper($comunidad->tipo) }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->institucion->nombre }}</td>
+									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->users->count() }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->asistidos->count() }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $comunidad->created_at->diffForHumans() }}</td>
 									<td class="text-center" style="vertical-align: middle;">
