@@ -103,7 +103,7 @@
               
                 @foreach($zonas as $zona)
                   <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$zona->id}}" data-asistidoid="{{$asistido->id}}" data-localizacionozona="{{$zona->localizacionOZona}}" data-toggle="modal" data-title="Descartar Zona">
+                    <a href="#"  data-target="#delete" class="descartarBtn no-print" data-id="{{$zona->id}}" data-asistidoid="{{$asistido->id}}" data-localizacionozona="{{$zona->localizacionOZona}}" data-toggle="modal" data-title="Descartar Zona">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
