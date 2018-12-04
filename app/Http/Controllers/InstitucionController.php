@@ -143,7 +143,7 @@ class InstitucionController extends Controller
         
         if (isset($institucion->direccion_id)) {
             
-            $direccion = Direccion::where('id',$institucion->id)->first();
+            $direccion = Direccion::where('id',$institucion->direccion_id)->first();
         
             $direccion->calle = $request->calle;
             $direccion->numero = $request->numero;

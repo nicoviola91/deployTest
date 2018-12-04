@@ -69,7 +69,7 @@
           </li>
           <li class="liTab empleo">
             <a href="#tab_empleo" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Empleo">
-              <i class="icon fa fa-gears fa-fw"></i> 
+              <i class="icon fa fa-briefcase fa-fw"></i> 
               <span style="display: none;"> Ficha Empleo</span>
             </a>
           </li>

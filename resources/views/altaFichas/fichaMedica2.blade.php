@@ -13,8 +13,7 @@
   <div class="col-md-12">
     <h3 class="box-title"><i class="icon fa fa-heartbeat fa-fw"></i> Ficha Médica
     <span class="pull-right">
-      <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-      {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+      <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
     </span>
     </h3>
   </div>
@@ -38,7 +37,7 @@
                     
                       @foreach($sintomasDelAsistido as $sintoma)
                         <div class="box-tools pull-right">    
-                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Síntoma">
+                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$sintoma->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Síntoma" class="no-print">
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <ul class="dl-horizontal preventoverflow" >
@@ -52,7 +51,7 @@
                     @endif
                   @endif
                         
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>Agregar Síntoma</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>Agregar Síntoma</a>
                   <div class="modal fade" id="modal-agregar">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -118,7 +117,7 @@
                             
                             @foreach($fichaMedica->consultasMedicas as $consultaMedica)
                                 <div class="box-tools pull-right">    
-                                <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$consultaMedica->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Consulta Médica">
+                                <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$consultaMedica->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Consulta Médica" class="no-print">
                                 <i class="fa fa-trash"></i></a>
                                 </div>
                                 <dl class="dl-horizontal preventoverflow" >
@@ -150,7 +149,7 @@
                             @endforeach
                             @endif
                         @endif
-                        <a href="#" data-toggle="modal" data-target="#modal-agregar2"><i align="left" class="fa fa-plus"></i>  Agregar Consulta médica</a>
+                        <a href="#" data-toggle="modal" data-target="#modal-agregar2" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Consulta médica</a>
                         
                         <div class="modal fade" id="modal-agregar2">
                         <div class="modal-dialog">
@@ -260,7 +259,7 @@
                             
                             @foreach($profesionales as $profesional)
                                 <div class="box-tools pull-right">    
-                                <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$profesional->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Profesional">
+                                <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$profesional->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Profesional" class="no-print">
                                 <i class="fa fa-trash"></i></a>
                                 </div>
                                 <dl class="dl-horizontal preventoverflow" >
@@ -282,7 +281,7 @@
                             @endif
                         @endif
                         @if($fichaMedica->checkMedicoDeCabecera==0)
-                        <a href="#" data-toggle="modal" data-target="#modal-agregar3"}}><i align="left" class="fa fa-plus"></i>Agregar Médico de cabecera</a>
+                        <a href="#" data-toggle="modal" data-target="#modal-agregar3"}} class="no-print"><i align="left" class="fa fa-plus"></i>Agregar Médico de cabecera</a>
                         @endif
                         <div class="modal fade" id="modal-agregar3">
                             <div class="modal-dialog">
@@ -505,7 +504,7 @@
                       @foreach($enfermedadesDelAsistido as $enfermedad)
                       
                         <div class="box-tools pull-right">    
-                          <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$enfermedad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia">
+                          <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$enfermedad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia" class="no-print">
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <dl class="dl-horizontal preventoverflow" >
@@ -526,7 +525,7 @@
                     @endif
                   @endif
                    
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar4"><i align="left" class="fa fa-plus"></i>  Agregar Patología o afección</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar4" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Patología o afección</a>
                 
                 </div>
               </div>
@@ -614,7 +613,7 @@
                     @if (isset($fichaMedica->checkTratamiento))
                     @foreach($tratamientos as $tratamiento)
                         <div class="box-tools pull-right">
-                        <a href="#"  data-target="#delete5" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
+                        <a href="#"  data-target="#delete5" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento" class="no-print">
                             <i class="fa fa-trash"></i>
                         </a>
                         </div>
@@ -688,7 +687,7 @@
                     @endforeach
                     @endif
                     @endif
-                    <a href="{{route('fichaMedica.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
+                    <a href="{{route('fichaMedica.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2" class="no-print"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
                 </div>
                 </div>
             </div>
@@ -943,7 +942,7 @@
                   @if (isset($fichaMedica->checkMedicacion))
                   @foreach($medicaciones as $medicacion)
                       <div class="box-tools pull-right">
-                          <a href=""  data-target="#delete6" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
+                          <a href=""  data-target="#delete6" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación" class="no-print">
                                 <i class="fa fa-trash"></i></a>
                       </div>
                       <dl class="dl-horizontal preventoverflow" >
@@ -986,7 +985,7 @@
                     @endforeach
                     @endif
                 @endif
-                  <a href={{route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
+                  <a href="{{route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
                 </div>
               </div>
             </div>
@@ -1146,7 +1145,7 @@
                         @if (isset($fichaMedica->checkIntervencion))
                         @foreach($intervenciones as $intervencion)
                             <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete7" class="descartarBtn" data-id="{{$intervencion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Intervención">
+                            <a href="#"  data-target="#delete7" class="descartarBtn" data-id="{{$intervencion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Intervención" class="no-print">
                                 <i class="fa fa-trash"></i>
                             </a>
                             </div>
@@ -1187,7 +1186,7 @@
                         @endforeach
                         @endif
                         @endif 
-                        <a href={{route('fichaMedica.storeIntervencion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4"><i align="left" class="fa fa-plus"></i>  Agregar Intervención quirúrgica</a>
+                        <a href="{{route('fichaMedica.storeIntervencion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Intervención quirúrgica</a>
                     </div>
                     </div>
                 </div>

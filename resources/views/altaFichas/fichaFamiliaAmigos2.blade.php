@@ -4,8 +4,7 @@
   <div class="col-md-12">
     <h3 class="box-title"><i class="icon fa fa-users fa-fw"></i> Ficha Familia y Amigos
     <span class="pull-right">
-      <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-      {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+      <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
     </span>
     </h3>
   </div>
@@ -33,7 +32,7 @@
                       @if (isset($fichaFamiliaAmigos->checklistContactos)) 
                       @foreach($contactos as $contacto)
                           <div class="box-tools pull-right">
-                              <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$contacto->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Contacto">
+                              <a href="#"  data-target="#delete" class="descartarBtn no-print" data-id="{{$contacto->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Contacto">
                                 <i class="fa fa-trash"></i>
                               </a>
                           </div>
@@ -64,7 +63,7 @@
                       @endforeach
                       @endif
                   @endif
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Contacto</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Contacto</a>
             </div>
           </div>
 

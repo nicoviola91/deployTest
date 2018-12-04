@@ -2,8 +2,7 @@
     <div class="col-md-12">
         <h3 class="box-title"><i class="icon fa fa-stethoscope fa-fw"></i> Ficha Diagnóstico Integral
         <span class="pull-right">
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+        <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
         </span>
         </h3>
     </div>  
@@ -40,7 +39,7 @@
                                     @endif
                                 </div>
                             <div align="right">
-                                <button  type="submit" class="btn btn-danger guardarBtn">Guardar Cambios</button>
+                                <button  type="submit" class="btn btn-danger guardarBtn no-print">Guardar Cambios</button>
                             </div>  
                         </form> 
                     </div>
@@ -62,7 +61,7 @@
                 
                 @foreach($cursos as $curso)
                     <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$curso->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Curso de Acción">
+                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$curso->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Curso de Acción" class="no-print">
                         <i class="fa fa-trash"></i>
                     </a>
                     </div>
@@ -87,7 +86,7 @@
                 @endforeach
                 @endif 
 
-                <a href="#" data-toggle="modal" data-target="#modal-servicios"><i align="left" class="fa fa-plus"></i>  Agregar Curso de Acción</a>
+                <a href="#" data-toggle="modal" data-target="#modal-servicios" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Curso de Acción</a>
             </div>
             </div>
         </div>

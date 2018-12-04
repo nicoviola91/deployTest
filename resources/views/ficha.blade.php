@@ -20,6 +20,10 @@
   <!-- MeetSelva -->
   <script src="{{ asset('/letterAvatar/letterAvatar.js') }}"></script>
 
+  <!-- PrintJS -->
+  <link rel="stylesheet" href="{{ asset('/printjs/print.min.css') }}">
+  <script src="{{ asset('/printjs/print.min.js') }}"></script>
+
 @endsection
 
 @section('pageHeader')
@@ -136,7 +140,7 @@
               <li>
                 <a href="javascript:void(0)">
                   <strong><i class="icon fa fa-users"></i> Comunidades </strong><br>
-                  <span class="pull-right badge bg-teal btnAgregarComunidad"> <i class="icon fa fa-plus"></i> Agregar</span> 
+                  <span class="pull-right badge bg-teal btnAgregarComunidad no-print"> <i class="icon fa fa-plus"></i> Agregar</span> 
                   <p style="margin-top: 5px;">
                   <?php foreach ($asistido->comunidades as $comunidad): ?>
                     <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>  
@@ -176,7 +180,7 @@
           </li>
           <li class="liTab empleo" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaEmpleo ? '' : 'style="display:none;"' ?>>
             <a href="#tab_empleo" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Empleo">
-              <i class="icon fa fa-gears fa-fw"></i> 
+              <i class="icon fa fa-briefcase fa-fw"></i> 
               <span style="display: none;"> Ficha Empleo</span>
             </a>
           </li>
@@ -279,7 +283,7 @@
 
                   <?php if (!$asistido->checkFichaEmpleo): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="empleo" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Empleo">
-                      <i align="left" class="fa fa-gears"></i> <span class="hidden-xs">Añadir</span> Ficha de Empleo
+                      <i align="left" class="fa fa-briefcase"></i> <span class="hidden-xs">Añadir</span> Ficha de Empleo
                     </a>  
                   <?php endif ?>
 
@@ -340,62 +344,62 @@
 
           <div class="tab-pane" id="tab_personal">
             <div class="divDatos" id="datosPersonal"></div>
-            <div class="divConsultas" id="consultasPersonal"></div>
+            <div class="divConsultas no-print" id="consultasPersonal"></div>
           </div>
 
           <div class="tab-pane" id="tab_legal">
             <div class="divDatos" id="datosLegal"></div>
-            <div class="divConsultas" id="consultasLegal"></div>
+            <div class="divConsultas no-print" id="consultasLegal"></div>
           </div>
 
           <div class="tab-pane" id="tab_educacion">
             <div class="divDatos" id="datosEducacion"></div>
-            <div class="divConsultas" id="consultasEducacion"></div>
+            <div class="divConsultas no-print" id="consultasEducacion"></div>
           </div>
 
           <div class="tab-pane" id="tab_empleo">
             <div class="divDatos" id="datosEmpleo"></div>
-            <div class="divConsultas" id="consultasEmpleo"></div>
+            <div class="divConsultas no-print" id="consultasEmpleo"></div>
           </div>
 
           <div class="tab-pane" id="tab_asistencia">
             <div class="divDatos" id="datosAsistencia"></div>
-            <div class="divConsultas" id="consultasAsistencia"></div>
+            <div class="divConsultas no-print" id="consultasAsistencia"></div>
           </div>
 
           <div class="tab-pane" id="tab_necesidades">
             <div class="divDatos" id="datosNecesidades"></div>
-            <div class="divConsultas" id="consultasNecesidades"></div>
+            <div class="divConsultas no-print" id="consultasNecesidades"></div>
           </div>
 
           <div class="tab-pane" id="tab_medica">
             <div class="divDatos" id="datosMedica"></div>
-            <div class="divConsultas" id="consultasMedica"></div>
+            <div class="divConsultas no-print" id="consultasMedica"></div>
           </div>
 
           <div class="tab-pane" id="tab_mental">
             <div class="divDatos" id="datosMental"></div>
-            <div class="divConsultas" id="consultasMental"></div>
+            <div class="divConsultas no-print" id="consultasMental"></div>
           </div>
 
           <div class="tab-pane" id="tab_integral">
             <div class="divDatos" id="datosIntegral"></div>
-            <div class="divConsultas" id="consultasIntegral"></div>
+            <div class="divConsultas no-print" id="consultasIntegral"></div>
           </div>
 
           <div class="tab-pane" id="tab_adicciones">
             <div class="divDatos" id="datosAdicciones"></div>
-            <div class="divConsultas" id="consultasAdicciones"></div>
+            <div class="divConsultas no-print" id="consultasAdicciones"></div>
           </div>
 
           <div class="tab-pane" id="tab_familia">
             <div class="divDatos" id="datosFamilia"></div>
-            <div class="divConsultas" id="consultasFamilia"></div>
+            <div class="divConsultas no-print" id="consultasFamilia"></div>
           </div>
 
           <div class="tab-pane" id="tab_localizacion">
             <div class="divDatos" id="datosLocalizacion"></div>
-            <div class="divConsultas" id="consultasLocalizacion"></div>
+            <div class="divConsultas no-print" id="consultasLocalizacion"></div>
           </div>
 
         </div> <!-- END TAB CONTENT -->

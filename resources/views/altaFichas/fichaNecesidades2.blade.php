@@ -16,13 +16,22 @@
 </style>
 
 <div class="row">
+
+    <div class="col-md-12">
+    <h3 class="box-title"><i class="icon fa fa-hotel fa-fw"></i> Ficha Necesidades
+    <span class="pull-right">
+      <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
+    </span>
+    </h3>
+  </div>
+
   <!-- left column -->
   <div class="col-md-10 col-md-offset-1">
     <div class="box-body">
       <div class="box-group">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
         <div class="panel box box-danger">
-          <div class="box-header with-border">
+          <div class="box-header with-border no-print">
             <h4 class="box-title">
               <a data-toggle="collapse" href="#collapseOne">
                 Necesidades del asistido 
@@ -36,7 +45,7 @@
             
                 @foreach($necesidades as $necesidad)
                 <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$necesidad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Necesidad">
+                    <a href="#"  data-target="#delete" class="descartarBtn no-print" data-id="{{$necesidad->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Necesidad">
                         <i class="fa fa-trash"></i>
                     </a>
                 </div>
@@ -61,7 +70,7 @@
                 @endif 
 
 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Necesidad</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Necesidad</a>
             </div>
           </div>
         </div>

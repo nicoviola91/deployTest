@@ -4,8 +4,7 @@
     <div class="col-md-12">
         <h3 class="box-title"><i class="icon fa fa-location-arrow fa-fw"></i> Ficha Localización
         <span class="pull-right">
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+        <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
         </span>
         </h3>
     </div>  
@@ -29,7 +28,7 @@
               
                 @foreach($localizaciones as $localizacion)
                   <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$localizacion->id}}" data-asistidoid="{{$asistido->id}}" data-localizacionozona="{{$localizacion->localizacionOZona}}" data-toggle="modal" data-title="Descartar Localizacion">
+                    <a href="#"  data-target="#delete" class="descartarBtn no-print" data-id="{{$localizacion->id}}" data-asistidoid="{{$asistido->id}}" data-localizacionozona="{{$localizacion->localizacionOZona}}" data-toggle="modal" data-title="Descartar Localizacion">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
@@ -175,7 +174,7 @@
                   </dl>
                 @endforeach
                 @endif 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Localización Habitual o Zona de permanencia</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Localización Habitual o Zona de permanencia</a>
             </div>
           </div>
         </div>

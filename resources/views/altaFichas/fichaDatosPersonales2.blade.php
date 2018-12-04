@@ -3,8 +3,7 @@
     <div class="col-md-12">
       <h3 class="box-title"><i class="icon fa fa-id-badge fa-fw"></i> Ficha Datos Personales
       <span class="pull-right">
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+        <a href="javascript:window.print()" class="btn btn-default btn-sm no-print imprimir" data-tipo="datosPersonales"><i class="fa fa-print"></i> Imprimir</a>
       </span>
       </h3>
     </div>

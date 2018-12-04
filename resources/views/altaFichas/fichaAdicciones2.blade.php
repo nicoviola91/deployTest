@@ -12,8 +12,7 @@
   <div class="col-md-12">
     <h3 class="box-title"><i class="icon fa fa-warning fa-fw"></i> Ficha de Adicciones
     <span class="pull-right">
-      <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-      {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+      <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
     </span>
     </h3>
   </div>
@@ -37,7 +36,7 @@
                       @foreach($adicciones as $adiccion)
                       
                         <div class="box-tools pull-right">    
-                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$adiccion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$adiccion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción" class="no-print">
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <dl class="dl-horizontal preventoverflow" >
@@ -71,7 +70,7 @@
                     @endif
                   @endif
                    
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar">
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print">
                     <i align="left" class="fa fa-plus fa-fw"></i>  Agregar Adicción
                   </a>
                 
@@ -220,7 +219,7 @@
                   @if (isset($fichaAdiccion->checklistEpisodiosAgresivos))
                   @foreach($episodiosAgresivos as $episodioAgresivo)
                       <div class="box-tools pull-right">
-                        <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                        <a href="#"  data-target="#delete2" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción" class="no-print">
                             <i class="fa fa-trash"></i>
                         </a>
                       </div>
@@ -241,7 +240,7 @@
                     @endif
                 @endif                  
 
-                  <a href="{{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default3">
+                  <a href="{{route('fichaAdicciones.storeEpisodioAgresivo',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default3" class="no-print">
                     <i align="left" class="fa fa-plus fa-fw"></i> Agregar Episodio Agresivo
                   </a>
             </div>
@@ -343,7 +342,7 @@
                   @if (isset($fichaAdiccion->checklistTratamiento))
                   @foreach($tratamientos as $tratamiento)
                       <div class="box-tools pull-right">
-                        <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                        <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción" class="no-print">
                             <i class="fa fa-trash"></i>
                         </a>
                       </div>
@@ -379,7 +378,7 @@
                     @endforeach
                     @endif
                   @endif
-                  <a href="{{route('fichaAdicciones.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2">
+                  <a href="{{route('fichaAdicciones.storeTratamiento',['asistido_id'=>$asistido->id])}}" data-toggle="modal" data-target="#modal-default2" class="no-print">
                     <i align="left" class="fa fa-plus fa-fw"></i> Agregar Tratamiento
                   </a>
                 </div>

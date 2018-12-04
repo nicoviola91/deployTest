@@ -2,10 +2,9 @@
 <div class="row">
 
     <div class="col-md-12">
-      <h3 class="box-title"><i class="icon fa fa-gears fa-fw"></i> Ficha Empleo
+      <h3 class="box-title"><i class="icon fa fa-briefcase fa-fw"></i> Ficha Empleo
       <span class="pull-right">
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+        <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
       </span>
       </h3>
     </div>
@@ -31,7 +30,7 @@
               
                 @foreach($empleos as $empleo)
                   <div class="box-tools pull-right">
-                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$empleo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Empleo">
+                    <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$empleo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Empleo" class="no-print">
                         <i class="fa fa-trash"></i>
                     </a>
                   </div>
@@ -122,7 +121,7 @@
                 @endif 
 
 
-              <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Empleo</a>
+              <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Empleo</a>
             </div>
           </div>
             <div class="box-body">

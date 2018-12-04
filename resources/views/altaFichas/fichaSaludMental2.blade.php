@@ -3,8 +3,7 @@
   <div class="col-md-12">
     <h3 class="box-title"><i class="icon fa fa-user-md fa-fw"></i> Ficha de Salud Mental
     <span class="pull-right">
-      <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-      {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+      <a href="javascript:window.print()" class="btn btn-default btn-sm no-print imprimir" data-tipo="saludMental"><i class="fa fa-print"></i> Imprimir</a>
     </span>
     </h3>
   </div>
@@ -28,7 +27,7 @@
                       @foreach($patologias as $patologia)
                       
                         <div class="box-tools pull-right">    
-                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$patologia->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia">
+                          <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$patologia->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Patologia" class="no-print">
                           <i class="fa fa-trash"></i></a>
                         </div>
                         <dl class="dl-horizontal preventoverflow" >
@@ -50,7 +49,7 @@
                     @endif
                   @endif
                    
-                  <a href="#" data-toggle="modal" data-target="#modal-agregar"><i align="left" class="fa fa-plus"></i>  Agregar Patología</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-agregar" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Patología</a>
                 
                 </div>
               </div>
@@ -160,7 +159,7 @@
                   @if (isset($fichaSaludMental->checkMedicacion))
                   @foreach($medicaciones as $medicacion)
                       <div class="box-tools pull-right">
-                          <a href=""  data-target="#delete2" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación">
+                          <a href=""  data-target="#delete2" class="descartarBtn" data-id="{{$medicacion->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Medicación" class="no-print">
                                 <i class="fa fa-trash"></i></a>
                       </div>
                       <dl class="dl-horizontal preventoverflow" >
@@ -203,7 +202,7 @@
                     @endforeach
                     @endif
                 @endif
-                  <a href="#" data-toggle="modal" data-target="#modal-default3"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-default3" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
                 </div>
               </div>
             </div>
@@ -370,7 +369,7 @@
                       @if (isset($fichaSaludMental->checkTratamiento))
                       @foreach($tratamientos as $tratamiento)
                           <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento">
+                            <a href="#"  data-target="#delete3" class="descartarBtn" data-id="{{$tratamiento->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Tratamiento" class="no-print">
                                 <i class="fa fa-trash"></i>
                             </a>
                           </div>
@@ -444,7 +443,7 @@
                         @endforeach
                         @endif
                       @endif
-                      <a href="#" data-toggle="modal" data-target="#modal-default2"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
+                      <a href="#" data-toggle="modal" data-target="#modal-default2" class="no-print"><i align="left" class="fa fa-plus"></i> Agregar Tratamiento</a>
                     </div>
                   </div>
                 </div>
@@ -699,7 +698,7 @@
                         @if (isset($fichaSaludMental->checkAgresiones))
                         @foreach($episodiosAgresivos as $episodioAgresivo)
                             <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción">
+                            <a href="#"  data-target="#delete4" class="descartarBtn" data-id="{{$episodioAgresivo->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Adicción" class="no-print">
                                 <i class="fa fa-trash"></i>
                             </a>
                             </div>
@@ -719,7 +718,7 @@
                         @endforeach
                         @endif
                         @endif 
-                        <a href="#" data-toggle="modal" data-target="#modal-default4"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
+                        <a href="#" data-toggle="modal" data-target="#modal-default4" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Episodio Agresivo</a>
                     </div>
                     </div>
                 </div>
@@ -901,7 +900,7 @@
                     </div>
 
                     <div class="col-md-12" align="right">
-                      <button  type="submit" class="btn btn-danger guardarBtn">Guardar Cambios</button>
+                      <button  type="submit" class="btn btn-danger guardarBtn no-print">Guardar Cambios</button>
                     </div>  
                   </form> 
                 </div>

@@ -5,8 +5,7 @@
         <div class="col-md-12">
           <h3 class="box-title"><i class="icon fa fa-life-bouy fa-fw"></i> Ficha Asistencia Social
           <span class="pull-right">
-            <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-            {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+            <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
           </span>
           </h3>
         </div>  
@@ -30,7 +29,7 @@
                   
                     @foreach($servicios as $servicio)
                       <div class="box-tools pull-right">
-                        <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$servicio->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Servicio Social">
+                        <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$servicio->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Servicio Social" class="no-print">
                             <i class="fa fa-trash"></i>
                         </a>
                       </div>
@@ -69,7 +68,7 @@
                     @endforeach
                     @endif 
     
-                  <a href="#" data-toggle="modal" data-target="#modal-servicios"><i align="left" class="fa fa-plus"></i>  Agregar Servicio Social</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-servicios" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Servicio Social</a>
                 </div>
               </div>
             </div>

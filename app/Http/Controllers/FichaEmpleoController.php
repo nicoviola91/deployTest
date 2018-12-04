@@ -62,15 +62,21 @@ class FichaEmpleoController extends Controller
     public function storeEmpleo(Request $request, $asistido_id){
 
         Asistido::where('id',$asistido_id)->update(['checkFichaEmpleo' =>1]);
+        
         $fichaEmpleo=$this->findFichaEmpleoByAsistidoId($asistido_id);
         $direccionInput=$request->only('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
         $direccion= new Direccion($direccionInput);
+        
         $input=$request->except('calle','numero','piso','departamento','entreCalles','localidad','provincia','codigoPostal','pais');
+        
         $empleo=new Empleo($input);
+        
         $fichaEmpleo->empleos()->save($empleo);
         $empleo->save();
         $empleo->direccion()->save($direccion);
+        
         //return redirect()->route('fichaEmpleo.create',['asistido_id'=>$asistido_id]);
+        
         return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
     
     }

@@ -19,8 +19,7 @@
     <div class="col-md-12">
         <h3 class="box-title"><i class="icon fa fa-legal fa-fw"></i> Ficha Legal
         <span class="pull-right">
-        <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
-        {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}
+        <a href="javascript:window.print()" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</a>
         </span>
         </h3>
     </div>  
@@ -45,7 +44,7 @@
                     @if(isset($antecedentes) && count($antecedentes))
                         @foreach($antecedentes as $antecedente)
                             <div class="box-tools pull-right">
-                            <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$antecedente->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Antecedente">
+                            <a href="#"  data-target="#delete" class="descartarBtn" data-id="{{$antecedente->id}}" data-asistidoid="{{$asistido->id}}" data-toggle="modal" data-title="Descartar Antecedente" class="no-print">
                             
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -80,7 +79,7 @@
                     @endif
                 @endif 
 
-                <a href="#" data-toggle="modal" data-target="#modal-antecedentes"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
+                <a href="#" data-toggle="modal" data-target="#modal-antecedentes" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Antecedente</a>
             </div>
             </div>
         </div>
