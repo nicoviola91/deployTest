@@ -77,7 +77,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="exampleInputPassword1">Fecha Nacimiento</label>
-            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" >
+            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" max="<?php echo date('Y-m-d');?>">
           </div>
           <div class="form-group col-md-12">
             <label for="exampleInputPassword1">Observaciones</label>

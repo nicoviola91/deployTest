@@ -108,7 +108,7 @@
         <div class="navbar-header">
 
           <!-- <a href="index2.html" class="navbar-brand"><b>POSADEROS</b></a> -->
-          <a href="#" class="logo">
+          <a href="{{url('/home/')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image"></span>
             <!-- logo for regular state and mobile devices -->

@@ -198,6 +198,7 @@
     // window.location.href='https://www.posaderos.xyz/alert/my_list';
     window.open('http://www.lumencor.org/#red');
   });
+
 </script>
 
 @endsection

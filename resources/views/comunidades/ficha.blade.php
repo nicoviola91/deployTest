@@ -161,7 +161,7 @@
                 <label for="nombre">Tipo</label>
                 <select class="form-control" name="tipo" id="tipo">
                   <option value="nocheDeCaridad" <?php echo 'nocheDeCaridad' == $comunidad->tipo ? ' selected ' : '' ?>>Noche De Caridad</option>
-                  <option value="externa" <?php echo 'externa' == $comunidad->tipo ? ' selected ' : '' ?>>Comunidad Externa</option>
+                  <option value="institucion" <?php echo 'institucion' == $comunidad->tipo ? ' selected ' : '' ?>>Comunidad Externa</option>
                 </select>
                 @if ($errors->has('tipo'))
                   <span class="help-block">
@@ -172,7 +172,8 @@
 
           <div class="col-md-12 form-group {{ $errors->has('nombre') ? ' has-error' : '' }}">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="name" placeholder="Nombre" name="nombre" required value="{{$comunidad->nombre}}">
+                <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required value="{{$comunidad->nombre}}">
+                <input type="hidden" required value="{{$comunidad->id}}" name="id" id="id">
                 @if ($errors->has('nombre'))
                   <span class="help-block">
                       <strong>{{ $errors->first('nombre') }}</strong>

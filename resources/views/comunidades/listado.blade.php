@@ -152,7 +152,7 @@
 	          
 	            <div class="col-md-12 form-group {{ $errors->has('observaciones') ? ' has-error' : '' }}">
 	              <label for="observaciones">Observaciones</label>
-	              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones" required>
+	              <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
 	              @if ($errors->has('observaciones'))
 	                <span class="help-block">
 	                    <strong>{{ $errors->first('observaciones') }}</strong>

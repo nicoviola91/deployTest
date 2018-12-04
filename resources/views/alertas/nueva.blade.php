@@ -101,7 +101,7 @@
 
           <div class="form-group">
             <label>FECHA DE NACIMIENTO</label>
-            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" max="<?php echo date('Y-m-d');?>">
           </div>
 
           <div class="form-group">
