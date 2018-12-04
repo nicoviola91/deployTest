@@ -253,6 +253,44 @@
                             </label>
                         </div>
                     </h6>
+
+                    <div class="form-group divNecesidades divFichas" style="display: none;">
+                        <label for="tipoNecesidad" class="col-md-2 control-label">Tipo Necesidad</label>
+                        <div class="col-md-4">
+                            <select class="form-control" name="tipoNecesidad" data-placeholder="Tipo Necesidad" style="width: 100%;" id="tipoNecesidad">
+                                <option value="0" selected>Cualquiera</option>
+                                <?php foreach ($tiposNecesidades as $tipoNecesidad): ?>  
+                                  <option value="{{$tipoNecesidad->id}}"> <?php echo $tipoNecesidad->descripcion ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group divEmpleo divFichas" style="display: none;">
+                        <label for="sexo" class="col-md-2 control-label">Tiene Empleo?</label>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="empleo" id="empleoIndistinto" value="" checked="">
+                              <label class="form-check-label" for="empleo">
+                                Indistinto
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="empleo" id="empleoSi" value="1">
+                              <label class="form-check-label" for="empleo">
+                                Si
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="empleo" id="empleoNo" value="0">
+                              <label class="form-check-label" for="empleo">
+                                No
+                              </label>
+                            </div>
+
+                        </div>
+                    </div>
+
                     
                     <br>
                     <div class="col-md-8 col-md-offset-2">
@@ -393,6 +431,20 @@
             $('#altaHasta').prop('required', false);
         }
     })
+
+    $('input[type=radio][name=filtroFicha]').change(function() {
+        
+        $('.divFichas').hide();
+
+        if (this.value == 'necesidades') {
+
+            $('.divNecesidades').show();
+        }
+        else if (this.value == 'empleo') {
+
+            $('.divEmpleo').show();
+        }
+    });
 
 	
 </script>

@@ -29,6 +29,7 @@
                         <th>Celular</th>
                         <th>Telefono</th>
                         <th>Email</th>
+                        <th>Posadero</th>
                     </thead>
                     <tbody>
                         <?php foreach ($resultados as $resultado): ?>
@@ -44,6 +45,7 @@
                                 <td><?php echo $resultado->celular ?></td>
                                 <td><?php echo $resultado->telefono ?></td>
                                 <td><?php echo $resultado->email ?></td>
+                                <td><?php echo isset($resultado->posadero) ? $resultado->posadero : 'N/D' ?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
