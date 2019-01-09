@@ -72,8 +72,8 @@ class NecesidadesController extends Controller
         $donac->save();
         //Notifico al dueño de la ficha que hay una donación para una necesidad de su ficha
         $necesidad = Necesidad::where('id',$donac->necesidad_id);
-        //$ficha_necesidad=FichaNecesidad::where('id',$necesidad->fichaNecesidad->created_by);
-        $usr_notificacion = User::where('id',$necesidad->fichaNecesidad->created_by);
+        $ficha_necesidad=FichaNecesidad::where('id',$necesidad->fichaNecesidad_id);
+        $usr_notificacion = User::where('id',$ficha_necesidad->created_by);
         $usr_notificacion->notify(new altaNuevaDonacion($donac, $necesidad));
         //Fin Notificacion
         $data['necesidades'] = Necesidad::all();
