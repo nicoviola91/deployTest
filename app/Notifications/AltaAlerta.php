@@ -45,13 +45,13 @@ class AltaAlerta extends Notification
     public function toMail($notifiable)
     {
         //$url = url('/asistido/show2/'.$this->asistido->id);
-        $derivadoPor= User::where('id',$this->asistido->owner)->first();
+        //$derivadoPor= User::where('id',$this->asistido->owner)->first();
         $institucion = Institucion::where('id',$this->asistido->institucion_id)->first();
         return (new MailMessage)
                     ->subject('Posaderos - Alta de Asistido')
-                    ->line('Se ha dado de alta un asistido derivado a la institución '.$institucion->nombre)
+                    ->line('Se ha dado de alta el asistido derivado a la institución '.$institucion->nombre)
                     ->line('Nombre: '.$this->asistido->nombre.' '.$this->asistido->apellido)
-                    ->line('Derivado por: '.$derivadoPor->name.' '.$derivadoPor->apellido)
+                    //->line('Derivado por: '.$derivadoPor->name.' '.$derivadoPor->apellido)
                     //->action('Ver asistidos', $url)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');

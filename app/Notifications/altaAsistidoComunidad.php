@@ -41,11 +41,11 @@ class altaAsistidoComunidad extends Notification
      */
     public function toMail($notifiable)
     {
-        $url =  url('/asistido/show2/'.$nuevoAsistido->id);
+        $url =  url('/asistido/show2/'.$this->nuevoAsistido->id);
         return (new MailMessage)
                     ->subject('Posaderos - Alta Asistido')
                     ->line('Se ha dado de alta un asistido en tu comunidad.')
-                    ->action($nuevoAsistido->name.' '.$nuevoAsistido->apellido, $url)
+                    ->action($this->nuevoAsistido->name.' '.$this->nuevoAsistido->apellido, $url)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }

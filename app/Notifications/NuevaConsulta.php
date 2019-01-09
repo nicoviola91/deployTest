@@ -48,7 +48,7 @@ class NuevaConsulta extends Notification
     public function toMail($notifiable)
     {
         $asistido_id = $this->asistido->id;
-        $persona = User::where('id',$this->consulta->user_id)->get()->first();
+        $persona = User::where('id',$this->consulta->user_id)->first();
         $nombre_ficha = $this->ficha; //'NOMBRE FICHA';
         return (new MailMessage)
                     ->subject('Posaderos - Nueva Consulta')

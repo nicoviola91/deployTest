@@ -139,12 +139,12 @@ class ConsultaController extends Controller
             $consulta->adjunto = $path;
         }
 
-        // if ($ficha->created_by != $consulta->user_id){
-        //     $asistido_notif = Asistido::where('id',$asistido_id)->get()->first();
-
-        //     $usuarioNotif = User::where('id',$ficha->created_by)->get()->first();
-        //     $usuarioNotif->notify(new NuevaConsulta($consulta, $asistido_notif));//, $tipo_notif));
-        // }
+        $creador_ficha = User::where('id',$ficha->created_by)->first();
+        if ($ficha->created_by != $consulta->user_id )// && $creador_ficha->notifConsultas == 1){
+            $asistido_notif = Asistido::where('id',$asistido_id)->first();
+            $usuarioNotif = User::where('id',$ficha->created_by)->first();
+            $usuarioNotif->notify(new NuevaConsulta($consulta, $asistido_notif, $tipo_notif));
+        }
     
         if ($ficha->consultas()->save($consulta)) {
             
