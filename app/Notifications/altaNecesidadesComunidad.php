@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Necesidad;
 class altaNecesidadesComunidad extends Notification
 {
     use Queueable;
@@ -16,9 +16,9 @@ class altaNecesidadesComunidad extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Necesidad $nuevaNecesidad)
     {
-        //
+        $this->nuevaNecesidad= $nuevaNecesidad;
     }
 
     /**
@@ -41,9 +41,13 @@ class altaNecesidadesComunidad extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('Posaderos - Nueva Necesidad')
+                    ->line('Ha aparecido una nueva necesidad en tu comunidad')
+                    ->line('Necesidad Tipo: '.$nuevaNecesidad->tipo->descripcion)
+                    ->line('Necesidad Detalle'.$nuevaNecesidad->especificacion)
+                    ->action('Ver Todas las necesidades', url('/necesidades/list'))
+                    ->line('Gracias por usar nuestra aplicación!')
+                    ->salutation('LumenCor - Red de Posaderos');
     }
 
     /**

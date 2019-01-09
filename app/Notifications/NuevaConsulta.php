@@ -51,6 +51,7 @@ class NuevaConsulta extends Notification
         $persona = User::where('id',$this->consulta->user_id)->get()->first();
         $nombre_ficha = $this->ficha; //'NOMBRE FICHA';
         return (new MailMessage)
+                    ->subject('Posaderos - Nueva Consulta')
                     ->line($persona->name.' ha hecho una nueva consulta en la ficha '.$nombre_ficha.' de tu asistido')
                     ->line('Consulta: '.strip_tags($this->consulta->mensaje))
                     ->action('Ir al asistido', url('/asistido/show2/'.$asistido_id))

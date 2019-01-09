@@ -44,8 +44,8 @@ class AltaUsuarioComunidad extends Notification
     {
         //$url = url('/asistido/list');
         return (new MailMessage)
-                    ->subject('Posaderos - Alta de Usuario')
-                    ->line('Se ha dado de alta un asistido en tu comunidad.')
+                    ->subject('Posaderos - Nuevo participante en la Comunidad')
+                    ->line('Se ha unido un nuevo usuario en tu comunidad.')
                     ->line('Dale la bienvenida a '.$nuevoUsuario->name.' '.$nuevoUsuario->apellido.'!')
                     //->action('Ver asistidos', $url)
                     ->line('Gracias por usar nuestra aplicación!')

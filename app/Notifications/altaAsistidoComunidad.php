@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
+use Asistido;
 class altaAsistidoComunidad extends Notification
 {
     use Queueable;
@@ -16,9 +17,9 @@ class altaAsistidoComunidad extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Asistido $nuevoAsistido)
     {
-        //
+        $this->nuevoAsistido= $nuevoAsistido;
     }
 
     /**
@@ -40,10 +41,13 @@ class altaAsistidoComunidad extends Notification
      */
     public function toMail($notifiable)
     {
+        $url =  url('/asistido/show2/'.$nuevoAsistido->id);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('Posaderos - Alta Asistido')
+                    ->line('Se ha dado de alta un asistido en tu comunidad.')
+                    ->action($nuevoAsistido->name.' '.$nuevoAsistido->apellido, $url)
+                    ->line('Gracias por usar nuestra aplicación!')
+                    ->salutation('LumenCor - Red de Posaderos');
     }
 
     /**

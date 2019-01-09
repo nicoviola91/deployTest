@@ -121,15 +121,12 @@ class AsistidoController extends Controller
             
             $comunidad=Comunidad::find($alerta->comunidad_id);
             $comunidad->asistidos()->save($asistido);
-            /* Alerto a la comunidad del alta de un nuevo asistido
-            $usuariosNotif = User::where('comunidad_id',$request->comunidad);
-            foreach ($usuarioNotif as $usuario) {
-                $usuario->notify(new AltaAlerta($asistido)); 
-                Mail::send('emails.welcome', ['key' => 'value'], function($message)
-                {
-                    $message->to('foo@example.com', 'John Smith')->subject('Welcome!');
-                });   
-            }
+            /* Alerto a la comunidad del alta de un nuevo asistido y al que generó la alerta*/
+            $creador= $alerta->user;
+            $creador->notify(new AltaAlerta($asistido));
+            /*
+            $usuariosNotif = DB::table('users')->where([['comunidad_id', '=', $request->comunidad,['notifComunidad', '=', '1'],])->get();
+            foreach ($usuarioNotif as $notificar) { $notificar->notify(new AltaAlerta($asistido)); }
             */ 
         }
 
@@ -163,6 +160,10 @@ class AsistidoController extends Controller
             
             $comunidad=Comunidad::find($request->comunidad_id);
             $comunidad->asistidos()->save($asistido);
+            /* Alerto a la comunidad del alta de un nuevo asistido
+            $usuariosNotif = DB::table('users')->where([['comunidad_id', '=', $request->comunidad,['notifComunidad', '=', '1'],])->get();
+            foreach ($usuarioNotif as $notificar) { $notificar->notify(new AltaAlerta($asistido)); }
+            */ 
         }
     
         $asistido->save();

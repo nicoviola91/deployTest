@@ -44,6 +44,7 @@ class AltaUsuario extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Posaderos - Bienvenido')
                     ->line('Bienvenido a la Red del Posadero!')
                     ->action('Comenzá a usar la aplicación', url('/login'))
                     ->line('Gracias por sumarte!')
