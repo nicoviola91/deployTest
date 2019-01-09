@@ -184,7 +184,21 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
     ]);
+    Route::post('/enviarSolicitud',[
+        'uses'=>'ComunidadController@enviarSolicitud',
+        'as'=>'comunidad.enviarSolicitud',
+    ]);
+    
+    Route::post('/descartarSolicitud',[
+        'uses'=>'ComunidadController@descartarSolicitud',
+        'as'=>'comunidad.descartarSolicitud',
+    ]);
+    Route::post('/aprobarSolicitud',[
+        'uses'=>'ComunidadController@aprobarSolicitud',
+        'as'=>'comunidad.aprobarSolicitud',
+    ]);
 });
+
 
 //NECESIDADES
 Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
