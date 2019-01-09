@@ -138,12 +138,9 @@
             	<?php foreach ($misComunidades as $com): ?>
 	        		<span class="label label-default"><?php echo $com->nombre ?></span>	
 	        	<?php endforeach ?>
-            	<!-- <span class="label label-default">Noche de Caridad Blablabla</span> 
-            	<span class="label label-default">Noche de Caridad Santa Maria</span> 
-            	<span class="label label-default">Noche de Caridad Victorias</span> -->
             </h4>
             <hr class="my-4">
-            <p class="mb-5"><?php count($misComunidades) < 1 ? "Todavía no perteneces a ninguna Comunidad? Hacé click a continuación para solicitar unirte!" : "" ?></p>
+            <p class="mb-5"><?php echo count($misComunidades) < 1 ? "Todavía no perteneces a ninguna Comunidad? Hacé click a continuación para solicitar unirte!" : "" ?></p>
           </div>
         </div>
         <div class="row">
