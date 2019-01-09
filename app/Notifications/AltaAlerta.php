@@ -48,7 +48,7 @@ class AltaAlerta extends Notification
         //var_dump($derivadoPor);
         return (new MailMessage)
                     ->subject('Posaderos - Alta de Asistido')
-                    ->line('Se ha dado de alta un asistido en la comunidad '.$this->asistido->comunidad->nombre)
+                    ->line('Se ha dado de alta un asistido en la comunidad '.$this->asistido->comunidad()->nombre)
                     ->line($this->asistido->nombre.' '.$this->asistido->apellido)
                     //->line('Derivado por '.$derivadoPor->name.' '.$derivadoPor->apellido)
                     //->action('Ver asistidos', $url)
