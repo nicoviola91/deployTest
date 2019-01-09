@@ -44,8 +44,8 @@ class AltaAlerta extends Notification
     public function toMail($notifiable)
     {
         //$url = url('/asistido/list');
-        $derivadoPor= User::where('id',$this->asistido->owner);
-        var_dump($derivadoPor);
+        $derivadoPor= $this->asistido->owner();
+        //var_dump($derivadoPor);
         return (new MailMessage)
                     ->subject('Posaderos - Alta de Asistido')
                     ->line('Se ha dado de alta un asistido en la comunidad.')
