@@ -1,4 +1,4 @@
-@extends('layouts.welcomeApp')
+@extends('layouts.userApp')
 
 @section('title')
     UCA
@@ -17,18 +17,25 @@
     <script src="{{asset('/creative/js/creative.js')}}"></script>
 @endsection
 
-@section('content')
-    <section>
+@section('pageHeader')
+
+
+@endsection
+
+@section('contentFullScreen')
+    
+    <section class="bg-primary">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading"><span class="logo-lg"><img src="{{ asset('/img/UCA-Logo-1.png') }}" class="" alt="Logo Image" style="max-height: 45px;"> Equipo</h2>
-            <br>
-            
+            <h2 class="section-heading text-black" style="font-size: 40px;"><span class="logo-lg"><img src="{{ asset('/img/UCA-Logo-1.png') }}" class="" alt="Logo Image" style="max-height: 80px;"> Equipo</h2>            
           </div>
         </div>
       </div>
 
+    </section>
+
+    <section>
       <div class="container">
           <h2 class="section-heading text-center"><small>Autoridades</small></h2>
           <hr class="my-4">
@@ -37,7 +44,7 @@
       <div class="container">
         <div class="row">
             
-            <div class="col-lg-4 col-md-4 text-center boton mapa" >
+            <div class="col-lg-4 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <img src="{{ asset('/img/team/claudio.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
                   <h3 class="mb-3">Ing. Claudio Schicht</h3>
@@ -45,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 text-center boton mapa" >
+            <div class="col-lg-4 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <img src="{{ asset('/img/team/hernan.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
                   <h3 class="mb-3">Ing. Hernán Mariño</h3>
@@ -53,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 text-center boton mapa" >
+            <div class="col-lg-4 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <img src="{{ asset('/img/team/ricardo.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
                   <h3 class="mb-3">Ing. Ricardo Dipasquale</h3>
@@ -64,86 +71,92 @@
         </div>
       </div>
 
+    </section>
+    <section class="bg-dark text-white">
+
       <div class="container">
-          <br>
-          <br>
           <h2 class="section-heading text-center"><small>Alumnos</small></h2>
           <hr class="my-4">
       </div>
 
       <div class="container">
-            <div class="col-lg-3 col-md-4 text-center boton mapa" >
+            <div class="col-lg-3 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <img src="{{ asset('/img/team/nicolas.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
-                  <h3 class="mb-3">Nicolás Viola</h3>
+                  <h3 class="mb-3" style="color: white;">Nicolás Viola</h3>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-4 text-center boton mapa" >
-                <div class="service-box mt-5 mx-auto">
-                  <img src="{{ asset('/img/team/gabriel.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
-                  <h3 class="mb-3">Gabriel Campagna</h3>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 text-center boton mapa" >
+            <div class="col-lg-3 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <img src="{{ asset('/img/team/agustin.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
-                  <h3 class="mb-3">Juan Agustín Gallo</h3>
+                  <h3 class="mb-3" style="color: white;">Juan Agustín Gallo</h3>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-4 text-center boton mapa" >
+            <div class="col-lg-3 col-md-4 text-center " >
+                <div class="service-box mt-5 mx-auto">
+                  <img src="{{ asset('/img/team/gabriel.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
+                  <h3 class="mb-3" style="color: white;">Gabriel Campagna</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
                   <!-- <img src="{{ asset('/img/team/daniela.jpg') }}" class="img img-circle" style="max-height: 150px;">                   -->
                   <img src="{{ asset('/img/default.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
-                  <h3 class="mb-3">Daniela Garay</h3>
+                  <h3 class="mb-3" style="color: white;">Daniela Garay</h3>
                 </div>
             </div>
-
-            <!-- javier bassi, luciano delorenzi, sofia iturrioz, nahuel perez catuogno, agustin puentes, enzo sagretti -->
       </div>
 
+    </section>
+
+    <section>
+
       <div class="container">
-          <br>
-          <br>
           <h2 class="section-heading text-center"><small>Agradecimiento especial</small></h2>
           <hr class="my-4">
           <br>
       </div>
 
       <div class="container">
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
-                <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Javier Bassi</h3>
+            <div class="col-lg-2 col-md-2 text-center " >
+                <div class="mt-5 mx-auto">
+                  <h4 class="mb-3">Javier Bassi</h4>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
+            <div class="col-lg-2 col-md-2 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Luciano Delorenzi</h3>
+                  <h4 class="mb-3">Luciano Delorenzi</h4>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
+            <div class="col-lg-2 col-md-2 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Sofía Iturrioz</h3>
+                  <h4 class="mb-3">Sofía Iturrioz</h4>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
+            <div class="col-lg-2 col-md-2 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Nahuel Perez Catuogno</h3>
+                  <h4 class="mb-3">Nahuel Perez Catuogno</h4>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
+            <div class="col-lg-2 col-md-2 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Agustín Puentes</h3>
+                  <h4 class="mb-3">Agustín Puentes</h4>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 text-center boton mapa" >
+            <div class="col-lg-2 col-md-2 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <h3 class="mb-3">Enzo Sagretti</h3>
+                  <h4 class="mb-3">Enzo Sagretti</h4>
                 </div>
             </div>
       </div>
 
     </section>
+
+@endsection
+
+@section('scripts')
+
 @endsection

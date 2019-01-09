@@ -219,6 +219,7 @@
 
   <div class="content-wrapper">
     @yield('contentFullScreen')
+    
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
       <section class="content-header">
