@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Necesidad;
 use App\Donacion;
 use App\FichaNecesidad;
+use App\User;
 use Illuminate\Http\Request;
 
 class NecesidadesController extends Controller
