@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Necesidad;
 use App\Donacion;
+use App\FichaNecesidad;
 use Illuminate\Http\Request;
 
 class NecesidadesController extends Controller
@@ -68,7 +69,13 @@ class NecesidadesController extends Controller
         $donac->mensaje=$request->mensaje;
         $donac->necesidad_id = $request->necesidad_id;
         $donac->save();
-        $data['necesidades'] = necesidad::all();
+        //Notifico al dueño de la ficha que hay una donación para una necesidad de su ficha
+        $necesidad = Necesidad::where('id',$donac->necesidad_id);
+        $ficha_necesidad=FichaNecesidad::where('id',$necesidad->fichaNecesidad_id);
+        $usr_notificacion = User::where('id',$ficha_necesidad->created_by);
+        $usr_notificacion->notify(new altaNuevaDonacion($donac, $necesidad));
+        //Fin Notificacion
+        $data['necesidades'] = Necesidad::all();
         return view('necesidades.listado', $data);
     }
 

@@ -7,7 +7,8 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-use Donacicon;
+use App\Donacicon;
+use App\Necesidad;
 class altaNuevaDonacion extends Notification
 {
     use Queueable;
@@ -17,9 +18,10 @@ class altaNuevaDonacion extends Notification
      *
      * @return void
      */
-    public function __construct(Donacion $nuevaDonacion)
+    public function __construct(Donacion $nuevaDonacion, Necesidad $necesidad)
     {
         $this->nuevaDonacion=$nuevaDonacion;
+        $this->necesidad = $necesidad;
     }
 
     /**
@@ -41,14 +43,13 @@ class altaNuevaDonacion extends Notification
      */
     public function toMail($notifiable)
     {
-
-
+        
         return (new MailMessage)
                     ->subject('Posaderos - Nueva Donación')
-                    ->line('Hay una nueva donacion para la necesidad ( '.$nuevaDonacion->necesidad->especificacion.' ) que has publicado')
-                    ->line('Contacto: '.$nuevaDonacion->nombre.' '.$nuevaDonacion->apellido)
-                    ->line('Telefono:'.$nuevaDonacion->tel_contacto)
-                    ->line('Mail:'.$nuevaDonacion->mail_contacto)
+                    ->line('Hay una nueva donacion para la necesidad ( '.$this->necesidad->especificacion.' ) que has publicado')
+                    ->line('Contacto: '.$this->nuevaDonacion->nombre.' '.$this->nuevaDonacion->apellido)
+                    ->line('Telefono:'.$this->nuevaDonacion->tel_contacto)
+                    ->line('Mail:'.$this->nuevaDonacion->mail_contacto)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }
