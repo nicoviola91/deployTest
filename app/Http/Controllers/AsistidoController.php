@@ -115,16 +115,15 @@ class AsistidoController extends Controller
         $asistido->user_id = Auth::user()->id;
 
         $asistido->save();
-        
+        /*Alerto al creadaor de la alerta*/
+        $creador= $alerta->user;
+        $creador->notify(new AltaAlerta($asistido));
         //Comunidad para alertar
         if (isset($alerta->comunidad_id)) {
             
             $comunidad=Comunidad::find($alerta->comunidad_id);
             $comunidad->asistidos()->save($asistido);
-            /* Alerto a la comunidad del alta de un nuevo asistido y al que generó la alerta*/
-            $creador= $alerta->user;
-            $creador->notify(new AltaAlerta($asistido));
-            /*
+            /* Alerto a la comunidad del alta de un nuevo asistido
             $usuariosNotif = DB::table('users')->where([['comunidad_id', '=', $request->comunidad,['notifComunidad', '=', '1'],])->get();
             foreach ($usuarioNotif as $notificar) { $notificar->notify(new AltaAlerta($asistido)); }
             */ 
