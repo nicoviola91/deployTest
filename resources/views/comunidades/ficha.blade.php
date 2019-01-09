@@ -141,7 +141,7 @@
               <?php if ($comunidad->solicitudes()->count()): ?>
               <?php foreach ($comunidad->solicitudes as $solicitud): ?>
                 <tr id="solicitud{{$solicitud->id}}">
-                  <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
+                  <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$solicitud->user->dni}})</small></td>
                   <td class="text-center hidden-xs">{{$solicitud->user->email}}</td>
                   <td class="text-center hidden-xs horario">{{$solicitud->created_at->diffForHumans()}}</td>
                   <td class="text-center acciones">
