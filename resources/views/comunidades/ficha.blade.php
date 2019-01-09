@@ -113,19 +113,47 @@
               </span>           
             </h4>
             <br>
+            
             <h4>
               <i class="fa icon fa-user-circle fa-fw"></i> Miembros
-              <span class=""><small class="text-muted">({{ $comunidad->users()->count() }})</small></span>
+              <span class=""><small class="text-muted">(<span id="countMiembros">{{ $comunidad->users()->count() }}</span>)</small></span>
             </h4>
-              <table class="table table-striped table-hover">
-                <?php foreach ($comunidad->users as $usuario): ?>
-                  <tr>
-                  <td>{{$usuario->name}} {{$usuario->apellido}}</td>
-                  <td>{{$usuario->email}}</td>
+            <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
+              <?php if ($comunidad->users()->count() > 0): ?>
+              <?php foreach ($comunidad->users as $usuario): ?>
+                <tr>
+                  <td>{{$usuario->name}} {{$usuario->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
+                  <td class="text-center hidden-xs">{{$usuario->email}}</td>
+                  <td class="text-center">
+                    <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                  </td>
                 </tr>
-                <?php endforeach ?>
-              </table>
-              <br>
+              <?php endforeach ?>
+              <?php endif ?>
+            </table>
+            <br>
+            
+            <h4>
+              <i class="fa icon fa-user-plus fa-fw"></i> Solicitudes Pendientes
+              <span class=""><small class="text-muted">(<span id="countSolicitudes">{{ $comunidad->solicitudes()->count() }}</span>)</small></span>
+            </h4>
+            <table class="table table-striped table-hover" style="overflow-x: auto;">
+              <?php if ($comunidad->solicitudes()->count()): ?>
+              <?php foreach ($comunidad->solicitudes as $solicitud): ?>
+                <tr id="solicitud{{$solicitud->id}}">
+                  <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
+                  <td class="text-center hidden-xs">{{$solicitud->user->email}}</td>
+                  <td class="text-center hidden-xs horario">{{$solicitud->created_at->diffForHumans()}}</td>
+                  <td class="text-center acciones">
+                    <a href="javascript:void(0)" class="descartarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Descartar Solicitud"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                    <a href="javascript:void(0)" class="aprobarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Aprobar Solicitud"> <i class="icon fa fa-check fa-2x fa-fw text-green"></i></a>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+              <?php endif ?>
+            </table>
+            <br>
+
             <h4>
               <i class="fa icon fa-user fa-fw"></i> Asistidos
               <span class=""><small class="text-muted">({{ $comunidad->asistidos()->count() }})</small></span>           
@@ -217,6 +245,79 @@
 
 
 @section('scripts')
+
+  <script type="text/javascript">
+    
+    $('.descartarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.descartarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        $('#solicitud'+id).remove();
+        $('#countSolicitudes').html($('#countSolicitudes').html()-1);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+    $('.aprobarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.aprobarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        tr = $('#solicitud'+id);
+
+        tr.find('.horario').remove();
+        tr.find('.acciones').html('<i class="icon fa fa-remove fa-2x fa-fw text-gray"></i>');
+
+        $('#tableMiembros').append(tr);
+
+        //tr.remove();
+
+        $('#countSolicitudes').html($('#countSolicitudes').html()-1);
+        $('#countMiembros').html(parseInt($('#countMiembros').html())+1.0);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+  </script>
 
 
 @endsection

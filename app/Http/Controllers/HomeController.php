@@ -70,6 +70,7 @@ class HomeController extends Controller
     public function home () {
 
         $data['misComunidades'] = Auth::user()->comunidades()->get();
+        $data['comunidades'] = Comunidad::all();
 
         return view('bienvenido', $data);
     }
