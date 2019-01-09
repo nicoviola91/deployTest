@@ -14,7 +14,7 @@
     <!-- Custom styles for this template -->
     <link href="{{asset('/creative/css/creative.css')}}" rel="stylesheet">
 
-	<!-- Plugin JavaScript -->
+	  <!-- Plugin JavaScript -->
     <script src="{{asset('/creative/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{asset('/creative/vendor/scrollreveal/scrollreveal.min.js')}}"></script>
     <script src="{{asset('/creative/vendor/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
@@ -32,9 +32,11 @@
 		    border-radius: 300px;
 		    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     	}
+      
       .boton{
         cursor: pointer;
       }
+
       .boton:hover{
         /*background: #f0c7c7;*/
         /*border-radius: 8px;  */
@@ -126,7 +128,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 mx-auto text-center">
-            <h2 class="section-heading"> <i class="icon fa fa-users"></i> Tu Comunidad</h2>
+            <h2 class="section-heading"> <i class="icon fa fa-users"></i>
+             <?php echo count($misComunidades) > 1 ? "Tus Comunidades" : "Tu Comunidad" ?>
+           </h2>
             <h4> 
             	<?php foreach ($misComunidades as $com): ?>
 	        		<span class="label label-default"><?php echo $com->nombre ?></span>	
@@ -136,7 +140,7 @@
             	<span class="label label-default">Noche de Caridad Victorias</span> -->
             </h4>
             <hr class="my-4">
-            <p class="mb-5">Todavía no perteneces a ninguna Comunidad? Hacé click a continuación para solicitar unirte!</p>
+            <p class="mb-5"><?php count($misComunidades) < 1 ? "Todavía no perteneces a ninguna Comunidad? Hacé click a continuación para solicitar unirte!" : "" ?></p>
           </div>
         </div>
         <div class="row">
@@ -145,7 +149,7 @@
         		<a href="javascript:void(0)" id="btnSumate" data-toggle="modal" data-target="#modal-sumate">
         			<div class="col-lg-12 ml-auto text-center">
         				<i class="fa fa-3x mb-3 sr-contact icon fa-plus-square"></i>
-        				<p>Sumate</p>
+        				<p>Sumáte</p>
         			</div>
         		</a>
         	</div>
@@ -155,11 +159,12 @@
     </section>
 
     <section class="bg-dark text-white">
-      <div class="container text-center">
-      	<img src="{{ asset('/img/logoucawhite.png') }}" class="" alt="Logo Image" style="max-height: 30px;">
+      <div class="container text-center boton botonUca">
+        <img src="{{ asset('/img/logoucawhite.png') }}" class="" alt="Logo Image" style="max-height: 30px;">
         <h4 class="mb-4" style="color: #eee;">Desarrollado por la Facultad de Ingeniería y Ciencias Agrarias de la UCA</h4>
       </div>
     </section>
+
     {{-- Modal para sumarte --}}
     <div class="modal fade" id="modal-sumate">
       <div class="modal-dialog">
@@ -186,17 +191,24 @@
 	$( document ).ready(function() {
 	    $('#contenido').remove();
 	});	
+  
   $('.boton.mapa').click(function(){
     // window.location.href='http://www.lumencor.org/mapa.html';
     window.open('http://www.lumencor.org/mapa.html');
   });
+  
   $('.boton.alertas').click(function(){
     // window.location.href='https://www.posaderos.xyz/alert/my_list';
     window.open('https://www.posaderos.xyz/alert/my_list');
   });
+  
   $('.boton.seguimiento').click(function(){
     // window.location.href='https://www.posaderos.xyz/alert/my_list';
     window.open('http://www.lumencor.org/#red');
+  });
+
+  $('.boton.botonUca').click(function(){
+    window.open("{{url('/uca')}}");
   });
 
 </script>

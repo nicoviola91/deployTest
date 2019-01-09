@@ -27,8 +27,11 @@ Auth::routes();
 
 //Dashboard
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
+
 //Bienvenido
 Route::get('/home', 'HomeController@home')->name('home')->middleware('autenticado');
+Route::get('/uca', 'HomeController@uca')->name('uca')->middleware('autenticado');
+
 //Downloads (para archivos de consultas)
 Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('autenticado');
 

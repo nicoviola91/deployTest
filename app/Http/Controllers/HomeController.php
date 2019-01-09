@@ -73,4 +73,9 @@ class HomeController extends Controller
 
         return view('bienvenido', $data);
     }
+
+    public function uca () {
+
+        return view('uca');
+    }
 }
