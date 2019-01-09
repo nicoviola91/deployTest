@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 use App\Asistido;
 use App\User;
-use App\Comunidad;
+use App\Institucion;
 
 class AltaAlerta extends Notification
 {
@@ -46,10 +46,10 @@ class AltaAlerta extends Notification
     {
         //$url = url('/asistido/list');
         $derivadoPor= User::where('id',$this->asistido->owner)->first();
-        //$comunidad = Comunidad::where('id',$this->asistido->comunidad_id)->first();
+        $institucion = Institucion::where('id',$this->asistido->institucion_id)->first();
         return (new MailMessage)
                     ->subject('Posaderos - Alta de Asistido')
-                    ->line('Se ha dado de alta un asistido en la comunidad ')//.$comunidad->nombre)
+                    ->line('Se ha dado de alta un asistido derivado a la institución '.$institucion->nombre)
                     ->line($this->asistido->nombre.' '.$this->asistido->apellido)
                     ->line('Derivado por '.$derivadoPor->name.' '.$derivadoPor->apellido)
                     //->action('Ver asistidos', $url)
