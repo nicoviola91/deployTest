@@ -107,8 +107,8 @@
       <div class="container-fluid">
         <div class="navbar-header">
 
-          <a href="index2.html" class="navbar-brand hidden-xs hidden-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/lumencor-white.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
-          <a href="index2.html" class="navbar-brand visible-xs visible-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
+          <a href="{{ url('/home') }}" class="navbar-brand hidden-xs hidden-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/lumencor-white.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
+          <a href="{{ url('/home') }}" class="navbar-brand visible-xs visible-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
       
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
