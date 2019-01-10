@@ -235,7 +235,12 @@
                   <?php foreach ($comunidad->users as $usuario): ?>
                     <tr>
                       <td>{{$usuario->name}} {{$usuario->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
-                      <td class="text-center hidden-xs">{{$usuario->email}}</td>
+                      <td class="text-center hidden-xs">
+                        {{$usuario->email}}
+                        <?php if ($usuario->comunidad_id == $comunidad->id): ?>
+                          <span class="label label-default">COORDINADOR</span>
+                        <?php endif ?>
+                      </td>
                       <td class="text-center">
                         <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
                       </td>
