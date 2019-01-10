@@ -94,13 +94,16 @@ class UserController extends Controller
         $alertas=Alerta::where('user_id',$id)->count();
         $consultas = Consulta::where('user_id',$id)->count();
         $asistidos= Asistido::where('owner','=',$id)->count();
-        $comunidades = $user->comunidades()->get();
         
+        $misComunidades = $user->comunidades()->get();
+        $comunidades = Comunidad::all();
+
         return view('users.my_profile')->with('user',$user)
                                     ->with('consultas',$consultas)
                                     ->with('asistidos',$asistidos)
                                     ->with('alertas',$alertas)
-                                    ->with('comunidades', $comunidades);
+                                    ->with('comunidades', $comunidades)
+                                    ->with('misComunidades', $misComunidades);
     }
 
     public function profile(Request $request, $id)

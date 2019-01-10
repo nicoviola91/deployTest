@@ -124,15 +124,30 @@
           <ul class="nav navbar-nav">
               <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
               <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-fw"></i> Mi Comunidad <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  
+                  <?php if (isset(Auth::user()->comunidades) && count(Auth::user()->comunidades)) { ?>
+                    <?php foreach (Auth::user()->comunidades as $comunidad): ?>
+                      <li><a href="{{url('/comunidad/muro')}}/{{$comunidad->id}}"><?php echo $comunidad->nombre ?></a></li>
+                    <?php endforeach ?>
+                  <?php } else { ?>
+                      <li><a href="{{url('/user/my_profile')}}">Unite!</a></li>
+                  <?php } ?>
+                </ul>
+              </li>
+
           </ul>
 
-          <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
+          <!-- <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
             {{ csrf_field() }}
             <div class="form-group">
               <input type="text" name="q" class="form-control" placeholder="Buscar Alertas...">
               <input type="hidden" name="tipo" class="form-control" value="asistido">
             </div>
-          </form>
+          </form> -->
 
         </div>
         <!-- /.navbar-collapse -->
@@ -241,6 +256,7 @@
     <!-- /.container -->
   </div>
   <!-- /.content-wrapper -->
+
   
 
   <footer class="main-footer hidden-xs">
@@ -313,6 +329,7 @@
         });
 
       }
+
 </script>
 
 </body>

@@ -184,11 +184,15 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
     ]);
+    Route::get('/muro/{id}',[
+        'uses'=>'ComunidadController@showMuro',
+        'as'=>'comunidad.muro'
+    ]);
+    //SOLICITUDES DE ADHESION A COMUNIDAD
     Route::post('/enviarSolicitud',[
         'uses'=>'ComunidadController@enviarSolicitud',
         'as'=>'comunidad.enviarSolicitud',
     ]);
-    
     Route::post('/descartarSolicitud',[
         'uses'=>'ComunidadController@descartarSolicitud',
         'as'=>'comunidad.descartarSolicitud',

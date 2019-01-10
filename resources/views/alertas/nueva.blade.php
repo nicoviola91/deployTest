@@ -241,9 +241,9 @@
           <br>
           <div class="form-group">
             <label> <i class="icon fa fa-users"></i> COMPARTÍLO CON TU COMUNIDAD! (opcional)</label>
-            <i class="icon fa fa-fw"></i> <input type="checkbox" name="checkComunidad" value="1" id="checkComunidad">
+            <i class="icon fa fa-fw"></i> <input type="checkbox" name="checkComunidad" value="1" id="checkComunidad" checked>
 
-            <span id="selectComunidad" style="display: none;">
+            <span id="selectComunidad">
             <select class="form-control select2" style="width: 100%;" name="comunidad" id="comunidad">
                 @foreach($comunidades as $comunidad)
                   <option value="{{$comunidad->id}}">{{$comunidad->nombre}}</option>

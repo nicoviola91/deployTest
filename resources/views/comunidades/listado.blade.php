@@ -133,7 +133,7 @@
 	              <label for="nombre">Tipo</label>
 	              <select class="form-control" name="tipo" id="tipo" required>
 	              	<option value="nocheDeCaridad">Noche De Caridad</option>
-	              	<option value="externa">Comunidad Externa</option>
+	              	<option value="institucion">Comunidad Externa</option>
 	              </select>
 	              @if ($errors->has('tipo'))
 	                <span class="help-block">
