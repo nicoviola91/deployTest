@@ -1,4 +1,4 @@
-@extends('layouts.adminApp')
+@extends('layouts.userApp')
 
 
 @section('title')
@@ -43,6 +43,11 @@
 
 			<div class="box-body">
 
+				<br>
+				<h4 class="text-muted">A continuación se listan las Necesidades de nuestros Asistidos actualmente. </h4>
+				<h4 class="text-muted">Si creés que podes ayudar hacé click en <i class="icon fa fa-handshake-o fa-fw text-blue"></i> para ponerte en contacto con nosotros.</h4>
+				<br>
+				<hr>
 				<table class="table table-bordered table-hover" id="tabla-comunidades">
 					
 					<thead>
@@ -50,7 +55,7 @@
 						<tr style="background-color: #f4f4f4;">
 							<th class="text-center">Descripcion</th>
 							<th class="text-center">Tipo</th>
-							<th class="text-center">Satisfecha</th>
+							<!-- <th class="text-center">Satisfecha</th> -->
 							<th class="text-center">Fecha Alta</th>
 							<th class="text-center">Donar</th>
 						</tr>
@@ -64,9 +69,9 @@
 							@foreach ($necesidades as $necesidad)
 							    
 							    <tr>
-									<td class="text-center" style="vertical-align: middle;">{{ $necesidad->especificacion }}</td>
+									<td class="" style="vertical-align: middle;">{{ $necesidad->especificacion }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $necesidad->tipo->descripcion }}</td>
-									<td class="text-center" style="vertical-align: middle;"><span class="label label-danger">Insatisfecha</span></td>
+									<!-- <td class="text-center" style="vertical-align: middle;"><span class="label label-danger">Insatisfecha</span></td> -->
 									<td class="text-center" style="vertical-align: middle;">{{ Carbon\Carbon::parse($necesidad->created_at)->format('d/m/Y') }}</td>
 									<td class="text-center" style="vertical-align: middle;">
 										<a href="javascript:void(0)" data-id="{{$necesidad->id}}" data-toggle="modal" data-title="Donar" class="botonDonar"> <i class="icon fa fa-handshake-o fa-2x fa-fw text-blue"></i></a>

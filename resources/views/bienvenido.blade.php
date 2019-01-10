@@ -65,8 +65,13 @@
             <br>
             <h3 class="section-heading text-white">Bienvenido a la Red del Posadero</h3>
             <hr class="light my-4">
+
             <p class="text-faded mb-4">¿CONOCÉS A ALGUIEN EN SITUACIÓN DE VULNERABILIDAD? ¡Avisanos para poder ayudar!</p>
             <a class="btn btnCreative btn-light btn-xl js-scroll-trigger" href="{{url('/alert/new')}}" style="color: #eee !important; background-color: #0d0a0a99;"> <i class="icon fa fa-user-plus"></i> Generá una Alerta</a>
+            <br>
+            <p class="text-faded mb-4" style="margin-top: 10px;">¿QUERÉS HACER UNA DONACIÓN?</p>
+            <a class="btn btnCreative btn-light btn-xl js-scroll-trigger" href="{{url('/necesidad/list')}}" style="color: #eee !important; background-color: #0d0a0a99;"> <i class="icon fa fa-handshake-o"></i> Mirá la lista de Necesidades</a>
+          
           </div>
         </div>
       </div>

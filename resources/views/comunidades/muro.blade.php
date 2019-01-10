@@ -124,9 +124,11 @@
               <strong><i class="fa fa-id-badge margin-r-5"></i> Coordinadores</strong>
 
                 <?php if (isset($comunidad->coordinadores) && count($comunidad->coordinadores)) { ?>
+                  
                   <?php foreach ($comunidad->coordinadores as $coordinador): ?>
                     <p style="margin: 0 3px !important;" class="text-muted"><?php echo $coordinador->name ?> <?php echo $coordinador->apellido ?></p>
                   <?php endforeach ?>
+                
                 <?php } else { ?>
                   <p class="text-muted">-</p>
                 <?php } ?>
