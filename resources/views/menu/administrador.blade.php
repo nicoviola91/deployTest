@@ -60,8 +60,6 @@
   </ul>
 </li>
 
-<li><a href="{{url('/necesidad/list')}}"><i class="fa fa-hotel"></i><span>Necesidades</span></a></li>
-
 <li class="treeview">
   <a href="#">
     <i class="fa fa-user-circle"></i>
