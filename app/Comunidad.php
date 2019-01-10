@@ -42,4 +42,8 @@ class Comunidad extends Model
         return $this->hasMany('App\User', 'comunidad_id');
     }
 
+     public function mensajes() {
+        return $this->hasMany('App\MensajeComunidad');
+    }
+
 }

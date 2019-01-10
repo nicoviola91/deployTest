@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MensajeComunidad extends Model
 {
-    protected $table="consultas";
+    protected $table="mensajesComunidad";
     protected $fillable = [
         'mensaje',
         'created_by',

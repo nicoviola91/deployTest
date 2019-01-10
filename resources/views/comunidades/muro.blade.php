@@ -169,28 +169,30 @@
                   </div>
                 </div>
 
-                <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src="http://placehold.it/150x100" alt="user image">
-                        <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <!-- <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a> -->
-                          <span href="#" class="pull-right btn-box-tool">ayer</span>
-                        </span>
-                    <span class="description"> Buen Vecino</span>
-                  </div>
-                  <!-- /.user-block -->
-                  <p>
-                    Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create awesome
-                    tools to help create filler text for everyone from bacon lovers
-                    to Charlie Sheen fans.
-                  </p>    
-                </div>
-                <!-- /.post -->
-              
+                <?php if (isset($comunidad->mensajes)): ?>
+                  <?php foreach ($comunidad->mensajes as $m): ?>
+                    
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="http://placehold.it/150x100" alt="user image">
+                            <span class="username">
+                              <a href="#"><?php echo $m->author->name ?></a>
+                              <!-- <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a> -->
+                              <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at ?></span>
+                            </span>
+                        <span class="description"> <?php echo $m->author->tipoUsuario->nombre ?></span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        <?php echo $m->mensaje ?>
+                      </p>    
+                    </div>
+
+
+                  <?php endforeach ?>
+                <?php endif ?>
+
+               
               </div>
               
 
