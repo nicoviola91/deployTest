@@ -94,7 +94,6 @@
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Unirme</b></a>
             </div>
             <!-- /.box-body -->
           </div>
@@ -138,6 +137,9 @@
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Observaciones</strong>
 
               <p><?php echo $comunidad->observaciones ?></p>
+
+              <a href="#" class="btn btn-danger btn-block"><i class="fa icon fa-sign-out fa-fw"></i><b>Abandonar</b></a>
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -234,7 +236,10 @@
                   <?php if ($comunidad->users()->count() > 0): ?>
                   <?php foreach ($comunidad->users as $usuario): ?>
                     <tr>
-                      <td>{{$usuario->name}} {{$usuario->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
+                      <td>
+                        {{$usuario->name}} {{$usuario->apellido}} 
+                        <br><small class="text-muted">{{$usuario->tipoUsuario->nombre}}</small>
+                      </td>
                       <td class="text-center hidden-xs">
                         {{$usuario->email}}
                         <?php if ($usuario->comunidad_id == $comunidad->id): ?>
