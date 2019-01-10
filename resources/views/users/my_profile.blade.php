@@ -84,7 +84,7 @@
 
                 <div class="col-sm-3">
                   <div class="description-block">
-                    <h5 class="description-header">{{$comunidades->count()}}</h5>
+                    <h5 class="description-header">{{Auth::user()->comunidades->count()}}</h5>
                     <span class="description-text">COMUNIDADES</span>
                   </div>
                   <!-- /.description-block -->
