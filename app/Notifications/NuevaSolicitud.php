@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 use App\Solicitud;
+use App\User;
+use App\Comunidad;
 
 class NuevaSolicitud extends Notification
 {
@@ -19,9 +21,10 @@ class NuevaSolicitud extends Notification
      *
      * @return void
      */
-    public function __construct(Solicitud $solicitud)
+    public function __construct(Solicitud $solicitud, Comunidad $comunidad)
     {
         $this->solicitud = $solicitud;
+        $this->comunidad = $comunidad;
     }
 
     /**
@@ -43,16 +46,17 @@ class NuevaSolicitud extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/solicitudes/list');
+        $url = url('/comunidad/ficha/');//.$id_comunidad
         if ($this->solicitud->tipoSolicitud_id = 1){
             //queda disponible para la tabla de referencia de tipos de solicitudes en caso que aparezcan nuevas. No va
             //a hacer falta el if y se va a poder traer directamente solicitud->tipoSolicitud()->descripcion
-            $tipo = 'de Adherirse a una comunidad';
+            $tipo = 'para adherirse a la comunidad';
         }
-
+        $usuario_sol=User::where('id',$this->solicitud->user_id)->first();
         return (new MailMessage)
                     ->subject('Posaderos - Nueva Solicitud')
-                    ->line('Se ha generado una solicitud '.$tipo)
+                    ->line($usuario_sol->nombre.' '.$usuario_sol->apellido.' ha generado una solicitud '.$tipo.' '.$comunidad->nombre)
+                    ->line('Accede a "Mis Solicitudes" para gestionar tus solicitudes pendientes')
                     ->action('Ir a Mis Solicitudes', $url)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');

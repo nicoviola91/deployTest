@@ -51,13 +51,13 @@ class NecesidadesController extends Controller
      */
     public function list()
     {
-        $data['necesidades'] = necesidad::all();
+        $data['necesidades'] = necesidad::all();//Habria que fitrar las pendientes de solucion e insatisfechas
         return view('necesidades.listado', $data);
     }
 
     public function public_list()
     {
-        $data['necesidades'] = necesidad::all();
+        $data['necesidades'] = necesidad::all();//Habria que fitrar las pendientes de solucion e insatisfechas
         return view('necesidades.listado', $data);
     }
 
@@ -77,6 +77,7 @@ class NecesidadesController extends Controller
         $usr_notificacion = User::where('id',$ficha_necesidad->created_by)->first();
         $usr_notificacion->notify(new altaNuevaDonacion($donac, $necesidad));
         //Fin Notificacion
+        //Aca habria que poner la Necesidad "En proceso" de solucion o lo que sea 
         $data['necesidades'] = Necesidad::all();
         return view('necesidades.listado', $data);
     }
