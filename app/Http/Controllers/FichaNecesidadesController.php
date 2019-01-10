@@ -7,7 +7,9 @@ use App\TipoNecesidad;
 use App\FichaNecesidad;
 use App\Necesidad;
 use App\Asistido;
+use App\Comunidad;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\altaNecesidadesComunidad;
 
 class FichaNecesidadesController extends Controller
 {
@@ -67,7 +69,17 @@ class FichaNecesidadesController extends Controller
         ->update(['checklistNecesidades'=>1]);
         $fichaNecesidad->necesidades()->save($necesidad);
         $necesidad->save();
-
+        /*/busco comunidad del asistido
+        $asist = Asistido::where('id',$asistido_id)->first();
+        $com_asist = Comunidad::where('id',$asist->comunidad_id)->get();
+        //alerto a la/s comunidad/es de la necesidad
+           foreach ($com_asist as $com) {
+                $usrs = User::where('comunidad_id',$com->id)->where('notifComunidad', '=', '1')->get();
+                foreach ($usrs as $usr) {
+                    $usr->notify(new altaNecesidadesComunidad($necesidad));
+                }
+            } 
+        */
         //return redirect()->route('fichaNecesidades.create',['asistido_id'=>$asistido_id]); 
         return redirect()->route('asistido.show2',['asistido_id'=>$asistido_id]);
 

@@ -43,8 +43,8 @@ class altaNecesidadesComunidad extends Notification
         return (new MailMessage)
                     ->subject('Posaderos - Nueva Necesidad')
                     ->line('Ha aparecido una nueva necesidad en tu comunidad')
-                    ->line('Necesidad Tipo: '.$nuevaNecesidad->tipo->descripcion)
-                    ->line('Necesidad Detalle'.$nuevaNecesidad->especificacion)
+                    ->line('Necesidad Tipo: '.$this->nuevaNecesidad->tipo->descripcion)
+                    ->line('Necesidad Detalle'.$this->nuevaNecesidad->especificacion)
                     ->action('Ver Todas las necesidades', url('/necesidades/list'))
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
