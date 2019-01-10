@@ -7,6 +7,7 @@ use App\Donacion;
 use App\FichaNecesidad;
 use App\User;
 use Illuminate\Http\Request;
+use App\Notifications\altaNuevaDonacion;
 
 class NecesidadesController extends Controller
 {   

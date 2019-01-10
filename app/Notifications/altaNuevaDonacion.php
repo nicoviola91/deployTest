@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 use App\Donacicon;
 use App\Necesidad;
-class AltaNuevaDonacion extends Notification
+class altaNuevaDonacion extends Notification
 {
     use Queueable;
 
