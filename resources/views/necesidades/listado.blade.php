@@ -55,8 +55,8 @@
 						<tr style="background-color: #f4f4f4;">
 							<th class="text-center">Descripcion</th>
 							<th class="text-center">Tipo</th>
-							<!-- <th class="text-center">Satisfecha</th> -->
 							<th class="text-center">Fecha Alta</th>
+							<th class="text-center"><img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero</th>
 							<th class="text-center">Donar</th>
 						</tr>
 
@@ -71,8 +71,15 @@
 							    <tr>
 									<td class="" style="vertical-align: middle;">{{ $necesidad->especificacion }}</td>
 									<td class="text-center" style="vertical-align: middle;">{{ $necesidad->tipo->descripcion }}</td>
-									<!-- <td class="text-center" style="vertical-align: middle;"><span class="label label-danger">Insatisfecha</span></td> -->
 									<td class="text-center" style="vertical-align: middle;">{{ Carbon\Carbon::parse($necesidad->created_at)->format('d/m/Y') }}</td>
+									<td class="text-center" style="vertical-align: middle;">
+										<?php echo isset($necesidad->fichaNecesidad->asistido->institucion->nombre) ? $necesidad->fichaNecesidad->asistido->institucion->nombre : "" ?>
+
+										<?php if (isset($necesidad->fichaNecesidad->asistido->institucion->direccion)): ?>
+											<br><small class="text-muted">{{$necesidad->fichaNecesidad->asistido->institucion->direccion->toString()}}</small>
+										<?php endif ?>
+
+									</td>
 									<td class="text-center" style="vertical-align: middle;">
 										<a href="javascript:void(0)" data-id="{{$necesidad->id}}" data-toggle="modal" data-title="Donar" class="botonDonar"> <i class="icon fa fa-handshake-o fa-2x fa-fw text-blue"></i></a>
 									</td> 
@@ -105,8 +112,8 @@
     	<div class="callout callout-success" style="background-color: #9da6a2 !important; border-color: #7f7f7f !important; margin-bottom: 10px; padding: 5px 20px 5px 20px !important;">
             <h5>Si querés ayudar, podés acercar tus donaciones a alguno de los siguientes puntos:</h5>
 	            <ul>
-	            	<li ><a href="http://www.lumencor.org/mapa.html">Posaderos Asociados</a></li>
-	            	<li ><a href="https://www.caritas.org.ar/sumate/">Caritas</a></li>
+	            	<li ><a href="http://www.lumencor.org/mapa.html" target="_blank">Posaderos Asociados</a></li>
+	            	<li ><a href="https://www.caritas.org.ar/sumate/" target="_blank">Caritas</a></li>
 	            </ul>
 	        <h5>O podés llenar el siguiente formulario para que nos pongamos en contacto con vos: </h5>  
         </div>
@@ -226,7 +233,7 @@
             		title: 'Listado de Necesidades',
             		exportOptions: 
             		{
-                    	columns: [ 0, 1, 2, 3],
+                    	columns: [ 0, 1, 2],
                     }
             	},
             ],

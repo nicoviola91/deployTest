@@ -68,7 +68,7 @@
 					<th class="text-center">Documento</th>
 					<th class="text-center" >Usuario</th>
 					<th class="text-center" style="max-width: 150px;">Comunidad</th>
-					<th class="text-center">Posadero</th>
+					<th class="text-center"><img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero</th>
 					<th class="text-center">Alta</th>
 					<th class="text-center"> Acciones</th>
 				</tr>

@@ -167,6 +167,7 @@
       <div class="container text-center boton botonUca">
         <img src="{{ asset('/img/logoucawhite.png') }}" class="" alt="Logo Image" style="max-height: 30px;">
         <h4 class="mb-4" style="color: #eee;">Desarrollado por la Facultad de Ingeniería y Ciencias Agrarias de la UCA</h4>
+        <a class="btn btn-light btn-xl sr-button btnCreative" style="background-color: #fefefea6;">CONOCÉ AL EQUIPO</a>
       </div>
     </section>
 
