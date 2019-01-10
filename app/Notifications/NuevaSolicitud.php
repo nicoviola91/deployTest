@@ -55,7 +55,7 @@ class NuevaSolicitud extends Notification
         $usuario_sol=User::where('id',$this->solicitud->user_id)->first();
         return (new MailMessage)
                     ->subject('Posaderos - Nueva Solicitud')
-                    ->line($usuario_sol->nombre.' '.$usuario_sol->apellido.' ha generado una solicitud '.$tipo.' '.$this->comunidad->nombre)
+                    ->line($usuario_sol->name.' '.$usuario_sol->apellido.' ha generado una solicitud '.$tipo.' '.$this->comunidad->nombre)
                     ->line('Accede a "Mis Solicitudes" para gestionar tus solicitudes pendientes')
                     ->action('Ir a Mis Solicitudes', $url)
                     ->line('Gracias por usar nuestra aplicación!')
