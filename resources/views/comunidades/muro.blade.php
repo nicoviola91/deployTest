@@ -174,9 +174,15 @@
                     
                     <div class="post">
                       <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="http://placehold.it/150x100" alt="user image">
+
+                            <?php if (isset($m->author->imagen) && $m->author->imagen != '' && $m->author->imagen != 'default.jpg') { ?>
+                              <img class="img-circle img-bordered-sm" src="<?php echo asset("storage") . '/' . $m->author->imagen ?>" alt="user image">                          
+                            <?php } else { ?>
+                              <img class="img-circle img-bordered-sm" src="{{ asset('/img/user160x160.png') }}" alt="user image">
+                            <?php } ?>
+
                             <span class="username">
-                              <a href="#"><?php echo $m->author->name ?></a>
+                              <a href="#"><?php echo $m->author->name ?> <?php echo $m->author->apellido ?></a>
                               <!-- <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a> -->
                               <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at ?></span>
                             </span>
