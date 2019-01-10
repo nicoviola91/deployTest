@@ -63,12 +63,18 @@ class FichaNecesidadesController extends Controller
     public function storeNecesidad(Request $request, $asistido_id){
 
         $necesidad=new Necesidad($request->all());
+        $necesidad->created_by = Auth::user()->id;
+
         Asistido::where('id',$asistido_id)->update(['checkFichaNecesidad' =>1]);
+        
         $fichaNecesidad=$this->findFichaNecesidadByAsistidoId($asistido_id);
+        
         FichaNecesidad::where('asistido_id',$asistido_id)
-        ->update(['checklistNecesidades'=>1]);
+            ->update(['checklistNecesidades'=>1]);
+                
         $fichaNecesidad->necesidades()->save($necesidad);
         $necesidad->save();
+
         /*/busco comunidad del asistido
         $asist = Asistido::where('id',$asistido_id)->first();
         $com_asist = Comunidad::where('id',$asist->comunidad_id)->get();

@@ -198,7 +198,7 @@
                       <br><small class="text-muted">Listado de Asistidos vinculados a tu Comunidad</small>
                     </h3>
 
-                    <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover" id="tableAsistidos" style="overflow-x: auto;">
                       <?php if ($comunidad->asistidos()->count() > 0): ?>
                       <?php foreach ($comunidad->asistidos as $asistido): ?>
                         <tr>
@@ -264,7 +264,7 @@
                       <br><small class="text-muted">Listado de alertas compartidas con la Comunidad</small>
                     </h3>
 
-                    <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover" id="tableAlertas" style="overflow-x: auto;">
                       <?php if ($comunidad->alertas()->count() > 0): ?>
                       <?php foreach ($comunidad->alertas as $alerta): ?>
                         <tr>

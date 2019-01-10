@@ -13,6 +13,7 @@ class Necesidad extends Model
         'fechaFin',
         'fichaNecesidad_id',
         'tipoNecesidad_id',
+        'created_by',
     ];
 
     public function fichaNecesidad(){
@@ -23,5 +24,8 @@ class Necesidad extends Model
     }
     public function donacion(){
         return $this->hasOne('App\Donacion');
+    }
+    public function owner(){
+        return $this->belongsTo('App\Users', 'created_by');
     }
 }
