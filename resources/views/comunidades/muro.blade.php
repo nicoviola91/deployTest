@@ -66,10 +66,10 @@
             <div class="box-body box-profile">
 
 
-              @if(isset($institucion->imagen) && $institucion->imagen != '' && $institucion->imagen != 'default.jpg')
+              @if(isset($comunidad->institucion->imagen) && $comunidad->institucion->imagen != '' && $comunidad->institucion->imagen != 'default.jpg')
 
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo asset("storage/$comunidad->institucion->imagen")?>" alt="Institucion">
-
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo asset('storage' . '/' . $comunidad->institucion->imagen) ?>" alt="Institucion">
+                
               @else
 
                 <img class="profile-user-img img-responsive img-circle" src="{{asset('img/institucion160x160.png')}}" alt="Default">
