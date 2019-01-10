@@ -51,4 +51,27 @@ class Direccion extends Model
         return $this->belongsTo('App\Empleo');
     }
 
+    public function toString() {
+
+        $s = "";
+
+        if (isset($this->calle))
+            $s.= ($this->calle . " ");
+
+        if (isset($this->numero))
+            $s.= ($this->numero . " ");
+
+        if (isset($this->piso))
+            $s.= (" piso " . $this->piso . " ");
+
+        if (isset($this->provincia))
+            $s.= (", " . $this->provincia . " ");
+
+        if (isset($this->codigoPostal))
+            $s.= (" (CP " . $this->codigoPostal . ") ");
+
+
+        return $s;
+    }
+
 }

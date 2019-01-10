@@ -146,7 +146,7 @@
         <div class="row">
         	<br>
         	<div class="col-lg-12">
-        		<a href="" id="btnSumate" data-toggle="modal" data-target="#modal-sumate">
+        		<a href="" data-toggle="modal" data-target="#modal-sumate">
         			<div class="col-lg-12 ml-auto text-center">
         				<i class="fa fa-3x mb-3 sr-contact icon fa-plus-square"></i>
         				<p>Sumate</p>

@@ -155,10 +155,10 @@
 
           <div class="box box-solid">
             <div class="box-body col-md-6">
-              <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="#"> UNITE!</a></small></span></h4>
+              <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="#" data-toggle="modal" data-target="#modal-sumate"> UNITE!</a></small></span></h4>
               <h5>
-                <?php foreach ($comunidades as $comunidad): ?>
-                  <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>
+                <?php foreach ($misComunidades as $comunidad): ?>
+                  <p><span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span></p>
                 <?php endforeach ?>
               </h5>
             </div>
@@ -216,6 +216,51 @@
   </div>
 </div>
   
+
+   {{-- Modal para sumarte --}}
+    <div class="modal fade" id="modal-sumate">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="icon fa fa-user-plus"></i> Sumate </h4>
+          </div>
+          
+          <div class="modal-body">
+            
+            <h5>Pedile a un Coordinador que te agregue a la Comunidad.</h5>
+            <h5>Una vez que se apruebe tu solicitud vas a poder compartir tu actividad con los miembros de tu Comunidad</h5>
+            <hr>
+
+            <select class="form-control editable selectComunidad select2" name="comunidad_id" style="width: 100%;">      
+              <?php $institucion = 0; ?>
+              <option disabled selected value> Seleccionar ... </option>
+              <?php foreach ($comunidades as $comunidad): ?>  
+
+                <?php if ($institucion != $comunidad->institucion_id): ?>
+                  <optgroup label=" - {{$comunidad->institucion->nombre}}"></optgroup>
+                  <?php $institucion = $comunidad->institucion_id ?>
+                <?php endif ?>
+
+                <option value="{{$comunidad->id}}"> <?php echo $comunidad->nombre ?></option>
+              
+              <?php endforeach ?>
+            </select>
+            <p class="help-block">Selecciona una Comunidad</p>
+            
+            <br>
+            <button class="btn btn-light sr-button btnCreative btnSolicitud" style="background-color: #e5e5e5;">Enviar Solicitud</button>  
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  
+
+
 @endsection
 
 
@@ -245,6 +290,46 @@
   $("#foto").change(function() {
     readURL(this);
   });
+
+  $('.btnSolicitud').click(function(){
+    
+    var comunidad = $(".select2 option:selected").val();
+
+    $('#modal-sumate').modal('hide');
+    
+    if (jQuery.isNumeric(comunidad)) {
+      
+      console.log(comunidad); 
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.enviarSolicitud')}}", { 'comunidad_id': comunidad, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        console.log(datos.msg);
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+      } else {
+
+        console.log(datos.msg);
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    } else {
+      lanzarAlerta('peligro', 'Seleccioná una opción válida.')
+    }
+
+  });
+
 
 </script>
 @endsection

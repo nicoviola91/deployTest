@@ -38,5 +38,8 @@ class Comunidad extends Model
     public function coordinador(){
         return $this->belongsTo('App\User','coordinador_id');
     }
+    public function coordinadores() {
+        return $this->hasMany('App\User', 'comunidad_id');
+    }
 
 }

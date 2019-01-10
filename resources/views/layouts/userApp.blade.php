@@ -107,13 +107,9 @@
       <div class="container-fluid">
         <div class="navbar-header">
 
-          <!-- <a href="index2.html" class="navbar-brand"><b>POSADEROS</b></a> -->
-          <a href="{{url('/home/')}}" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image"></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img src="{{ asset('/img/lumencor-white.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></span>
-          </a>
+          <a href="index2.html" class="navbar-brand hidden-xs hidden-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/lumencor-white.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
+          <a href="index2.html" class="navbar-brand visible-xs visible-sm" style="padding: 5px 25px !important;"><img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image" style="max-height: 40px;"></a>
+      
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -124,16 +120,20 @@
           <ul class="nav navbar-nav">
               <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
               <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-fw"></i> Mi Comunidad <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  
+                  <?php if (isset(Auth::user()->comunidades) && count(Auth::user()->comunidades)) { ?>
+                    <?php foreach (Auth::user()->comunidades as $comunidad): ?>
+                      <li><a href="{{url('/comunidad/muro')}}/{{$comunidad->id}}"><?php echo $comunidad->nombre ?></a></li>
+                    <?php endforeach ?>
+                  <?php } else { ?>
+                      <li><a href="{{url('/user/my_profile')}}">Unite!</a></li>
+                  <?php } ?>
+                </ul>
+              </li>
           </ul>
-
-          <form class="navbar-form navbar-left" role="search" autocomplete="off" method="get" action="{{ route('asistido.busqueda') }}" >
-            {{ csrf_field() }}
-            <div class="form-group">
-              <input type="text" name="q" class="form-control" placeholder="Buscar Alertas...">
-              <input type="hidden" name="tipo" class="form-control" value="asistido">
-            </div>
-          </form>
-
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->
@@ -198,16 +198,6 @@
             </li>
           </ul>
 
-
-
-
-
-
-
-
-
-
-
         </div>
         <!-- /.navbar-custom-menu -->
       </div>
@@ -241,6 +231,7 @@
     <!-- /.container -->
   </div>
   <!-- /.content-wrapper -->
+
   
 
   <footer class="main-footer hidden-xs">
@@ -313,6 +304,7 @@
         });
 
       }
+
 </script>
 
 </body>

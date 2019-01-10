@@ -74,6 +74,12 @@ class ComunidadController extends Controller
         return view('comunidades.ficha', $data);
     }
 
+    public function showMuro($id)
+    {   
+        $data['comunidad'] = Comunidad::find($id);
+        return view('comunidades.muro', $data);
+    }
+
     public function update (Request $request) {
 
         $comunidad = Comunidad::where('id',$request->id)->first();
