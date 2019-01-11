@@ -11,7 +11,7 @@ use Asistido;
 class altaAsistidoComunidad extends Notification
 {
     use Queueable;
-
+    protected $nuevoAsistido;
     /**
      * Create a new notification instance.
      *

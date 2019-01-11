@@ -243,6 +243,13 @@ class AsistidoController extends Controller
         if (!$asistido->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
             
             $asistido->comunidades()->attach($comunidad_id);
+            /* Alerto a la comunidad del alta de un nuevo asistido*/
+            $comunidad = Comunidad::where('id',$comunidad_id);
+            if (isset($comunidad->users) && count($comunidad->users) > 0){
+                foreach ($comunidad->users as $notificar) {
+                    $notificar->notify(new altaAsistidoComunidad($asistido)); 
+                }
+            }
 
         }
 
