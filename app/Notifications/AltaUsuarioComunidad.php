@@ -11,7 +11,7 @@ use App\User;
 class AltaUsuarioComunidad extends Notification
 {
     use Queueable;
-    private $nuevoUsuario;
+    protected $nuevoUsuario;
 
     /**
      * Create a new notification instance.
@@ -20,7 +20,7 @@ class AltaUsuarioComunidad extends Notification
      */
     public function __construct(User $nuevoUsuario)
     {
-        $this->nuevoUsuario= $nuevoUsuario;
+        $this->nuevoUsuario = $nuevoUsuario;
     }
 
     /**

@@ -15,6 +15,7 @@ class NuevaSolicitud extends Notification
 {
     use Queueable;
     protected $solicitud;
+    protected $comunidad;
 
     /**
      * Create a new notification instance.
