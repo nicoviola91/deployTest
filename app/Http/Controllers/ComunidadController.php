@@ -206,9 +206,8 @@ class ComunidadController extends Controller
                     $user->comunidades()->attach($comunidad_id);
                     /* Notifiacion de Nuevo usuario agregado a la comunidad*/
                     $comun_notif = Comunidad::where('id',$comunidad_id)->first();
-                    $comunitarios = $comun_notif->users();
-                    if(isset($comunitarios) && count($comunitarios) > 0){
-                        foreach ($comunitarios as $comunitario) {
+                    if(isset($comun_notif->users) && count($comun_notif->users) > 0){
+                        foreach ($comun_notif->users as $comunitario) {
                             $comunitario->notify(new AltaUsuarioComunidad($user));    
                         }    
                     }
