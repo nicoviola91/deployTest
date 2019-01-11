@@ -6,6 +6,7 @@ use App\Comunidad;
 use App\Institucion;
 use App\Solicitud;
 use App\User;
+use App\MensajeComunidad;
 use Illuminate\Http\Request;
 use App\Http\Requests\ComunidadRequest;
 use Illuminate\Support\Facades\Auth;
@@ -236,6 +237,50 @@ class ComunidadController extends Controller
                 'msg' => 'Datos no válidos.'
             ]);
         }
+    }
+
+    public function storeMensaje(Request $request)
+    {   
+        $consulta = new MensajeComunidad([
+            'mensaje' => $request->mensaje,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        $comunidad = Comunidad::find($request->id);
+     
+        $validation = $request->validate([
+            'adjunto' => 'file|mimes:jpeg,png,jpg|max:20480'
+        ]);
+
+        if (null != $request->file('adjunto')) {
+           
+            $consulta->adjunto = $path;
+        }
+    
+        if (isset($comunidad) && $comunidad->mensajes()->save($consulta)) {
+            
+            if (isset($path)) {
+                return response()->json([
+                    'status' => true,
+                    'msg' => 'Consulta ingresada satisfactoriamente',
+                    'adjunto' => $path, 
+                    'texto' => $request->mensaje,
+                ]);
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'msg' => 'Consulta ingresada satisfactoriamente',
+                    'texto' => $request->mensaje,
+                ]);
+            }
+                
+        } else {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Ocurrió un error al generar la consulta. Por favor vuelva a intentarlo.',
+            ]);
+        }
+
     }
 
 }

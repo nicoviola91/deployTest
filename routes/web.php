@@ -201,6 +201,10 @@ Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
         'uses'=>'ComunidadController@aprobarSolicitud',
         'as'=>'comunidad.aprobarSolicitud',
     ]);
+    Route::post('/storeMensaje',[
+        'uses'=>'ComunidadController@storeMensaje',
+        'as'=>'comunidad.storeMensaje',
+    ]);
 });
 
 
