@@ -43,6 +43,15 @@
     vertical-align: middle !important;
   }
 
+  .user-block-icon {
+    width: 40px;
+    height: 40px;
+    float: left;
+    font-size: 3em;
+  }
+
+}
+
 </style>
 
 <div class="row">
@@ -163,7 +172,8 @@
                   <div class="col-md-12">
                     <h3>
                       Actividad Reciente
-                      <br><small class="text-muted">Mira la actividad reciente de los miembros de tu comunidad</small>
+                      <br><small class="text-muted">Mira la actividad reciente de los miembros de tu comunidad</small> 
+                        <a href="" data-target="#modal-consulta" data-toggle="modal" class="btn btn-default pull-right"><i class="icon fa fa-comments-o"></i> Nuevo Mensaje</a>
                     </h3>
                     <br>
                   </div>
@@ -184,7 +194,7 @@
                             <span class="username">
                               <a href="#"><?php echo $m->author->name ?> <?php echo $m->author->apellido ?></a>
                               <!-- <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a> -->
-                              <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at ?></span>
+                              <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
                             </span>
                         <span class="description"> <?php echo $m->author->tipoUsuario->nombre ?></span>
                       </div>
@@ -197,6 +207,39 @@
 
                   <?php endforeach ?>
                 <?php endif ?>
+
+                <div class="post">
+                  <div class="user-block">
+                    <i class="fa-fw icon fa fa-exclamation-circle user-block-icon text-red"></i>
+                    <span class="username">
+                      <a href="#">Nueva Alerta</a>
+                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
+                    </span>
+                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
+                  </div>  
+                </div>
+
+                <div class="post">
+                  <div class="user-block">
+                    <i class="fa-fw icon fa fa-user user-block-icon text-primary"></i>
+                    <span class="username">
+                      <a href="#">Nuevo Miembro</a>
+                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
+                    </span>
+                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
+                  </div>  
+                </div>
+
+                <div class="post">
+                  <div class="user-block">
+                    <i class="fa-fw icon fa fa-check-circle user-block-icon text-success"></i>
+                    <span class="username">
+                      <a href="#">Nuevo Asistido</a>
+                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
+                    </span>
+                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
+                  </div>  
+                </div>
 
                
               </div>
@@ -254,9 +297,9 @@
                           <span class="label label-default">COORDINADOR</span>
                         <?php endif ?>
                       </td>
-                      <td class="text-center">
+                      <!-- <td class="text-center">
                         <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
-                      </td>
+                      </td> -->
                     </tr>
                   <?php endforeach ?>
                   <?php endif ?>
@@ -350,17 +393,64 @@
 </div>
 
 
-	
+
+<div class="modal fade" id="modal-consulta">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><i class="icon fa fa-comments-o fa-fw"></i> Comunidad <small class="text-muted">NUEVO MENSAJE</small></h4>
+      </div>
+
+      <div class="modal-body">
+      <form class="form-horizontal" method="POST" action="{{ url('/comunidad/storeMensaje') }}" id="formNuevaConsulta" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <textarea required class="textareaEditor" id="mensaje" name="mensaje" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+        
+        <label for="adjunto" id="agregarAdjunto">Imagen Adjunta</label>
+        <input type="file" id="adjunto" name="adjunto">
+        <input type="hidden" id="id" name="id" value="<?php echo $comunidad->id ?>">
+        
+        <p class="help-block"><small>Admite jpg, jpeg, png</small></p>
+
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary" id="submitConsultaBtn">Enviar Mensaje</button>
+        </div>
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 @endsection
 
 
 @section('scripts')
 
-  <script type="text/javascript">
+<script type="text/javascript">
     
-   
+  $(function () {
 
-  </script>
+    $('.textareaEditor').wysihtml5({
+      toolbar: {
+        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+        "emphasis": true, //Italics, bold, etc. Default true
+        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+        "html": true, //Button which allows you to edit the generated HTML. Default false
+        "link": false, //Button to insert a link. Default true
+        "image": false, //Button to insert an image. Default true,
+        "color": false, //Button to change color of font  
+        "blockquote": false, //Blockquote  
+        "size": 'sm', //default: none, other options are xs, sm, lg
+      }
+    });
+  });
+
+</script>
 
 
 @endsection
