@@ -254,6 +254,7 @@ class ComunidadController extends Controller
 
         if (null != $request->file('adjunto')) {
            
+            $path = $request->file('adjunto')->store('mensajes');
             $consulta->adjunto = $path;
         }
     
