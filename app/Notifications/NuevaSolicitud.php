@@ -46,7 +46,7 @@ class NuevaSolicitud extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/comunidad/ficha/');//.$id_comunidad
+        $url = url('/comunidad/ficha/'.$this->solicitud->comunidad_id);//.$id_comunidad
         if ($this->solicitud->tipoSolicitud_id = 1){
             //queda disponible para la tabla de referencia de tipos de solicitudes en caso que aparezcan nuevas. No va
             //a hacer falta el if y se va a poder traer directamente solicitud->tipoSolicitud()->descripcion

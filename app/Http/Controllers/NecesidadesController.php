@@ -71,13 +71,12 @@ class NecesidadesController extends Controller
         $donac->mensaje=$request->mensaje;
         $donac->necesidad_id = $request->necesidad_id;
         $donac->save();
-        //Notifico al dueño de la ficha que hay una donación para una necesidad de su ficha
+        //Notifico al que genero la necesiadad que hay una donación para la misma
         $necesidad = Necesidad::where('id',$donac->necesidad_id)->first();
-        $ficha_necesidad = FichaNecesidad::where('id',$necesidad->fichaNecesidad_id)->first();
-        $usr_notificacion = User::where('id',$ficha_necesidad->created_by)->first();
+        $usr_notificacion = User::where('id',$necesidad->created_by)->first();
         $usr_notificacion->notify(new altaNuevaDonacion($donac, $necesidad));
+        
         //Fin Notificacion
-        //Aca habria que poner la Necesidad "En proceso" de solucion o lo que sea 
         $data['necesidades'] = Necesidad::all();
         return view('necesidades.listado', $data);
     }

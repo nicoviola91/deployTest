@@ -133,7 +133,9 @@ class ComunidadController extends Controller
                     //Aca va la notificacion al encargado de aprobar la solicitud
                     $comunidad_2 = Comunidad::where('id',$request->comunidad_id)->first();
                     $responsable = User::where('id',$comunidad_2->coordinador_id)->first();
-                    $responsable->notify(new NuevaSolicitud($solicitud, $comunidad_2));
+                    if (isset($responsable)){
+                        $responsable->notify(new NuevaSolicitud($solicitud, $comunidad_2));
+                    }
                     return response()->json([
                         'status' => true,
                         'msg' => 'Solicitud enviada satisfactoriamente.'
@@ -202,6 +204,14 @@ class ComunidadController extends Controller
                 if (!$user->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
                     
                     $user->comunidades()->attach($comunidad_id);
+                    /* Notifiacion de Nuevo usuario agregado a la comunidad*/
+                    $comun_notif = Comunidad::where('id',$comunidad_id)->first();
+                    $comunitarios = $comun_notif->users();
+                    if(isset($comunitarios) && count($comunitarios) > 0){
+                        foreach ($comunitarios as $comunitario) {
+                            $comunitario->notify(new AltaUsuarioComunidad($user));    
+                        }    
+                    }
                     Solicitud::destroy($solicitud->id);
 
                     return response()->json([

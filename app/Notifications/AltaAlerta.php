@@ -51,8 +51,6 @@ class AltaAlerta extends Notification
                     ->subject('Posaderos - Alta de Asistido')
                     ->line('Se ha dado de alta el asistido derivado a la institución '.$institucion->nombre)
                     ->line('Nombre: '.$this->asistido->nombre.' '.$this->asistido->apellido)
-                    //->line('Derivado por: '.$derivadoPor->name.' '.$derivadoPor->apellido)
-                    //->action('Ver asistidos', $url)
                     ->line('Gracias por usar nuestra aplicación!')
                     ->salutation('LumenCor - Red de Posaderos');
     }

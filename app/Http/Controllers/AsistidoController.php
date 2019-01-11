@@ -123,12 +123,13 @@ class AsistidoController extends Controller
             
             $comunidad=Comunidad::find($alerta->comunidad_id);
             $comunidad->asistidos()->save($asistido);
-            /* Alerto a la comunidad del alta de un nuevo asistido
-            $usuariosNotif = DB::table('users')->where('comunidad_id', $request->comunidad)
-                                                ->where('notifComunidad','1')
-                                                ->get();
-            foreach ($usuarioNotif as $notificar) { $notificar->notify(new altaAsistidoComunidad($asistido)); }
-            */ 
+            /* Alerto a la comunidad del alta de un nuevo asistido*/
+            if (isset($comunidad->users) && count($comunidad->users) > 0){
+                foreach ($comunidad->users as $notificar) {
+                    $notificar->notify(new altaAsistidoComunidad($asistido)); 
+                }
+            }
+            
         }
 
         $alerta->asistido()->associate($asistido);
