@@ -8,6 +8,7 @@ use App\User;
 use App\Comunidad;
 use App\Institucion;
 use App\Notifications\AltaAlerta;
+use App\Notifications\altaAsistidoComunidad;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
 use Illuminate\Support\Facades\Auth;

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ComunidadRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\NuevaSolicitud;
+use App\Notifications\AltaUsuarioComunidad;
 
 class ComunidadController extends Controller
 {   
