@@ -12,6 +12,7 @@ use App\Http\Requests\ComunidadRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\NuevaSolicitud;
 use App\Notifications\AltaUsuarioComunidad;
+use Image;
 
 class ComunidadController extends Controller
 {   
@@ -254,8 +255,24 @@ class ComunidadController extends Controller
 
         if (null != $request->file('adjunto')) {
            
-            $path = $request->file('adjunto')->store('mensajes');
-            $consulta->adjunto = $path;
+            // $path = $request->file('adjunto')->store();
+            // $consulta->adjunto = $path;
+
+            $image = $request->file('adjunto');
+            $imageName = $image->getClientOriginalName();
+            
+            $fileName =  "mensaje_" . sha1(microtime()) . '.' . pathinfo($imageName, PATHINFO_EXTENSION);
+            $thumbName = "thumb_" . $fileName;
+
+            $directory = storage_path('app/public');
+            $imageUrl = $directory.'/'.$fileName;
+            Image::make($image)->save($imageUrl);
+
+            $thumbUrl = $directory.'/'.$thumbName;
+            Image::make($image)->fit(100, 100)->save($thumbUrl);
+
+            $consulta->adjunto = $fileName;
+
         }
     
         if (isset($comunidad) && $comunidad->mensajes()->save($consulta)) {

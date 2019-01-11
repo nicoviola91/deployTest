@@ -201,7 +201,11 @@
                       <!-- /.user-block -->
                       <p>
                         <?php echo $m->mensaje ?>
+                        <?php if (isset($m->adjunto)): ?>
+                          <a href="<?php echo asset('storage/' . $m->adjunto) ?>" target="_blank"><img src="<?php echo asset('storage/' . 'thumb_' . $m->adjunto) ?>" class="margin img-thumbnail" style="max-height: 80px;"></a>
+                        <?php endif ?>
                       </p>    
+                      
                     </div>
 
 
@@ -226,7 +230,7 @@
                       <a href="#">Nuevo Miembro</a>
                       <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
                     </span>
-                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
+                    <span class="description"> Se agrego un nuevo miembro a la Comunidad. Dale la bienvenida a Juan Agustin Gallo</span>
                   </div>  
                 </div>
 
