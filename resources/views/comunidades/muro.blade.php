@@ -179,76 +179,16 @@
                   </div>
                 </div>
 
-                <?php if (isset($comunidad->mensajes)): ?>
-                  <?php foreach ($comunidad->mensajes as $m): ?>
-                    
-                    <div class="post">
-                      <div class="user-block">
-
-                            <?php if (isset($m->author->imagen) && $m->author->imagen != '' && $m->author->imagen != 'default.jpg') { ?>
-                              <img class="img-circle img-bordered-sm" src="<?php echo asset("storage") . '/' . $m->author->imagen ?>" alt="user image">                          
-                            <?php } else { ?>
-                              <img class="img-circle img-bordered-sm" src="{{ asset('/img/user160x160.png') }}" alt="user image">
-                            <?php } ?>
-
-                            <span class="username">
-                              <a href="#"><?php echo $m->author->name ?> <?php echo $m->author->apellido ?></a>
-                              <!-- <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a> -->
-                              <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
-                            </span>
-                        <span class="description"> <?php echo $m->author->tipoUsuario->nombre ?></span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        <?php echo $m->mensaje ?>
-                        <?php if (isset($m->adjunto)): ?>
-                          <a href="<?php echo asset('storage/' . $m->adjunto) ?>" target="_blank"><img src="<?php echo asset('storage/' . 'thumb_' . $m->adjunto) ?>" class="margin img-thumbnail" style="max-height: 80px;"></a>
-                        <?php endif ?>
-                      </p>    
-                      
-                    </div>
-
-
-                  <?php endforeach ?>
-                <?php endif ?>
-
-                <div class="post">
-                  <div class="user-block">
-                    <i class="fa-fw icon fa fa-exclamation-circle user-block-icon text-red"></i>
-                    <span class="username">
-                      <a href="#">Nueva Alerta</a>
-                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
-                    </span>
-                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
+                <div class="post" id="loading" style="border-bottom: 0px !important;">
+                  <div class="user-block" style="vertical-align: middle;">
+                    <span class="description text-center" style="font-size: 3em;"><i class="icon fa fa-spinner fa-spin"></i></span>
                   </div>  
                 </div>
 
-                <div class="post">
-                  <div class="user-block">
-                    <i class="fa-fw icon fa fa-user user-block-icon text-primary"></i>
-                    <span class="username">
-                      <a href="#">Nuevo Miembro</a>
-                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
-                    </span>
-                    <span class="description"> Se agrego un nuevo miembro a la Comunidad. Dale la bienvenida a Juan Agustin Gallo</span>
-                  </div>  
-                </div>
-
-                <div class="post">
-                  <div class="user-block">
-                    <i class="fa-fw icon fa fa-check-circle user-block-icon text-success"></i>
-                    <span class="username">
-                      <a href="#">Nuevo Asistido</a>
-                      <span href="#" class="pull-right btn-box-tool"><?php echo $m->created_at->diffForHumans() ?></span>
-                    </span>
-                    <span class="description"> Pepe Gomez Genero una nueva Alerta</span>
-                  </div>  
-                </div>
-
-               
+                <div id="actividadReciente"></div>             
+   
               </div>
               
-
               <div class="tab-pane" id="asistidos">
                 <div class="row">
                   <div class="col-md-12">
@@ -454,6 +394,35 @@
     });
   });
 
+
+  $(function() {
+    
+    function actualizaciones (offset) {
+
+      $.get("{{url('actividad/'.$comunidad->id)}}"+"/"+offset, function(data){
+        
+        $('.divMore').remove();
+
+        $("#actividadReciente").append(data);
+        $("#loading").remove();
+      })
+
+    }
+
+    actualizaciones(0);
+
+    $(document).on( "click", ".moreUpdates", function() {
+
+      offset = $(this).data('offset');
+      $('.iconMore').addClass("fa-spin");
+      actualizaciones(offset);
+
+    })
+
+  });
+
+    
+  
 </script>
 
 
