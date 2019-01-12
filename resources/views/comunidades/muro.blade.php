@@ -115,8 +115,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-bank margin-r-5"></i> Institución</strong>
-
+              
+              <?php if ($comunidad->institucion->tipo == 'posadero') { ?>
+                <strong><img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero</strong>  
+              <?php } else { ?>
+                <strong><i class="fa fa-bank margin-r-5"></i> Institución</strong>
+              <?php } ?>
+              
               <p class="text-muted">
                 {{ strtoupper($comunidad->institucion->nombre) }}
               </p>

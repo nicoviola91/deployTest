@@ -38,8 +38,7 @@
             <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
           </span>
           <span class="description" style="font-size: 15px !important;"> 
-            Se agregó un nuevo miembro a la Comunidad. Dale la bienvenida a 
-            <br><b><?php echo strtoupper($m->content1) ?> <?php echo strtoupper($m->content2) ?></b>
+            Se agregó un nuevo miembro a la Comunidad. Dale la bienvenida a <b><?php echo strtoupper($m->content1) ?> <?php echo strtoupper($m->content2) ?></b>
           </span>
         </div>  
       </div>
@@ -101,7 +100,7 @@
 
   <?php endforeach ?>
 
-  <a href="javascript:void()" class="divMore moreUpdates" data-offset="<?php echo $offset+count($actualizaciones) ?>">
+  <a href="javascript:void(0)" class="divMore moreUpdates" data-offset="<?php echo $offset+count($actualizaciones) ?>">
     <div class="post">
       <div class="user-block" style="vertical-align: middle;">
         <span class="description text-center" style="font-size: 1.5em;"><i class="icon fa fa-plus-square iconMore"></i> CARGAR ANTERIORES</span>
