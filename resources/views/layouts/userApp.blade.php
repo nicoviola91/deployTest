@@ -142,7 +142,7 @@
             
             <?php if (Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional') : ?>
               <li>
-                <a href="{{url('/dashboard')}}" title="Ir a menu de Administrador" data-toggle="tooltip"><i class="fa fa-gears"></i></a>
+                <a href="{{url('/dashboard')}}" title="Ir a menu de Administrador" data-toggle="tooltip"><i class="fa fa-gears"></i> <span class="hidden-xs">Administrar</span> </a>
               </li>
             <?php endif ?>
               
