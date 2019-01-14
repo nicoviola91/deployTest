@@ -160,9 +160,9 @@ Route::group(['prefix'=>'institucion'],function(){
         'as'=>'institucion.ficha'
     ]);
 
-    Route::get('/miPosadero/{id?}',[
+    Route::get('/muro/{id?}',[
         'uses'=>'InstitucionController@showMuro',
-        'as'=>'institucion.miPosadero'
+        'as'=>'institucion.muro'
     ])->middleware('userType:administrador,posadero');
 
     Route::get('/destroy/{id}',[
@@ -293,11 +293,11 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,coordinador,posadero,profesional');
     Route::get('/show2/{id}',[
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,coordinador,posadero,profesional');
 });
 
 //CONSULTAS/INTERACCIONES

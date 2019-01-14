@@ -38,7 +38,7 @@
             <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
           </span>
           <span class="description" style="font-size: 15px !important;"> 
-            Se agregó un nuevo miembro a la Comunidad. Dale la bienvenida a <b><?php echo strtoupper($m->content1) ?> <?php echo strtoupper($m->content2) ?></b>
+            Se agregó un nuevo miembro a la Comunidad. Dale la bienvenida a <b><?php echo ($m->content1) ?> <?php echo ($m->content2) ?></b>
           </span>
         </div>  
       </div>
@@ -74,7 +74,7 @@
           </span>
           <span class="description" style="font-size: 15px !important;"> 
             Se asoció nuevo Asistido a tu Comunidad
-            <br><b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
+            <br><a href="{{url('/asistido/show/'.$m->content4)}}" target="?_blank"><i class="icon fa fa-user fa-fw"></i><b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b></a>
             <br>
           </span>
         </div>  
@@ -90,20 +90,20 @@
               <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
             </span>
             <span class="description" style="font-size: 15px !important;"> 
-              <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> generó una nueva Consulta en la <em><?php echo $m->content4 ?></em> del Asistido <i class="icon fa fa-user"></i> <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
+              <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> generó una nueva Consulta en la <a href="{{url('/asistido/show/'.$m->content5)}}" target="_blank"><em><?php echo $m->content4 ?></em></a> del Asistido <i class="icon fa fa-user"></i> <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
               <!-- <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a> -->
             </span>
           </div>  
         </div>
 
-    <?php } else if ($m->type == 'nuevaFicha') { ?>
+    <?php } else if ($m->type == 'ficha') { ?>
 
       <div class="post">
         <div class="user-block">
           <i class="fa-fw icon fa fa-file-text-o user-block-icon text-navy"></i>
           <span class="username">
             <a href="#">Nueva Ficha</a>
-            <span href="#" class="pull-right btn-box-tool">ahora</span>
+            <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
           </span>
           <span class="description" style="font-size: 15px !important;"> 
             <b>Juan Gallo</b> creó una nueva <em><?php echo $m->content4 ?></em> para el Asistido <i class="icon fa fa-user"></i> <b>Juan Perez</b>
@@ -111,7 +111,7 @@
           </span>
         </div>  
       </div>
-      
+
     <?php } ?>
 
   <?php endforeach ?>

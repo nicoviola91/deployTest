@@ -93,13 +93,21 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> <a class="pull-right">{{ $comunidad->users()->count() }}</a>
+                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> 
+                  <a class="pull-right">
+                    <span class="countMiembros">{{ $comunidad->users()->count() }}</span>
+
+                    <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()): ?>
+                      <span class="small">(<span class="countSolicitudes"> <?php echo $comunidad->solicitudes->count() ?></span> pendientes)</span>    
+                    <?php endif ?>  
+                  
+                  </a>
                 </li>
                 <li class="list-group-item">
-                  <b><i class="fa fa-user fa-fw"></i> Asistidos</b> <a class="pull-right">{{ $comunidad->asistidos()->count() }}</a>
+                  <b><i class="fa fa-user fa-fw"></i> Asistidos</b> <a class="pull-right"><span class="countAsistidos">{{ $comunidad->asistidos()->count() }}</span></a>
                 </li>
                 <li class="list-group-item">
-                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas</b> <a class="pull-right">{{ $comunidad->alertas()->count() }}</a>
+                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas</b> <a class="pull-right"><span class="countAlertas">{{ $comunidad->alertas()->count() }}</span></a>
                 </li>
               </ul>
 
@@ -209,6 +217,10 @@
                           <td>{{$asistido->nombre}} {{$asistido->apellido}}</td>
                           <td>DNI {{$asistido->dni}}</td>
                           <td>{{(new DateTime($asistido->fechaNacimiento))->format('d/m/Y')}}</td>
+
+                          <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                            <td><a href="{{url('/asistido/show/'.$asistido->id)}}" target="_blank"><i class="icon fa fa-search fa-2x"></i></a></td>
+                          <?php endif ?>
                         </tr>
                       <?php endforeach ?>
                       <?php endif ?>
@@ -246,24 +258,45 @@
                           <span class="label label-default">COORDINADOR</span>
                         <?php endif ?>
                       </td>
-                      <!-- <td class="text-center">
-                        <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
-                      </td> -->
+                      
+                      <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id): ?>
+                        <td class="text-center">
+                          <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                        </td>
+                      <?php endif ?>
+
                     </tr>
                   <?php endforeach ?>
                   <?php endif ?>
                 </table>
 
+                <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()): ?>
                 <div class="row">
                   <div class="col-md-12">
                     <h3>
                       Solicitudes
-                      <br><small class="text-muted">Solicitudes de adhesion pendientes</small>
+                      <br><small class="text-muted">Solicitudes de adhesión pendientes</small>
                     </h3>
+
+                    <table class="table table-striped table-hover" style="overflow-x: auto;">
+                      <?php if ($comunidad->solicitudes()->count()): ?>
+                      <?php foreach ($comunidad->solicitudes as $solicitud): ?>
+                        <tr id="solicitud{{$solicitud->id}}">
+                          <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$solicitud->user->dni}})</small></td>
+                          <td class="text-center hidden-xs">{{$solicitud->user->email}}</td>
+                          <td class="text-center hidden-xs horario">{{$solicitud->created_at->diffForHumans()}}</td>
+                          <td class="text-center acciones">
+                            <a href="javascript:void(0)" class="descartarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Descartar Solicitud"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                            <a href="javascript:void(0)" class="aprobarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Aprobar Solicitud"> <i class="icon fa fa-check fa-2x fa-fw text-green"></i></a>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
+                      <?php endif ?>
+                    </table>
 
                   </div>
                 </div>
-
+                <?php endif ?>
 
               </div>
               <!-- /.tab-pane -->
@@ -429,6 +462,81 @@
     
   
 </script>
+
+<?php if ((Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id)): ?>
+  
+  <script type="text/javascript">
+    
+    $('.descartarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.descartarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        $('#solicitud'+id).remove();
+        $('.countSolicitudes').html($('.countSolicitudes').html()-1);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+    $('.aprobarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.aprobarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        tr = $('#solicitud'+id);
+
+        tr.find('.horario').remove();
+        tr.find('.acciones').html('<i class="icon fa fa-remove fa-2x fa-fw text-gray"></i>');
+
+        $('#tableMiembros').append(tr);
+
+        $('.countSolicitudes').html($('.countSolicitudes').html()-1);
+        $('.countMiembros').html(parseInt($('.countMiembros').html())+1.0);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+  </script>
+
+<?php endif ?>
 
 
 @endsection
