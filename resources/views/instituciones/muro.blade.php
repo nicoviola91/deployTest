@@ -118,19 +118,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              
-              <?php if ($institucion->tipo == 'posadero') { ?>
-                <strong><img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero</strong>  
-              <?php } else { ?>
-                <strong><i class="fa fa-bank margin-r-5"></i> Institución</strong>
-              <?php } ?>
-              
-              <p class="text-muted">
-                {{ strtoupper($institucion->nombre) }}
-              </p>
-
-              <hr>
-
+            
               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
 
               <p class="text-muted"><?php echo $institucion->direccion->toString() ?></p>
@@ -196,7 +184,7 @@
 
               </div>
 
-              <div class="tab-pane" id="miembros">
+              <div class="tab-pane" id="comunidades">
                 
                 <div class="row">
                   <div class="col-md-12">
@@ -205,6 +193,18 @@
                       <br><small class="text-muted">Listado de Comunidades de tu Institución</small> 
                     </h3>
                     <br>
+
+                    <table class="table table-striped table-hover" id="tableComunidades" style="overflow-x: auto;">
+                      <?php if ($institucion->comunidades()->count() > 0): ?>
+                      <?php foreach ($institucion->comunidades as $comunidad): ?>
+                        <tr>
+                          <td>{{$comunidad->nombre}}</td>
+                          <td><a href="{{url('/comunidad/muro/'.$comunidad->id)}}" target="_blank"><i class="icon fa fa-search fa-2x"></i></a></td>
+                        </tr>
+                      <?php endforeach ?>
+                      <?php endif ?>
+                    </table>
+
                   </div>
                 </div>
 
