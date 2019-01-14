@@ -2,7 +2,7 @@
 @extends('layouts.userApp')
 
 @section('title')
-	Comunidad
+	Institucion
 @endsection
 
 @section('head')
@@ -89,20 +89,20 @@
 
               <h3 class="profile-username text-center"><?php echo $institucion->nombre ?></h3>
 
-              <p class="text-muted text-center"><?php echo strtoupper($institucion->tipo) ?></p>
+              <p class="text-muted text-center">
+                <?php if ($institucion->tipo == 'posadero') { ?>
+                  <img src="{{asset('/img/logoch.png')}}" alt="Logo Posadero" style="height: 17px;"> Posadero
+                <?php } else { ?>
+                  Institucion Externa   
+                <?php } ?>
+              </p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b><i class="fa fa-users fa-fw"></i> Comunidades</b> <a class="pull-right"></a>
+                  <b><i class="fa fa-users fa-fw"></i> Comunidades</b> <a class="pull-right"><?php echo $institucion->comunidades->count() ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> <a class="pull-right"></a>
-                </li>
-                <li class="list-group-item">
-                  <b><i class="fa fa-user fa-fw"></i> Asistidos</b> <a class="pull-right">{}</a>
-                </li>
-                <li class="list-group-item">
-                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas</b> <a class="pull-right"></a>
+                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas</b> <a class="pull-right"><?php echo $institucion->alertas->count() ?></a>
                 </li>
               </ul>
 
@@ -134,18 +134,7 @@
               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
 
               <p class="text-muted"><?php echo $institucion->direccion->toString() ?></p>
-
-              <hr>
-
-              <strong><i class="fa fa-id-badge margin-r-5"></i> Responsables</strong>
-
               
-              <hr>
-
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Observaciones</strong>
-
-              <p><?php echo $institucion->observaciones ?></p>
-
             </div>
             <!-- /.box-body -->
           </div>
@@ -155,15 +144,73 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="#actualizaciones" data-toggle="tab"><i class="fa icon fa-history fa-fw"></i> <span class="hidden-xs">Actualizaciones</span></a></li>
               <li><a href="#alertas" data-toggle="tab"><i class="fa icon fa-exclamation-circle fa-fw"></i> <span class="hidden-xs">Alertas</span></a></li>
               <li><a href="#asistidos" data-toggle="tab"><i class="fa icon fa-user fa-fw"></i> <span class="hidden-xs">Asistidos</span></a></li>
+              <li><a href="#comunidades" data-toggle="tab"><i class="fa icon fa-users fa-fw"></i> <span class="hidden-xs">Comunidades</span></a></li>
               <li><a href="#miembros" data-toggle="tab"><i class="fa icon fa-user-circle fa-fw"></i> <span class="hidden-xs">Miembros</span></a></li>
             </ul>
             
             <div class="tab-content" style="min-height: 742px;">
               
-              
+              <div class="active tab-pane" id="alertas">
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>
+                      Alertas Pendientes
+                      <br><small class="text-muted">Listado de Alertas que fueron derivadas a tu Institución</small> 
+                    </h3>
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="tab-pane" id="asistidos">
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>
+                      Asistidos
+                      <br><small class="text-muted">Listado de Asistidos asociados a las Comunidades de tu Institución</small> 
+                    </h3>
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="tab-pane" id="miembros">
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>
+                      Miembros
+                      <br><small class="text-muted">Listado de Miembros asociados a las Comunidades de tu Institución</small> 
+                    </h3>
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="tab-pane" id="miembros">
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>
+                      Comunidades
+                      <br><small class="text-muted">Listado de Comunidades de tu Institución</small> 
+                    </h3>
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+
+
 
             </div>
             <!-- /.tab-content -->
