@@ -118,8 +118,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-              <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
               <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
+              <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-fw"></i> Mi Comunidad <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -129,7 +129,7 @@
                       <li><a href="{{url('/comunidad/muro')}}/{{$comunidad->id}}"><?php echo $comunidad->nombre ?></a></li>
                     <?php endforeach ?>
                   <?php } else { ?>
-                      <li><a href="{{url('/user/my_profile')}}">Unite!</a></li>
+                      <li><a href="{{url('/user/my_profile#modal-sumate')}}">Unite!</a></li>
                   <?php } ?>
                 </ul>
               </li>

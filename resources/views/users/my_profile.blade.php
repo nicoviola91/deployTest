@@ -155,7 +155,7 @@
 
           <div class="box box-solid">
             <div class="box-body col-md-6">
-              <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="#" data-toggle="modal" data-target="#modal-sumate"> UNITE!</a></small></span></h4>
+              <h4><i class="fa icon fa-users"></i> Mis Comunidades <span><small class="text-muted"> ¿Querés formar parte de una comunidad?<a href="javascript:void(0)" data-toggle="modal" data-target="#modal-sumate"> UNITE!</a></small></span></h4>
               <h5>
                 <?php foreach ($misComunidades as $comunidad): ?>
                   <p><span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span></p>
@@ -326,6 +326,14 @@
 
     } else {
       lanzarAlerta('peligro', 'Seleccioná una opción válida.')
+    }
+
+  });
+
+  $(document).ready(function() {
+
+    if(window.location.href.indexOf('#modal-sumate') != -1) {
+      $('#modal-sumate').modal('show');
     }
 
   });
