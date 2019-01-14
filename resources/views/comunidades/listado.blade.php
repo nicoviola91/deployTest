@@ -118,9 +118,18 @@
 	              <label for="nombre">Institución</label>
 	              <select class="form-control" name="institucion_id" id="institucion_id" required>
 	              	
-	              	<?php foreach ($instituciones as $i): ?>
-	              		<option value="{{$i->id}}"> {{strtoupper($i->tipo)}} - {{$i->nombre}}</option>
-	              	<?php endforeach ?>
+	              	<?php if (isset($instituciones)) { ?>
+	              		
+	              		<?php foreach ($instituciones as $i): ?>
+		              		<option value="{{$i->id}}"> {{strtoupper($i->tipo)}} - {{$i->nombre}}</option>
+		              	<?php endforeach ?>
+	              	
+	              	<?php } else { ?>
+		            	
+		            	<option value="{{Auth::user()->institucion->id}}"> {{strtoupper(Auth::user()->institucion->tipo)}} - {{Auth::user()->institucion->nombre}}</option>
+		            
+		            <?php } ?>
+
 	              </select>
 	              @if ($errors->has('institucion_id'))
 	                <span class="help-block">

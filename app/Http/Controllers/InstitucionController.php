@@ -101,6 +101,12 @@ class InstitucionController extends Controller
         return view('instituciones.ficha', $data);
     }
 
+    public function showMuro($id)
+    {   
+        $data['institucion'] = Institucion::find($id);
+        return view('instituciones.muro', $data);
+    }
+
     public function getBox ($id) {
 
         $data['institucion'] = Institucion::where('id', $id)->first();

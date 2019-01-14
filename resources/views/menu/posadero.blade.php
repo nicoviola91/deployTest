@@ -41,7 +41,7 @@
     </span>
   </a>
   <ul class="treeview-menu">
-    <li><a href="{{url('/institucion/list')}}"><i class="fa fa-list"></i> Listado</a></li>
+    <li><a href="{{url('/institucion/ficha/'.Auth::user()->institucion->id)}}"><i class="fa fa-search"></i> <?php echo Auth::user()->institucion->nombre ?></a></li>
   </ul>
 </li>
 

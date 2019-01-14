@@ -32,7 +32,7 @@
 
       <div class="post">
         <div class="user-block">
-          <i class="fa-fw icon fa fa-user user-block-icon text-primary"></i>
+          <i class="fa-fw icon fa fa-user-circle user-block-icon text-primary"></i>
           <span class="username">
             <a href="#">Nuevo Miembro</a>
             <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
@@ -80,7 +80,7 @@
         </div>  
       </div>
 
-    <?php } else { ?>
+    <?php } else if ($m->type == 'consulta') { ?>
 
       <div class="post">
           <div class="user-block">
@@ -90,12 +90,28 @@
               <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
             </span>
             <span class="description" style="font-size: 15px !important;"> 
-              <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> generó una nueva Consulta en la <?php echo $m->type ?> de <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
-              <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a>
+              <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> generó una nueva Consulta en la <em><?php echo $m->content4 ?></em> del Asistido <i class="icon fa fa-user"></i> <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
+              <!-- <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a> -->
             </span>
           </div>  
         </div>
 
+    <?php } else if ($m->type == 'nuevaFicha') { ?>
+
+      <div class="post">
+        <div class="user-block">
+          <i class="fa-fw icon fa fa-file-text-o user-block-icon text-navy"></i>
+          <span class="username">
+            <a href="#">Nueva Ficha</a>
+            <span href="#" class="pull-right btn-box-tool">ahora</span>
+          </span>
+          <span class="description" style="font-size: 15px !important;"> 
+            <b>Juan Gallo</b> creó una nueva <em><?php echo $m->content4 ?></em> para el Asistido <i class="icon fa fa-user"></i> <b>Juan Perez</b>
+            <!-- <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a> -->
+          </span>
+        </div>  
+      </div>
+      
     <?php } ?>
 
   <?php endforeach ?>

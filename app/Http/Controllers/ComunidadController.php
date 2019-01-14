@@ -66,9 +66,17 @@ class ComunidadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showAll()
-    {
-        $data['instituciones'] = Institucion::all();
-        $data['comunidades'] = Comunidad::all();
+    {   
+        if (Auth::user()->tipoUsuario->slug == 'administrador') {
+            
+            $data['instituciones'] = Institucion::all();
+            $data['comunidades'] = Comunidad::all();
+        
+        } else {
+
+            $data['comunidades'] = Auth::user()->institucion->comunidades;
+        }
+            
         return view('comunidades.listado', $data);
     }
 
@@ -308,170 +316,207 @@ class ComunidadController extends Controller
         if (!$offset)
             $offset = 0;
 
+        //MENSAJES en el muro de la Comunidad
         $mensajes = DB::table('mensajesComunidad')
             ->select(DB::raw('"mensajes" AS type, mensajesComunidad.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, mensajesComunidad.mensaje AS content1, mensajesComunidad.adjunto AS content2, users.imagen AS content3, NULL AS content4, NULL AS content5'))
             ->leftJoin('users', 'mensajesComunidad.created_by', '=', 'users.id')
             ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
             ->where('mensajesComunidad.comunidad_id', $id_comunidad);
         
+        $union = $mensajes;
+
+        //ALERTAS compartidas por miembros de la Comunidad
         $alertas = DB::table('alertas')
             ->select(DB::raw('"alertas" AS type, alertas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, alertas.nombre AS content1, alertas.apellido AS content2, alertas.observaciones AS content3, alertas.lat AS content4, alertas.lng AS content5'))
             ->leftJoin('users', 'alertas.user_id', '=', 'users.id')
             ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
             ->where('alertas.comunidad_id', $id_comunidad);            
-    
-        $asistidos = DB::table('asistido_comunidad')
-            ->select(DB::raw('"asistidos" AS type, asistido_comunidad.created_at, NULL AS author1, NULL AS author2, NULL AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, asistidos.dni AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('asistidos', 'asistido_comunidad.asistido_id', '=', 'asistidos.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+        
+        $union = $union->union($alertas);
 
+        //MIEMBROS agregados a la Comunidad
         $miembros = DB::table('comunidad_user')
             ->select(DB::raw('"miembros" AS type, comunidad_user.created_at, NULL AS author1, NULL AS author2, NULL AS author3, users.name AS content1, users.apellido AS content2, users.email AS content3,NULL AS content4, NULL AS content5'))
             ->leftJoin('users', 'comunidad_user.user_id', '=', 'users.id')
             ->where('comunidad_user.comunidad_id', $id_comunidad);
 
-        $adiccion = DB::table('consultas')
-            ->select(DB::raw('"Ficha Adiccion" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasAdicciones', 'consultas.consultable_id', '=', 'fichasAdicciones.id')
-            ->leftJoin('asistidos', 'fichasAdicciones.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaAdiccion');
+        $union = $union->union($miembros);
 
-        $asistenciaSocial = DB::table('consultas')
-            ->select(DB::raw('"Ficha Asistencia Social" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasAsistenciasSociales', 'consultas.consultable_id', '=', 'fichasAsistenciasSociales.id')
-            ->leftJoin('asistidos', 'fichasAsistenciasSociales.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaAsistenciaSocial');
+        //ASISTIDOS asociados a la Comunidad
+        $asistidos = DB::table('asistido_comunidad')
+            ->select(DB::raw('"asistidos" AS type, asistido_comunidad.created_at, NULL AS author1, NULL AS author2, NULL AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, asistidos.dni AS content3, asistidos.id AS content4, NULL AS content5'))
+            ->leftJoin('asistidos', 'asistido_comunidad.asistido_id', '=', 'asistidos.id')
+            ->where('asistido_comunidad.comunidad_id', $id_comunidad);
 
-        $datosPersonales = DB::table('consultas')
-            ->select(DB::raw('"Ficha Datos Personales" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasDatosPersonales', 'consultas.consultable_id', '=', 'fichasDatosPersonales.id')
-            ->leftJoin('asistidos', 'fichasDatosPersonales.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaDatosPersonales');
+        $union = $union->union($asistidos);
 
-        $diagnosticoIntegral = DB::table('consultas')
-            ->select(DB::raw('"Ficha Diagnostico Integral" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasDiagnosticosIntegrales', 'consultas.consultable_id', '=', 'fichasDiagnosticosIntegrales.id')
-            ->leftJoin('asistidos', 'fichasDiagnosticosIntegrales.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaDiagnosticoIntegral');
+        //CONSULTAS referidas a ASISTIDOS asociados a la COMUNIDAD (a partir de que se asociaron: consultas.created_at > asistido_comunidad.created_at)
+        //Solo si es profesional, coordinador, posadero o administrador
 
-        $educacion = DB::table('consultas')
-            ->select(DB::raw('"Ficha Educacion" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasEducaciones', 'consultas.consultable_id', '=', 'fichasEducaciones.id')
-            ->leftJoin('asistidos', 'fichasEducaciones.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaEducacion');
+        if (Auth::user()->tipoUsuario->slug == 'posdaero' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'administrador') {
+        
+            $adiccion = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Adiccion" AS content4, NULL AS content5'))
+                ->leftJoin('fichasAdicciones', 'consultas.consultable_id', '=', 'fichasAdicciones.id')
+                ->leftJoin('asistidos', 'fichasAdicciones.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaAdiccion');
 
-        $empleos = DB::table('consultas')
-            ->select(DB::raw('"Ficha Empleo" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasEmpleos', 'consultas.consultable_id', '=', 'fichasEmpleos.id')
-            ->leftJoin('asistidos', 'fichasEmpleos.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaEmpleo');
+            $asistenciaSocial = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Asistencia Social" AS content4, NULL AS content5'))
+                ->leftJoin('fichasAsistenciasSociales', 'consultas.consultable_id', '=', 'fichasAsistenciasSociales.id')
+                ->leftJoin('asistidos', 'fichasAsistenciasSociales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaAsistenciaSocial');
 
-        $familia = DB::table('consultas')
-            ->select(DB::raw('"Ficha Familia y Amigos" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasFamiliaAmigos', 'consultas.consultable_id', '=', 'fichasFamiliaAmigos.id')
-            ->leftJoin('asistidos', 'fichasFamiliaAmigos.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaFamiliaAmigos');
+            $datosPersonales = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Datos Personales" AS content4, NULL AS content5'))
+                ->leftJoin('fichasDatosPersonales', 'consultas.consultable_id', '=', 'fichasDatosPersonales.id')
+                ->leftJoin('asistidos', 'fichasDatosPersonales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaDatosPersonales');
 
-        $legal = DB::table('consultas')
-            ->select(DB::raw('"Ficha Legal" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasLegales', 'consultas.consultable_id', '=', 'fichasLegales.id')
-            ->leftJoin('asistidos', 'fichasLegales.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaLegal');
+            $diagnosticoIntegral = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Diagnostico Integral" AS content4, NULL AS content5'))
+                ->leftJoin('fichasDiagnosticosIntegrales', 'consultas.consultable_id', '=', 'fichasDiagnosticosIntegrales.id')
+                ->leftJoin('asistidos', 'fichasDiagnosticosIntegrales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaDiagnosticoIntegral');
 
-        $localizacion = DB::table('consultas')
-            ->select(DB::raw('"Ficha Localizacion" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasLocalizacion', 'consultas.consultable_id', '=', 'fichasLocalizacion.id')
-            ->leftJoin('asistidos', 'fichasLocalizacion.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaLocalizacion');
+            $educacion = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Educacion" AS content4, NULL AS content5'))
+                ->leftJoin('fichasEducaciones', 'consultas.consultable_id', '=', 'fichasEducaciones.id')
+                ->leftJoin('asistidos', 'fichasEducaciones.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaEducacion');
 
-        $medica = DB::table('consultas')
-            ->select(DB::raw('"Ficha Medica" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasMedicas', 'consultas.consultable_id', '=', 'fichasMedicas.id')
-            ->leftJoin('asistidos', 'fichasMedicas.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaMedica');
+            $empleos = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Empleo" AS content4, NULL AS content5'))
+                ->leftJoin('fichasEmpleos', 'consultas.consultable_id', '=', 'fichasEmpleos.id')
+                ->leftJoin('asistidos', 'fichasEmpleos.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaEmpleo');
 
-        $necesidades = DB::table('consultas')
-            ->select(DB::raw('"Ficha Necesidades" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasNecesidades', 'consultas.consultable_id', '=', 'fichasNecesidades.id')
-            ->leftJoin('asistidos', 'fichasNecesidades.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaNecesidades');
+            $familia = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Familia y Amigos" AS content4, NULL AS content5'))
+                ->leftJoin('fichasFamiliaAmigos', 'consultas.consultable_id', '=', 'fichasFamiliaAmigos.id')
+                ->leftJoin('asistidos', 'fichasFamiliaAmigos.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaFamiliaAmigos');
 
-        $saludMental = DB::table('consultas')
-            ->select(DB::raw('"Ficha Salud Mental" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, NULL AS content4, NULL AS content5'))
-            ->leftJoin('fichasSaludMental', 'consultas.consultable_id', '=', 'fichasSaludMental.id')
-            ->leftJoin('asistidos', 'fichasSaludMental.asistido_id', '=', 'asistidos.id')
-            ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
-            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            ->where('asistido_comunidad.comunidad_id', $id_comunidad)
-            ->where('consultas.consultable_type', 'LIKE', '%FichaSaludMental');
+            $legal = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Legal" AS content4, NULL AS content5'))
+                ->leftJoin('fichasLegales', 'consultas.consultable_id', '=', 'fichasLegales.id')
+                ->leftJoin('asistidos', 'fichasLegales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaLegal');
 
-        $union = $mensajes
-                    ->union($alertas)
-                    ->union($asistidos)
-                    ->union($miembros)
-                    ->union($adiccion)
-                    ->union($asistenciaSocial)
-                    ->union($datosPersonales)
-                    ->union($diagnosticoIntegral)
-                    ->union($educacion)
-                    ->union($empleos)
-                    ->union($familia)
-                    ->union($legal)
-                    ->union($localizacion)
-                    ->union($medica)
-                    ->union($necesidades)
-                    ->union($saludMental)
-                    ->orderBy('created_at', 'desc')
-                    ->offset($offset)
-                    ->limit(8)
-                    ->get();
+            $localizacion = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Localizacion" AS content4, NULL AS content5'))
+                ->leftJoin('fichasLocalizacion', 'consultas.consultable_id', '=', 'fichasLocalizacion.id')
+                ->leftJoin('asistidos', 'fichasLocalizacion.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaLocalizacion');
 
-        //var_dump($union);
+            $medica = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Medica" AS content4, NULL AS content5'))
+                ->leftJoin('fichasMedicas', 'consultas.consultable_id', '=', 'fichasMedicas.id')
+                ->leftJoin('asistidos', 'fichasMedicas.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaMedica');
+
+            $necesidades = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Necesidades" AS content4, NULL AS content5'))
+                ->leftJoin('fichasNecesidades', 'consultas.consultable_id', '=', 'fichasNecesidades.id')
+                ->leftJoin('asistidos', 'fichasNecesidades.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaNecesidades');
+
+            $saludMental = DB::table('consultas')
+                ->select(DB::raw('"consulta" AS type, consultas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, consultas.mensaje AS content3, "Ficha Salud Mental" AS content4, NULL AS content5'))
+                ->leftJoin('fichasSaludMental', 'consultas.consultable_id', '=', 'fichasSaludMental.id')
+                ->leftJoin('asistidos', 'fichasSaludMental.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'consultas.user_id', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad)
+                ->where('consultas.consultable_type', 'LIKE', '%FichaSaludMental');
+
+            $union = $union
+                        ->union($adiccion)
+                        ->union($asistenciaSocial)
+                        ->union($datosPersonales)
+                        ->union($diagnosticoIntegral)
+                        ->union($educacion)
+                        ->union($empleos)
+                        ->union($familia)
+                        ->union($legal)
+                        ->union($localizacion)
+                        ->union($medica)
+                        ->union($necesidades)
+                        ->union($saludMental);
+        }
+
+
+        //CREACION DE FICHAS referidas a ASISTIDOS asociados a la COMUNIDAD (a partir de que se asociaron: consultas.created_at > ficha.created_at)
+        //Solo si es profesional, coordinador o posadero
+
+        // $union = $mensajes
+        //             ->union($alertas)
+        //             ->union($asistidos)
+        //             ->union($miembros)
+        //             ->union($adiccion)
+        //             ->union($asistenciaSocial)
+        //             ->union($datosPersonales)
+        //             ->union($diagnosticoIntegral)
+        //             ->union($educacion)
+        //             ->union($empleos)
+        //             ->union($familia)
+        //             ->union($legal)
+        //             ->union($localizacion)
+        //             ->union($medica)
+        //             ->union($necesidades)
+        //             ->union($saludMental)
+        //             ->orderBy('created_at', 'desc')
+        //             ->offset($offset)
+        //             ->limit(8)
+        //             ->get();
+
+
+        $union = $union->orderBy('created_at', 'desc')->offset($offset)->limit(10)->get();
         return view('comunidades.actualizaciones')->with('actualizaciones', $union)->with('offset', $offset);
 
     }

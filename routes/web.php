@@ -26,9 +26,10 @@ Auth::routes();
 //middleware('userType:admin,Administrador,Posadero, Nuevo Usuario, Samaritano');
 
 //Dashboard
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('admin');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero,coordinador');
 
-Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente')->name('dashboard')->middleware('admin');
+Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente');
+Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualizaciones');
 
 //Bienvenido
 Route::get('/home', 'HomeController@home')->name('home')->middleware('autenticado');
@@ -129,7 +130,7 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
 //INSTITUCIONES
 Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');
 
-Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
+Route::group(['prefix'=>'institucion'],function(){
     Route::post('/store',[
         'uses'=>'InstitucionController@store',
         'as'=>'institucion.store'
@@ -158,6 +159,12 @@ Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
         'uses'=>'InstitucionController@show',
         'as'=>'institucion.ficha'
     ]);
+
+    Route::get('/miPosadero/{id?}',[
+        'uses'=>'InstitucionController@showMuro',
+        'as'=>'institucion.miPosadero'
+    ])->middleware('userType:administrador,posadero');
+
     Route::get('/destroy/{id}',[
         'uses'=>'InstitucionController@destroy',
         'as'=>'institucion.destroy'
@@ -165,31 +172,38 @@ Route::group(['prefix'=>'institucion','middleware'=>['admin']],function(){
 });
 
 //COMUNIDADES
-Route::group(['prefix'=>'comunidad','middleware'=>['admin']],function(){
+Route::group(['prefix'=>'comunidad'],function(){
+    
     Route::post('/store',[
         'uses'=>'ComunidadController@store',
         'as'=>'comunidad.store'
     ]);
+    
     Route::get('/list',[
         'uses'=>'ComunidadController@showAll',
         'as'=>'comunidad.list'
-    ]);
+    ])->middleware('userType:administrador,posadero');
+    
     Route::get('/destroy/{id}',[
         'uses'=>'ComunidadController@destroy',
         'as'=>'comunidad.destroy'
     ]);
+    
     Route::post('/update',[
         'uses'=>'ComunidadController@update',
         'as'=>'comunidad.update',
     ])->middleware('admin');
+    
     Route::get('/ficha/{id}',[
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
     ]);
+    
     Route::get('/muro/{id}',[
         'uses'=>'ComunidadController@showMuro',
         'as'=>'comunidad.muro'
     ]);
+    
     //SOLICITUDES DE ADHESION A COMUNIDAD
     Route::post('/enviarSolicitud',[
         'uses'=>'ComunidadController@enviarSolicitud',

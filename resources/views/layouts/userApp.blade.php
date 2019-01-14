@@ -123,7 +123,18 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-fw"></i> Mi Comunidad <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  
+
+                  <!-- <?php if (Auth::user()->tipoUsuario->slug == 'posadero' || true): ?>
+                    <li style="display: block;padding: 3px 20px;clear: both;font-weight: 400;line-height: 1.42857143;color: #333;white-space: nowrap;">Tu Posadero</li>
+
+                    <?php foreach (Auth::user()->institucion->comunidades as $c): ?>
+                      <li><a href="{{url('/comunidad/muro')}}/{{$c->id}}"><?php echo $c->nombre ?></a></li>
+                    <?php endforeach ?>
+
+                    <li class="divider"></li>
+                    <li style="display: block;padding: 3px 20px;clear: both;font-weight: 400;line-height: 1.42857143;color: #333;white-space: nowrap;">Miembro de</li>
+                  <?php endif ?> -->
+
                   <?php if (isset(Auth::user()->comunidades) && count(Auth::user()->comunidades)) { ?>
                     <?php foreach (Auth::user()->comunidades as $comunidad): ?>
                       <li><a href="{{url('/comunidad/muro')}}/{{$comunidad->id}}"><?php echo $comunidad->nombre ?></a></li>
@@ -131,8 +142,13 @@
                   <?php } else { ?>
                       <li><a href="{{url('/user/my_profile#modal-sumate')}}">Unite!</a></li>
                   <?php } ?>
+
+
                 </ul>
               </li>
+              <?php if (Auth::user()->tipoUsuario->slug == 'posadero'): ?>
+                <li><a href="{{url('institucion/miPosadero/'.Auth::user()->institucion->id)}}"> <img src="{{ asset('/img/logoch.png') }}" class="" alt="Logo Image" style="max-height: 17px;"> Mi Posadero</a></li>                  
+              <?php endif ?>
           </ul>
         </div>
         <!-- /.navbar-collapse -->

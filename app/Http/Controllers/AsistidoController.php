@@ -218,19 +218,19 @@ class AsistidoController extends Controller
      * @param  \App\Asistido  $asistido
      * @return \Illuminate\Http\Response
      */
-    public function show($asistido_id)
+   public function show ($asistido_id) 
     {
-        $asistido=Asistido::find($asistido_id);
+        $asistido = Asistido::find($asistido_id);
+        $comunidades = Comunidad::all();
 
-        return view('asistidos.detalleAsistido')->with('asistido',$asistido);
+        return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades)->with('vista', 'user');
     }
-
     public function show2 ($asistido_id) 
     {
         $asistido = Asistido::find($asistido_id);
         $comunidades = Comunidad::all();
 
-        return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades);
+        return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades)->with('vista', 'admin');
     }
 
     public function agregarComunidad (Request $request) 

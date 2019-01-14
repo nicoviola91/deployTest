@@ -1,5 +1,5 @@
 
-@extends(true ? 'layouts.adminApp' : 'layouts.adminApp')
+@extends(($vista=='admin') ? 'layouts.adminApp' : 'layouts.userApp')
 
 @section('title')
 	Ficha
