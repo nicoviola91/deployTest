@@ -8,6 +8,7 @@ use App\Comunidad;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\AlertaRequest;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -118,18 +119,31 @@ class AlertaController extends Controller
 
     public function misAlertas () {
 
-        //Obtengo todas las alertas, propias y de comunidad, que fueron actualizadas en los ultimos 15 dias
-        $periodo = Carbon::now()->subWeeks(2);
-        $data['recientes'] = Alerta::where('updated_at', '>=', $periodo)->orderBy('updated_at', 'ASC')->get();
-
-        //Obtengo todas las alertas propias y las muestro tipo tabla
         $data['personales'] = Alerta::where('user_id', '=', Auth::user()->id)->get();
-
-        //Obtengo todas las alertas de la comunidad y las muestro tipo fbsql_tablename()
-        $data['comunidad'] = Alerta::where('user_id', '!=', Auth::user()->id)->get();
-        $data['misComunidades'] = Auth::user()->comunidades()->get();
-
+                    
         return view('alertas.misAlertas', $data);
+    }
+
+    public function misActualizaciones ($offset = false) {
+
+        if (!$offset)
+            $offset = 0;
+        
+        $a1 = DB::table('alertas')
+                ->select(DB::raw('"alertas" AS tipo, alertas.id, alertas.nombre, alertas.apellido, alertas.fechaNacimiento, alertas.dni, alertas.observaciones, alertas.created_at AS orden, instituciones.nombre AS posadero, alertas.asistido_id AS asistido'))
+                ->leftJoin('instituciones', 'alertas.institucion_id', '=', 'instituciones.id')
+                ->where('alertas.user_id', Auth::user()->id);
+
+        $a2 = DB::table('alertas')
+                ->select(DB::raw('"altas" AS tipo, alertas.id, alertas.nombre, alertas.apellido, alertas.fechaNacimiento, alertas.dni, alertas.observaciones, alertas.updated_at AS orden, instituciones.nombre AS posadero, alertas.asistido_id AS asistido'))
+                ->leftJoin('instituciones', 'alertas.institucion_id', '=', 'instituciones.id')
+                ->where('alertas.user_id', Auth::user()->id)
+                ->whereNotNull('alertas.asistido_id');
+
+        $alertas = $a1->union($a2)->orderBy('orden', 'DESC')->offset($offset)->limit(15)->get();
+
+        return view('alertas.misActualizaciones')->with('alertas', $alertas)->with('offset', $offset);
+
     }
 
     /**
