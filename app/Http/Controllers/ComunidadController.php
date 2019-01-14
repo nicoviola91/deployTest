@@ -516,6 +516,74 @@ class ComunidadController extends Controller
                 ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
                 ->where('asistido_comunidad.comunidad_id', $id_comunidad);
 
+            $diagnosticoIntegral = DB::table('fichasDiagnosticosIntegrales')
+                ->select(DB::raw('"ficha" AS tipo, fichasDiagnosticosIntegrales.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Diagnostico Integral" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasDiagnosticosIntegrales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasDiagnosticosIntegrales.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $educacion = DB::table('fichasEducaciones')
+                ->select(DB::raw('"ficha" AS tipo, fichasEducaciones.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Educacion" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasEducaciones.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasEducaciones.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $empleos = DB::table('fichasEmpleos')
+                ->select(DB::raw('"ficha" AS tipo, fichasEmpleos.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Empleo" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasEmpleos.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasEmpleos.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $familia = DB::table('fichasFamiliaAmigos')
+                ->select(DB::raw('"ficha" AS tipo, fichasFamiliaAmigos.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Familia y Amigos" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasFamiliaAmigos.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasFamiliaAmigos.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $legal = DB::table('fichasLegales')
+                ->select(DB::raw('"ficha" AS tipo, fichasLegales.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Legal" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasLegales.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasLegales.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $localizacion = DB::table('fichasLocalizacion')
+                ->select(DB::raw('"ficha" AS tipo, fichasLocalizacion.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Localizacion" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasLocalizacion.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasLocalizacion.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+            
+            $familia = DB::table('fichasMedicas')
+                ->select(DB::raw('"ficha" AS tipo, fichasMedicas.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Medica" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasMedicas.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasMedicas.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $necesidades = DB::table('fichasNecesidades')
+                ->select(DB::raw('"ficha" AS tipo, fichasNecesidades.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Necesidades" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasNecesidades.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasNecesidades.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
             $union = $union
                         ->union($adiccion)
                         ->union($asistenciaSocial)

@@ -91,7 +91,6 @@
             </span>
             <span class="description" style="font-size: 15px !important;"> 
               <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> generó una nueva Consulta en la <a href="{{url('/asistido/show/'.$m->content5)}}" target="_blank"><em><?php echo $m->content4 ?></em></a> del Asistido <i class="icon fa fa-user"></i> <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
-              <!-- <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a> -->
             </span>
           </div>  
         </div>
@@ -106,8 +105,7 @@
             <span href="#" class="pull-right btn-box-tool">{{ Carbon\Carbon::parse($m->created_at)->diffForHumans() }}</span>
           </span>
           <span class="description" style="font-size: 15px !important;"> 
-            <b>Juan Gallo</b> creó una nueva <em><?php echo $m->content4 ?></em> para el Asistido <i class="icon fa fa-user"></i> <b>Juan Perez</b>
-            <!-- <br>Accedé a la Ficha para ver el detalle <a href="#" target="_blank"><i class="icon fa fa-address-card fa-fw"></i></a> -->
+            <b><?php echo $m->author1 ?> <?php echo $m->author2 ?></b> creó una nueva<a href="{{url('/asistido/show/'.$m->content5)}}" target="_blank"> <em><?php echo $m->content4 ?></em></a> para el Asistido <i class="icon fa fa-user"></i> <b><?php echo $m->content1 ?> <?php echo $m->content2 ?></b>
           </span>
         </div>  
       </div>
