@@ -572,19 +572,19 @@ class ComunidadController extends Controller
                 ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
                 ->where('asistido_comunidad.comunidad_id', $id_comunidad);
 
-            // $necesidades = DB::table('fichasNecesidades')
-            //     ->select(DB::raw('"ficha" AS tipo, fichasNecesidades.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Necesidades" AS content4, asistidos.id AS content5'))
-            //     ->leftJoin('asistidos', 'fichasNecesidades.asistido_id', '=', 'asistidos.id')
-            //     ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
-            //     ->leftJoin('users', 'fichasNecesidades.created_by', '=', 'users.id')
-            //     ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
-            //     ->where('asistido_comunidad.comunidad_id', $id_comunidad);
-
             $saludMental = DB::table('fichasSaludMental')
                 ->select(DB::raw('"ficha" AS tipo, fichasSaludMental.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Salud Mental" AS content4, asistidos.id AS content5'))
                 ->leftJoin('asistidos', 'fichasSaludMental.asistido_id', '=', 'asistidos.id')
                 ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
                 ->leftJoin('users', 'fichasSaludMental.created_by', '=', 'users.id')
+                ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+                ->where('asistido_comunidad.comunidad_id', $id_comunidad);
+
+            $saludMental = DB::table('fichasNecesidades')
+                ->select(DB::raw('"ficha" AS tipo, fichasNecesidades.created_at, users.name AS author1, users.apellido AS author2, tiposUsuarios.nombre AS author3, asistidos.nombre AS content1, asistidos.apellido AS content2, NULL AS content3, "Ficha Necesidades" AS content4, asistidos.id AS content5'))
+                ->leftJoin('asistidos', 'fichasNecesidades.asistido_id', '=', 'asistidos.id')
+                ->leftJoin('asistido_comunidad', 'asistidos.id', '=', 'asistido_comunidad.asistido_id')
+                ->leftJoin('users', 'fichasNecesidades.created_by', '=', 'users.id')
                 ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
                 ->where('asistido_comunidad.comunidad_id', $id_comunidad);
 
@@ -599,7 +599,7 @@ class ComunidadController extends Controller
                         ->union($legal)
                         ->union($localizacion)
                         ->union($medica)
-                        //->union($necesidades)
+                        ->union($necesidades)
                         ->union($saludMental);
         }
 
