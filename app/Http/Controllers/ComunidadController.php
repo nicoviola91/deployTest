@@ -224,6 +224,10 @@ class ComunidadController extends Controller
                             $comunitario->notify(new AltaUsuarioComunidad($user));    
                         }    
                     }
+
+                    if ($user->tipoUsuario->slug == 'buenVecino')
+                        $user->tipoUsuario_id = '20';
+
                     Solicitud::destroy($solicitud->id);
 
                     return response()->json([
