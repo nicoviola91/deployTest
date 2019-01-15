@@ -26,64 +26,76 @@ Auth::routes();
 //middleware('userType:admin,Administrador,Posadero, Nuevo Usuario, Samaritano');
 
 //Dashboard
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero,coordinador');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero');
 
-Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente');
-Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualizaciones');
+Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente'); //*M verComunidad(id)
+Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualizaciones')->middleware('autenticado'); 
 
 //Bienvenido
 Route::get('/home', 'HomeController@home')->name('home')->middleware('autenticado');
 Route::get('/uca', 'HomeController@uca')->name('uca')->middleware('autenticado');
 
 //Downloads (para archivos de consultas)
-Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('autenticado');
+Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('userType:administrador,posadero,coordinador,profesional');
 
 //USERS
 Route::group(['prefix'=>'user'], function(){
+    
     Route::get('/create',[
         'uses'=>'UserController@create',
         'as'=>'user.create'
     ]);
+    
     Route::post('/updateImage',[
         'uses'=>'UserController@updateImage',
         'as'=>'user.updateImage',
     ])->middleware('autenticado');
+    
     Route::post('/update/{id}',[
         'uses'=>'UserController@update',
         'as'=>'user.update',
-    ])->middleware('autenticado');
+    ])->middleware('userType:administrador,posadero');
+    
     Route::post('/agregarComunidad',[
         'uses'=>'UserController@agregarComunidad',
         'as'=>'user.agregarComunidad',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/acuerdo',[
         'uses'=>'UserController@acuerdo',
         'as'=>'user.acuerdo',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/updateType',[
         'uses'=>'UserController@updateType',
         'as'=>'user.updateType',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/updateInstitucion',[
         'uses'=>'UserController@updateInstitucion',
         'as'=>'user.updateInstitucion',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/updateComunidad',[
         'uses'=>'UserController@updateComunidad',
         'as'=>'user.updateComunidad',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::get('/list',[
         'uses'=>'UserController@showAll',
         'as'=>'user.list'  
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::get('/my_profile',[
         'uses'=>'UserController@my_profile',
         'as'=>'user.my_profile'
     ])->middleware('autenticado');
+    
     Route::get('/profile/{id}',[
         'uses'=>'UserController@profile',
         'as'=>'user.profile'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero');
+    
     Route::post('/store',[
         'uses'=>'UserController@store',
         'as'=>'user.store'
@@ -92,49 +104,59 @@ Route::group(['prefix'=>'user'], function(){
 
 //ALERTAS
 Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
+    
     Route::get('/new',[
         'uses'=>'AlertaController@create',
         'as'=>'alerta.create'
     ]);
+    
     Route::post('/store',[
         'uses'=>'AlertaController@store',
         'as'=>'alerta.store'
     ]);
+    
     Route::post('/store2',[
         'uses'=>'AlertaController@store2',
         'as'=>'alerta.store2'
     ]);
+    
     Route::post('/storeNew',[
         'uses'=>'AlertaController@storeNew',
         'as'=>'alerta.storeNew'
     ]);
+    
     Route::get('/list',[
         'uses'=>'AlertaController@showAll',
         'as'=>'alerta.list'
-    ]);
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::get('/my_list',[
         'uses'=>'AlertaController@misAlertas',
         'as'=>'alerta.my_list'
     ]);
+    
     Route::get('/map',[
         'uses'=>'AlertaController@showMap',
         'as'=>'alerta.showMap'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::get('/destroy/{id}',[
         'uses'=>'AlertaController@destroy',
         'as'=>'alerta.destroy'
-    ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    ])->middleware('userType:administrador,posadero,coordinador');
 });
 
 
 //INSTITUCIONES
-Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('admin');
+Route::get('/institucion/box/{id}', 'InstitucionController@getBox')->name('boxInstitucion')->middleware('userType:administrador,posadero,coordinador');
 
 Route::group(['prefix'=>'institucion'],function(){
+    
     Route::post('/store',[
         'uses'=>'InstitucionController@store',
         'as'=>'institucion.store'
     ]);
+    
     Route::get('/list',[
         'uses'=>'InstitucionController@showAll',
         'as'=>'institucion.list'
@@ -145,12 +167,12 @@ Route::group(['prefix'=>'institucion'],function(){
         'as'=>'institucion.updateImage',
     ])->middleware('admin');
 
-     Route::post('/update',[
+    Route::post('/update',[
         'uses'=>'InstitucionController@update',
         'as'=>'institucion.update',
     ])->middleware('admin');
 
-      Route::post('/updateDireccion',[
+    Route::post('/updateDireccion',[
         'uses'=>'InstitucionController@updateDireccion',
         'as'=>'institucion.updateDireccion',
     ])->middleware('admin');
@@ -158,17 +180,13 @@ Route::group(['prefix'=>'institucion'],function(){
     Route::get('/ficha/{id}',[
         'uses'=>'InstitucionController@show',
         'as'=>'institucion.ficha'
-    ]);
+    ]); //*M editarInstitucion(id)
 
     Route::get('/muro/{id?}',[
         'uses'=>'InstitucionController@showMuro',
         'as'=>'institucion.muro'
-    ])->middleware('userType:administrador,posadero');
+    ]); //*M verInstitucion(id)
 
-    Route::get('/destroy/{id}',[
-        'uses'=>'InstitucionController@destroy',
-        'as'=>'institucion.destroy'
-    ]);
 });
 
 //COMUNIDADES
@@ -177,7 +195,7 @@ Route::group(['prefix'=>'comunidad'],function(){
     Route::post('/store',[
         'uses'=>'ComunidadController@store',
         'as'=>'comunidad.store'
-    ]);
+    ])->middleware('userType:administrador,posadero');
     
     Route::get('/list',[
         'uses'=>'ComunidadController@showAll',
@@ -187,65 +205,74 @@ Route::group(['prefix'=>'comunidad'],function(){
     Route::get('/destroy/{id}',[
         'uses'=>'ComunidadController@destroy',
         'as'=>'comunidad.destroy'
-    ]);
+    ])->middleware('userType:administrador,posadero');
     
     Route::post('/update',[
         'uses'=>'ComunidadController@update',
         'as'=>'comunidad.update',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador');
     
     Route::get('/ficha/{id}',[
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
-    ]);
+    ]); //*M editarComunidad(id)
     
     Route::get('/muro/{id}',[
         'uses'=>'ComunidadController@showMuro',
         'as'=>'comunidad.muro'
-    ]);
+    ]); //*M verComunidad(id)
     
     //SOLICITUDES DE ADHESION A COMUNIDAD
+    
     Route::post('/enviarSolicitud',[
         'uses'=>'ComunidadController@enviarSolicitud',
         'as'=>'comunidad.enviarSolicitud',
-    ]);
+    ])->middleware('autenticado');
+    
     Route::post('/descartarSolicitud',[
         'uses'=>'ComunidadController@descartarSolicitud',
         'as'=>'comunidad.descartarSolicitud',
-    ]);
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/aprobarSolicitud',[
         'uses'=>'ComunidadController@aprobarSolicitud',
         'as'=>'comunidad.aprobarSolicitud',
-    ]);
+    ])->middleware('userType:administrador,posadero,coordinador');
+    
     Route::post('/storeMensaje',[
         'uses'=>'ComunidadController@storeMensaje',
         'as'=>'comunidad.storeMensaje',
-    ]);
+    ])->middleware('autenticado');
 });
 
 
 //NECESIDADES
-Route::group(['prefix'=>'necesidad','middleware'=>['admin']],function(){
+Route::group(['prefix'=>'necesidad'],function(){
+    
     Route::get('/list',[
         'uses'=>'NecesidadesController@list',
         'as'=>'necesidad.list'
-    ]);
+    ])->middleware('autenticado');
+    
     Route::get('/public',[
         'uses'=>'NecesidadesController@public_list',
         'as'=>'necesidad.public'
-    ]);
+    ])->middleware('autenticado');
+    
     Route::post('/donate',[
         'uses'=>'NecesidadesController@nueva_donacion',
         'as'=>'necesidad.donate'
-    ]);
+    ])->middleware('autenticado');
 });
 
-//REPORTES-BUSQEUDA
+//REPORTES-BUSQUEDA
 Route::group(['prefix'=>'report','middleware'=>['admin']],function(){
+    
     Route::get('/search',[
         'uses'=>'ReportController@showSearch',
         'as'=>'report.show'
     ]);
+    
     Route::post('/search',[
         'uses'=>'ReportController@search',
         'as'=>'report.search'
@@ -254,46 +281,57 @@ Route::group(['prefix'=>'report','middleware'=>['admin']],function(){
 
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
+    
     Route::get('/newFromAlert/{id}',[
         'uses'=>'AsistidoController@createFromAlert',
         'as'=>'asistido.newFromAlert'
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::get('/new',[
         'uses'=>'AsistidoController@create',
         'as'=>'asistidos.nuevo'
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::post('/store/{alerta_id}',[
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::post('/storeNew',[
         'uses'=>'AsistidoController@storeNew',
         'as'=>'asistido.storeNew',
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::post('/updateImage',[
         'uses'=>'AsistidoController@updateImage',
         'as'=>'asistido.updateImage',
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::post('/agregarComunidad',[
         'uses'=>'AsistidoController@agregarComunidad',
         'as'=>'asistido.agregarComunidad',
     ])->middleware('admin');
+    
     Route::post('/verificarDocumentoExistente',[
         'uses'=>'AsistidoController@verificarDocumentoExistente',
         'as'=>'asistido.verificarDocumentoExistente',
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::get('/busqueda',[
         'uses'=>'AsistidoController@busqueda',
         'as'=>'asistido.busqueda'
-    ])->middleware('autenticado');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
+    
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
     ])->middleware('userType:administrador,coordinador,posadero,profesional');
+    
     Route::get('/show2/{id}',[
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
@@ -301,28 +339,32 @@ Route::group(['prefix'=>'asistido'],function(){
 });
 
 //CONSULTAS/INTERACCIONES
-Route::group(['prefix'=>'consultas','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'consultas','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
+
     Route::post('/store',[
         'uses'=>'ConsultaController@store',
         'as'=>'consultas.store'
     ]);
+
     Route::get('/getView/{id}/{type}',[
         'uses'=>'ConsultaController@getView',
         'as'=>'consultas.getView',
     ]);
 });
 
-
 //FICHA DATOS PERSONALES
-Route::group(['prefix'=>'fichaDatosPersonales','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaDatosPersonales','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
+
     Route::get('/create/{id}',[
         'uses'=>'FichaDatosPersonalesController@create',
         'as'=>'fichaDatosPersonales.create',
     ]);
+
     Route::get('/get/{id}',[
         'uses'=>'FichaDatosPersonalesController@get',
         'as'=>'fichaDatosPersonales.get',
     ]);
+
     Route::post('/store/{asistido_id}',[
         'uses'=>'FichaDatosPersonalesController@store',
         'as'=>'fichaDatosPersonales.store'
@@ -330,7 +372,7 @@ Route::group(['prefix'=>'fichaDatosPersonales','middleware'=>'admin'],function()
 });
 
 //FICHA ADICCIONES
-Route::group(['prefix'=>'fichaAdicciones','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaAdicciones','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaAdiccionesController@create',
         'as'=>'fichaAdicciones.create',
@@ -370,7 +412,7 @@ Route::group(['prefix'=>'fichaAdicciones','middleware'=>'admin'],function(){
 });
 
 //FICHA FAMILIA Y AMIGOS
-Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaFamiliaAmigosController@create',
         'as'=>'fichaFamiliaAmigos.create',
@@ -390,7 +432,7 @@ Route::group(['prefix'=>'fichaFamiliaAmigos' ,'middleware'=>'admin'],function(){
 });
 
 //FICHA EDUCACION
-Route::group(['prefix'=>'fichaEducacion','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaEducacion','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaEducacionController@create',
         'as'=>'fichaEducacion.create',
@@ -410,7 +452,7 @@ Route::group(['prefix'=>'fichaEducacion','middleware'=>'admin'],function(){
 });
 
 //FICHA LOCALIZACION
-Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaLocalizacionController@create',
         'as'=>'FichaLocalizacion.create',
@@ -430,7 +472,7 @@ Route::group(['prefix'=>'FichaLocalizacion','middleware'=>'admin'],function(){
 });
 
 //FICHA EMPLEO
-Route::group(['prefix'=>'fichaEmpleo','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaEmpleo','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaEmpleoController@create',
         'as'=>'fichaEmpleo.create',
@@ -454,7 +496,7 @@ Route::group(['prefix'=>'fichaEmpleo','middleware'=>'admin'],function(){
 });
 
 //FICHA LEGAL
-Route::group(['prefix'=>'fichaLegal','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaLegal','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaLegalController@create',
         'as'=>'fichaLegal.create',
@@ -474,7 +516,7 @@ Route::group(['prefix'=>'fichaLegal','middleware'=>'admin'],function(){
 });
 
 //FICHA NECESIDADES
-Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaNecesidades','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaNecesidadesController@create',
         'as'=>'fichaNecesidades.create',
@@ -494,7 +536,7 @@ Route::group(['prefix'=>'fichaNecesidades','middleware'=>'admin'],function(){
 });
 
 //FICHA ASISTENCIA SOCIAL
-Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaAsistenciaSocialController@create',
         'as'=>'fichaAsistenciaSocial.create',
@@ -514,7 +556,7 @@ Route::group(['prefix'=>'fichaAsistenciaSocial','middleware'=>'admin'],function(
 });
 
 //FICHA DIAGNOSTICO INTEGRAL
-Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaDiagnosticoIntegralController@create',
         'as'=>'fichaDiagnosticoIntegral.create',
@@ -537,9 +579,8 @@ Route::group(['prefix'=>'fichaDiagnosticoIntegral','middleware'=>'admin'],functi
     ]);
 });
 
-
 //FICHA SALUD MENTAL
-Route::group(['prefix'=>'fichaSaludMental','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaSaludMental','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaSaludMentalController@create',
         'as'=>'fichaSaludMental.create',
@@ -588,7 +629,7 @@ Route::group(['prefix'=>'fichaSaludMental','middleware'=>'admin'],function(){
 
 
 //FICHA MEDICA
-Route::group(['prefix'=>'fichaMedica','middleware'=>'admin'],function(){
+Route::group(['prefix'=>'fichaMedica','middleware'=>'userType:administrador,coordinador,posadero,profesional'],function(){
     Route::get('/create/{id}',[
         'uses'=>'FichaMedicaController@create',
         'as'=>'fichaMedica.create',
