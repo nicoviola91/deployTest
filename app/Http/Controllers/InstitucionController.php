@@ -108,7 +108,7 @@ class InstitucionController extends Controller
 
         //Obtener las alertas PENDIENTES
         $data['alertas'] = DB::table('alertas')
-            ->select(DB::raw('alertas.*, users.name, users.apellido, tiposUsuarios.nombre'))
+            ->select(DB::raw('alertas.*, users.name AS authorNombre, users.apellido AS authorApellido, tiposUsuarios.nombre AS authorTipo'))
             ->leftJoin('users', 'alertas.user_id', '=', 'users.id')
             ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
             ->where('alertas.institucion_id', $id)

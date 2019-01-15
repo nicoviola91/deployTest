@@ -126,8 +126,22 @@
             <div class="box-body">
             
               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
-
               <p class="text-muted"><?php echo $institucion->direccion->toString() ?></p>
+
+              <hr>
+
+              <strong><i class="fa fa-clock-o margin-r-5"></i> Horario</strong>
+              <p class="text-muted"><?php echo $institucion->descripcion ?></p>
+
+              <hr>
+
+              <strong><i class="fa fa-address-card margin-r-5"></i> Responsables</strong>
+
+              <p class="text-muted" style="margin: 0 3px !important;"><?php echo $institucion->responsable ?></p>
+              
+              <?php foreach ($institucion->users as $user): ?>
+                <p class="text-muted" style="margin: 0 3px !important;"><?php echo $user->name ?> <?php echo $user->apellido ?> <label class="label label-default">POSADERO</label></p>
+              <?php endforeach ?>
               
             </div>
             <!-- /.box-body -->
@@ -153,19 +167,21 @@
                     <h3>
                       Alertas Pendientes
                       <br><small class="text-muted">Listado de Alertas <label class="label label-default"><i class="icon fa fa-clock-o"></i>PENDIENTES</label> que fueron derivadas a tu Institución</small>
-                      <br><small class="text-muted">Si no encontrás lo que buscás, mirá el listado completo de Alertas. Hacé click <a href="" target="_blank">ACÁ</a></small> 
+                      <br><small class="text-muted">Si no encontrás lo que buscás, mirá el listado completo de Alertas. Hacé click <a href="{{url('/alert/list')}}" target="_blank">ACÁ</a></small> 
                     </h3>
                     <br>
 
                     <table class="table table-striped table-hover dataTables" id="tableAlertas" style="overflow-x: auto;">
-                      <?php if ($institucion->alertas()->count() > 0): ?>
+                      <?php if (count($alertas) > 0): ?>
                         <thead>
                           <tr>
-                            <th></th><th></th><th></th>
+                            <th>Alerta</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <?php foreach ($institucion->alertas as $alerta): ?>
+                          <?php foreach ($alertas as $alerta): ?>
                             <tr>
                               <td>
                                 {{$alerta->nombre}} {{$alerta->apellido}}
@@ -173,34 +189,20 @@
                                 <br>{{(new DateTime($alerta->fechaNacimiento))->format('d/m/Y')}}
                               </td>
                               <td class="vert-aligned">
-                                <?php echo $alerta->user->name ?> <?php echo $alerta->user->apellido ?>
-                                <br><span class="text-muted"><?php echo $alerta->user->tipoUsuario->nombre ?></span>
+                                <?php echo $alerta->authorNombre ?> <?php echo $alerta->authorApellido ?>
+                                <br><span class="text-muted"><?php echo $alerta->authorTipo ?></span>
                               </td>
-                              <td class="vert-aligned text-center">
-                                <?php if ($alerta->estado == 1) { ?>
-                                  
-                                  <span class="label label-success"><i class="fa icon fa-check-circle"></i> SE PRESENTÓ </span>
-
-                                <?php } elseif ($alerta->estado == 0) { ?>
-
-                                  <span class="label label-default"><i class="fa icon fa-clock-o"></i> PENDIENTE </span>
-                                
-                                <?php } elseif ($alerta->estado == 2) { ?>
-
-                                  <span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
-
-                                <?php } ?>
+                              
+                              <td class="text-center" style="vertical-align: middle;"> 
+                                <a href="{{ route('asistido.newFromAlert',['id'=>$alerta->id]) }}" class="altaBtn" data-toggle="tooltip" data-title="Alta Asistido"><i class="icon fa fa-check-circle fa-2x fa-fw text-green"></i></a> 
+                                <a href="{{ route('alerta.destroy',['id'=>$alerta->id])}}" class="descartarBtn" data-toggle="tooltip" data-title="Descartar Solicitud"><i class="icon fa fa-times-circle fa-2x fa-fw text-red"></i></a>
                               </td>
+
                             </tr>
                           <?php endforeach ?>
                         </tbody>
                       <?php endif ?>
                     </table>
-
-                    <p>holaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                    <?php foreach ($alertas as $alerta): ?>
-                      <?php echo var_dump($alerta) ?>
-                    <?php endforeach ?>
 
                   </div>
                 </div>

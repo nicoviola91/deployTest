@@ -160,6 +160,9 @@
 
               <p><?php echo $comunidad->observaciones ?></p>
 
+              <hr>
+
+              <a href="javascript:void(0)" data-target="#modal-consulta" data-toggle="modal" class="btn btn-primary btn-block"><i class="fa icon fa-comments-o fa-fw"></i><b>Mensaje</b></a>
               <a href="#" class="btn btn-danger btn-block"><i class="fa icon fa-sign-out fa-fw"></i><b>Abandonar</b></a>
 
             </div>
@@ -420,7 +423,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><i class="icon fa fa-comments-o fa-fw"></i> Comunidad <small class="text-muted">NUEVO MENSAJE</small></h4>
+        <h4 class="modal-title"><i class="icon fa fa-comments-o fa-fw"></i> Comunidad <small class="text-muted">COMPARTÍ UN MENSAJE CON LOS MIEMBROS DE TU COMUNIDAD</small></h4>
       </div>
 
       <div class="modal-body">
