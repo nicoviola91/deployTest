@@ -60,19 +60,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
-          <ul class="nav navbar-nav">
-
-            <?php if (Auth::check()) { ?>
-            
-              <li><a href="{{url('/home')}}">&nbsp;&nbsp;&nbsp;<i class="icon fa fa-home"></i> &nbsp;Inicio&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-            
-            <?php } else { ?>
-            
-              <li><a href="{{url('/login')}}">&nbsp;&nbsp;&nbsp;&nbsp;Ingresar&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-              <li><a href="{{url('/register')}}">Registrarme</a></li>
-            
-            <?php } ?>
-          </ul>
         </div>
         <!-- /.navbar-collapse -->
       </div>
