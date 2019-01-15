@@ -123,7 +123,7 @@ Route::group(['prefix'=>'alert','middleware'=>['autenticado']],function(){
     Route::get('/destroy/{id}',[
         'uses'=>'AlertaController@destroy',
         'as'=>'alerta.destroy'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
 });
 
 
@@ -257,23 +257,23 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::get('/newFromAlert/{id}',[
         'uses'=>'AsistidoController@createFromAlert',
         'as'=>'asistido.newFromAlert'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::get('/new',[
         'uses'=>'AsistidoController@create',
         'as'=>'asistidos.nuevo'
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::post('/store/{alerta_id}',[
         'uses'=>'AsistidoController@store',
         'as'=>'asistido.store',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::post('/storeNew',[
         'uses'=>'AsistidoController@storeNew',
         'as'=>'asistido.storeNew',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::post('/updateImage',[
         'uses'=>'AsistidoController@updateImage',
         'as'=>'asistido.updateImage',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::post('/agregarComunidad',[
         'uses'=>'AsistidoController@agregarComunidad',
         'as'=>'asistido.agregarComunidad',
@@ -281,11 +281,11 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::post('/verificarDocumentoExistente',[
         'uses'=>'AsistidoController@verificarDocumentoExistente',
         'as'=>'asistido.verificarDocumentoExistente',
-    ])->middleware('admin');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::get('/list',[
         'uses'=>'AsistidoController@showAll',
         'as'=>'asistido.list'
-    ])->middleware('autenticado');
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     Route::get('/busqueda',[
         'uses'=>'AsistidoController@busqueda',
         'as'=>'asistido.busqueda'
