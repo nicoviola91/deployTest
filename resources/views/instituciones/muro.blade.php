@@ -102,7 +102,13 @@
                   <b><i class="fa fa-users fa-fw"></i> Comunidades</b> <a class="pull-right"><?php echo $institucion->comunidades->count() ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas</b> <a class="pull-right"><?php echo $institucion->alertas->count() ?></a>
+                  <b><i class="fa fa-exclamation-circle fa-fw"></i> Alertas Pendientes</b> <a class="pull-right"><?php echo count($alertas) ?></a>
+                </li>
+                <li class="list-group-item">
+                  <b><i class="fa fa-user fa-fw"></i> Asistidos</b> <a class="pull-right"><?php echo count($asistidos) ?></a>
+                </li>
+                <li class="list-group-item">
+                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> <a class="pull-right"><?php echo count($miembros) ?></a>
                 </li>
               </ul>
 
@@ -132,7 +138,7 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="#alertas" data-toggle="tab"><i class="fa icon fa-exclamation-circle fa-fw"></i> <span class="hidden-xs">Alertas</span></a></li>
+              <li class="active"><a href="#alertas" data-toggle="tab"><i class="fa icon fa-exclamation-circle fa-fw"></i> <span class="hidden-xs">Alertas</span></a></li>
               <li><a href="#asistidos" data-toggle="tab"><i class="fa icon fa-user fa-fw"></i> <span class="hidden-xs">Asistidos</span></a></li>
               <li><a href="#comunidades" data-toggle="tab"><i class="fa icon fa-users fa-fw"></i> <span class="hidden-xs">Comunidades</span></a></li>
               <li><a href="#miembros" data-toggle="tab"><i class="fa icon fa-user-circle fa-fw"></i> <span class="hidden-xs">Miembros</span></a></li>
@@ -146,9 +152,56 @@
                   <div class="col-md-12">
                     <h3>
                       Alertas Pendientes
-                      <br><small class="text-muted">Listado de Alertas que fueron derivadas a tu Institución</small> 
+                      <br><small class="text-muted">Listado de Alertas <label class="label label-default"><i class="icon fa fa-clock-o"></i>PENDIENTES</label> que fueron derivadas a tu Institución</small>
+                      <br><small class="text-muted">Si no encontrás lo que buscás, mirá el listado completo de Alertas. Hacé click <a href="" target="_blank">ACÁ</a></small> 
                     </h3>
                     <br>
+
+                    <table class="table table-striped table-hover dataTables" id="tableAlertas" style="overflow-x: auto;">
+                      <?php if ($institucion->alertas()->count() > 0): ?>
+                        <thead>
+                          <tr>
+                            <th></th><th></th><th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($institucion->alertas as $alerta): ?>
+                            <tr>
+                              <td>
+                                {{$alerta->nombre}} {{$alerta->apellido}}
+                                <br>DNI {{$alerta->dni}}
+                                <br>{{(new DateTime($alerta->fechaNacimiento))->format('d/m/Y')}}
+                              </td>
+                              <td class="vert-aligned">
+                                <?php echo $alerta->user->name ?> <?php echo $alerta->user->apellido ?>
+                                <br><span class="text-muted"><?php echo $alerta->user->tipoUsuario->nombre ?></span>
+                              </td>
+                              <td class="vert-aligned text-center">
+                                <?php if ($alerta->estado == 1) { ?>
+                                  
+                                  <span class="label label-success"><i class="fa icon fa-check-circle"></i> SE PRESENTÓ </span>
+
+                                <?php } elseif ($alerta->estado == 0) { ?>
+
+                                  <span class="label label-default"><i class="fa icon fa-clock-o"></i> PENDIENTE </span>
+                                
+                                <?php } elseif ($alerta->estado == 2) { ?>
+
+                                  <span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
+
+                                <?php } ?>
+                              </td>
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
+                      <?php endif ?>
+                    </table>
+
+                    <p>holaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                    <?php foreach ($alertas as $alerta): ?>
+                      <?php echo var_dump($alerta) ?>
+                    <?php endforeach ?>
+
                   </div>
                 </div>
 
@@ -164,6 +217,11 @@
                       <br><small class="text-muted">Listado de Asistidos asociados a las Comunidades de tu Institución</small> 
                     </h3>
                     <br>
+
+                    <?php foreach ($asistidos as $a): ?>
+                      <?php echo var_dump($a) ?>
+                    <?php endforeach ?>
+
                   </div>
                 </div>
 
@@ -179,6 +237,23 @@
                       <br><small class="text-muted">Listado de Miembros asociados a las Comunidades de tu Institución</small> 
                     </h3>
                     <br>
+
+                    <?php foreach ($miembros as $m): ?>
+                      <?php echo var_dump($m) ?>
+                    <?php endforeach ?>
+
+
+                    <br>
+                    <h3>
+                      Solicitudes
+                      <br><small class="text-muted">Solicitudes de adhesion pendientes para las Comunidades de tu Institución</small> 
+                    </h3>
+                    <br>
+
+                    <?php foreach ($solicitudes as $s): ?>
+                      <?php echo var_dump($s) ?>
+                    <?php endforeach ?>
+
                   </div>
                 </div>
 
@@ -277,6 +352,31 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+  $(function () {
+
+      $('.dataTables').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+        'pageLength'  : 25,
+
+        "oLanguage": {
+        "sEmptyTable": "No hay datos disponibles para la tabla.",
+        "sLengthMenu": "Mostrar _MENU_ filas",
+        "sSearch": "Buscar:",
+        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
+        "oPaginate": {
+          "sPrevious": "Anterior",
+          "sNext": "Siguiente"
+        }
+      },
+
+      });
+  });
     
   $(function () {
 

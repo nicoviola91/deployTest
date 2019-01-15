@@ -97,7 +97,7 @@
                   <a class="pull-right">
                     <span class="countMiembros">{{ $comunidad->users()->count() }}</span>
 
-                    <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()): ?>
+                    <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
                       <span class="small">(<span class="countSolicitudes"> <?php echo $comunidad->solicitudes->count() ?></span> pendientes)</span>    
                     <?php endif ?>  
                   
@@ -210,19 +210,31 @@
                       <br><small class="text-muted">Listado de Asistidos vinculados a tu Comunidad</small>
                     </h3>
 
-                    <table class="table table-striped table-hover" id="tableAsistidos" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover dataTables" id="tableAsistidos" style="overflow-x: auto;">
                       <?php if ($comunidad->asistidos()->count() > 0): ?>
-                      <?php foreach ($comunidad->asistidos as $asistido): ?>
-                        <tr>
-                          <td>{{$asistido->nombre}} {{$asistido->apellido}}</td>
-                          <td>DNI {{$asistido->dni}}</td>
-                          <td>{{(new DateTime($asistido->fechaNacimiento))->format('d/m/Y')}}</td>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                              <th></th>
+                            <?php endif ?>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($comunidad->asistidos as $asistido): ?>
+                            <tr>
+                              <td>{{$asistido->nombre}} {{$asistido->apellido}}</td>
+                              <td>DNI {{$asistido->dni}}</td>
+                              <td>{{(new DateTime($asistido->fechaNacimiento))->format('d/m/Y')}}</td>
 
-                          <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
-                            <td><a href="{{url('/asistido/show/'.$asistido->id)}}" target="_blank"><i class="icon fa fa-search fa-2x"></i></a></td>
-                          <?php endif ?>
-                        </tr>
-                      <?php endforeach ?>
+                              <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                                <td><a href="{{url('/asistido/show/'.$asistido->id)}}" target="_blank"><i class="icon fa fa-search fa-2x"></i></a></td>
+                              <?php endif ?>
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
                       <?php endif ?>
                     </table>
 
@@ -244,33 +256,44 @@
                 </div>
 
 
-                <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
+                <table class="table table-striped table-hover dataTables" id="tableMiembros" style="overflow-x: auto;">
                   <?php if ($comunidad->users()->count() > 0): ?>
-                  <?php foreach ($comunidad->users as $usuario): ?>
-                    <tr>
-                      <td>
-                        {{$usuario->name}} {{$usuario->apellido}} 
-                        <br><small class="text-muted">{{$usuario->tipoUsuario->nombre}}</small>
-                      </td>
-                      <td class="text-center hidden-xs">
-                        {{$usuario->email}}
-                        <?php if ($usuario->comunidad_id == $comunidad->id): ?>
-                          <span class="label label-default">COORDINADOR</span>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
+                          <th></th>
                         <?php endif ?>
-                      </td>
-                      
-                      <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id): ?>
-                        <td class="text-center">
-                          <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
-                        </td>
-                      <?php endif ?>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($comunidad->users as $usuario): ?>
+                        <tr>
+                          <td>
+                            {{$usuario->name}} {{$usuario->apellido}} 
+                            <br><small class="text-muted">{{$usuario->tipoUsuario->nombre}}</small>
+                          </td>
+                          <td class="text-center hidden-xs">
+                            {{$usuario->email}}
+                            <?php if ($usuario->comunidad_id == $comunidad->id): ?>
+                              <span class="label label-default">COORDINADOR</span>
+                            <?php endif ?>
+                          </td>
+                          
+                          <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
+                            <td class="text-center">
+                              <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                            </td>
+                          <?php endif ?>
 
-                    </tr>
-                  <?php endforeach ?>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
                   <?php endif ?>
                 </table>
 
-                <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()): ?>
+                <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || (Auth::user()->tipoUsuario->slug == 'administrador') ): ?>
                 <div class="row">
                   <div class="col-md-12">
                     <h3>
@@ -278,19 +301,26 @@
                       <br><small class="text-muted">Solicitudes de adhesión pendientes</small>
                     </h3>
 
-                    <table class="table table-striped table-hover" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover dataTables" style="overflow-x: auto;">
                       <?php if ($comunidad->solicitudes()->count()): ?>
-                      <?php foreach ($comunidad->solicitudes as $solicitud): ?>
-                        <tr id="solicitud{{$solicitud->id}}">
-                          <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$solicitud->user->dni}})</small></td>
-                          <td class="text-center hidden-xs">{{$solicitud->user->email}}</td>
-                          <td class="text-center hidden-xs horario">{{$solicitud->created_at->diffForHumans()}}</td>
-                          <td class="text-center acciones">
-                            <a href="javascript:void(0)" class="descartarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Descartar Solicitud"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
-                            <a href="javascript:void(0)" class="aprobarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Aprobar Solicitud"> <i class="icon fa fa-check fa-2x fa-fw text-green"></i></a>
-                          </td>
-                        </tr>
-                      <?php endforeach ?>
+                        <thead>
+                          <tr>
+                            <th></th><th></th><th></th><th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($comunidad->solicitudes as $solicitud): ?>
+                            <tr id="solicitud{{$solicitud->id}}">
+                              <td>{{$solicitud->user->name}} {{$solicitud->user->apellido}} <small class="text-muted">(DNI {{$solicitud->user->dni}})</small></td>
+                              <td class="text-center hidden-xs">{{$solicitud->user->email}}</td>
+                              <td class="text-center hidden-xs horario">{{$solicitud->created_at->diffForHumans()}}</td>
+                              <td class="text-center acciones">
+                                <a href="javascript:void(0)" class="descartarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Descartar Solicitud"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                                <a href="javascript:void(0)" class="aprobarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Aprobar Solicitud"> <i class="icon fa fa-check fa-2x fa-fw text-green"></i></a>
+                              </td>
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
                       <?php endif ?>
                     </table>
 
@@ -309,36 +339,43 @@
                       <br><small class="text-muted">Listado de alertas compartidas con la Comunidad</small>
                     </h3>
 
-                    <table class="table table-striped table-hover" id="tableAlertas" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover dataTables" id="tableAlertas" style="overflow-x: auto;">
                       <?php if ($comunidad->alertas()->count() > 0): ?>
-                      <?php foreach ($comunidad->alertas as $alerta): ?>
-                        <tr>
-                          <td>
-                            {{$alerta->nombre}} {{$alerta->apellido}}
-                            <br>DNI {{$alerta->dni}}
-                            <br>{{(new DateTime($alerta->fechaNacimiento))->format('d/m/Y')}}
-                          </td>
-                          <td class="vert-aligned">
-                            <?php echo $alerta->user->name ?> <?php echo $alerta->user->apellido ?>
-                            <br><span class="text-muted"><?php echo $alerta->user->tipoUsuario->nombre ?></span>
-                          </td>
-                          <td class="vert-aligned text-center">
-                            <?php if ($alerta->estado == 1) { ?>
-                              
-                              <span class="label label-success"><i class="fa icon fa-check-circle"></i> SE PRESENTÓ </span>
+                        <thead>
+                          <tr>
+                            <th></th><th></th><th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($comunidad->alertas as $alerta): ?>
+                            <tr>
+                              <td>
+                                {{$alerta->nombre}} {{$alerta->apellido}}
+                                <br>DNI {{$alerta->dni}}
+                                <br>{{(new DateTime($alerta->fechaNacimiento))->format('d/m/Y')}}
+                              </td>
+                              <td class="vert-aligned">
+                                <?php echo $alerta->user->name ?> <?php echo $alerta->user->apellido ?>
+                                <br><span class="text-muted"><?php echo $alerta->user->tipoUsuario->nombre ?></span>
+                              </td>
+                              <td class="vert-aligned text-center">
+                                <?php if ($alerta->estado == 1) { ?>
+                                  
+                                  <span class="label label-success"><i class="fa icon fa-check-circle"></i> SE PRESENTÓ </span>
 
-                            <?php } elseif ($alerta->estado == 0) { ?>
+                                <?php } elseif ($alerta->estado == 0) { ?>
 
-                              <span class="label label-default"><i class="fa icon fa-clock-o"></i> PENDIENTE </span>
-                            
-                            <?php } elseif ($alerta->estado == 2) { ?>
+                                  <span class="label label-default"><i class="fa icon fa-clock-o"></i> PENDIENTE </span>
+                                
+                                <?php } elseif ($alerta->estado == 2) { ?>
 
-                              <span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
+                                  <span class="label label-danger"><i class="fa icon fa-close"></i> DESCARTADA </span>
 
-                            <?php } ?>
-                          </td>
-                        </tr>
-                      <?php endforeach ?>
+                                <?php } ?>
+                              </td>
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
                       <?php endif ?>
                     </table>
 
@@ -414,6 +451,31 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+  $(function () {
+
+      $('.dataTables').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+        'pageLength'  : 25,
+
+        "oLanguage": {
+        "sEmptyTable": "No hay datos disponibles para la tabla.",
+        "sLengthMenu": "Mostrar _MENU_ filas",
+        "sSearch": "Buscar:",
+        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ filas",
+        "oPaginate": {
+          "sPrevious": "Anterior",
+          "sNext": "Siguiente"
+        }
+      },
+
+      });
+  });
     
   $(function () {
 

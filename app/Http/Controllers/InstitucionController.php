@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucion;
+use App\Alerta;
 use App\Direccion;
 use App\Comunidad;
 use Illuminate\Http\Request;
@@ -104,6 +105,41 @@ class InstitucionController extends Controller
     public function showMuro($id)
     {   
         $data['institucion'] = Institucion::find($id);
+
+        //Obtener las alertas PENDIENTES
+        $data['alertas'] = DB::table('alertas')
+            ->select(DB::raw('alertas.*, users.name, users.apellido, tiposUsuarios.nombre'))
+            ->leftJoin('users', 'alertas.user_id', '=', 'users.id')
+            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+            ->where('alertas.institucion_id', $id)
+            ->where('alertas.estado', '0')->get();
+
+        //Obtener los asistidos asociados a comunidades de la institucion
+        $data['asistidos'] = DB::table('asistido_comunidad')
+            ->select(DB::raw('asistidos.*'))
+            ->leftJoin('asistidos', 'asistido_comunidad.asistido_id', '=', 'asistidos.id')
+            ->leftJoin('comunidades', 'asistido_comunidad.comunidad_id', '=', 'comunidades.id')
+            ->leftJoin('instituciones', 'comunidades.institucion_id', '=', 'instituciones.id')
+            ->where('instituciones.id', $id)
+            ->orWhere('asistidos.institucion_id', $id)->distinct()->get();
+
+        //Obtener los usuarios asociados a comunidades de la institucion
+        $data['miembros'] = DB::table('comunidad_user')
+            ->select(DB::raw('users.name, users.apellido, users.email, tiposUsuarios.nombre AS tipoUsuario'))
+            ->leftJoin('users', 'comunidad_user.user_id', '=', 'users.id')
+            ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
+            ->leftJoin('comunidades', 'comunidad_user.comunidad_id', '=', 'comunidades.id')
+            ->leftJoin('instituciones', 'comunidades.institucion_id', '=', 'instituciones.id')
+            ->where('instituciones.id', $id)->distinct()->get();
+
+        //Obtener las solicitudes pendientes de usuarios para asociarse a comunidades de la institucion
+        $data['solicitudes'] = DB::table('solicitudes')
+            ->select(DB::raw('solicitudes.*, users.name, users.apellido, users.email, users.dni, comunidades.nombre'))
+            ->leftJoin('users', 'solicitudes.user_id', '=', 'users.id')
+            ->leftJoin('comunidades', 'solicitudes.comunidad_id', '=', 'comunidades.id')
+            ->leftJoin('instituciones', 'comunidades.institucion_id', '=', 'instituciones.id')
+            ->where('instituciones.id', $id)->get();
+
         return view('instituciones.muro', $data);
     }
 
