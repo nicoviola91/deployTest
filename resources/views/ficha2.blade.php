@@ -102,7 +102,7 @@
           </li>
           <li class="liTab integral">
             <a href="#tab_integral" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Diagnóstico Integral">
-              <i class="icon fa fa-stethoscope fa-fw"></i> 
+              <i class="icon fa fa-universal-access fa-fw"></i> 
               <span style="display: none;"> Diagnóstico Integral</span>
             </a>
           </li>

@@ -41,7 +41,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h3 class="box-title"><i class="icon fa fa-stethoscope fa-fw"></i> Ficha Diagnóstico Integral
+        <h3 class="box-title"><i class="icon fa fa-universal-access fa-fw"></i> Ficha Diagnóstico Integral
         <span class="pull-right">
         <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-print"></i> Imprimir</button>
         {{-- <button type="button" class="btn btn-default btn-sm no-print"><i class="fa fa-share"></i> Compartir</button> --}}

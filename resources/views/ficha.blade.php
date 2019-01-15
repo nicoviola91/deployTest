@@ -213,7 +213,7 @@
           </li>
           <li class="liTab integral" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaDiagnosticoIntegral ? '' : 'style="display:none;"' ?>>
             <a href="#tab_integral" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Diagnóstico Integral">
-              <i class="icon fa fa-stethoscope fa-fw"></i> 
+              <i class="icon fa fa-universal-access fa-fw"></i> 
               <span style="display: none;"> Diagnóstico Integral</span>
             </a>
           </li>
@@ -313,7 +313,7 @@
 
                   <?php if (!$asistido->checkFichaDiagnosticoIntegral): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="diagnosticoIntegral" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Diagnóstico Integral">
-                      <i align="left" class="fa fa-stethoscope"></i> <span class="hidden-xs">Añadir</span> Ficha de Diagnostico Integral
+                      <i align="left" class="fa fa-universal-access"></i> <span class="hidden-xs">Añadir</span> Ficha de Diagnostico Integral
                     </a>  
                   <?php endif ?>
 
