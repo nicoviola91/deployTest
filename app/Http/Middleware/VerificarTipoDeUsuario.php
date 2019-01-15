@@ -22,7 +22,7 @@ class VerificarTipoDeUsuario
             return $next($request);
             
         }else{
-            return new Response(view('noAutorizado.noAutorizado'));
+            return new Response(view('errors.403'));
         }
     }
 }
