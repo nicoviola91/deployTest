@@ -126,7 +126,7 @@
             <div class="box-body">
             
               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
-              <p class="text-muted"><?php echo $institucion->direccion->toString() ?></p>
+              <p class="text-muted"><?php echo isset($institucion->direccion) ? $institucion->direccion->toString() : '' ?></p>
 
               <hr>
 

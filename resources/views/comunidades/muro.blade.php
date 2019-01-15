@@ -138,7 +138,7 @@
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
 
-              <p class="text-muted"><?php echo $comunidad->institucion->direccion->toString() ?></p>
+              <p class="text-muted"><?php echo isset($comunidad->institucion->direccion) ? $comunidad->institucion->direccion->toString() : '' ?></p>
 
               <hr>
 
