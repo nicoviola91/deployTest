@@ -161,7 +161,7 @@
 
         bootbox.confirm({
             title: "Atención!",
-            message: "Ya existe un Asistido con el DNI especificado. <br><br><strong><i class='icon fa fa-user'></i> Asistido:</strong> " + data.asistido_nombre + " <br><strong><i class='icon fa fa-bank'></i> Institución:</strong> " + data.posadero + " <br><br> Estás seguro que querés continuar? Hace <a href='{{url('/asistido/list')}}'>click acá</a> para ir al listado de Asistidos existentes." ,
+            message: "Ya existe un Asistido con el DNI especificado. <br><br><strong><i class='icon fa fa-user'></i> Asistido:</strong> " + data.asistido_nombre + " <br><strong><i class='icon fa fa-bank'></i> Institución:</strong> " + data.posadero + " <br><br> Hace <a target='_blank' href='{{url('/asistido/show/')}}/"+data.asistido_id+"'>click acá</a> para ver la Ficha del Asistido existente. <br><br>Estás seguro que querés continuar? Hace <a target='_blank' href='{{url('/asistido/list')}}'>click acá</a> para ir al listado completo." ,
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'

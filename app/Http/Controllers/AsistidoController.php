@@ -138,7 +138,7 @@ class AsistidoController extends Controller
         $alerta->institucion_id = $request->institucion_id;
         $alerta->save();
 
-        return redirect()->route('asistido.list');
+        return redirect()->route('asistido.show', ['id' => $asistido->id]);
     }
 
     //para guardar asistido cuando no es creado desde una alerta
