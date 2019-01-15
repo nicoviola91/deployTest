@@ -125,7 +125,7 @@ class InstitucionController extends Controller
 
         //Obtener los usuarios asociados a comunidades de la institucion
         $data['miembros'] = DB::table('comunidad_user')
-            ->select(DB::raw('users.name, users.apellido, users.email, tiposUsuarios.nombre AS tipoUsuario'))
+            ->select(DB::raw('users.name, users.apellido, users.email, tiposUsuarios.nombre AS tipoUsuario, users.institucion_id AS administra, users.id'))
             ->leftJoin('users', 'comunidad_user.user_id', '=', 'users.id')
             ->leftJoin('tiposUsuarios', 'users.tipoUsuario_id', '=', 'tiposUsuarios.id')
             ->leftJoin('comunidades', 'comunidad_user.comunidad_id', '=', 'comunidades.id')

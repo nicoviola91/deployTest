@@ -213,8 +213,9 @@
                       <br><small class="text-muted">Listado de Asistidos vinculados a tu Comunidad</small>
                     </h3>
 
+                    <?php if ($comunidad->asistidos()->count() > 0): ?>
                     <table class="table table-striped table-hover dataTables" id="tableAsistidos" style="overflow-x: auto;">
-                      <?php if ($comunidad->asistidos()->count() > 0): ?>
+                      
                         <thead>
                           <tr>
                             <th></th>
@@ -238,8 +239,9 @@
                             </tr>
                           <?php endforeach ?>
                         </tbody>
-                      <?php endif ?>
+                      
                     </table>
+                    <?php endif ?>
 
                   </div>
                 </div>
@@ -258,9 +260,9 @@
                   </div>
                 </div>
 
-
+                <?php if ($comunidad->users()->count() > 0): ?>
                 <table class="table table-striped table-hover dataTables" id="tableMiembros" style="overflow-x: auto;">
-                  <?php if ($comunidad->users()->count() > 0): ?>
+                  
                     <thead>
                       <tr>
                         <th></th>
@@ -293,8 +295,9 @@
                         </tr>
                       <?php endforeach ?>
                     </tbody>
-                  <?php endif ?>
+                  
                 </table>
+                <?php endif ?>
 
                 <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || (Auth::user()->tipoUsuario->slug == 'administrador') ): ?>
                 <div class="row">
@@ -304,8 +307,9 @@
                       <br><small class="text-muted">Solicitudes de adhesión pendientes</small>
                     </h3>
 
-                    <table class="table table-striped table-hover dataTables" style="overflow-x: auto;">
-                      <?php if ($comunidad->solicitudes()->count()): ?>
+                    <?php if ($comunidad->solicitudes()->count()): ?>
+                    <table class="table table-striped table-hover" style="overflow-x: auto;">
+                      
                         <thead>
                           <tr>
                             <th></th><th></th><th></th><th></th>
@@ -324,8 +328,9 @@
                             </tr>
                           <?php endforeach ?>
                         </tbody>
-                      <?php endif ?>
+                      
                     </table>
+                    <?php endif ?>
 
                   </div>
                 </div>
@@ -342,8 +347,9 @@
                       <br><small class="text-muted">Listado de alertas compartidas con la Comunidad</small>
                     </h3>
 
+                    <?php if ($comunidad->alertas()->count() > 0): ?>
                     <table class="table table-striped table-hover dataTables" id="tableAlertas" style="overflow-x: auto;">
-                      <?php if ($comunidad->alertas()->count() > 0): ?>
+                      
                         <thead>
                           <tr>
                             <th></th><th></th><th></th>
@@ -379,8 +385,9 @@
                             </tr>
                           <?php endforeach ?>
                         </tbody>
-                      <?php endif ?>
+                      
                     </table>
+                    <?php endif ?>
 
                   </div>
                 </div>
@@ -528,7 +535,7 @@
   
 </script>
 
-<?php if ((Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id)): ?>
+<?php if ((Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id) || (Auth::user()->tipoUsuario->slug == 'administrador') || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion->id)): ?>
   
   <script type="text/javascript">
     

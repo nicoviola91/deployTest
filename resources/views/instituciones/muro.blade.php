@@ -108,7 +108,7 @@
                   <b><i class="fa fa-user fa-fw"></i> Asistidos</b> <a class="pull-right"><?php echo count($asistidos) ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> <a class="pull-right"><?php echo count($miembros) ?></a>
+                  <b><i class="fa fa-user-circle fa-fw"></i> Miembros</b> <a class="pull-right"><span class="countMiembros"><?php echo count($miembros) ?></span></a>
                 </li>
               </ul>
 
@@ -171,8 +171,9 @@
                     </h3>
                     <br>
 
+                    <?php if (count($alertas) > 0): ?>
                     <table class="table table-striped table-hover dataTables" id="tableAlertas" style="overflow-x: auto;">
-                      <?php if (count($alertas) > 0): ?>
+                      
                         <thead>
                           <tr>
                             <th>Alerta</th>
@@ -201,8 +202,9 @@
                             </tr>
                           <?php endforeach ?>
                         </tbody>
-                      <?php endif ?>
+                      
                     </table>
+                    <?php endif ?>
 
                   </div>
                 </div>
@@ -220,9 +222,35 @@
                     </h3>
                     <br>
 
-                    <?php foreach ($asistidos as $a): ?>
-                      <?php echo var_dump($a) ?>
-                    <?php endforeach ?>
+                    <?php if (count($asistidos) > 0): ?>
+                    <table class="table table-striped table-hover dataTables" id="tableAsistidos" style="overflow-x: auto;">
+                      
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                              <th></th>
+                            <?php endif ?>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($asistidos as $asistido): ?>
+                            <tr>
+                              <td>{{$asistido->nombre}} {{$asistido->apellido}}</td>
+                              <td>DNI {{$asistido->dni}}</td>
+                              <td>{{(new DateTime($asistido->fechaNacimiento))->format('d/m/Y')}}</td>
+
+                              <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                                <td><a href="{{url('/asistido/show/'.$asistido->id)}}" target="_blank"><i class="icon fa fa-search fa-2x"></i></a></td>
+                              <?php endif ?>
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
+                      
+                    </table>
+                    <?php endif ?>
 
                   </div>
                 </div>
@@ -240,21 +268,83 @@
                     </h3>
                     <br>
 
-                    <?php foreach ($miembros as $m): ?>
-                      <?php echo var_dump($m) ?>
-                    <?php endforeach ?>
+                    <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
+                      <?php if (count($miembros) > 0): ?>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <?php if ((Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $institucion->id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
+                              <th></th>
+                            <?php endif ?>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($miembros as $usuario): ?>
+                            <tr>
+                              <td>
+                                {{$usuario->name}} {{$usuario->apellido}} 
+                                <br><small class="text-muted">{{$usuario->tipoUsuario}}</small>
+                              </td>
+                              <td class="text-center hidden-xs">
+                                {{$usuario->email}}
+                                <?php if (isset($usuario->administra) && $usuario->administra == $institucion->id): ?>
+                                  <span class="label label-default">RESPONSABLE</span>
+                                <?php endif ?>
+                              </td>
+                              
+                              <?php if ( (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $institucion->id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
+                                <td class="text-center">
+                                  <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                                </td>
+                              <?php endif ?>
+
+                            </tr>
+                          <?php endforeach ?>
+                        </tbody>
+                      <?php endif ?>
+                    </table>
 
 
                     <br>
-                    <h3>
-                      Solicitudes
-                      <br><small class="text-muted">Solicitudes de adhesion pendientes para las Comunidades de tu Institución</small> 
-                    </h3>
-                    <br>
+                    <?php if ((Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $institucion->id ) || (Auth::user()->tipoUsuario->slug == 'administrador') ): ?>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3>
+                            Solicitudes
+                            <br><small class="text-muted">Solicitudes de adhesion pendientes para las Comunidades de tu Institución</small>
+                          </h3>
 
-                    <?php foreach ($solicitudes as $s): ?>
-                      <?php echo var_dump($s) ?>
-                    <?php endforeach ?>
+                          <?php if (count($solicitudes)): ?>
+                          <table class="table table-striped table-hover" style="overflow-x: auto;">
+                            
+                              <thead>
+                                <tr>
+                                  <th></th><th></th><th></th><th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php foreach ($solicitudes as $solicitud): ?>
+                                  <tr id="solicitud{{$solicitud->id}}">
+                                    <td>{{$solicitud->name}} {{$solicitud->apellido}} <small class="text-muted">({{$solicitud->email}})</small></td>
+                                    <td class="text-center hidden-xs">{{$solicitud->nombre}}</td>
+                                    <td class="text-center acciones">
+                                      <a href="javascript:void(0)" class="descartarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Descartar Solicitud"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                                      <a href="javascript:void(0)" class="aprobarSolicitud" data-id="{{ $solicitud->id }}" data-toggle="tooltip" data-title="Aprobar Solicitud"> <i class="icon fa fa-check fa-2x fa-fw text-green"></i></a>
+                                    </td>
+                                  </tr>
+                                <?php endforeach ?>
+                              </tbody>
+                            
+                          </table>
+                          <?php endif ?>
+
+                        </div>
+                      </div>
+                      <?php endif ?>
+                    
+
+
 
                   </div>
                 </div>
@@ -427,6 +517,81 @@
     
   
 </script>
+
+<?php if ((Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $institucion->id) || (Auth::user()->tipoUsuario->slug == 'administrador')): ?>
+  
+  <script type="text/javascript">
+    
+    $('.descartarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.descartarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        $('#solicitud'+id).remove();
+        $('.countSolicitudes').html($('.countSolicitudes').html()-1);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+    $('.aprobarSolicitud').click(function () {
+
+      var id = $(this).data('id');
+      
+      var loading = bootbox.dialog({
+        message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+        closeButton: false
+      });
+
+      $.post( "{{route('comunidad.aprobarSolicitud')}}", { 'solicitud_id': id, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        loading.modal('hide');
+        lanzarAlerta('exito', datos.msg);
+
+        tr = $('#solicitud'+id);
+
+        tr.find('.horario').remove();
+        tr.find('.acciones').html('<i class="icon fa fa-remove fa-2x fa-fw text-gray"></i>');
+
+        $('#tableMiembros').append(tr);
+
+        $('.countSolicitudes').html($('.countSolicitudes').html()-1);
+        $('.countMiembros').html(parseInt($('.countMiembros').html())+1.0);
+
+      } else {
+
+        loading.modal('hide');
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+  </script>
+
+<?php endif ?>
 
 
 @endsection
