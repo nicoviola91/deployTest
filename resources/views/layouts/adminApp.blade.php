@@ -223,7 +223,8 @@
               @break
 
           @default
-
+              @include('menu.samaritano');
+              @break
         @endswitch
       
       </ul>

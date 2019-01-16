@@ -291,17 +291,17 @@ class ComunidadController extends Controller
     
         if (isset($comunidad) && $comunidad->mensajes()->save($consulta)) {
             
-            if (isset($path)) {
+            if (isset($fileName)) {
                 return response()->json([
                     'status' => true,
-                    'msg' => 'Consulta ingresada satisfactoriamente',
-                    'adjunto' => $path, 
+                    'msg' => 'Mensaje ingresada satisfactoriamente',
+                    'adjunto' => $fileName, 
                     'texto' => $request->mensaje,
                 ]);
             } else {
                 return response()->json([
                     'status' => true,
-                    'msg' => 'Consulta ingresada satisfactoriamente',
+                    'msg' => 'Mensaje ingresada satisfactoriamente',
                     'texto' => $request->mensaje,
                 ]);
             }

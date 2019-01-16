@@ -97,7 +97,7 @@
                   <a class="pull-right">
                     <span class="countMiembros">{{ $comunidad->users()->count() }}</span>
 
-                    <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
+                    <?php if ( ((Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador') && count($comunidad->solicitudes) ): ?>
                       <span class="small">(<span class="countSolicitudes"> <?php echo $comunidad->solicitudes->count() ?></span> pendientes)</span>    
                     <?php endif ?>  
                   
@@ -459,6 +459,80 @@
 
 
 @section('scripts')
+
+<script type="text/javascript">
+  
+  $('#submitConsultaBtn').click(function(e) {
+
+    e.preventDefault();
+
+    console.log(1);
+
+    if ($('#mensaje').val() == '') {
+
+      lanzarAlerta('peligro', "Por favor, ingresá un mensaje en el campo de texto.");
+
+    } else {
+
+        formData = new FormData($('#formNuevaConsulta')[0]);
+
+        bootbox.dialog({
+            message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se envía la consulta.</p>',
+            closeButton: false
+        });
+
+        $.ajax({
+              url: "{{ url('/comunidad/storeMensaje') }}",
+              type: "POST",
+              enctype: 'multipart/form-data',
+              data: formData,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function(datos)
+              { 
+                $('.modal').modal('hide');
+                $('#formNuevaConsulta')[0].reset();
+
+                if (datos.status) {
+                  lanzarAlerta('exito', datos.msg);
+
+                  txt= '<div class="post">';
+                    txt+= '<div class="user-block">';
+                          txt+= '<img class="img-circle img-bordered-sm" src="<?php echo isset(Auth::user()->imagen) ? asset("storage") . '/' . Auth::user()->imagen : asset("/img/user160x160.png") ?>" alt="user image">';                       
+                          txt+= '<span class="username">';
+                            txt+= '<a href="#">{{ Auth::user()->name }} {{ Auth::user()->apellido }}</a>';
+                            txt+= '<span href="#" class="pull-right btn-box-tool"> ahora </span>';
+                          txt+= '</span>';
+                          txt+= '<span class="description"></span>';
+                    txt+= '</div>';
+                    
+                    txt+= '<p>';
+                      txt+= datos.texto;
+                      if (datos.adjunto) {
+                        txt+= ('<a href="<?php echo asset("storage/")?>'+datos.adjunto+'" target="_blank"><img src="<?php echo asset("storage/" . "thumb_")?>'+datos.adjunto+'" class="margin img-thumbnail" style="max-height: 80px;"></a>');
+                      }
+                    txt+= '</p>';         
+                  txt+= '</div>';
+
+                  $('#actividadReciente').prepend(txt);
+                }
+                else {
+                  lanzarAlerta('peligro', datos.msg);
+                }
+
+              },
+              error: function(data) {         
+          $('.modal').modal('hide');
+          lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+        }
+
+        });
+      }
+
+  })
+
+</script>
 
 <script type="text/javascript">
 
