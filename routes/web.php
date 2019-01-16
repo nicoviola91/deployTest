@@ -330,12 +330,12 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
-    ])->middleware('userType:administrador,coordinador,posadero,profesional'); //*M2 verAsistido
+    ])->middleware('verAsistido'); //*M2 verAisistido
     
     Route::get('/show2/{id}',[
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
-    ])->middleware('userType:administrador,coordinador,posadero,profesional'); //*M2 verAsistido
+    ])->middleware('verAsistido'); //*M2 verAisistido
 });
 
 //CONSULTAS/INTERACCIONES
