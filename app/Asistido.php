@@ -41,13 +41,12 @@ class Asistido extends Model
      */
     // protected $hidden = [
     //     'password', 'remember_token',
-        
-        
     // ];
 
     //Un asistido deberia tener una ficha
     //Las fichas heredan el hasone
     //cada ficha concreta tendra la fk a asistido
+    
     public function ficha(){
         return $this->hasOne('App\Ficha');
     }
@@ -63,19 +62,10 @@ class Asistido extends Model
         return "{$this->nombre} {$this->apellido}";
     }
 
-    /*public function usuariosCompartidos(){
-        return $this->hasMany('App\UsuarioCompartido');
-    }*/
-
     public function owner ()
     {
         return $this->belongsTo('App\User');
     }
-
-    // public function createdBy ()
-    // {
-    //     return $this->belogsTo('App\User');
-    // }
 
     public function user ()
     {

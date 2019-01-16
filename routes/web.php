@@ -28,7 +28,7 @@ Auth::routes();
 //Dashboard
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero');
 
-Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente'); //*M verComunidad(id)
+Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente')->middleware('verComunidad'); //*M verComunidad(id)
 Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualizaciones')->middleware('autenticado'); 
 
 //Bienvenido
@@ -180,12 +180,12 @@ Route::group(['prefix'=>'institucion'],function(){
     Route::get('/ficha/{id}',[
         'uses'=>'InstitucionController@show',
         'as'=>'institucion.ficha'
-    ]); //*M editarInstitucion(id)
+    ])->middleware('editarInstitucion'); //*M editarInstitucion(id)
 
     Route::get('/muro/{id?}',[
         'uses'=>'InstitucionController@showMuro',
         'as'=>'institucion.muro'
-    ]); //*M verInstitucion(id)
+    ])->middleware('verInstitucion'); //*M verInstitucion(id)
 
 });
 
@@ -215,12 +215,12 @@ Route::group(['prefix'=>'comunidad'],function(){
     Route::get('/ficha/{id}',[
         'uses'=>'ComunidadController@show',
         'as'=>'comunidad.ficha'
-    ]); //*M editarComunidad(id)
+    ])->middleware('editarComunidad'); //*M editarComunidad(id)
     
     Route::get('/muro/{id}',[
         'uses'=>'ComunidadController@showMuro',
         'as'=>'comunidad.muro'
-    ]); //*M verComunidad(id)
+    ])->middleware('verComunidad'); //*M verComunidad(id)
     
     //SOLICITUDES DE ADHESION A COMUNIDAD
     
@@ -330,12 +330,12 @@ Route::group(['prefix'=>'asistido'],function(){
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
         'as'=>'asistido.show'
-    ])->middleware('userType:administrador,coordinador,posadero,profesional');
+    ])->middleware('userType:administrador,coordinador,posadero,profesional'); //*M2 verAsistido
     
     Route::get('/show2/{id}',[
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
-    ])->middleware('userType:administrador,coordinador,posadero,profesional');
+    ])->middleware('userType:administrador,coordinador,posadero,profesional'); //*M2 verAsistido
 });
 
 //CONSULTAS/INTERACCIONES

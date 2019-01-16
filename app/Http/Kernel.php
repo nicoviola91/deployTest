@@ -60,5 +60,10 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\VerificarTipoDeUsuario::class,
         'autenticado'=>\App\Http\Middleware\VerificarUsuarioAutenticado::class,
         'userType'=>\App\Http\Middleware\VerificarTipo::class,
+        'verComunidad'=>\App\Http\Middleware\VerComunidad::class,
+        'verInstitucion'=>\App\Http\Middleware\VerInstitucion::class,
+        'editarComunidad'=>\App\Http\Middleware\EditarComunidad::class,
+        'editarInstitucion'=>\App\Http\Middleware\EditarInstitucion::class,
+        'verAsistido'=>\App\Http\Middleware\VerAsistido::class,
     ];
 }
