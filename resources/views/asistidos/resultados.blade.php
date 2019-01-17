@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             
-            <div class="box-body" style="overflow-x: auto;">
+            <div class="box-body">
                 
                 <h3> 
             <div class="col-md-6 col-xs-12">
@@ -12,7 +12,7 @@
             </div>
         </h3>
 
-                <table class="table table-hover" id="tableResultados">
+                <table class="table table-hover" id="tableResultados" style="overflow-x: auto;">
                     
                     <thead>
                         <th>Nombre</th>
