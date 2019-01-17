@@ -29,7 +29,10 @@
 @section('pageHeader')
 <h1>
 	<i class="icon fa fa-address-card fa-fw"></i> Detalle de Asistido
-	<small> {{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} </small>
+	<small> 
+    {{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} 
+    
+  </small>
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-user"></i> Asistidos</a></li>
@@ -117,7 +120,13 @@
 
             </div>
             <!-- /.widget-user-image -->
-            <h3 class="widget-user-username">{{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} <span class="pull-right"><small style="color: white !important;"> Creado {{ $asistido->created_at->format('M y') }}</small></span></h3>
+            <h3 class="widget-user-username">
+              {{ ucwords($asistido->nombre) }} {{ ucwords($asistido->apellido) }} 
+                
+                <a href="#" class="agregarFavorito" data-id="{{$asistido->id}}" <?php echo Auth::user()->favoritos->contains($asistido->id) ? " style='display:none;'" : "" ?>><i class="icon fa fa-star-o text-yellow"></i></a>
+                <a href="#" class="eliminarFavorito" data-id="{{$asistido->id}}"<?php echo Auth::user()->favoritos->contains($asistido->id) ? "" : " style='display:none;'" ?>><i class="icon fa fa-star text-yellow"></i></a>
+              
+              <span class="pull-right"><small style="color: white !important;"> Creado {{ $asistido->created_at->format('M y') }}</small></span></h3>
             <h5 class="widget-user-desc">DNI {{ $asistido->dni }}</h5>
           </div>
           <div class="box-footer no-padding">
@@ -1139,6 +1148,46 @@
     readURL(this);
   });
 
+  $('.eliminarFavorito').click(function (e) {
+
+    id = $(this).data('id');
+
+    console.log('eliminar');
+
+    $.get( "{{url('/favoritos/eliminar')}}/"+id)    
+        .done(function(datos) {
+
+        if (datos.status) {
+          console.log('eliminado');
+          $('.eliminarFavorito').hide();
+          $('.agregarFavorito').show();
+
+        } else {
+          lanzarAlerta('peligro', datos.msg);
+        }
+
+        });
+  });
+
+  $('.agregarFavorito').click(function (e) {
+
+    id = $(this).data('id');
+
+    console.log('agregar');
+
+    $.get( "{{url('/favoritos/agregar')}}/"+id)    
+        .done(function(datos) {
+
+        if (datos.status) {
+          console.log('agregado');
+          $('.eliminarFavorito').show();
+          $('.agregarFavorito').hide();
+        } else {
+          lanzarAlerta('peligro', datos.msg);
+        }
+
+        });
+  });
 </script>
 
 @endsection

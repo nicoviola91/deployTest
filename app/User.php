@@ -65,6 +65,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Asistido');
     }
 
+    public function favoritos() {
+        return $this->belongsToMany('App\Asistido', 'favoritos')->withTimestamps();
+    }
+
     // public function creators(){
     //     return $this->hasMany('App\Asistido', 'createdBy');
     // }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AsistidoRequest;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use Illuminate\Support\Facades\DB;
 
 class AsistidoController extends Controller
 {   
@@ -267,16 +268,34 @@ class AsistidoController extends Controller
         return view('asistidos.listado',$data);
     }
 
+
+    public function misAsistidos(){
+
+        // if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
+        //     $data['asistidos']=Asistido::all();
+        // }else{
+        //     $data['asistidos']=Asistido::all()->where('owner',Auth::user()->id);
+        // }
+
+        //FAVORITOS
+            //Se listan todos los favoritos que tiene *si ademas de ser favoritos tiene permiso por la comunidad a la que pertenece
+
+        //Sino puede buscar:
+            //ADMINISTRADOR busca en TODOS
+            //POSADERO busca en TODOS *pero diferencia los que fueron creados en su posadero por asistido.institucion_id
+            //COORDINADOR/PROFESIONAL/SAMARITANO buscar en los que tiene permiso segun la COMUNIDAD a la que pertenece
+
+        
+        return view('asistidos.misAsistidos');
+    }
+
     public function busqueda(Request $request) {
 
-        //echo "gola";
-        //var_dump($request->q);
         $validatedData = $request->validate([
             'q' => 'required|string',
         ]);
 
         $data['q'] = $request->q;
-
 
         switch ($request->tipo) {
             case 'asistido':
@@ -302,11 +321,52 @@ class AsistidoController extends Controller
                 # code...
                 break;
         }
-
-                
         
         return view('asistidos.busqueda',$data);
     }
+
+
+     public function buscar(Request $request) {
+
+        $validatedData = $request->validate([
+            'q' => 'required|string',
+        ]);
+
+        $data['q'] = $request->q;
+
+                if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
+                    $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
+                                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
+                                            ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
+
+                }else{
+                    $data['asistidos'] = Asistido::where(function ($query) {
+                        $query->where('owner', '=', Auth::user()->id);
+                    })->where(function ($query) use ($c,$d) {
+                        $query->where('nombre', 'like', '%' . $request->q . '%')
+                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
+                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
+                            ->orWhere('dni', 'like', '%' . $request->q . '%');
+                    });
+                }
+                
+        
+        $sql = '';
+        //$resultados = DB::select($sql);
+        $resultados=$data['asistidos'];
+
+        $view = view('asistidos.resultados')
+        ->with('resultados',$resultados)
+        ->with('sql',$sql)
+        ->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view,
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

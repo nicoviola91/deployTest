@@ -120,6 +120,11 @@
           <ul class="nav navbar-nav">
               <li><a href="{{url('/alert/new')}}"> <i class="fa fa-user-plus fa-fw"></i> Generar Alerta</a></li>
               <li><a href="{{route('alerta.my_list')}}"> <i class="fa fa-exclamation fa-fw"></i> Mis Alertas</a></li>
+              
+              <?php if (Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                <li><a href="{{route('asistido.misAsistidos')}}"> <i class="fa fa-user fa-fw"></i> Mis Asistidos</a></li>
+              <?php endif ?>
+             
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-fw"></i> Mi Comunidad <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">

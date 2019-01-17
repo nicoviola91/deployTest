@@ -279,6 +279,20 @@ Route::group(['prefix'=>'report','middleware'=>['admin']],function(){
     ]);
 });
 
+//FAVORITOS
+Route::group(['prefix'=>'favoritos'],function(){
+    
+    Route::get('/agregar/{id}',[
+        'uses'=>'FavoritosController@store',
+        'as'=>'favoritos.agregar'
+    ]);
+    
+    Route::get('/eliminar/{id}',[
+        'uses'=>'FavoritosController@destroy',
+        'as'=>'favoritos.eliminar'
+    ]);
+});
+
 //ASISTIDOS
 Route::group(['prefix'=>'asistido'],function(){
     
@@ -326,6 +340,11 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@busqueda',
         'as'=>'asistido.busqueda'
     ])->middleware('userType:administrador,posadero,coordinador,profesional');
+
+    Route::post('/buscar',[
+        'uses'=>'AsistidoController@buscar',
+        'as'=>'asistido.buscar'
+    ])->middleware('userType:administrador,posadero,coordinador,profesional');
     
     Route::get('/show/{id}',[
         'uses'=>'AsistidoController@show',
@@ -336,6 +355,11 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@show2',
         'as'=>'asistido.show2'
     ])->middleware('verAsistido'); //*M2 verAisistido
+
+    Route::get('/misAsistidos/',[
+        'uses'=>'AsistidoController@misAsistidos',
+        'as'=>'asistido.misAsistidos'
+    ])->middleware('userType:administrador,posadero,coordinador,profesional'); //*M2 verAisistido
 });
 
 //CONSULTAS/INTERACCIONES

@@ -27,7 +27,7 @@ class VerAsistido
 
             return $next($request);
 
-        } else if (($request->user()->tipoUsuario->slug == 'profesional' || $request->user()->tipoUsuario->slug == 'coordinador' || $request->user()->tipoUsuario->slug == 'samaritano')) {
+        } else if (($request->user()->tipoUsuario->slug == 'profesional' || $request->user()->tipoUsuario->slug == 'coordinador')) {
 
             $resultado = DB::table('comunidad_user')
                 ->select(DB::raw('asistido_comunidad.asistido_id'))
