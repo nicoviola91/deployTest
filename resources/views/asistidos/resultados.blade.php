@@ -11,8 +11,7 @@
                         <small><br>RESULTADOS DE BUSQUEDA</small>
                     </div>
                 </h3>
-
-                <div style="overflow-x: auto;">
+                
                 <table class="table table-hover" id="tableResultados">
                     
                     <thead>
@@ -40,8 +39,7 @@
                     </tbody>
 
                 </table>
-                </div>
-                
+
             </div>
         </div>
     </div>

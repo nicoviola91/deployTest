@@ -79,7 +79,6 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<div style="overflow-x: auto;">
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -110,8 +109,7 @@
 					
 					</tbody>
 				</table>
-				</div>
-				
+
 			</div>
 		</div>
   	</div>
