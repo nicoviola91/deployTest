@@ -46,7 +46,7 @@
     		
     		<div class="col-md-6 col-xs-12">
 	    		<i class="icon fa fa-star text-yellow"></i> Favoritos 
-	    		<small><br>A CONTINUACION PODES VER EL LISTADO DE TUS ASISTIDOS FAVORITOS</small>
+	    		<small><br>A CONTINUACIÓN PODÉS VER EL LISTADO DE TUS ASISTIDOS FAVORITOS</small>
     		</div>
     		
     		<div class="col-md-6 col-xs-12" style="">
@@ -58,7 +58,7 @@
 	    			{{ csrf_field() }}
 
 	    			<div class="input-group">
-	    				<small>SI NO ENCONTRAS LO QUE BUSCAS, BUSCALO ACA</small>
+	    				<small>O BUSCÁLO ACA</small>
 	    			</div>
 			        
 			        <div class="input-group">
@@ -79,7 +79,8 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<table class="table table-striped table-hover" style="overflow-x: auto;">
+				<div style="overflow-x: auto;">
+				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>Nombre</th>
@@ -109,6 +110,8 @@
 					
 					</tbody>
 				</table>
+				</div>
+				
 			</div>
 		</div>
   	</div>

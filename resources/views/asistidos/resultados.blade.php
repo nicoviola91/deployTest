@@ -6,13 +6,14 @@
             <div class="box-body">
                 
                 <h3> 
-            <div class="col-md-6 col-xs-12">
-                <i class="icon fa fa-search"></i> Resultados 
-                <small><br>RESULTADOS DE BUSQUEDA</small>
-            </div>
-        </h3>
+                    <div class="col-md-6 col-xs-12">
+                        <i class="icon fa fa-search"></i> Resultados 
+                        <small><br>RESULTADOS DE BUSQUEDA</small>
+                    </div>
+                </h3>
 
-                <table class="table table-hover" id="tableResultados" style="overflow-x: auto;">
+                <div style="overflow-x: auto;">
+                <table class="table table-hover" id="tableResultados">
                     
                     <thead>
                         <th>Nombre</th>
@@ -39,6 +40,8 @@
                     </tbody>
 
                 </table>
+                </div>
+                
             </div>
         </div>
     </div>
