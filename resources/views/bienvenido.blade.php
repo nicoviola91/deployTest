@@ -128,7 +128,7 @@
     <section class="bg-dark text-white">
       <div class="container text-center">
         <h3 class="mb-4" style="color: white;">¿Querés obtener mas información?</h3>
-        <a class="btn btn-light btn-xl sr-button btnCreative" style="background-color: #fefefea6;" href="http://www.lumencor.org">QUIENES SOMOS</a>
+        <a class="btn btn-light btn-xl sr-button btnCreative" style="background-color: #fefefea6;" href="http://www.lumencor.org" target="_blank">QUIENES SOMOS</a>
       </div>
     </section>
 

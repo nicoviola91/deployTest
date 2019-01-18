@@ -162,8 +162,13 @@
 
               <hr>
 
-              <a href="javascript:void(0)" data-target="#modal-consulta" data-toggle="modal" class="btn btn-primary btn-block"><i class="fa icon fa-comments-o fa-fw"></i><b>Mensaje</b></a>
-              <a href="#" class="btn btn-danger btn-block"><i class="fa icon fa-sign-out fa-fw"></i><b>Abandonar</b></a>
+              <a href="javascript:void(0)" data-target="#modal-consulta" data-toggle="modal" class="btn btn-default btn-block"><i class="fa icon fa-comments-o fa-fw"></i><b>Mensaje</b></a>
+              
+              <?php if (Auth::user()->comunidades->contains($comunidad->id)) { ?>
+                <a href="javascript:void(0)" class="btn btn-danger btn-block btnAbandonar"><i class="fa icon fa-sign-out fa-fw"></i><b>Abandonar</b></a>
+              <?php } else { ?>
+                <a href="javascript:void(0)" class="btn btn-primary btn-block btnUnite"><i class="fa icon fa-sign-in fa-fw"></i><b>Uníte!</b></a>
+              <?php } ?>
 
             </div>
             <!-- /.box-body -->
@@ -274,7 +279,7 @@
                     </thead>
                     <tbody>
                       <?php foreach ($comunidad->users as $usuario): ?>
-                        <tr>
+                        <tr id="miembro{{$usuario->id}}">
                           <td>
                             {{$usuario->name}} {{$usuario->apellido}} 
                             <br><small class="text-muted">{{$usuario->tipoUsuario->nombre}}</small>
@@ -288,7 +293,7 @@
                           
                           <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || Auth::user()->tipoUsuario->slug == 'administrador' ): ?>
                             <td class="text-center">
-                              <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                              <a href="javascript:void(0)" class="eliminarMiembro" data-user="{{$usuario->id}}" data-comunidad="{{$comunidad->id}}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
                             </td>
                           <?php endif ?>
 
@@ -299,7 +304,7 @@
                 </table>
                 <?php endif ?>
 
-                <?php if ( (Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id == $comunidad->id && $comunidad->solicitudes->count()) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || (Auth::user()->tipoUsuario->slug == 'administrador') ): ?>
+                <?php if ( $comunidad->solicitudes->count() && ((Auth::user()->tipoUsuario->slug == 'coordinador' && Auth::user()->comunidad_id) || (Auth::user()->tipoUsuario->slug == 'posadero' && Auth::user()->institucion_id == $comunidad->institucion_id ) || (Auth::user()->tipoUsuario->slug == 'administrador')) ): ?>
                 <div class="row">
                   <div class="col-md-12">
                     <h3>
@@ -308,7 +313,7 @@
                     </h3>
 
                     <?php if ($comunidad->solicitudes()->count()): ?>
-                    <table class="table table-striped table-hover" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover" id="tableSolicitudes" style="overflow-x: auto;">
                       
                         <thead>
                           <tr>
@@ -680,7 +685,117 @@
 
     });
 
+    $('.btnAbandonar').click(function (e) {
+
+      id = '{{$comunidad->id}}';
+
+      bootbox.confirm({
+          title: "Atención",
+          message: "<p>Si abandonás la Comunidad ya no vas a poder compartir la actividad de todos los miembros. Podés volver a unirte más tarde.</p><p>¿Estás seguro que querés continuar?</p>",
+          buttons: {
+              cancel: {
+                  label: '<i class="fa fa-times"></i> No',
+                  className: 'btn-default'
+              },
+              confirm: {
+                  label: '<i class="fa fa-check"></i> Si, abandonar',
+                  className: 'btn-primary'
+              }
+          },
+          callback: function (result) {
+
+              if (result) {
+
+                $.get( "{{url('/comunidad/abandonar')}}/"+id)    
+                  .done(function(datos) {
+
+                  if (datos.status) {
+                    
+                    window.location.href = "{{url('/home')}}";
+
+                  } else {
+                    lanzarAlerta('peligro', datos.msg);
+                  }
+
+                });
+
+              }
+          }
+      });
+
+    });
+
+    $('.eliminarMiembro').click(function(){
+    
+      var comunidad = $(this).data('comunidad');
+      var usuario = $(this).data('user');
+    
+      $.post( "{{route('comunidad.eliminarMiembro')}}", { 'comunidad_id': comunidad, 'user_id': usuario, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        console.log(datos.msg);
+        $('#miembro'+usuario).remove();
+        $('.countMiembros').html(parseInt($('.countMiembros').html())-1.0);
+        
+      } else {
+
+        console.log(datos.msg);
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
+
+    $('.btnUnite').click(function(){
+    
+      var comunidad = '{{$comunidad->id}}';
+
+      console.log(comunidad);
+      
+      if (jQuery.isNumeric(comunidad)) {
+                
+        var loading = bootbox.dialog({
+          message: '<p class="text-center"><i class="icon fa fa-spinner fa-spin"></i> Loading ...</p>',
+          closeButton: false
+        });
+
+        $.post( "{{route('comunidad.enviarSolicitud')}}", { 'comunidad_id': comunidad, '_token': '{{csrf_token()}}' })    
+        .done(function(datos) {
+
+        if (datos.status) {
+
+          console.log(datos.msg);
+          loading.modal('hide');
+          lanzarAlerta('exito', datos.msg);
+
+          $('.countSolicitudes').html($('.countSolicitudes').html()+1);
+
+        } else {
+
+          console.log(datos.msg);
+          loading.modal('hide');
+          lanzarAlerta('peligro', datos.msg);
+        }
+
+        });
+
+      } else {
+        lanzarAlerta('peligro', 'Seleccioná una opción válida.')
+      }
+
+    });
+
+
+
+
+
   </script>
+
+
 
 <?php endif ?>
 

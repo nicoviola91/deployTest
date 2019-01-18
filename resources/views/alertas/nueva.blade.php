@@ -143,7 +143,7 @@
                 <h5 class="text-center text-black"><img src="{{asset('/img/logoch.png')}}" class="img-circle" style="max-height: 20px;"> Red del Posadero</h5>
                 <p>El Posadero brinda una atención integral, mediante un equipo multidisciplinario de profesionales de la salud, asistencia social y jurídica, y procede a elaborar un primer diagnóstico del asistido.</p>
                 <p>A partir de diversas entrevistas, el Posadero trabaja en la promoción, reinserción y contención del necesitado.</p>
-                <p class="text-center"><a href="http://www.lumencor.com.ar/index.php#red">Hacé click acá para saber más!</a></p>
+                <p class="text-center"><a href="http://www.lumencor.org/index.php#red">Hacé click acá para saber más!</a></p>
               </div>
             </small>
           </h1>

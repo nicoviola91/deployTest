@@ -257,13 +257,13 @@
     <div class="container-fluid">
 
       <div class="col-md-4">
-        <a href="http://www.lumencor.com.ar" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
+        <a href="http://www.lumencor.org" target="_blank"><img src="{{ asset('/img/lumencor.png') }}" style="max-height: 30px;"></a>
       </div>
       <div class="col-md-4">
         <p class="text-center"> 
           <a href="https://www.facebook.com/lumen.cor" target="_blank" class="text-black"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a> 
           <a href="https://twitter.com/lumen_cor" target="_blank" class="text-black"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a> 
-          <a href="mailto:posaderos@lumencor.com.ar" target="_blank" class="text-black"><i class="fa fa-envelope-square fa-fw fa-2x"></i></a>
+          <a href="mailto:posaderos@lumencor.org" target="_blank" class="text-black"><i class="fa fa-envelope-square fa-fw fa-2x"></i></a>
         </p>
       </div>
       <div class="col-md-4">

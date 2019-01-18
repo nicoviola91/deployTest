@@ -315,6 +315,46 @@ class ComunidadController extends Controller
 
     }
 
+    public function abandonarComunidad (Request $request) {
+
+        $user = Auth::user();
+        $comunidad_id = $request->id;
+
+        if (is_numeric($comunidad_id)) {
+            
+            if ($user->comunidades()->detach($comunidad_id))
+                return response()->json(['status' => true]);
+            else
+                return response()->json(['status' => false, 'msg' => 'Ocurrió un error al procesar la solicitud.']);
+        
+        } else {
+
+            return response()->json(['status' => false, 'msg' => 'Error de validación.']);
+        }
+
+    }
+
+    public function eliminarMiembro (Request $request) {
+
+        $user_id = $request->user_id;
+        $comunidad_id = $request->comunidad_id;
+
+        if (is_numeric($comunidad_id) && is_numeric($user_id)) {
+            
+            $user = User::find($user_id);
+
+            if ($user->comunidades()->detach($comunidad_id))
+                return response()->json(['status' => true]);
+            else
+                return response()->json(['status' => false, 'msg' => 'Ocurrió un error al procesar la solicitud.']);
+        
+        } else {
+
+            return response()->json(['status' => false, 'msg' => 'Error de validación.']);
+        }
+
+    }
+
     public function getActividadReciente ($id_comunidad, $offset = false) {
 
         if (!$offset)

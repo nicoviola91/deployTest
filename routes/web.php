@@ -243,6 +243,16 @@ Route::group(['prefix'=>'comunidad'],function(){
         'uses'=>'ComunidadController@storeMensaje',
         'as'=>'comunidad.storeMensaje',
     ])->middleware('autenticado');
+
+    Route::post('/eliminarMiembro',[
+        'uses'=>'ComunidadController@eliminarMiembro',
+        'as'=>'comunidad.eliminarMiembro',
+    ])->middleware('userType:administrador,posadero,coordinador');
+
+    Route::get('/abandonar/{id}',[
+        'uses'=>'ComunidadController@abandonarComunidad',
+        'as'=>'comunidad.abandonar',
+    ])->middleware('autenticado');
 });
 
 
