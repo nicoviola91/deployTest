@@ -121,11 +121,11 @@
             <table class="table table-striped table-hover" id="tableMiembros" style="overflow-x: auto;">
               <?php if ($comunidad->users()->count() > 0): ?>
               <?php foreach ($comunidad->users as $usuario): ?>
-                <tr>
+                <tr id="miembro{{$usuario->id}}">
                   <td>{{$usuario->name}} {{$usuario->apellido}} <small class="text-muted">(DNI {{$usuario->dni}})</small></td>
                   <td class="text-center hidden-xs">{{$usuario->email}}</td>
                   <td class="text-center">
-                    <a href="javascript:void(0)" class="eliminarMiembro" data-id="{{ $usuario->id }}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
+                    <a href="javascript:void(0)" class="eliminarMiembro" data-user="{{$usuario->id}}" data-comunidad="{{$comunidad->id}}" data-toggle="tooltip" data-title="Eliminar Miembro"> <i class="icon fa fa-remove fa-2x fa-fw text-red"></i></a>
                   </td>
                 </tr>
               <?php endforeach ?>
@@ -316,6 +316,31 @@
       });
 
     });
+
+    $('.eliminarMiembro').click(function(){
+    
+      var comunidad = $(this).data('comunidad');
+      var usuario = $(this).data('user');
+    
+      $.post( "{{route('comunidad.eliminarMiembro')}}", { 'comunidad_id': comunidad, 'user_id': usuario, '_token': '{{csrf_token()}}' })    
+      .done(function(datos) {
+
+      if (datos.status) {
+
+        console.log(datos.msg);
+        $('#miembro'+usuario).remove();
+        $('#countMiembros').html(parseInt($('#countMiembros').html())-1.0);
+        
+      } else {
+
+        console.log(datos.msg);
+        lanzarAlerta('peligro', datos.msg);
+      }
+
+      });
+
+    });
+
 
   </script>
 
