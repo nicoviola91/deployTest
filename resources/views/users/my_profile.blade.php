@@ -44,7 +44,14 @@
             <div class="widget-user-header bg-blue-active">
                 @if(null !==(Auth::user()))
               <h5 class="widget-user-desc pull-right hidden-xs">{{ucwords(Auth::user()->nombre)}}</h5> 
-                <h3 class="widget-user-username">{{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} <small style="color: white;">(DNI {{ucwords(Auth::user()->dni)}})</small></h3>
+                <h3 class="widget-user-username">
+                  {{ucwords(Auth::user()->name)}} {{ucwords(Auth::user()->apellido)}} <small style="color: white;">(DNI {{ucwords(Auth::user()->dni)}})</small>
+
+                  <span class="pull-right">
+                    <a href="#" class="editar" style="display: none;"><small style="color: white !important;"><i class="icon fa fa-2x fa-edit"></i></small></a>
+                  </span>
+
+                </h3>
                 <h5 class="widget-user-desc hidden-xs">{{Auth::user()->email}}</h5>
                 @endif
             </div>
@@ -177,7 +184,7 @@
         <h4 class="modal-title"><i class="fa icon fa-edit"></i> Actualizar Imagen</h4>
       </div>
       
-      <form class="form-horizontal" method="POST" action="{{ route('user.updateImage') }}" id="formNuevoAsistido" enctype="multipart/form-data">
+      <form class="form-horizontal" method="POST" action="{{ route('user.updateImage') }}" id="formActualizarImagen" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="modal-body">
           
@@ -204,6 +211,54 @@
           </div>
 
 
+
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit">Actualizar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade in" id="modal-editar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title"><i class="fa icon fa-edit"></i> Actualizar Información</h4>
+      </div>
+      
+      <form class="form-horizontal" method="POST" action="{{ route('user.updateInfo') }}" id="formActualizarInfo" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{Auth::user()->name}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apellido" class="col-sm-2 control-label">Apellido</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" value="{{Auth::user()->apellido}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dni" class="col-sm-2 control-label">DNI</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" value="{{Auth::user()->dni}}" required>
+            </div>
+          </div>  
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{Auth::user()->email}}" required>
+            </div>
+          </div>
 
         </div>
         <div class="modal-footer">
@@ -272,6 +327,22 @@
 
     $('#modal-imagen').modal('show');
   });
+
+  $('.editar').click(function () {
+
+    $('#modal-editar').modal('show');
+  });
+
+  $('.widget-user-header').hover(
+
+    //$('.editar').toggle();
+    function () {
+      $('.editar').fadeIn();
+    }, 
+    function () {
+      $('.editar').fadeOut();
+    }
+  );
 
   function readURL(input) {
 

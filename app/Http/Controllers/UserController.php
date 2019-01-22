@@ -69,6 +69,23 @@ class UserController extends Controller
         } 
     }
 
+    public function updateInfo(Request $request)
+    {
+    
+        $user = Auth::user();
+
+        $validation = $request->validate([
+            'name' => 'required|string',
+            'apellido' => 'required|string',
+            'email' => 'required|email',
+            'dni' => 'required|string',
+        ]);
+       
+        $user->update(['name' => $request->name, 'apellido' => $request->apellido, 'email' => $request->email, 'dni' => $request->dni]); 
+
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
