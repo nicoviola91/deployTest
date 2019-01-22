@@ -52,7 +52,7 @@
               <?php if (isset(Auth::user()->imagen)) { ?>
                 <img class="img-circle perfil" src="<?php echo asset("storage") . '/' . Auth::user()->imagen ?>" alt="User Avatar" data-toggle="tooltip" title="Editar Imagen de Perfil" style="max-height: 150px; max-width: 150px;">
               <?php } else { ?>
-                <img class="img-circle perfil" src="{{ asset('/img/user160x160.png') }}" alt="User Avatar" data-toggle="tooltip" title="Editar Imagen de Perfil">
+                <img class="img-circle perfil pop" rel="popover" src="{{ asset('/img/user160x160.png') }}" alt="User Avatar">
               <?php } ?>
             </div>
             
@@ -338,6 +338,21 @@
 
   });
 
+  $('document').ready(function() {
+    
+    var popOverSettings = {
+          placement: 'right',
+          selector: '.pop',
+          container: 'body',
+          //title:'Todavia no tenes una foto de perfil',
+          trigger: "hover",
+          html: true,
+          content:'<strong>TODAVÍA NO TENÉS UNA FOTO DE PERFIL</strong><br>Hacé click en la imagen para seleccionar una'
+    };
+    
+    $(this).popover(popOverSettings);
+
+  });
 
 </script>
 @endsection
