@@ -107,6 +107,9 @@ class FichaDatosPersonalesController extends Controller
         $fichaDatosPersonales=$this->findFichaDatosPersonalesByAsistidoId($asistido_id);
         
         $asistido=Asistido::find($asistido_id);
+
+        //Si cambio nombre, apellido, dni, sexo o fecha de nacimiento se cambia tambien en el asistido
+        $asistido->update(['nombre' => $request->input('nombre'),'apellido' => $request->input('apellido'),'dni' => $request->input('numeroDocumento'),'fechaNacimiento' => $request->input('fechaNacimiento'), 'sexo_id' => $request->input('sexo_id')]);
         
         if ($asistido->ficha()->save($fichaDatosPersonales)) {
             

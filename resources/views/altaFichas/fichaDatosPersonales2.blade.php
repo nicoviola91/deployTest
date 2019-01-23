@@ -19,7 +19,7 @@
                     <h3 class="col-md-12">Datos Básicos</h3>
                     <div class="form-group col-md-6">
                       <label for="nombre">Nombre</label>
-                        <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required maxlength="250" value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}" {{isset($fichaDatosPersonales) ? 'readonly':''}}>
+                        <input class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre" type="text" required maxlength="250" value="{{isset($fichaDatosPersonales->nombre) ? $fichaDatosPersonales->nombre : (isset($asistido->nombre) ? $asistido->nombre : '')}}">
                     </div>
                     
                     <div class="form-group col-md-6">
