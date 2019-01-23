@@ -103,9 +103,8 @@
 
             <div class="col-lg-3 col-md-4 text-center " >
                 <div class="service-box mt-5 mx-auto">
-                  <!-- <img src="{{ asset('/img/team/daniela.jpg') }}" class="img img-circle" style="max-height: 150px;">                   -->
                   <img src="{{ asset('/img/default.jpg') }}" class="img img-circle" style="max-height: 150px;">                  
-                  <h3 class="mb-3" style="color: white;">Daniela Garay</h3>
+                  <h3 class="mb-3" style="color: white;">Daniela</h3>
                 </div>
             </div>
       </div>
