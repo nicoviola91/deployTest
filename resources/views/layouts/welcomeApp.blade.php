@@ -81,9 +81,10 @@
   </header>
   <!-- Full Width Column -->
   <div class="content-wrapper">
+    @yield('contentFullScreen')
+
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
-      
       <section class="content-header">
         @yield('pageHeader')
       </section>
@@ -116,7 +117,7 @@
       </div>
       <div class="col-md-4">
         <!-- <p class="text-right"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p> -->
-        <p class="text-right" style="margin-bottom: 0px;"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></p>
+        <p class="text-right" style="margin-bottom: 0px;"><a href="{{url('/uca')}}" target="_blank"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></a></p>
       </div>
 
     </div>

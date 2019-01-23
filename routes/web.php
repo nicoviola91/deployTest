@@ -33,7 +33,7 @@ Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualiz
 
 //Bienvenido
 Route::get('/home', 'HomeController@home')->name('home')->middleware('autenticado');
-Route::get('/uca', 'HomeController@uca')->name('uca')->middleware('autenticado');
+Route::get('/uca', 'HomeController@uca')->name('uca');
 
 //Downloads (para archivos de consultas)
 Route::get('/download/{path}/{file}', 'DownloadsController@download')->middleware('userType:administrador,posadero,coordinador,profesional');

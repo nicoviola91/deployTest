@@ -1,4 +1,4 @@
-@extends('layouts.userApp')
+@extends('layouts.welcomeApp')
 
 @section('title')
     UCA
