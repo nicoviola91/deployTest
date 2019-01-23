@@ -222,14 +222,22 @@ class AsistidoController extends Controller
    public function show ($asistido_id) 
     {
         $asistido = Asistido::find($asistido_id);
-        $comunidades = Comunidad::all();
+        
+        if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero')
+            $comunidades = Comunidad::all();
+        else
+            $comunidades = Auth::user()->comunidades;
 
         return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades)->with('vista', 'user');
     }
     public function show2 ($asistido_id) 
     {
         $asistido = Asistido::find($asistido_id);
-        $comunidades = Comunidad::all();
+        
+        if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero')
+            $comunidades = Comunidad::all();
+        else
+            $comunidades = Auth::user()->comunidades;
 
         return view('ficha')->with('asistido', $asistido)->with('comunidades', $comunidades)->with('vista', 'admin');
     }
