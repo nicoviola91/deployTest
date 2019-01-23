@@ -82,6 +82,7 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Nombre</th>
 	                        <th>Apellido</th>
 	                        <th>Documento</th>
@@ -95,12 +96,21 @@
 						<?php if (isset(Auth::user()->favoritos) && count(Auth::user()->favoritos)): ?>
 							<?php foreach (Auth::user()->favoritos as $asistido): ?>
 								<tr>
-									<td><?php echo $asistido->nombre ?></td>
-	                                <td><?php echo $asistido->apellido ?></td>
-	                                <td><?php echo $asistido->dni ?></td>
-	                                <td><?php echo isset($asistido->created_at) ? (new DateTime($asistido->created_at))->format('d/m/Y') : '' ?> </td>
-	                                <td><?php echo isset($asistido->institucion) ? $asistido->institucion->nombre : '' ?></td>
-	                                <td class="text-center" style="vertical-align: middle;"> 
+									<td>
+										<div class="image">
+											<?php if (isset($asistido->foto) && $asistido->foto != '' && $asistido->foto != 'default.jpg') { ?>
+												<img class="img-circle user-image" width="50px" src="<?php echo asset("storage/$asistido->foto")?>">
+											<?php } else { ?>
+								            	<img class="img-circle user-image" width="50px" src="{{ asset('/img/user160x160.png') }}">
+								            <?php } ?>
+								        </div>
+								    </td>
+									<td class="vert-aligned"><?php echo $asistido->nombre ?></td>
+	                                <td class="vert-aligned"><?php echo $asistido->apellido ?></td>
+	                                <td class="vert-aligned"><?php echo $asistido->dni ?></td>
+	                                <td class="vert-aligned"><?php echo isset($asistido->created_at) ? (new DateTime($asistido->created_at))->format('d/m/Y') : '' ?> </td>
+	                                <td class="vert-aligned"><?php echo isset($asistido->institucion) ? $asistido->institucion->nombre : '' ?></td>
+	                                <td class="text-center vert-aligned" style="vertical-align: middle;"> 
 	                                    <a href="{{route('asistido.show',['id'=>$asistido->id])}}" target="_blank" class="" data-id="" title="Ver detalles del asistido." data-toggle="tooltip" data-title="Ver Perfil"><i class="icon fa fa-search fa-2x fa-fw text-blue"></i></a>
 	                                </td>
 								</tr>
@@ -239,6 +249,7 @@
 	                        });
 
 	                        $('#box-resultados').show();
+	                        $('#box-resultados').focus();
 	                    }
 	                    else {
 	                        lanzarAlerta('peligro', datos.msg);
@@ -256,6 +267,69 @@
 	        return false;
 	    }
     })
+
+    $('#search-btn').click(function (e) {
+
+    	e.preventDefault();
+
+	    formData = new FormData($('#formBusqueda')[0]);
+
+        if (!$('#formBusqueda')[0].checkValidity()) {
+
+            //VALIDACION
+            lanzarAlerta('peligro', 'Error en el formulario. Completa todos los datos requeridos.');
+        } else {
+
+            bootbox.dialog({
+                message: '<p class="text-center"><i class="fa fa-spinner fa-spin fa-fw"></i> Por favor, espere mientras se realiza la búsqueda.</p>',
+                closeButton: false
+            });
+
+            $.ajax({
+                url: "{{url('/asistido/buscar')}}",
+                type: "POST",
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {   
+                    $('.modal').modal('hide');
+                    
+                    if (datos.status) {
+
+                        $('#box-resultados').html(datos.view);
+                        
+
+                        $('#tableResultados').DataTable({
+                            "responsive": false,
+                            "paging": false,
+                            "lengthChange": false,
+                            "searching": true,
+                            "ordering": true,
+                            "info": false,
+                            "autoWidth": false,
+                        });
+
+                        $('#box-resultados').show();
+                        $('#box-resultados').focus();
+                    }
+                    else {
+                        lanzarAlerta('peligro', datos.msg);
+                    }
+
+                },
+                error: function(data) {                 
+                    $('.modal').modal('hide');
+                    lanzarAlerta('peligro', 'Ocurrió un error al publicar el formulario. Vuelva a intentarlo.');
+                }
+
+            });
+        }
+    })
+
+
 
 </script>
 

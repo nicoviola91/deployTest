@@ -181,7 +181,11 @@
             <ul class="nav nav-tabs">
               <li class="active"><a href="#actividad" data-toggle="tab"><i class="fa icon fa-history fa-fw"></i> <span class="hidden-xs">Actividad</span></a></li>
               <li><a href="#alertas" data-toggle="tab"><i class="fa icon fa-exclamation-circle fa-fw"></i> <span class="hidden-xs">Alertas</span></a></li>
-              <li><a href="#asistidos" data-toggle="tab"><i class="fa icon fa-user fa-fw"></i> <span class="hidden-xs">Asistidos</span></a></li>
+
+              <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
+                <li><a href="#asistidos" data-toggle="tab"><i class="fa icon fa-user fa-fw"></i> <span class="hidden-xs">Asistidos</span></a></li>                
+              <?php endif ?>
+              
               <li><a href="#miembros" data-toggle="tab"><i class="fa icon fa-user-circle fa-fw"></i> <span class="hidden-xs">Miembros</span></a></li>
             </ul>
             
@@ -210,6 +214,7 @@
    
               </div>
               
+              <?php if (Auth::user()->tipoUsuario->slug == 'coordinador' || Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug == 'posadero' || Auth::user()->tipoUsuario->slug == 'administrador'): ?>
               <div class="tab-pane" id="asistidos">
                 <div class="row">
                   <div class="col-md-12">
@@ -252,6 +257,7 @@
                 </div>
               </div>
               <!-- /.tab-pane -->
+              <?php endif ?>
 
               <div class="tab-pane" id="miembros">
 

@@ -271,21 +271,13 @@ class AsistidoController extends Controller
 
     public function misAsistidos(){
 
-        // if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
-        //     $data['asistidos']=Asistido::all();
-        // }else{
-        //     $data['asistidos']=Asistido::all()->where('owner',Auth::user()->id);
-        // }
-
         //FAVORITOS
             //Se listan todos los favoritos que tiene *si ademas de ser favoritos tiene permiso por la comunidad a la que pertenece
-
-        //Sino puede buscar:
+        //Sino puede buscar entre todos sobre los cuales tiene permiso por DNI, nombre o apellido:
             //ADMINISTRADOR busca en TODOS
-            //POSADERO busca en TODOS *pero diferencia los que fueron creados en su posadero por asistido.institucion_id
-            //COORDINADOR/PROFESIONAL/SAMARITANO buscar en los que tiene permiso segun la COMUNIDAD a la que pertenece
-
-        
+            //POSADERO busca en TODOS
+            //COORDINADOR/PROFESIONAL buscan en los que tiene permiso segun la COMUNIDAD a la que pertenecen
+    
         return view('asistidos.misAsistidos');
     }
 
@@ -329,36 +321,37 @@ class AsistidoController extends Controller
      public function buscar(Request $request) {
 
         $validatedData = $request->validate([
-            'q' => 'required|string',
+            'q' => 'required|regex:^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$^',
         ]);
 
         $data['q'] = $request->q;
 
-                if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
-                    $data['asistidos'] = Asistido::where('nombre', 'like', '%' . $request->q . '%')
-                                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
-                                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
-                                            ->orWhere('dni', 'like', '%' . $request->q . '%')->get(); 
+        //SI ES ADMINISTRADOR O POSADERO BUSCA ENTRE TODOS
+        if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
 
-                }else{
-                    $data['asistidos'] = Asistido::where(function ($query) {
-                        $query->where('owner', '=', Auth::user()->id);
-                    })->where(function ($query) use ($c,$d) {
-                        $query->where('nombre', 'like', '%' . $request->q . '%')
-                            ->orWhere('apellido', 'like', '%' . $request->q . '%')
-                            ->orWhereRaw('CONCAT(nombre," ", apellido) LIKE ?', '%' . $request->q . '%')
-                            ->orWhere('dni', 'like', '%' . $request->q . '%');
-                    });
-                }
+            $data['asistidos'] = DB::table('asistidos')
+            ->select(DB::raw('asistidos.*, instituciones.nombre AS institucion'))
+            ->leftJoin('instituciones', 'asistidos.institucion_id', '=', 'instituciones.id')
+            ->orWhere('asistidos.nombre', 'like', '%' . $request->q . '%')
+            ->orWhere('asistidos.apellido', 'like', '%' . $request->q . '%')
+            ->orWhereRaw('CONCAT(asistidos.nombre," ", asistidos.apellido) LIKE ?', '%' . $request->q . '%')
+            ->orWhere('asistidos.dni', 'like', '%' . $request->q . '%')
+            ->get();
+
+        //SI ES COORDINADOR O PROFESIONAL BUSCA ENTRE LOS DE SU COMUNIDAD
+        } else if (Auth::user()->tipoUsuario->slug == 'profesional' || Auth::user()->tipoUsuario->slug =='coordinador') {
+          
+            $data['asistidos'] = DB::select("SELECT DISTINCT asistidos.*, instituciones.nombre AS institucion FROM asistidos LEFT JOIN instituciones ON asistidos.institucion_id = instituciones.id LEFT JOIN asistido_comunidad ON asistidos.id = asistido_comunidad.asistido_id WHERE ((asistidos.nombre LIKE '%".$request->q."%') OR (asistidos.apellido LIKE '%".$request->q."%') OR (CONCAT(asistidos.nombre, ' ', asistidos.apellido) LIKE '%".$request->q."%') OR (asistidos.dni LIKE '%".$request->q."%')) AND asistido_comunidad.comunidad_id IN (SELECT comunidad_user.comunidad_id FROM comunidad_user WHERE comunidad_user.user_id = '".Auth::user()->id."')");
+                    
+        } else {
+
+            $data['asistidos'] = null;
+        }
                 
-        
-        $sql = '';
-        //$resultados = DB::select($sql);
         $resultados=$data['asistidos'];
 
         $view = view('asistidos.resultados')
         ->with('resultados',$resultados)
-        ->with('sql',$sql)
         ->render();
 
         return response()->json([
