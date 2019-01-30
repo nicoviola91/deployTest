@@ -1,5 +1,6 @@
 
 <?php if (isset($actualizaciones) && count($actualizaciones)): ?>
+
   <?php foreach ($actualizaciones as $m): ?>
     
     <?php if ($m->type == 'mensajes') { ?>

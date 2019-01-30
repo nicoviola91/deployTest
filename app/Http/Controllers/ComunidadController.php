@@ -647,8 +647,8 @@ class ComunidadController extends Controller
                         ->union($saludMental);
         }
 
-
         $union = $union->orderBy('created_at', 'desc')->offset($offset)->limit(10)->get();
+
         return view('comunidades.actualizaciones')->with('actualizaciones', $union)->with('offset', $offset);
 
     }

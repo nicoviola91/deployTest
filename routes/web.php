@@ -23,10 +23,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//middleware('userType:admin,Administrador,Posadero, Nuevo Usuario, Samaritano');
+//NOTIFICACIONES 
+Route::get('/notificaciones/unread', 'NotificacionesController@unread')->name('notificaciones.unread')->middleware('autenticado');
+Route::post('/notificaciones/updateRead', 'NotificacionesController@updateReadNotif')->name('notificaciones.updateRead')->middleware('autenticado');
+Route::get('/notificaciones/getSuperior/{offset?}', 'NotificacionesController@getNotificacionesSuperior')->name('notificaciones.superior')->middleware('autenticado');
+Route::get('/notificaciones/getLateral/{offset?}', 'NotificacionesController@getNotificacionesLateral')->name('notificaciones.lateral')->middleware('autenticado');
 
 //Dashboard
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('userType:administrador,posadero,coordinador');
 
 Route::get('/actividad/{id}/{offset}', 'ComunidadController@getActividadReciente')->middleware('verComunidad'); //*M verComunidad(id)
 Route::get('/alertas/misActualizaciones/{offset}', 'AlertaController@misActualizaciones')->middleware('autenticado'); 

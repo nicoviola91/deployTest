@@ -156,6 +156,22 @@
               </li>
             <?php endif ?>
               
+            <!-- Notifications Menu -->
+            <li class="dropdown notifications-menu" id="dropdownNotificaciones">
+
+              <a href="#" class="dropdown-toggle btnSuperior" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-primary labelUnread" id="labelUnread" style="display: none;"><span id="countUnread" class="countUnread" data-id="0"></span></span>
+              </a>
+              
+              <ul class="dropdown-menu contentSuperior" id="contentSuperior">
+    
+                <li class="footer"><a href="javascript:void(0)" data-toggle="control-sidebar"><i class="fa fa-spinner fa-spin fa-3x"></i></a></li>
+    
+              </ul>
+
+            </li>
+
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
@@ -260,12 +276,44 @@
       </div>
       <div class="col-md-4">
         <!-- <p class="text-right" style="margin-bottom: 0px;"><strong>El corazón es la Luz.</strong> Al servicio de los más necesitados</p> -->
-        <p class="text-right" style="margin-bottom: 0px;"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></p>
+        <p class="text-right" style="margin-bottom: 0px;"><a href="{{url('/uca')}}" target="_blank"><img src="{{ asset('/img/UCA_logo_ch.png') }}" style="max-height: 30px;"></a></p>
       </div>
 
     </div>
     <!-- /.container -->
   </footer>
+
+
+
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <!-- <li><a href="javascript:void(0)" data-toggle="tab"><i class="fa fa-times fa-fw"></i> Cerrar</a></li> -->
+      <li><a href="#" class="cerrarSidebar"><i class="fa fa-bell-o"></i> Notificaciones <span class="pull-right"> <i class="icon fa fa-remove fa-fw"></i></span></a> </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <div class="tab-pane active" class="control-sidebar-notifications-tab contentLateral">
+        <h3 class="control-sidebar-heading">Actividad Reciente</h3>
+        <ul class="control-sidebar-menu" id="contentLateral">
+
+
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+
+     
+    </div>
+  </aside>
+  <div class="control-sidebar-bg"></div>
+
+
+
+
+
 
 
 </div>
@@ -274,6 +322,7 @@
 @yield('scripts')
 
 <script type="text/javascript">
+  
   function lanzarAlerta (tipo, mensaje) {
 
         switch (tipo) {
@@ -315,6 +364,174 @@
 
       }
 
+</script>
+
+<script type="text/javascript">
+
+  $('.cerrarSidebar').click(function () {
+    $('.control-sidebar').removeClass('control-sidebar-open');
+    $('#contentLateral').html('');
+  })
+
+  $(function() {
+
+    $(document).on('click', '.verTodas', function() { 
+
+      console.log('lateral');
+
+      $('#contentLateral').html('');
+      $('#contentLateral').html('<li class="text-center" id="loading"><a href="javascript:void(0)" style="color: white !important;"><p class="text-center"><i class="icon fa fa-spin fa-spinner fa-3x"></i></p></a></li>');
+
+      //CARGO LAS PRIMERAS o sea offset 0
+      notificaciones(0);
+      
+    });
+
+    $(document).on( "click", ".more", function() {
+
+      offset = $(this).data('offset');
+      $('.iconMore').addClass("fa-spin");
+      notificaciones(offset);
+
+    });
+    
+    function notificaciones (offset) {
+
+      $.get("{{url('notificaciones/getLateral')}}"+"/"+offset, function(data){
+        
+        $('.divMore').remove();
+
+        $("#contentLateral").append(data.view);
+        $("#loading").remove();
+      })
+
+    }
+
+  });
+
+  $('#dropdownNotificaciones').on('hide.bs.dropdown', function () {
+    
+    $('#contentSuperior').html('');
+    $('#contentSuperior').html('<li class="footer"><a href="javascript:void(0)" data-toggle="control-sidebar"><i class="fa fa-spinner fa-spin fa-3x"></i></a></li>');
+  })
+
+  $('#dropdownNotificaciones').on('show.bs.dropdown', function () {
+    
+    console.log("superior");
+    $('.control-sidebar').removeClass('control-sidebar-open')
+
+    $.ajax({
+      
+      url: '{{url("notificaciones/getSuperior")}}',
+      type: "GET",
+      contentType: false,
+      processData: false,
+      
+      success: function(datos)
+      {
+
+        if (datos.status) {
+
+          if (datos.cantidad > 0) {
+
+            $('#countUnread').data('id', datos.cantidad);
+            $('#countUnread').html(datos.cantidad);
+            $('#labelUnread').fadeOut(300);
+
+            $('#contentSuperior').html('');
+            $('#contentSuperior').html(datos.view);
+
+          } else {
+
+            $('#contentSuperior').html('');
+            $('#contentSuperior').html(datos.view);
+
+            $('#countUnread').html('');
+            $('#labelUnread').fadeOut(300);
+
+          }
+
+          //ACTUALIZO READNOTIF A LA HORA QUE LO LEYO:
+          $.post( '{{url("notificaciones/updateRead")}}', { timestamp: datos.hora, _token: '{{csrf_token()}}' } );
+
+        } 
+        else {
+
+          clearInterval(intervalo);
+
+        }
+
+      },
+      
+      error: function (data) {
+
+        console.log('FAILURE');
+      },
+
+    })
+
+
+  })
+
+  $(function() {
+    
+    function newNotifications () {
+
+      console.log("unread");
+
+      $.ajax({
+        
+        url: '{{url("notificaciones/unread")}}',
+        type: "GET",
+        contentType: false,
+        processData: false,
+        
+        success: function(datos )
+        {
+
+          if (datos.status) {
+
+            if (datos.cantidad > 0) {
+
+              anterior = $('#countUnread').data('id');
+              $('#countUnread').data('id', datos.cantidad);
+              $('#countUnread').html(datos.cantidad);
+              $('#labelUnread').show();
+
+              // if (anterior < datos.cantidad) {
+              //   console.log('ring ring');
+              //   $("#myAudioElement")[0].play();
+              // }
+
+            } else {
+              $('#countUnread').html('');
+              $('#labelUnread').hide();
+            }
+
+            console.log(datos.cantidad);
+          } 
+          else {
+
+            clearInterval(intervalo);
+
+          }
+
+        },
+        
+        error: function (data) {
+
+          console.log('FAILURE');
+        },
+
+      })
+    }
+
+      newNotifications();
+      var intervalo = setInterval(newNotifications, 60000); //1min = 60000
+
+    })
+
+  
 </script>
 
 </body>
