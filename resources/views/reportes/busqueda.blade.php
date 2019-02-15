@@ -215,6 +215,8 @@
                                 <input name="altaHasta" class="form-control" id="altaHasta" style="width: 100%;" type="date" placeholder="Hasta" value="">
                             </div>
                         </div>
+
+
                     </div>
 
 	                <h4><i class="icon fa fa-chevron-right"></i> Filtrar Fichas <small class="text-muted">Selecciona una ficha para obtener informacion adicional</small></h4>
@@ -255,6 +257,7 @@
                     </h6>
 
                     <div class="form-group divNecesidades divFichas" style="display: none;">
+                        
                         <label for="tipoNecesidad" class="col-md-2 control-label">Tipo Necesidad</label>
                         <div class="col-md-4">
                             <select class="form-control" name="tipoNecesidad" data-placeholder="Tipo Necesidad" style="width: 100%;" id="tipoNecesidad">
@@ -264,13 +267,38 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
+
+                        <label class="col-md-12"></label>
+                        
+                        <label for="donacion" class="col-md-2 control-label">Con Donación</label>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="donacion" id="gridDonacion0" value="0" checked>
+                              <label class="form-check-label" for="gridDonacion">
+                                Indistinto
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="donacion" id="gridDonacion1" value="1">
+                              <label class="form-check-label" for="gridDonacion">
+                                Si
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="donacion" id="gridDonacion2" value="2">
+                              <label class="form-check-label" for="gridDonacion">
+                                No
+                              </label>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group divEmpleo divFichas" style="display: none;">
                         <label for="sexo" class="col-md-2 control-label">Tiene Empleo?</label>
                         <div class="col-md-4">
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="empleo" id="empleoIndistinto" value="" checked="">
+                              <input class="form-check-input" type="radio" name="empleo" id="empleoIndistinto" value="0" checked="">
                               <label class="form-check-label" for="empleo">
                                 Indistinto
                               </label>
@@ -282,7 +310,7 @@
                               </label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="empleo" id="empleoNo" value="0">
+                              <input class="form-check-input" type="radio" name="empleo" id="empleoNo" value="2">
                               <label class="form-check-label" for="empleo">
                                 No
                               </label>

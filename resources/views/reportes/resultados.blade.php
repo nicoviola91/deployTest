@@ -13,10 +13,13 @@
             </div>
             <div class="box-body" style="overflow-x: auto;">
                 
-                <p><b>CONSULTA: </b><br><?php echo $sql ?></p>
+                <!-- <p><b>CONSULTA: </b><br><?php echo $sql ?></p> -->
+
+                <!-- <?php echo var_dump($tipo) ?> -->
 
                 <table class="table table-hover" id="tableResultados">
                     
+
                     <thead>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -30,6 +33,17 @@
                         <th>Telefono</th>
                         <th>Email</th>
                         <th>Posadero</th>
+
+                        <?php if ($tipo == 'necesidades'): ?>
+                            <th>Necesidad</th>
+                            <th>Necesidad Tipo</th>
+                            <th>Necesidad Creada</th>
+                            <th>Donacion</th>
+                        <?php endif ?>
+
+                        <?php if ($tipo == 'empleo'): ?>
+                            <th>Tiene Empleo?</th>
+                        <?php endif ?>
                     </thead>
                     <tbody>
                         <?php foreach ($resultados as $resultado): ?>
@@ -46,6 +60,31 @@
                                 <td><?php echo $resultado->telefono ?></td>
                                 <td><?php echo $resultado->email ?></td>
                                 <td><?php echo isset($resultado->posadero) ? $resultado->posadero : 'N/D' ?></td>
+
+                                <?php if ($tipo == 'necesidades'): ?>
+                                    <td><?php echo $resultado->necesidadDescripcion ?></td>
+                                    <td><?php echo $resultado->tipoNecesidad ?></td>
+                                    <td><?php echo isset($resultado->necesidad_created_at) ? (new DateTime($resultado->necesidad_created_at))->format('d/m/Y') : '' ?></td>
+                                    <td class="text-center">
+                                        <?php if (isset($resultado->donacion_id)) { ?>
+                                            <i class="icon fa fa-check-circle fa-fw text-success"></i>
+                                        <?php } else { ?>
+                                            <i class="icon fa fa-times-circle fa-fw text-danger"></i>
+                                        <?php } ?>
+                                    </td>
+                                <?php endif ?>
+
+                                <?php if ($tipo == 'empleo'): ?>
+                                    <td class="text-center">
+                                        <?php if (isset($resultado->tieneEmpleo) && $resultado->tieneEmpleo) { ?>
+                                            <i class="icon fa fa-check-circle fa-fw text-success"></i>
+                                        <?php } else { ?>
+                                            <i class="icon fa fa-times-circle fa-fw text-danger"></i>
+                                        <?php } ?>
+                                    </td>
+                                <?php endif ?>
+
+
                             </tr>
                         <?php endforeach ?>
                     </tbody>
