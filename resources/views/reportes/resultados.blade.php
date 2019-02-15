@@ -13,9 +13,9 @@
             </div>
             <div class="box-body" style="overflow-x: auto;">
                 
-                <p><b>CONSULTA: </b><br><?php echo $sql ?></p>
+                <!-- <p><b>CONSULTA: </b><br><?php echo $sql ?></p>
 
-                <?php echo var_dump($tipo) ?>
+                <?php echo var_dump($tipo) ?> -->
 
                 <table class="table table-hover" id="tableResultados">
                     
