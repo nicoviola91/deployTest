@@ -229,9 +229,9 @@
                             <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="necesidades" value="necesidades"> Necesidades
                             </label>
-                            <label class="btn btn-primary">
+                            <!-- <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="tratamientos" value="tratamientos"> Tratamientos
-                            </label>
+                            </label> -->
                             <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="adicciones" value="adicciones"> Adicciones
                             </label>
