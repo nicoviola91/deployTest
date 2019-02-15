@@ -241,18 +241,18 @@
                             <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="educacion" value="educacion"> Educacion
                             </label>
-                            <label class="btn btn-primary">
+                            <!-- <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="asistencia" value="asistencia"> Asistencia
-                            </label>
+                            </label> -->
                             <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="medica" value="medica"> Medica
                             </label>
                             <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="mental" value="mental"> Salud Mental
                             </label>
-                            <label class="btn btn-primary">
+                            <!-- <label class="btn btn-primary">
                                 <input type="radio" name="filtroFicha" id="integral" value="integral"> Diag. Integral
-                            </label>
+                            </label> -->
                         </div>
                     </h6>
 
