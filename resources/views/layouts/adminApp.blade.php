@@ -20,6 +20,10 @@
   <link rel="stylesheet" href="{{ asset('/css/skin-red.css') }}">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- datepicker -->
+  <link rel="stylesheet" href="{{ asset('/datepicker/datepicker3.css') }}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{ asset('/daterangepicker/daterangepicker.css') }}">
 
   <!-- jQuery 3 -->
   <script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
@@ -35,6 +39,11 @@
   <script src="{{ asset('/js/adminlte.min.js') }}"></script>
   <!-- Bootbox -->
   <script src="{{ asset('/bootbox/bootbox.min.js') }}"></script>
+  <!-- datepicker -->
+  <script src="{{ asset('/datepicker/bootstrap-datepicker.js') }}"></script>
+  <!-- daterangepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script src="{{ asset('/daterangepicker/daterangepicker.js') }}"></script>
   
   @yield('head')
 

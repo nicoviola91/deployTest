@@ -129,7 +129,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row rowIcons">
 	 
     <div class="col-md-3 col-sm-6">
       	<div class="info-box bg-teal">
@@ -215,7 +215,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-2 col-sm-3 col-xs-4" style="padding-left: 0px;">
-                  <div class="pad box-pane-right bg-navy" style="min-height: 600px;">
+                  <div class="pad box-pane-right bg-navy padMapa" style="min-height: 600px;">
                    	<br><br><br> 
                     <br>
                     <div class="description-block margin-bottom">
@@ -265,6 +265,14 @@
 
 <script type="text/javascript">
 	
+  // $(function() {
+
+  //     console.log($('.content').height()-$('.rowIcons').outerHeight());
+
+      
+  //     $('#map').height($('.content').height()-$('.rowIcons').outerHeight());
+  //     $('.padMapa').height($('.content').height()-$('.rowIcons').outerHeight());
+  // });
 
 </script>
 

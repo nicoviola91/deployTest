@@ -156,6 +156,7 @@
 			"ordering": true,
 			"info": true,
 			"autoWidth": false,
+			"order": [[ 0, "desc" ]],
 
 			"dom": "<'row'<'col-md-6'l><'col-md-6'f>>" +
 					"<'row'<'col-md-6'><'col-md-6'>>" +

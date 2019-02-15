@@ -101,7 +101,7 @@
 
           <div class="form-group">
             <label>FECHA DE NACIMIENTO</label>
-            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" max="<?php echo date('Y-m-d');?>">
+            <input type="text" class="form-control datepicker" id="fechaNacimiento" name="fechaNacimiento" max="<?php echo date('yyyy-mm-dd');?>" placeholder="AAAA-MM-DD">
           </div>
 
           <div class="form-group">
@@ -487,6 +487,14 @@
 <link rel="stylesheet" href="{{asset('select2/select2.min.css')}}">
 
 <script type="text/javascript">
+
+  $('#fechaNacimiento').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd',
+    todayHighlight: true,
+    startView: 'decade',
+    endDate: '<?php echo date('yyyy-mm-dd');?>'
+  });
   
   $(document).ready(function() {
 

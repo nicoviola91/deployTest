@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="{{ asset('/css/skin-red.css') }}">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- datepicker -->
+  <link rel="stylesheet" href="{{ asset('/datepicker/datepicker3.css') }}">
 
   <!-- jQuery 3 -->
   <script src="{{ asset('/jquery/dist/jquery.min.js') }}"></script>
@@ -35,6 +37,8 @@
   <script src="{{ asset('/js/adminlte.min.js') }}"></script>
   <!-- Bootbox -->
   <script src="{{ asset('/bootbox/bootbox.min.js') }}"></script>
+  <!-- datepicker -->
+  <script src="{{ asset('/datepicker/bootstrap-datepicker.js') }}"></script>
 
   @yield('head')
 
