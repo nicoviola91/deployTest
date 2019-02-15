@@ -9,6 +9,7 @@ use App\Institucion;
 use App\Sexo;
 use App\EstadoCivil;
 use App\TipoNecesidad;
+use App\TipoEducacion;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -38,12 +39,16 @@ class ReportController extends Controller
         $nacionalidades = DB::select("SELECT DISTINCT fichasDatosPersonales.nacionalidad FROM fichasDatosPersonales WHERE (fichasDatosPersonales.nacionalidad IS NOT NULL) AND (fichasDatosPersonales.nacionalidad <> '')");
 
         $tiposNecesidades = TipoNecesidad::all();
+        $tiposEducaciones = TipoEducacion::all();
+        $orientaciones = DB::select("SELECT DISTINCT educaciones.orientacion FROM educaciones WHERE (educaciones.orientacion IS NOT NULL) AND (educaciones.orientacion <> '')");
 
         return view('reportes.busqueda')
         ->with('estadosCiviles', $estadosCiviles)
         ->with('sexos', $sexos)
         ->with('nacionalidades', $nacionalidades)
         ->with('tiposNecesidades', $tiposNecesidades)
+        ->with('tiposEducaciones', $tiposEducaciones)
+        ->with('orientaciones', $orientaciones)
         ->with('posaderos', $posaderos)
         ->with('comunidades', $comunidades);
     }
@@ -211,7 +216,6 @@ class ReportController extends Controller
 
 			}
 		}
-
 		else if ($request->filtroFicha == 'empleo') {
 
 			$sql = "
@@ -236,9 +240,36 @@ class ReportController extends Controller
 				if ($request->empleo == '2') {
 					$sql.=(" AND fichasEmpleos.checklistTieneEmpleo = '0'");
 				}
+			}
+		}
+		else if ($request->filtroFicha == 'educacion') {
 
+			$sql = "
+			SELECT asistidos.id, asistidos.nombre, asistidos.apellido, asistidos.fechaNacimiento, TIMESTAMPDIFF(YEAR, asistidos.fechaNacimiento, CURDATE()) AS edad , asistidos.dni, sexos.descripcion AS descripcionSexo, estadosCiviles.descripcion AS descripcionEstadoCivil, asistidos.created_at, asistidos.institucion_id, fichasDatosPersonales.nacionalidad, fichasDatosPersonales.tienePartida, fichasDatosPersonales.celular, fichasDatosPersonales.telefono, fichasDatosPersonales.email, fichasDatosPersonales.nombreContacto, fichasDatosPersonales.telefonoContacto, fichasDatosPersonales.mailContacto, instituciones.nombre AS posadero,
+				educaciones.institucion AS institucionEduc, educaciones.nivelAlcanzado AS nivelEduc, educaciones.orientacion AS orientacionEduc, educaciones.tituloObtenido AS tituloEduc, tiposEducaciones.descripcion AS tipoEduc
+			FROM educaciones
+			LEFT JOIN tiposEducaciones ON educaciones.tipoEducacion_id = tiposEducaciones.id
+			LEFT JOIN fichasEducaciones ON educaciones.ficha_educacion_id = fichasEducaciones.id
+			LEFT JOIN asistidos ON fichasEducaciones.asistido_id = asistidos.id
+			
+			LEFT JOIN instituciones ON asistidos.institucion_id = instituciones.id
+			LEFT JOIN fichasDatosPersonales ON fichasDatosPersonales.asistido_id = asistidos.id
+			LEFT JOIN sexos ON sexos.id = fichasDatosPersonales.sexo_id
+			LEFT JOIN estadosCiviles ON estadosCiviles.id = fichasDatosPersonales.estadoCivil_id
+			WHERE asistidos.id IS NOT NULL
+			";
+
+			if ($request->tipoEducacion) {
+				$sql.=(" AND educaciones.tipoEducacion_id = '".$request->tipoEducacion."'");
 			}
 
+			if ($request->nivelAlcanzado) {
+				$sql.=(" AND educaciones.nivelAlcanzado = '".$request->nivelAlcanzado."'");
+			}
+
+			if ($request->orientacion) {
+				$sql.=(" AND educaciones.orientacion = '".$request->orientacion."'");
+			}
 		}
 
 

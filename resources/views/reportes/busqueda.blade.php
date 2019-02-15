@@ -294,6 +294,45 @@
 
                     </div>
 
+                    <div class="form-group divEducacion divFichas" style="display: none;">
+                        
+                        <label for="tipoEducacion" class="col-md-2 control-label">Tipo Educación</label>
+                        <div class="col-md-4">
+                            <select class="form-control" name="tipoEducacion" data-placeholder="Tipo Necesidad" style="width: 100%;" id="tipoEducacion">
+                                <option value="0" selected>Cualquiera</option>
+                                <?php foreach ($tiposEducaciones as $tipoEducacion): ?>  
+                                  <option value="{{$tipoEducacion->id}}"> <?php echo $tipoEducacion->descripcion ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <label class="col-md-12"></label>
+
+                        <label for="orientacion" class="col-md-2 control-label">Orientación</label>
+                        <div class="col-md-4">
+                            <select class="form-control" name="orientacion" data-placeholder="Tipo Necesidad" style="width: 100%;" id="orientacion">
+                                <option value="0" selected>Cualquiera</option>
+                                <?php foreach ($orientaciones as $orientacion): ?>  
+                                  <option value="{{$orientacion->orientacion}}"> <?php echo $orientacion->orientacion ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <label class="col-md-12"></label>
+                        
+                        <label for="nivelAlcanzado" class="col-md-2 control-label">Nivel Alcanzado</label>
+                        <div class="col-md-4">
+                            <select class="form-control" name="nivelAlcanzado" id="nivelAlcanzado" required="">
+                                <option value="0">Cualquiera</option>
+                                <option value="Completo">Completo</option>
+                                <option value="Incompleto">Incompleto</option>
+                                <option value="En curso">En curso</option>
+                                <option value="Nunca iniciado">Nunca iniciado</option>
+                            </select>
+                        </div>
+
+                    </div>
+
                     <div class="form-group divEmpleo divFichas" style="display: none;">
                         <label for="sexo" class="col-md-2 control-label">Tiene Empleo?</label>
                         <div class="col-md-4">
@@ -471,6 +510,10 @@
         else if (this.value == 'empleo') {
 
             $('.divEmpleo').show();
+        }
+        else if (this.value == 'educacion') {
+
+            $('.divEducacion').show();
         }
     });
 

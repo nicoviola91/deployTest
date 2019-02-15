@@ -13,9 +13,9 @@
             </div>
             <div class="box-body" style="overflow-x: auto;">
                 
-                <!-- <p><b>CONSULTA: </b><br><?php echo $sql ?></p> -->
+                <p><b>CONSULTA: </b><br><?php echo $sql ?></p>
 
-                <!-- <?php echo var_dump($tipo) ?> -->
+                <?php echo var_dump($tipo) ?>
 
                 <table class="table table-hover" id="tableResultados">
                     
@@ -44,6 +44,15 @@
                         <?php if ($tipo == 'empleo'): ?>
                             <th>Tiene Empleo?</th>
                         <?php endif ?>
+
+                        <?php if ($tipo == 'educacion'): ?>
+                            <th>Tipo Educacion</th>
+                            <th>Nivel Alcanzado</th>
+                            <th>Titulo Obtenido</th>
+                            <th>Orientacion</th>
+                            <th>Institucion</th>
+                        <?php endif ?>
+
                     </thead>
                     <tbody>
                         <?php foreach ($resultados as $resultado): ?>
@@ -82,6 +91,14 @@
                                             <i class="icon fa fa-times-circle fa-fw text-danger"></i>
                                         <?php } ?>
                                     </td>
+                                <?php endif ?>
+
+                                <?php if ($tipo == 'educacion'): ?>
+                                    <td><?php echo isset($resultado->tipoEduc) ? $resultado->tipoEduc : '' ?></td>
+                                    <td><?php echo isset($resultado->nivelEduc) ? $resultado->nivelEduc : '' ?></td>
+                                    <td><?php echo isset($resultado->tituloEduc) ? $resultado->tituloEduc : '' ?></td>
+                                    <td><?php echo isset($resultado->orientacionEduc) ? $resultado->orientacionEduc : '' ?></td>
+                                    <td><?php echo isset($resultado->institucionEduc) ? $resultado->institucionEduc : '' ?></td>
                                 <?php endif ?>
 
 
