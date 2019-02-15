@@ -269,6 +269,7 @@ class AsistidoController extends Controller
     public function showAll(){
         if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){
             $data['asistidos']=Asistido::all();
+            //$data['asistidos']=Asistido::all()->sortByDesc("updated_at");
         }else{
             $data['asistidos']=Asistido::all()->where('owner',Auth::user()->id);
         }

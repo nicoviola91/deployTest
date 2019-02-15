@@ -94,7 +94,6 @@ class AlertaController extends Controller
             'comunidad_id' => 'integer|nullable',
         ]);
 
-
         $alerta = new Alerta($request->all());
 
         $alerta->user_id = Auth::user()->id;
