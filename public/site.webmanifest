@@ -1,4 +1,7 @@
 {
+    "name": "Lumencor App",
+    "short_name": "Lumen",
+    "start_url": "/login",
     "scope" : "./",
     "icons": [
         {
