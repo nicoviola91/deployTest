@@ -383,7 +383,7 @@
                         </div>
                         {{-- Discapacidades --}}
                         <div class="col-md-12 form-group {{ $errors->has('discapacidadVisual') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="discapacidadVisual" name="discapacidadVisual" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadVisual) && ($fichaMedica->discapacidadVisual==1) ? 'checked':''}}>
+                            <input type="checkbox" id="discapacidadVisual" name="discapacidadVisual" onclick="discapacidadesFunction()" <?php echo isset($fichaMedica->discapacidadVisual) && ($fichaMedica->discapacidadVisual==1) ? 'checked':'' ?>>
                             @if ($errors->has('discapacidadVisual'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('discapacidadVisual') }}</strong>
@@ -392,7 +392,7 @@
                             <label for="discapacidadVisual">Discapacidad Visual</label>
                         </div>
                         <div class="col-md-12 form-group {{ $errors->has('discapacidadAuditiva') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="discapacidadAuditiva" name="discapacidadAuditiva" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadAuditiva) && ($fichaMedica->discapacidadAuditiva==1) ? 'checked':''}}>
+                            <input type="checkbox" id="discapacidadAuditiva" name="discapacidadAuditiva" onclick="discapacidadesFunction()" <?php echo isset($fichaMedica->discapacidadAuditiva) && ($fichaMedica->discapacidadAuditiva==1) ? 'checked':'' ?>>
                             @if ($errors->has('discapacidadAuditiva'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('discapacidadAuditiva') }}</strong>
@@ -401,7 +401,7 @@
                             <label for="discapacidadAuditiva">Discapacidad Auditiva</label>
                         </div>
                         <div class="col-md-12 form-group {{ $errors->has('discapacidadMotriz') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="discapacidadMotriz" name="discapacidadMotriz" onclick="discapacidadesFunction()" {{isset($fichaMedica->discapacidadMotriz) && ($fichaMedica->discapacidadMotriz==1) ? 'checked':''}}>
+                            <input type="checkbox" id="discapacidadMotriz" name="discapacidadMotriz" onclick="discapacidadesFunction()" <?php echo {{isset($fichaMedica->discapacidadMotriz) && ($fichaMedica->discapacidadMotriz==1) ? 'checked':''}} ?>>
                             @if ($errors->has('discapacidadMotriz'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('discapacidadMotriz') }}</strong>
@@ -411,7 +411,9 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="alergicoA">Observacion Discapacidad</label>
-                        <input type="text" class="form-control" id="observacionDiscapacidad" placeholder="Detalle sobre discapacidad" name="observacionDiscapacidad" maxlength="250" value={{isset($fichaMedica->observacionDiscapacidad) ? ($fichaMedica->observacionDiscapacidad) : '' }}>
+                            
+                            <input type="text" class="form-control" id="observacionDiscapacidad" placeholder="Detalle sobre discapacidad" name="observacionDiscapacidad" maxlength="250" value="<?php echo isset($fichaMedica->observacionDiscapacidad) ? ($fichaMedica->observacionDiscapacidad) : '' ?>">
+                            
                             @if ($errors->has('observacionDiscapacidad'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('observacionDiscapacidad') }}</strong>
@@ -419,8 +421,9 @@
                             @endif
                         </div>
                         {{-- Fin Discapacidades --}}
+
                         <div class="col-md-12 form-group {{ $errors->has('checkAlergico') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" {{isset($fichaMedica->checkAlergico) && ($fichaMedica->checkAlergico==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkAlergico" name="checkAlergico" onclick="alergiaFunction()" <?php echo isset($fichaMedica->checkAlergico) && ($fichaMedica->checkAlergico==1) ? 'checked':'' ?>>
                             @if ($errors->has('checkAlergico'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkAlergico') }}</strong>
@@ -431,7 +434,7 @@
 
                         <div class="col-md-6 form-group checkAlergico {{ $errors->has('alergicoA') ? ' has-error' : '' }}">
                             <label for="alergicoA">Alergias</label>
-                        <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value={{isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' }}>
+                            <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value="<?php echo {{isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' }} ?>">
                             @if ($errors->has('alergicoA'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('alergicoA') }}</strong>
@@ -441,7 +444,7 @@
 
 
                         <div class="col-md-12 form-group {{ $errors->has('checkObraSocial') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" {{isset($fichaMedica->checkObraSocial) && ($fichaMedica->checkObraSocial==1) ? 'checked':''}}>
+                            <input type="checkbox" id="checkObraSocial" name="checkObraSocial" onclick="obraSocialFunction()" <?php echo isset($fichaMedica->checkObraSocial) && ($fichaMedica->checkObraSocial==1) ? 'checked':'' ?>>
                             @if ($errors->has('checkObraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('checkObraSocial') }}</strong>
@@ -452,7 +455,7 @@
 
                         <div class="col-md-12 form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
                             <label for="obraSocial">Obra Social</label>
-                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value={{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}>
+                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value="{{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}">
                             @if ($errors->has('obraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('obraSocial') }}</strong>
@@ -462,7 +465,7 @@
                         
                         <div class="col-md-12 form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
                             <label for="antecedentes">Antecedentes</label>
-                        <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}>
+                        <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={"{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}">
                             @if ($errors->has('antecedentes'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('antecedentes') }}</strong>
@@ -985,7 +988,7 @@
                     @endforeach
                     @endif
                 @endif
-                  <a href="{{route('fichaMedica.storeMedicacion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default3" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
+                  <a href="#" data-toggle="modal" data-target="#modal-default3" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Medicación</a>
                 </div>
               </div>
             </div>
@@ -1186,7 +1189,7 @@
                         @endforeach
                         @endif
                         @endif 
-                        <a href="{{route('fichaMedica.storeIntervencion',['asistido_id'=>$asistido->id])}} data-toggle="modal" data-target="#modal-default4" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Intervención quirúrgica</a>
+                        <a href="#" data-toggle="modal" data-target="#modal-default4" class="no-print"><i align="left" class="fa fa-plus"></i>  Agregar Intervención quirúrgica</a>
                     </div>
                     </div>
                 </div>
@@ -1316,206 +1319,199 @@
 <script type="text/javascript">
 
     window.onload=function(){
-        $('#recetada').val('Indicada bajo receta')
+        $('#recetada').val('Indicada bajo receta');
         //document.getElementById("nombre").required = true
-        $('.automedicacion').show()
-        $('.institucionEnTratamiento').show()
-        $('.mostrarInstitucion').hide()
-        $('.mostrarMedicacion').hide()
-        $('.mostrarProfesional').hide()
+        $('.automedicacion').show();
+        $('.institucionEnTratamiento').show();
+        $('.mostrarInstitucion').hide();
+        $('.mostrarMedicacion').hide();
+        $('.mostrarProfesional').hide();
 
-   
-
-        var esAlergico=document.getElementById("checkAlergico")
+        var esAlergico=document.getElementById("checkAlergico");
         if (esAlergico.checked == true){
-            $('.checkAlergico').show() 
+            $('.checkAlergico').show(); 
         }else{
-            $('.checkAlergico').hide() 
+            $('.checkAlergico').hide(); 
         }
 
         var tieneObraSocial=document.getElementById("checkObraSocial")
         if (tieneObraSocial.checked == true){
-            $('.checkObraSocial').show() 
+            $('.checkObraSocial').show(); 
         }else{
-            $('.checkObraSocial').hide() 
+            $('.checkObraSocial').hide(); 
         }
-
 
     }
 
     function alergiaFunction(){
-        var chkAlergia = document.getElementById("checkAlergico")
+        var chkAlergia = document.getElementById("checkAlergico");
 
         if (chkAlergia.checked == true){
-            $('.checkAlergico').show()
-            document.getElementById("alergicoA").required = true
+            $('.checkAlergico').show();
+            document.getElementById("alergicoA").required = true;
             
         }else{
-            $('.checkAlergico').hide()   
-            document.getElementById("alergicoA").required = false
+            $('.checkAlergico').hide(); 
+            document.getElementById("alergicoA").required = false;
         }
     }
 
     function discapacidadesFunction(){
-        var chkVisual = document.getElementById("discapacidadVisual")
-        var chkMotriz = document.getElementById("discapacidadMotriz")   
-        var chkAuditiva = document.getElementById("discapacidadAuditiva")
+        var chkVisual = document.getElementById("discapacidadVisual");
+        var chkMotriz = document.getElementById("discapacidadMotriz");   
+        var chkAuditiva = document.getElementById("discapacidadAuditiva");
         if (chkVisual.checked == true || chkAuditiva.checked == true || chkMotriz.checked == true){
-            $('.observacionDiscapacidad').show()
+            $('.observacionDiscapacidad').show();
             // document.getElementById("observacionDiscapacidad").required = true
             
         }else{
-            $('.observacionDiscapacidad').hide()   
+            $('.observacionDiscapacidad').hide();   
             // document.getElementById("observacionDiscapacidad").required = false
         }
     }
 
     function obraSocialFunction(){
-        var chkObraSocial = document.getElementById("checkObraSocial")
+        var chkObraSocial = document.getElementById("checkObraSocial");
 
         if (chkObraSocial.checked == true){
-            $('.checkObraSocial').show()
-            document.getElementById("obraSocial").required = true
+            $('.checkObraSocial').show();
+            document.getElementById("obraSocial").required = true;
             
         }else{
-            $('.checkObraSocial').hide()  
-            document.getElementById("obraSocial").required = false 
+            $('.checkObraSocial').hide();
+            document.getElementById("obraSocial").required = false;
         }
     }
     
     function checkMedicacionEnTratamiento(){
-        var chkMed = document.getElementById("medicacionEnTratamientoid")
+        var chkMed = document.getElementById("medicacionEnTratamientoid");
 
         if (chkMed.checked == true){
-            document.getElementById("droga1").required = true
-            $('.mostrarMedicacion').show()
+            document.getElementById("droga1").required = true;
+            $('.mostrarMedicacion').show();
         }else{
-            $('.mostrarMedicacion').hide()   
-            document.getElementById("droga1").required = false
+            $('.mostrarMedicacion').hide();  
+            document.getElementById("droga1").required = false;
         }
     }
 
     function checkInstitucionEnTratamiento(){
-        var chkInst = document.getElementById("institucionEnTratamientoid")
+        var chkInst = document.getElementById("institucionEnTratamientoid");
 
         if (chkInst.checked == true){
-            document.getElementById("nombreInstitucion1").required = true
-            $('.mostrarInstitucion').show()
+            document.getElementById("nombreInstitucion1").required = true;
+            $('.mostrarInstitucion').show();
         }else{
-            $('.mostrarInstitucion').hide()   
-            document.getElementById("nombreInstitucion1").required = false
+            $('.mostrarInstitucion').hide();  
+            document.getElementById("nombreInstitucion1").required = false;
         }
     }
 
     function checkProfesionalEnTratamiento(){
-        var chkProf = document.getElementById("profesionalEnTratamientoid")
+        var chkProf = document.getElementById("profesionalEnTratamientoid");
 
         if (chkProf.checked == true){
-            $('.mostrarProfesional').show()
-            document.getElementById("nombre1").required = true
+            $('.mostrarProfesional').show();
+            document.getElementById("nombre1").required = true;
             
         }else{
-            $('.mostrarProfesional').hide()   
-            document.getElementById("nombre1").required = false
+            $('.mostrarProfesional').hide();   
+            document.getElementById("nombre1").required = false;
         }
     }
 
     function checkRequiereInternacion(){
-        var chkInternacion = document.getElementById("checkInternacion2")
+        var chkInternacion = document.getElementById("checkInternacion2");
 
         if (chkInternacion.checked == true){
-            $('.mostrarInstitucion2').show()
-            document.getElementById("nombreInstitucion2").required = true
+            $('.mostrarInstitucion2').show();
+            document.getElementById("nombreInstitucion2").required = true;
             
         }else{
-            $('.mostrarInstitucion2').hide()   
-            document.getElementById("nombreInstitucion2").required = false
+            $('.mostrarInstitucion2').hide();
+            document.getElementById("nombreInstitucion2").required = false;
         }
     }
-
-   
-
-
 
     $('#recetada').change(function () {
 
     if ($(this).val() == 'Indicada bajo receta') {
         $('.profesional').show();
         $('.automedicacion').show();
-        document.getElementById("nombre").required = true
-        document.getElementById("droga").required = true
+        document.getElementById("nombre").required = true;
+        document.getElementById("droga").required = true;
 
 
     } else {
 
         $('.automedicacion').show();
         $('.profesional').hide();
-        document.getElementById("nombre").required = false
-        document.getElementById("droga").required = true
+        document.getElementById("nombre").required = false;
+        document.getElementById("droga").required = true;
 
     } 
     });
 
     $('#delete').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 
     $('#delete2').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 
     $('#delete3').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 
     $('#delete4').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 
     $('#delete5').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 
     $('#delete6').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
     $('#delete7').on('show.bs.modal',function(event){
-        var a = $(event.relatedTarget)
-        var id= a.data('id')
-        var asistidoid= a.data('asistidoid')
-        var modal=$(this)
-        modal.find('.modal-body #id').val(id)
-        modal.find('.modal-body #asistidoid').val(asistidoid)
+        var a = $(event.relatedTarget);
+        var id= a.data('id');
+        var asistidoid= a.data('asistidoid');
+        var modal=$(this);
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #asistidoid').val(asistidoid);
     })
 </script>
 
