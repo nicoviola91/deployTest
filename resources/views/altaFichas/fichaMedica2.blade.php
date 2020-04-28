@@ -364,7 +364,7 @@
                         <br>
                         <div class="col-md-6 form-group  {{ $errors->has('altura') ? ' has-error' : '' }}">
                             <label for="altura">Altura</label>
-                        <input type="number" min=0 max=999 class="form-control" id="altura" placeholder="Ingrese altura en centímetros" name="altura" maxlength="250" value={{isset($fichaMedica->altura) ? ($fichaMedica->altura) : '' }}>
+                        <input type="number" min=0 max=999 class="form-control" id="altura" placeholder="Ingrese altura en centímetros" name="altura" maxlength="250" value="<?php echo isset($fichaMedica->altura) ? ($fichaMedica->altura) : '' ?>">
                             @if ($errors->has('altura'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('altura') }}</strong>
@@ -374,7 +374,7 @@
 
                         <div class="col-md-6 form-group  {{ $errors->has('peso') ? ' has-error' : '' }}">
                             <label for="peso">Peso</label>
-                        <input type="number" min=0 step="0.01" max=999 class="form-control" id="peso" placeholder="Ingrese peso en kilogramos. Para especificar decimales utilice una coma" name="peso" maxlength="250" value={{isset($fichaMedica->peso) ? ($fichaMedica->peso) : '' }}>
+                        <input type="number" min=0 step="0.01" max=999 class="form-control" id="peso" placeholder="Ingrese peso en kilogramos. Para especificar decimales utilice una coma" name="peso" maxlength="250" value="<?php echo isset($fichaMedica->peso) ? ($fichaMedica->peso) : '' ?>">
                             @if ($errors->has('peso'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('peso') }}</strong>
@@ -401,7 +401,7 @@
                             <label for="discapacidadAuditiva">Discapacidad Auditiva</label>
                         </div>
                         <div class="col-md-12 form-group {{ $errors->has('discapacidadMotriz') ? ' has-error' : '' }}">
-                            <input type="checkbox" id="discapacidadMotriz" name="discapacidadMotriz" onclick="discapacidadesFunction()" <?php echo {{isset($fichaMedica->discapacidadMotriz) && ($fichaMedica->discapacidadMotriz==1) ? 'checked':''}} ?>>
+                            <input type="checkbox" id="discapacidadMotriz" name="discapacidadMotriz" onclick="discapacidadesFunction()" <?php echo isset($fichaMedica->discapacidadMotriz) && ($fichaMedica->discapacidadMotriz==1) ? 'checked':'' ?>>
                             @if ($errors->has('discapacidadMotriz'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('discapacidadMotriz') }}</strong>
@@ -434,7 +434,7 @@
 
                         <div class="col-md-6 form-group checkAlergico {{ $errors->has('alergicoA') ? ' has-error' : '' }}">
                             <label for="alergicoA">Alergias</label>
-                            <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value="<?php echo {{isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' }} ?>">
+                            <input type="text" class="form-control" id="alergicoA" placeholder="Ingrese a qué es alérgico el asistido" name="alergicoA" maxlength="250" value="<?php echo isset($fichaMedica->alergicoA) ? ($fichaMedica->alergicoA) : '' ?>">
                             @if ($errors->has('alergicoA'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('alergicoA') }}</strong>
@@ -455,7 +455,7 @@
 
                         <div class="col-md-12 form-group checkObraSocial {{ $errors->has('obraSocial') ? ' has-error' : '' }}">
                             <label for="obraSocial">Obra Social</label>
-                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value="{{isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' }}">
+                        <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese Obra Social del asistido" name="obraSocial" maxlength="250" value="<?php echo isset($fichaMedica->obraSocial) ? ($fichaMedica->obraSocial) : '' ?>">
                             @if ($errors->has('obraSocial'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('obraSocial') }}</strong>
