@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'max:150|required',
             'apellido' => 'max:150|required',
-            'dni' => 'min:6|max:10|required|numeric',
+            'dni' => 'min:6|digits_between:6,10|required|numeric',
             'email' => 'min:6|max:100|required|unique:users',
             'password' => 'min:8|max:250|required'
         ];
