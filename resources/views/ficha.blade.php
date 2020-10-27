@@ -258,7 +258,9 @@
             </a>
           </li>
 
-          <li class="liTab nueva">
+          <?php $tieneFicha = ($asistido->checkFichaLocalizacion || $asistido->checkFichaFamiliaAmigos || $asistido->checkFichaAdicciones || $asistido->checkFichaDiagnosticoIntegral || $asistido->checkFichaSaludMental || $asistido->checkFichaMedica || $asistido->checkFichaNecesidad || $asistido->checkFichaAsistenciaSocial || $asistido->checkFichaDatosPersonales || $asistido->checkFichaLegal || $asistido->checkFichaEducacion || $asistido->checkFichaEmpleo); ?>
+
+          <li class="liTab nueva <?php echo !$tieneFicha ? 'active' : '' ?>">
             <a href="#tab_nueva" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Agregar Ficha">
               <i class="icon fa fa-plus-square fa-fw"></i> 
               <span style="display: none;"> Agregar Ficha</span>
@@ -272,7 +274,7 @@
         <div class="tab-content" style="min-height: 400px;">
           
 
-          <div class="tab-pane" id="tab_nueva">
+          <div class="tab-pane <?php echo !$tieneFicha ? 'active' : '' ?>" id="tab_nueva">
             <!-- DATOS DE LA FICHA -->
             <div class="box box-solid" id="boxFicha">
               <div class="box-body">
