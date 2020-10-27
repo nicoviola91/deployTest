@@ -265,6 +265,25 @@ class AsistidoController extends Controller
         return redirect()->back();
     }
 
+    public function eliminarComunidad ($asistido_id, $comunidad_id) 
+    {   
+        if (!is_numeric($asistido_id) || !is_numeric($comunidad_id)) {
+            return redirect()->back();
+            exit();
+        }
+
+        $asistido = Asistido::find($asistido_id);
+        
+        if ($asistido->comunidades()->where('comunidad_id', $comunidad_id)->exists()) {
+            
+            $asistido->comunidades()->detach($comunidad_id);
+            
+        }
+
+        return redirect()->back();
+
+    }
+
 
     public function showAll(){
         if(Auth::user()->tipoUsuario->slug == 'administrador' || Auth::user()->tipoUsuario->slug =='posadero'){

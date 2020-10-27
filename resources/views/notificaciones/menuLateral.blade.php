@@ -43,7 +43,7 @@
                 <i class="menu-icon fa fa-user-plus bg-green"></i>
                 <div class="menu-info">
                   <h4 class="control-sidebar-subheading">Nuevo Asistido en tu Comunidad</h4>
-                  <p>Se asosió {{$r->content1}} {{$r->content2}} a {{$r->content3}}</p>
+                  <p>Se asoció {{$r->content1}} {{$r->content2}} a {{$r->content3}}</p>
                 </div>
               </a>
             </li>

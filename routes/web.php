@@ -344,6 +344,11 @@ Route::group(['prefix'=>'asistido'],function(){
         'uses'=>'AsistidoController@agregarComunidad',
         'as'=>'asistido.agregarComunidad',
     ])->middleware('admin');
+
+    Route::get('/eliminarComunidad/{asistido_id}/{comunidad_id}',[
+        'uses'=>'AsistidoController@eliminarComunidad',
+        'as'=>'asistido.eliminarComunidad',
+    ])->middleware('admin');
     
     Route::post('/verificarDocumentoExistente',[
         'uses'=>'AsistidoController@verificarDocumentoExistente',

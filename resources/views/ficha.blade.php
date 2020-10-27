@@ -78,6 +78,15 @@
       cursor: pointer;
     }
 
+    .label.label-default.label-comunidad {
+      cursor: auto !important;
+      margin-right: 5px;
+    }
+
+    .eliminarComunidad {
+      cursor: pointer !important;
+    }
+
 </style>
 
 <div class="row">
@@ -152,7 +161,10 @@
                   <span class="pull-right badge bg-teal btnAgregarComunidad no-print"> <i class="icon fa fa-plus"></i> Agregar</span> 
                   <p style="margin-top: 5px;">
                   <?php foreach ($asistido->comunidades as $comunidad): ?>
-                    <span class="label label-default"><?php echo strtoupper($comunidad->nombre) ?></span>  
+                    <span class="label label-default label-comunidad">
+                      <?php echo strtoupper($comunidad->nombre) ?>
+                      <span class="eliminarComunidad" href="#" style="display: none;" data-asistido="{{$asistido->id}}" data-comunidad="{{$comunidad->id}}"><i class="icon fa fa-fw fa-times"></i></span>  
+                    </span>  
                   <?php endforeach ?>
                   </p>
                 </a>
@@ -286,7 +298,7 @@
 
                   <?php if (!$asistido->checkFichaEducacion): ?>
                     <a href="#" class="btn btn-block btn-default btn-sm btnAgregarFicha" data-tipo="educacion" data-id="{{$asistido->id}}" data-toggle="tooltip" data-title="Alta Ficha Educación">
-                      <i align="left" class="fa fa-mortar-board"></i> <span class="hidden-xs">Añadir</span> Ficha de Eduacación
+                      <i align="left" class="fa fa-mortar-board"></i> <span class="hidden-xs">Añadir</span> Ficha de Educación
                     </a>  
                   <?php endif ?>
 
@@ -1167,6 +1179,23 @@
         }
 
         });
+  });
+
+  $('.eliminarComunidad').click(function (e) {
+
+    console.log('eliminar comunidad');
+
+    asistido = $(this).data('asistido');
+    comunidad = $(this).data('comunidad');
+
+    window.location.href = "{{url('/asistido/eliminarComunidad')}}/"+asistido+"/"+comunidad;
+
+  });
+
+  $(".label-comunidad").hover(function(){
+    $(this).find('.eliminarComunidad').show();
+    }, function(){
+    $(this).find('.eliminarComunidad').hide();
   });
 
   $('.agregarFavorito').click(function (e) {
