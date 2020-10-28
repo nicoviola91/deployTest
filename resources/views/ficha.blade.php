@@ -87,6 +87,11 @@
       cursor: pointer !important;
     }
 
+    .liTab.fichaInexistente > a{
+
+      color: #44444440 !important;
+    }
+
 </style>
 
 <div class="row">
@@ -180,78 +185,78 @@
 
         <ul class="nav nav-tabs no-print">
           
-          <li class="liTab personal" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaDatosPersonales ? '' : 'style="display:none;"' ?>>
+          <li class="liTab personal <?php echo $asistido->checkFichaDatosPersonales ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="datosPersonales">
             <a href="#tab_personal" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Datos Personales">
               <i class="icon fa fa-id-badge fa-fw"></i> 
               <span style="display: none;"> Datos Personales</span>
             </a>
           </li>
 
-          <li class="liTab legal" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaLegal ? '' : 'style="display:none;"' ?>>
+          <li class="liTab legal <?php echo $asistido->checkFichaLegal ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="datosLegales">
             <a href="#tab_legal" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Ficha Legal">
               <i class="icon fa fa-legal fa-fw"></i> 
               <span style="display: none;"> Ficha Legal</span>
             </a>
           </li>
-          <li class="liTab educacion" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaEducacion ? '' : 'style="display:none;"' ?>>
+          <li class="liTab educacion <?php echo $asistido->checkFichaEducacion ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="educacion">
             <a href="#tab_educacion" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Educación">
               <i class="icon fa fa-mortar-board fa-fw"></i> 
               <span style="display: none;"> Educación</span>
             </a>
           </li>
-          <li class="liTab empleo" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaEmpleo ? '' : 'style="display:none;"' ?>>
+          <li class="liTab empleo <?php echo $asistido->checkFichaEmpleo ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="empleo">
             <a href="#tab_empleo" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Empleo">
               <i class="icon fa fa-briefcase fa-fw"></i> 
               <span style="display: none;"> Ficha Empleo</span>
             </a>
           </li>
 
-          <li class="liTab asistencia" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaAsistenciaSocial ? '' : 'style="display:none;"' ?>>
+          <li class="liTab asistencia <?php echo $asistido->checkFichaAsistenciaSocial ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="asistenciaSocial">
             <a href="#tab_asistencia" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Asistencia Social">
               <i class="icon fa fa-life-buoy fa-fw"></i> 
               <span style="display: none;"> Asistencia Social</span>
             </a>
           </li>
 
-          <li class="liTab necesidades" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaNecesidad ? '' : 'style="display:none;"' ?>>
+          <li class="liTab necesidades <?php echo $asistido->checkFichaNecesidad ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="">
             <a href="#tab_necesidades" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Necesidades">
               <i class="icon fa fa-hotel fa-fw"></i> 
               <span style="display: none;"> Necesidades</span>
             </a>
           </li>
 
-          <li class="liTab medica" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaMedica ? '' : 'style="display:none;"' ?>>
+          <li class="liTab medica <?php echo $asistido->checkFichaMedica ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="necesidades">
             <a href="#tab_medica" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Ficha Médica">
               <i class="icon fa fa-heartbeat fa-fw"></i> 
               <span style="display: none;"> Ficha Médica</span>
             </a>
           </li>
-          <li class="liTab mental" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaSaludMental ? '' : 'style="display:none;"' ?>>
+          <li class="liTab mental <?php echo $asistido->checkFichaSaludMental ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="saludMental">
             <a href="#tab_mental" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Salud Mental">
               <i class="icon fa fa-user-md fa-fw"></i> 
               <span style="display: none;"> Salud Mental</span>
             </a>
           </li>
-          <li class="liTab integral" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaDiagnosticoIntegral ? '' : 'style="display:none;"' ?>>
+          <li class="liTab integral <?php echo $asistido->checkFichaDiagnosticoIntegral ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="diagnosticoIntegral">
             <a href="#tab_integral" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Diagnóstico Integral">
               <i class="icon fa fa-universal-access fa-fw"></i> 
               <span style="display: none;"> Diagnóstico Integral</span>
             </a>
           </li>
-          <li class="liTab adicciones" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaAdicciones ? '' : 'style="display:none;"' ?>>
+          <li class="liTab adicciones <?php echo $asistido->checkFichaAdicciones ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="adicciones">
             <a href="#tab_adicciones" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Adicciones">
               <i class="icon fa fa-warning fa-fw"></i> 
               <span style="display: none;"> Adicciones </span>
             </a>
           </li>
 
-          <li class="liTab familia" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaFamiliaAmigos ? '' : 'style="display:none;"' ?>>
+          <li class="liTab familia <?php echo $asistido->checkFichaFamiliaAmigos ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="familiaAmigos">
             <a href="#tab_familia" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Familia y Amigos">
               <i class="icon fa fa-users fa-fw"></i> 
               <span style="display: none;"> Familia y Amigos</span>
             </a>
           </li>
-          <li class="liTab localizacion" data-id="{{$asistido->id}}" <?php echo $asistido->checkFichaLocalizacion ? '' : 'style="display:none;"' ?>>
+          <li class="liTab localizacion <?php echo $asistido->checkFichaLocalizacion ? '' : 'fichaInexistente' ?>" data-id="{{$asistido->id}}" data-tipo="localizacion">
             <a href="#tab_localizacion" data-toggle="tab" aria-expanded="false" data-toggle="tooltip" title="Localización">
               <i class="icon fa fa-location-arrow fa-fw"></i> 
               <span style="display: none;"> Localización</span>
@@ -648,6 +653,84 @@
 
     });
 
+
+    $(".fichaInexistente").click(function (e) {
+
+      e.preventDefault();
+
+      var id = $(this).data('id');
+      var tipo = $(this).data('tipo');
+
+      switch(tipo) {
+
+        case 'datosPersonales':
+            $(".liTab.personal").show();
+            // $(".liTab.personal a[href='#tab_personal']").trigger("click");
+            break;
+        
+        case 'empleo':
+            $(".liTab.empleo").show();
+            // $(".liTab.empleo a[href='#tab_empleo']").trigger("click");
+            break;
+
+        case 'datosLegales':
+            $(".liTab.legal").show();
+            // $(".liTab.legal a[href='#tab_legal']").trigger("click");
+            break;
+
+        case 'educacion':
+            $(".liTab.educacion").show();
+            // $(".liTab.educacion a[href='#tab_educacion']").trigger("click");
+            break;
+
+        case 'asistenciaSocial':
+            $(".liTab.asistencia").show();
+            // $(".liTab.asistencia a[href='#tab_asistencia']").trigger("click");
+            break;
+
+        case 'necesidades':
+            $(".liTab.necesidades").show();
+            // $(".liTab.necesidades a[href='#tab_necesidades']").trigger("click");
+            break;
+
+        case 'medica':
+            $(".liTab.medica").show();
+            // $(".liTab.medica a[href='#tab_medica']").trigger("click");
+            break;
+
+        case 'saludMental':
+            $(".liTab.mental").show();
+            // $(".liTab.mental a[href='#tab_mental']").trigger("click");
+            break;
+
+        case 'diagnosticoIntegral':
+            $(".liTab.integral").show();
+            // $(".liTab.integral a[href='#tab_integral']").trigger("click");
+            break;
+
+        case 'adicciones':
+            $(".liTab.adicciones").show();
+            // $(".liTab.adicciones a[href='#tab_adicciones']").trigger("click");
+            break;
+
+        case 'familiaAmigos':
+            $(".liTab.familia").show();
+            // $(".liTab.familia a[href='#tab_familia']").trigger("click");
+            break;
+
+        case 'localizacion':
+            $(".liTab.localizacion").show();
+            // $(".liTab.localizacion a[href='#tab_localizacion']").trigger("click");
+            break;
+
+        default:
+            console.log('Tipo no valido.');
+      } 
+
+      // $(this).hide();   
+
+    });
+
 </script>
 
 
@@ -656,84 +739,385 @@
   $('.liTab.adicciones').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaAdicciones(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaAdicciones(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {
+              $('.liTab.adicciones').removeClass('fichaInexistente');
+              obtenerFichaAdicciones(id);
+            }
+          }
+      });
+
+    }
 
   });
 
   $('.liTab.educacion').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaEducacion(id);
+    // obtenerFichaEducacion(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaEducacion(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.educacion').removeClass('fichaInexistente');
+                        obtenerFichaEducacion(id);}
+          }
+      });
+
+    }
 
   });
 
   $('.liTab.personal').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaDatosPersonales(id);
+    // obtenerFichaDatosPersonales(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaDatosPersonales(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.personal').removeClass('fichaInexistente');
+                        obtenerFichaDatosPersonales(id);}
+          }
+      });
+
+    }
 
   });
 
   $('.liTab.legal').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaLegal(id);
+    // obtenerFichaLegal(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaLegal(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.legal').removeClass('fichaInexistente');
+                        obtenerFichaLegal(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.empleo').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaEmpleo(id);
+    // obtenerFichaEmpleo(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaEmpleo(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.empleo').removeClass('fichaInexistente');
+                        obtenerFichaEmpleo(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.asistencia').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaAsistenciaSocial(id);
+    // obtenerFichaAsistenciaSocial(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaAsistenciaSocial(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.asistencia').removeClass('fichaInexistente');
+                        obtenerFichaAsistenciaSocial(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.necesidades').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaNecesidades(id);
+    // obtenerFichaNecesidades(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaNecesidades(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.necesidades').removeClass('fichaInexistente');
+                        obtenerFichaNecesidades(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.medica').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaMedica(id);
+    // obtenerFichaMedica(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaMedica(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.medica').removeClass('fichaInexistente');
+                        obtenerFichaMedica(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.mental').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaSaludMental(id);
+    // obtenerFichaSaludMental(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaSaludMental(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.mental').removeClass('fichaInexistente');
+                        obtenerFichaSaludMental(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.integral').click(function () {
 
     var id = $(this).data('id');
-    obtenerFIchaDiagnosticoIntegral(id);
+    // obtenerFIchaDiagnosticoIntegral(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFIchaDiagnosticoIntegral(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.integral').removeClass('fichaInexistente');
+                        obtenerFIchaDiagnosticoIntegral(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.localizacion').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaLocalizacion(id);
+    // obtenerFichaLocalizacion(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaLocalizacion(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.localizacion').removeClass('fichaInexistente');
+                        obtenerFichaLocalizacion(id);}
+          }
+      });
+
+    }
  
   });
 
   $('.liTab.familia').click(function () {
 
     var id = $(this).data('id');
-    obtenerFichaFamilia(id);
+    // obtenerFichaFamilia(id);
+
+    if (!$(this).hasClass('fichaInexistente')) {
+      obtenerFichaFamilia(id);
+    } else {
+
+      var confirm = bootbox.confirm({
+          title: "<i class='icon fa fa-fw fa-exclamation-circle'></i> Confirmar",
+          message: "<p class='lead'><small>La ficha a la que querés acceder todavía no existe. <br>¿Estás seguro que la querés crear?</small></p>",
+          buttons: {
+              confirm: {
+                  label: 'Si, continuar',
+                  className: 'btn-default'
+              },
+              cancel: {
+                  label: 'Cancelar',
+                  className: 'btn-danger'
+              }
+          },
+          callback: function (result) {
+            if (result) {$('.liTab.familia').removeClass('fichaInexistente');
+                        obtenerFichaFamilia(id);}
+          }
+      });
+
+    }
  
   });
 
