@@ -465,7 +465,7 @@
                         
                         <div class="col-md-12 form-group  {{ $errors->has('antecedentes') ? ' has-error' : '' }}">
                             <label for="antecedentes">Antecedentes</label>
-                        <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value={"{isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' }}">
+                        <input type="text" class="form-control" id="antecedentes" placeholder="Ingrese antecedentes familiares, inmunizaciones o hábitos" name="antecedentes" maxlength="250" value="<?php echo isset($fichaMedica->antecedentes) ? ($fichaMedica->antecedentes) : '' ?>">
                             @if ($errors->has('antecedentes'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('antecedentes') }}</strong>
