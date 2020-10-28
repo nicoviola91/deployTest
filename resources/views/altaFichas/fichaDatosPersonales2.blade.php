@@ -33,7 +33,7 @@
                         @if (isset($fichaDatosPersonales->sexo_id))
                             <select class="form-control" name="sexo_id" id="sexo_id">
                                 @foreach($sexos as $sexo)
-                                    <option value="{{$fichaDatosPersonales->sexo_id}}">{{$fichaDatosPersonales->sexo->descripcion}}</option>
+                                    <option <?php echo $fichaDatosPersonales->sexo_id == $sexo->id ? 'selected' : '' ?> value="{{$sexo->id}}">{{$sexo->descripcion}}</option>
                                 @endforeach
                             </select>
                         @else
@@ -49,7 +49,7 @@
                         @if (isset($fichaDatosPersonales->estadoCivil_id))
                             <select class="form-control" name="estadoCivil_id" id="estadoCivil_id">
                                 @foreach($estadosCiviles as $estadoCivil)
-                                    <option value="{{$fichaDatosPersonales->estadoCivil_id}}">{{$fichaDatosPersonales->estadoCivil->descripcion}}</option>
+                                    <option <?php echo $fichaDatosPersonales->estadoCivil_id == $estadoCivil->id ? 'selected' : '' ?> value="{{$estadoCivil->id}}">{{$estadoCivil->descripcion}}</option>
                                 @endforeach
                             </select>
                         @else
