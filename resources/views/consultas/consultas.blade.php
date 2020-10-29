@@ -44,7 +44,7 @@
                 <?php 
 
                   $extension = pathinfo($consulta->adjunto, PATHINFO_EXTENSION);
-                  
+
                   switch ($extension) {
                     
                     case 'pdf':
@@ -84,7 +84,7 @@
                   <ul class="mailbox-attachments">
                     <li style="border: none; width: 90px;"> 
                       <span class="mailbox-attachment-icon" style="padding: 0px; font-size: 13px; white-space: nowrap;">
-                        <i class="fa <?php echo $icono ?>"></i> Archivo Adjunto
+                        <i class="fa fa-fw <?php echo $icono ?>"></i> Archivo Adjunto
                       </span>
                     </li>
                   </ul>
@@ -109,7 +109,20 @@
         <textarea required class="textareaEditor" id="mensaje" name="mensaje" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo (isset($datosDocumentos->experiencia) ? $datosDocumentos->experiencia : '')  ?> </textarea>
         
         <label for="adjunto" id="agregarAdjunto">Archivo Adjunto</label>
-        <input type="file" id="adjunto" name="adjunto">
+        
+        <div class="input-group">
+        	<div class="input-group-addon delete-file" style="display: none;">
+              <a href="javascript:void(0)" class="delete-file" title="Eliminar Adjunto"><i class="icon fa fa-fw fa-lg fa-times-circle text-danger"></i> </a>
+            </div>
+        	<input type="file" class="form-control" id="adjunto" name="adjunto">
+
+        </div>
+
+
+        <!-- <input type="file" id="adjunto" name="adjunto">
+        <span class="delete-file" style="display: none;">
+        	<a href="javascript:void(0)" class="delete-file" title="Eliminar Adjunto"><i class="icon fa fa-fw fa-lg fa-times-circle text-danger"></i> </a>
+        </span> -->
 
         <input type="hidden" name="tipo" value="<?php echo $tipo ?>"> <!-- TIPO DE FICHA -->
         <input type="hidden" name="asistido_id" value="<?php echo $asistido_id ?>"> <!-- ID DE LA FICHA -->
@@ -128,6 +141,22 @@
 </div>
 
 <script>
+
+	$('#adjunto').change(function() {
+
+		if ($(this).val()) {
+			$('div.delete-file').show();
+		} else {
+			$('div.delete-file').hide();
+		}
+	});
+
+	$('a.delete-file').click(function() {
+
+		$('#adjunto').val('');
+		$('#adjunto').trigger('change');
+	});
+
 
 	$('#submitConsultaBtn').click(function(e) {
 
@@ -158,6 +187,7 @@
 	            {	
 	            	$('.modal').modal('hide');
 	            	$('#formNuevaConsulta')[0].reset();
+	            	$('div.delete-file').hide();
 
 	            	if (datos.status) {
 	            		lanzarAlerta('exito', datos.msg);
